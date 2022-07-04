@@ -1,0 +1,18 @@
+export const ADD_PROJECT = 'ADD_PROJECT'
+export const PROJECT_ADDED = 'PROJECT_ADDED'
+
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
+export const SIGNUP_FAIL = 'SIGNUP_FAIL'
+
+export const LOGIN_USER = 'LOGIN_USER'
+export const USER_LOGGEDIN = 'USER_LOGGEDIN'
+
+export const FORGOT_PASSWORD = 'FORGOT_PASSWORD'
+
+export const PASSWORD_RESET = 'PASSWORD_RESET'
+
+export const LOGOUT_USER = 'LOGOUT_USER'
+export const USER_LOGGEDOUT = 'USER_LOGGEDOUT'
+
+export const SET_ALERT = 'SET_ALERT'
+export const RESET_ALERT = 'RESET_ALERT'
