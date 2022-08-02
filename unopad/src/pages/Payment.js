@@ -1,28 +1,28 @@
-import { useState } from "react";
-import { ethers } from "ethers";
-import ErrorMessage from "./../ErrorMessage";
-import TxListForPayment from "./../TxListForPayment";
+import { useState } from 'react';
+import { ethers } from 'ethers';
+import ErrorMessage from '../components/ErrorMessage';
+import TxListForPayment from '../components/TxListForPayment';
+import { connect } from 'react-redux';
 
 const startPayment = async ({ setError, setTxs, ether, addr }) => {
   try {
-    if (!window.ethereum)
-      throw new Error("No crypto wallet found. Please install it.");
+    if (!window.ethereum) throw new Error('No crypto wallet found. Please install it.');
 
-    await window.ethereum.send("eth_requestAccounts");
+    await window.ethereum.send('eth_requestAccounts');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     ethers.utils.getAddress(addr);
     const tx = await signer.sendTransaction({
       to: addr,
-      value: ethers.utils.parseEther(ether)
+      value: ethers.utils.parseEther(ether),
     });
-    
+
     setTxs([tx]);
   } catch (err) {
     setError(err.message);
   }
 };
-export default function Payment() {
+function Payment() {
   const [error, setError] = useState();
   const [txs, setTxs] = useState([]);
 
@@ -33,17 +33,15 @@ export default function Payment() {
     await startPayment({
       setError,
       setTxs,
-      ether: data.get("ether"),
-      addr: data.get("addr")
+      ether: data.get('ether'),
+      addr: data.get('addr'),
     });
   };
   return (
     <form className="m-4" onSubmit={handleSubmit}>
       <div className="credit-card w-full lg:w-1/2 sm:w-auto shadow-lg mx-auto rounded-xl bg-white">
         <main className="mt-4 p-4">
-          <h1 className="text-xl font-semibold text-gray-700 text-center">
-            Send ETH payment
-          </h1>
+          <h1 className="text-xl font-semibold text-gray-700 text-center">Send ETH payment</h1>
           <div className="">
             <div className="my-3">
               <input
@@ -77,3 +75,9 @@ export default function Payment() {
     </form>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {};
+};
+
+export default connect(mapStateToProps)(Payment);
