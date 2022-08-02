@@ -1,12 +1,19 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import PostReducer from "./posts/reducer";
-import { alertReducer } from '../store/account/reducers/alertReducer'
-import { userReducer } from '../store/account/reducers/userReducer'
+import PostReducer from './posts/postReducer';
+import { alertReducer } from './alert/alertReducer';
+import { userReducer } from './account/userReducer';
+import { projectReducer } from './project/projectReducer';
+import { walletReducer } from './wallet/walletReducer';
+import { loadingReducer } from './loading/loadingReducer';
 const rootReducer = combineReducers({
   PostReducer,
-  alert: alertReducer,
-  user: userReducer
+  alertReducer,
+  userReducer,
+  projectReducer,
+  walletReducer,
+  loadingReducer,
+
 });
 
 export default rootReducer;

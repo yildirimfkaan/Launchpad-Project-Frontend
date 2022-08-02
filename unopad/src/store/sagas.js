@@ -1,12 +1,9 @@
-import { all, fork } from "redux-saga/effects";
+import { all, fork } from 'redux-saga/effects';
 
-import PostSaga from "./posts/saga";
-import { userSaga } from "./account/sagas/userSaga";
-import { projectSaga } from "./account/sagas/projectSaga";
+import PostSaga from './posts/postSaga';
+import { userSaga } from './account/userSaga';
+import { projectSaga } from './project/projectSaga';
+import {walletSaga} from './wallet/walletSaga'
 export default function* rootSaga() {
-  yield all([
-    fork(PostSaga)
-    ,userSaga(),
-    projectSaga()
-  ]);
+  yield all([fork(PostSaga), userSaga(), projectSaga(), walletSaga()]);
 }

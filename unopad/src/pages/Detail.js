@@ -1,31 +1,67 @@
 import React from 'react';
-import NewContract from "./web3modal/NewContract";
+import NewContract from './NewContract';
+import { getProjectByID } from '../store/project/projectActions';
+import { connect } from 'react-redux';
+import { useEffect } from 'react';
 
-class Detail extends React.Component {
+function Detail({...props}) {
+  const { project } = props;
 
+  useEffect(() => {
+    const payload = {
+      id: props.match.params.id,
+    };
+    props.getProjectByID(payload);
+
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    if (project) {
+      console.log('project is ready.');
+    }
+  }, [project]);
+
+  return (
+    <div>
+      {!project ? <h1>Page is Loading.....</h1> : <NewContract {...props} />}
+    </div>
+  );
+}
+
+/* class Detail extends React.Component {
   constructor() {
     super();
-    this.state = {
-    isLoading: true,
-    status: "In progression...",
-    data: null
-    };
+    this.state = {};
   }
   componentDidMount() {
-    setTimeout(() => {
-      fetch(process.env.REACT_APP_API_URL+'/api/projects/'+this.props.match.params.id).then(response => response.json()).then(data => this.setState({ data, isLoading:false, status:"Completed" }));
-
-    }, 1000);
-    }
+    const payload = {
+      id: this.props.match.params.id,
+    };
+    this.props.getProjectByID(payload);
+  }
 
   render() {
-  
-  return (
-    
-    <div>
-    {this.state.isLoading ? <h1>Page is Loading.....</h1> :<NewContract{...this.state.data} />}
-    </div>
+    return (
+      <div>
+        {!this.props.project ? <h1>Page is Loading.....</h1> : <NewContract {...this.props} />}
+      </div>
     );
-  } 
-}
-export default Detail;
+  }
+} */
+
+const mapStateToProps = (state) => {
+  return {
+    project: state.projectReducer.project,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getProjectByID: (payload) => {
+      dispatch(getProjectByID(payload));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);
