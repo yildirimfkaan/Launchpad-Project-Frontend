@@ -2,6 +2,7 @@ import MainLayout from "./layouts/MainLayout/MainLayout";
 import PublicLayout from "./layouts/PublicLayout/PublicLayout";
 
 import Home from './pages/Home';
+import Launchpad from './pages/Launchpad';
 import UserRoute from './routes/UserRoute';
 import Login from './pages/Login.jsx';
 import SignUp from './pages/SignUp.jsx';
@@ -18,6 +19,7 @@ import Activation from "./pages/Activation";
 
 import { Redirect, Route } from "react-router-dom";
 import TxList from "./components/TxList";
+import Connection from "./pages/Connection";
 
 const routes = {
   PublicLayout: {
@@ -102,15 +104,21 @@ const routes = {
         routeComponent: UserRoute
       },
       {
+        path: "/Connection",
+        name: "Connection",
+        component: Connection,
+        routeComponent: UserRoute
+      },
+      {
         path: "/Contract",
         name: "Contract",
         component: Contract,
         routeComponent: UserRoute
       },
       {
-        path: "/Home",
-        name: "Home",
-        component: Home,
+        path: "/Launchpad",
+        name: "Launchpad",
+        component: Launchpad,
         routeComponent: UserRoute
       },
       {
@@ -123,6 +131,13 @@ const routes = {
         path: "/Txlist",
         name: "Txlist",
         component: TxList,
+        routeComponent: UserRoute
+      },
+      {
+        path: "/Home",
+        exact: true,
+        name: "Home",
+        component: Home,
         routeComponent: UserRoute
       },
     ],

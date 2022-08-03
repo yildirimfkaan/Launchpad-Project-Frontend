@@ -1,3 +1,5 @@
+
+import Card1 from '../components/Card1';
 import React from 'react';
 import About from '../components/About';
 import Service from '../components/Service';
@@ -6,8 +8,23 @@ import Grows from '../components/Grows';
 import Team from '../components/Team';
 import Countdown from '../components/Countdown';
 import Contact from '../components/Contact';
+import { getProjects } from '../store/project/projectActions';
+import { connect } from 'react-redux';
 
-class Home extends React.Component {
+class Launchpad extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      isLoading: true,
+      status: 'In progression...',
+      data: {
+        '': '',
+      },
+    };
+  }
+  componentDidMount() {
+    this.props.getProjects();
+  }
   render() {
     return (
       <>
@@ -112,6 +129,14 @@ class Home extends React.Component {
           </section>
         </React.Fragment>
         <br></br>
+        {!this.props.projects ? (
+          <h1>Page is Loading.....</h1>
+        ) : (
+          <>
+            <Card1 {...this.props} />{' '}
+          </>
+        )}
+        <br></br>
         <React.Fragment>
           <About />
           <Service />
@@ -125,5 +150,18 @@ class Home extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    projects: state.projectReducer.projects,
+  };
+};
 
-export default Home;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getProjects: (payload) => {
+      dispatch(getProjects(payload));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Launchpad);

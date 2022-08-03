@@ -8,26 +8,28 @@ import * as loadingActionTypes from '../store/loading/loadingActionTypes';
 
 async function connectWallet() {
   try {
-    const web3Modal = store.getState().walletReducer.web3Modal;
-    const provider = await web3Modal.connect();
-    console.log('nw provider', provider);
-    const library = new ethers.providers.Web3Provider(provider);
-    const accounts = await library.listAccounts();
-    const network = await library.getNetwork();
+    
+    const {ethereum} = window;
+    
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+   
+    const accounts = await ethereum.request({
+      method: 'eth_requestAccounts',
+    });
+   
+    // const library = new ethers.providers.Web3Provider(provider);
     const payload = {
       provider,
-      library,
+      ethereum,
       accounts,
-      network,
     };
     store.dispatch({ type: types.CONNECT_WALLET_DATA, payload });
   } catch (error) {
+    console.log(error)
     store.dispatch({ type: types.CONNECT_WALLET_ERROR, payload: error });
   }
 }
 async function disconnectWallet() {
-  const web3Modal = store.getState().walletReducer.web3Modal;
-  await web3Modal.clearCachedProvider();
   store.dispatch({ type: types.CONNECT_WALLET_DATA, payload: null });
   console.log('disconnected');
 }

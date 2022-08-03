@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import wallet from '../helpers/wallet';
 import { logoutRequest } from '../store/account/userActions';
 import WalletModal from './WalletAccountDetailModal';
+import WalletAccountHistoryModal from './WalletAccountHistoryModal';
 
 // import Button from 'react-bootstrap/Button';
 
@@ -69,28 +70,23 @@ function Navigation({ ...props }) {
                 <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                   <ul id="nav" class="navbar-nav ml-auto">
                     <li class="nav-item">
-                      <a class="page-scroll active" href="/Home">
-                        Home
+                      <a class="page-scroll active" href="/Launchpad">
+                        Launchpad
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="page-scroll" href="/Home#about">
-                        About
+                      <a class="page-scroll" >
+                        Sales
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="page-scroll" href="/Home#service">
-                        Service
+                      <a class="page-scroll" >
+                        Staking
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="page-scroll" href="/Home#roadmap">
-                        Roadmap
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="page-scroll" href="/Home#team">
-                        Team
+                      <a class="page-scroll" >
+                        Airdrop
                       </a>
                     </li>
                     <li class="nav-item">
@@ -132,6 +128,7 @@ function Navigation({ ...props }) {
           </div>
         </div>
       </header>
+      <WalletAccountHistoryModal/>
     </React.Fragment>
   );
 }
