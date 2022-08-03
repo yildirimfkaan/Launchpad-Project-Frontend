@@ -1,40 +1,25 @@
-import {  put, all, call } from 'redux-saga/effects';
-// import * as types from './walletActionTypes';
+/* eslint-disable max-len */
+import { put, all, call, takeEvery } from 'redux-saga/effects';
+import * as types from './walletActionTypes';
 import * as actions from './walletActions';
-import * as alert from '../alert/alertActions';
-import Web3Modal from 'web3modal';
-import { providerOptions } from '../../helpers/web3modal/providerOptions'
-import { ethers } from 'ethers';
+// import * as alert from '../alert/alertActions';
 
-const web3Modal = new Web3Modal({
-  cacheProvider: true, // optional
-  providerOptions, // required
-});
+import store from '..';
+import axios from 'axios';
 
 
-function* connectWalletSaga() {
+
+function* walletAccountHistory() {
   try {
-    const provider  = yield call(web3Modal.connect);
-    console.log("saga provider",provider)
-    const library = yield call (new ethers.providers.Web3Provider,provider);
-    const accounts = yield call(library.listAccounts)
-    const network = yield call(library.getNetwork)
-    const payload = {
-        provider:provider.data,
-        library,
-        accounts:accounts.data,
-        network:network.data,
-
-    }
-    console.log(payload)
-    yield put(actions.connectWalletData(payload));
-    yield put(
-      alert.setAlertAction({
-        text: 'Wallet Connected',
-        color: 'success',
-      }),
-    );
-
+    const {accounts} = store.getState().walletReducer
+    const req =
+      'https://api-testnet.bscscan.com/api?module=account&action=txlist&address=' +
+      accounts?.[0] +
+      '&startblock=0&endblock=99999999&page=1&offset=10&sort=ascapikey=EZQIX4T8ZWUC2XJ7WT1Q24RQSGC6565S5N';
+    const res = yield call(axios.get, req);
+    yield put(actions.walletAccountHistoryDataAction(res.data.result))
+    yield put(actions.walletAccountHistoryModalAction(true))
+    console.log('response', res);
   } catch (e) {
     // yield put(
     //   alert.setAlertAction({
@@ -42,28 +27,15 @@ function* connectWalletSaga() {
     //     color: 'danger',
     //   }),
     // );
-    console.error(e)
+    console.error(e);
     yield put(actions.connectWalletError(e));
   }
 }
-// function* disconnectWalletSaga() {
-  
-//   yield put(actions.disconnectWallet());
-  
-// }
 
-
-function* watchWallet() {
-  // yield takeEvery(types.CONNECT_WALLET_REQUEST, connectWalletSaga);
+function* watchWalletAccountHistory() {
+  yield takeEvery(types.WALLET_ACCOUNT_HISTORY_REQUEST, walletAccountHistory);
 }
-function* watchDisconnectWallet() {
-  // yield takeEvery(types.DISCONNECT_WALLET_REQUEST, disconnectWalletSaga);
-}
-
 
 export function* walletSaga() {
-  yield all([
-    watchWallet(),
-    watchDisconnectWallet(),
-  ]);
+  yield all([watchWalletAccountHistory()]);
 }

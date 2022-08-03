@@ -1,18 +1,16 @@
 import * as types from './walletActionTypes';
-import { providerOptions } from '../../helpers/web3modal/providerOptions';
-import Web3Modal from 'web3modal';
 
-const web3Modal = new Web3Modal({
-  cacheProvider: true, // optional
-  providerOptions, // required
-});
+
+
 
 const initialState = {
-  web3Modal,
   provider: null,
-  library: null,
-  accounts: null,
-  network: null,
+  accounts:null,
+  ethereum:null,
+
+  walletAccountHistory:null,
+  walletAccountHistoryModal:false,
+
 
   provider2: null,
   signer: null,
@@ -33,9 +31,8 @@ export const walletReducer = (state = initialState, action) => {
       return {
         ...state,
         provider: action?.payload?.provider ? Object.assign({}, action.payload.provider) : null,
-        library: action?.payload?.library ? Object.assign({}, action.payload.library) : null,
-        accounts: action?.payload?.accounts ? Object.assign([], action.payload.accounts) : null,
-        network: action?.payload?.network ? Object.assign({}, action.payload.network) : null,
+        accounts: action?.payload?.accounts ? Object.assign({}, action.payload.accounts) : null,
+        ethereum: action?.payload?.ethereum ? Object.assign({}, action.payload.ethereum) : null,
       };
     case types.GET_MY_BALANCE_DATA:
       return {
@@ -49,6 +46,28 @@ export const walletReducer = (state = initialState, action) => {
         erc20_: action?.payload?.erc20_ ? Object.assign({}, action.payload.erc20_) : null,
         balance_: action?.payload?.balance_ ?  action.payload.balance_.toString() : null,
       };
+      case types.WALLET_ACCOUNT_HISTORY_DATA:
+      return {
+        ...state,
+        // eslint-disable-next-line max-len
+        walletAccountHistory: action?.payload ? Object.assign([], action.payload) : null,
+       
+      };
+      case types.WALLET_ACCOUNT_HISTORY_ERROR:
+        return {
+          ...state,
+          // eslint-disable-next-line max-len
+          error: {type:types.WALLET_ACCOUNT_HISTORY_ERROR, data:action.payload},
+         
+        };
+      case types.WALLET_ACCOUNT_HISTORY_MODAL:
+        return {
+          ...state,
+          // eslint-disable-next-line max-len
+          walletAccountHistoryModal: action?.payload ,
+         
+        };
+  
 
     // return {
     //   ...state,

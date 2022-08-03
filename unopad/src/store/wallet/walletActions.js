@@ -64,6 +64,31 @@ export const getMyBalanceError = (payload) => {
   };
 };
 
+export const walletAccountHistoryRequestAction = (payload) => {
+  return {
+    type: types.WALLET_ACCOUNT_HISTORY_REQUEST,
+    payload,
+  };
+};
+export const walletAccountHistoryDataAction = (payload) => {
+  return {
+    type: types.WALLET_ACCOUNT_HISTORY_DATA,
+    payload,
+  };
+};
+export const walletAccountHistoryErrorAction = (payload) => {
+  return {
+    type: types.WALLET_ACCOUNT_HISTORY_ERROR,
+    payload,
+  };
+};
+export const walletAccountHistoryModalAction = (payload) => {
+  return {
+    type: types.WALLET_ACCOUNT_HISTORY_MODAL,
+    payload,
+  };
+};
+
 
 
 
