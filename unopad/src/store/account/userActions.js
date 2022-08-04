@@ -94,7 +94,7 @@ export const activationError = (payload) => {
 };
 
 
-export const logoutRequest = (payload) => {
+export const logoutRequestAction = (payload) => {
   return {
     type: types.LOGOUT_REQUEST,
     payload

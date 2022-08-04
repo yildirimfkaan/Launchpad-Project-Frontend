@@ -1,56 +1,125 @@
 import React from 'react';
+import { Dropdown } from 'react-bootstrap';
+
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+// import NavDropdown from 'react-bootstrap/NavDropdown';
+import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import wallet from '../helpers/wallet';
-import { logoutRequest } from '../store/account/userActions';
-import WalletModal from './WalletAccountDetailModal';
+import { logoutRequestAction } from '../store/account/userActions';
+import { walletAccountDetailModalAction } from '../store/wallet/walletActions';
+import WalletAccountDetailModal from './WalletAccountDetailModal';
 import WalletAccountHistoryModal from './WalletAccountHistoryModal';
-
+// import {BsPersonCircle} from 'react-icons';
 // import Button from 'react-bootstrap/Button';
+import { createBrowserHistory } from 'history';
 
 function Navigation({ ...props }) {
-  const { user, accounts } = props;
+  const { user, accounts, walletAccountDetailModalRequest, logoutRequest, h } = props;
+
   // const [modalShow, setModalShow] = useState(false);
   const handleLogout = () => {
-    props.dispatch(logoutRequest());
+    logoutRequest();
   };
+  const pathIsActive = (path) => {
+    const history = createBrowserHistory();
+    const pathname = history.location.pathname.split('/')[1];
+
+    if (pathname.toLowerCase() === path.toLowerCase()) {
+      return true;
+    }
+    return false;
+  };
+  // function getWalletAccountDetail() {
+  //   walletAccountDetailRequest();
+  // }
+
+  const handleShow = () => {
+    walletAccountDetailModalRequest(true);
+  };
+
   console.log('state', props);
   return (
-    <React.Fragment>
-      <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png" />
-      <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
-        crossorigin="anonymous"
-      />
-      <link rel="stylesheet" href="../assets/css/LineIcons.2.0.css" />
-      <link rel="stylesheet" href="../assets/css/animate.css" />
-      <link rel="stylesheet" href="../assets/css/main.css" />
-      <link rel="stylesheet" href="../assets/css/navbar.css" />
+    <>
+      <Navbar bg="dark" expand="lg" style={{ zIndex: 1 }}>
+        <Container>
+          <Navbar.Brand 
+          as = {Link}
+          to="/home">
+            <img src="assets/img/logo.svg" alt="Logo" />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto" variant="pills">
+              <Nav.Link
+                as = {Link}
 
-      <div class="preloader d-none">
-        <div class="loader">
-          <div class="ytp-spinner">
-            <div class="ytp-spinner-container">
-              <div class="ytp-spinner-rotator">
-                <div class="ytp-spinner-left">
-                  <div class="ytp-spinner-circle"></div>
-                </div>
-                <div class="ytp-spinner-right">
-                  <div class="ytp-spinner-circle"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                className={'text-white' + (pathIsActive('launchpad') ? ' active' : '')}
+                to="/launchpad"
+              >
+                Launchpad
+              </Nav.Link>
+              <Nav.Link
+                as = {Link}
 
-      <header class="header navbar-area navbar-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-              <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="/Home">
+                className={'text-white' + (pathIsActive('sales') ? ' active' : '')}
+                to="/"
+              >
+                Sales
+              </Nav.Link>
+              <Nav.Link
+               as = {Link}
+                className={'text-white' + (pathIsActive('staking') ? ' active' : '')}
+                to="/"
+              >
+                Staking
+              </Nav.Link>
+              <Nav.Link
+               as = {Link}
+                className={'text-white' + (pathIsActive('airdrop') ? ' active' : '')}
+                to="/"
+              >
+                Airdrop
+              </Nav.Link>
+              {!accounts?.[0] ? (
+                <Nav.Link
+                  className="text-white"
+                  variant="primary"
+                  onClick={() => wallet.connectWallet()}
+                >
+                  Connect Wallet
+                </Nav.Link>
+              ) : (
+                <Nav.Link className="text-white" onClick={handleShow}>
+                  Wallet Account
+                </Nav.Link>
+              )}
+
+              <Dropdown>
+                <Dropdown.Toggle variant="link" id="dropdown-basic">
+                  U
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item href="">Profile</Dropdown.Item>
+                  {user && <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>}
+                  {!user && (
+                    <>
+                      <Dropdown.Item href="/login">Login</Dropdown.Item>
+                      <Dropdown.Item href="/signup">Signup</Dropdown.Item>
+                    </>
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+      {/* <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="/home">
                   <img src="assets/img/logo.svg" alt="Logo" />
                 </a>
                 <button
@@ -70,7 +139,7 @@ function Navigation({ ...props }) {
                 <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                   <ul id="nav" class="navbar-nav ml-auto">
                     <li class="nav-item">
-                      <a class="page-scroll active" href="/Launchpad">
+                      <a class="page-scroll active" href="/launchpad">
                         Launchpad
                       </a>
                     </li>
@@ -123,13 +192,10 @@ function Navigation({ ...props }) {
                     )}
                   </ul>
                 </div>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </header>
-      <WalletAccountHistoryModal/>
-    </React.Fragment>
+              </nav> */}
+      <WalletAccountDetailModal />
+      <WalletAccountHistoryModal />
+    </>
   );
 }
 const mapStateToProps = (state) => {
@@ -138,5 +204,15 @@ const mapStateToProps = (state) => {
     accounts: state.walletReducer.accounts,
   };
 };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logoutRequest: (payload) => {
+      dispatch(logoutRequestAction(payload));
+    },
+    walletAccountDetailModalRequest: (payload) => {
+      dispatch(walletAccountDetailModalAction(payload));
+    },
+  };
+};
 
-export default connect(mapStateToProps)(Navigation);
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
