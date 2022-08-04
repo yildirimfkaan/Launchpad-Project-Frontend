@@ -9,28 +9,29 @@ import axios from 'axios';
 
 
 
-function* walletAccountHistory() {
-  try {
-    const {accounts} = store.getState().walletReducer
-    const req =
-      'https://api-testnet.bscscan.com/api?module=account&action=txlist&address=' +
-      accounts?.[0] +
-      '&startblock=0&endblock=99999999&page=1&offset=10&sort=ascapikey=EZQIX4T8ZWUC2XJ7WT1Q24RQSGC6565S5N';
-    const res = yield call(axios.get, req);
-    yield put(actions.walletAccountHistoryDataAction(res.data.result))
-    yield put(actions.walletAccountHistoryModalAction(true))
-    console.log('response', res);
-  } catch (e) {
-    // yield put(
-    //   alert.setAlertAction({
-    //     text: e?.response?.data?.detail,
-    //     color: 'danger',
-    //   }),
-    // );
-    console.error(e);
-    yield put(actions.connectWalletError(e));
+  function* walletAccountHistory() {
+    try {
+      const {accounts} = store.getState().walletReducer
+      const req =
+        'https://api-testnet.bscscan.com/api?module=account&action=txlist&address=' +
+        accounts?.[0] +
+        '&startblock=0&endblock=99999999&page=1&offset=10&sort=ascapikey=EZQIX4T8ZWUC2XJ7WT1Q24RQSGC6565S5N';
+      const res = yield call(axios.get, req);
+      yield put(actions.walletAccountHistoryDataAction(res.data.result))
+      yield put(actions.walletAccountHistoryModalAction(true))
+      console.log('response', res);
+    } catch (e) {
+      // yield put(
+      //   alert.setAlertAction({
+      //     text: e?.response?.data?.detail,
+      //     color: 'danger',
+      //   }),
+      // );
+      console.error(e);
+      yield put(actions.connectWalletError(e));
+    }
   }
-}
+  
 
 function* watchWalletAccountHistory() {
   yield takeEvery(types.WALLET_ACCOUNT_HISTORY_REQUEST, walletAccountHistory);
@@ -38,4 +39,5 @@ function* watchWalletAccountHistory() {
 
 export function* walletSaga() {
   yield all([watchWalletAccountHistory()]);
+ 
 }

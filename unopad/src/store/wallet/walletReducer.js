@@ -1,24 +1,23 @@
 import * as types from './walletActionTypes';
 
-
-
-
 const initialState = {
   provider: null,
-  accounts:null,
-  ethereum:null,
+  accounts: null,
+  ethereum: null,
 
-  walletAccountHistory:null,
-  walletAccountHistoryModal:false,
+  walletAccountHistory: null,
+  walletAccountHistoryModal: false,
 
+  walletAccountDetail: null,
+  walletAccountDetailModal: false,
 
   provider2: null,
   signer: null,
-  signerAddress: null ,
+  signerAddress: null,
   web3: null,
   erc20_: null,
   balance_: null,
-  contractAddress:null,
+  contractAddress: null,
   error: {
     type: null,
     data: null,
@@ -44,49 +43,49 @@ export const walletReducer = (state = initialState, action) => {
           : null,
         web3: action?.payload?.web3 ? Object.assign({}, action.payload.web3) : null,
         erc20_: action?.payload?.erc20_ ? Object.assign({}, action.payload.erc20_) : null,
-        balance_: action?.payload?.balance_ ?  action.payload.balance_.toString() : null,
+        balance_: action?.payload?.balance_ ? action.payload.balance_.toString() : null,
       };
-      case types.WALLET_ACCOUNT_HISTORY_DATA:
+    case types.WALLET_ACCOUNT_HISTORY_DATA:
       return {
         ...state,
         // eslint-disable-next-line max-len
         walletAccountHistory: action?.payload ? Object.assign([], action.payload) : null,
-       
       };
-      case types.WALLET_ACCOUNT_HISTORY_ERROR:
-        return {
-          ...state,
-          // eslint-disable-next-line max-len
-          error: {type:types.WALLET_ACCOUNT_HISTORY_ERROR, data:action.payload},
-         
-        };
-      case types.WALLET_ACCOUNT_HISTORY_MODAL:
-        return {
-          ...state,
-          // eslint-disable-next-line max-len
-          walletAccountHistoryModal: action?.payload ,
-         
-        };
-  
-
-    // return {
-    //   ...state,
-    //   provider: null,
-    //   library: null,
-    //   accounts: null,
-    //   network: null,
-    //   error: {
-    //     type: types.CONNECT_WALLET_ERROR,
-    //     data: error,
-    //   },
-    // };
-
+    case types.WALLET_ACCOUNT_HISTORY_ERROR:
+      return {
+        ...state,
+        // eslint-disable-next-line max-len
+        error: { type: types.WALLET_ACCOUNT_HISTORY_ERROR, data: action.payload },
+      };
+    case types.WALLET_ACCOUNT_HISTORY_MODAL:
+      return {
+        ...state,
+        // eslint-disable-next-line max-len
+        walletAccountHistoryModal: action?.payload,
+      };
     case types.WALLET_ACCOUNT_DATA:
       return {
         ...state,
         accounts: action.payload ? Object.assign([], action.payload) : null,
       };
-
+    case types.WALLET_ACCOUNT_DETAIL_DATA:
+      return {
+        ...state,
+        // eslint-disable-next-line max-len
+        walletAccountDetail: action?.payload ? Object.assign([], action.payload) : null,
+      };
+    case types.WALLET_ACCOUNT_DETAIL_ERROR:
+      return {
+        ...state,
+        // eslint-disable-next-line max-len
+        error: { type: types.WALLET_ACCOUNT_DETAIL_ERROR, data: action.payload },
+      };
+    case types.WALLET_ACCOUNT_DETAIL_MODAL:
+      return {
+        ...state,
+        // eslint-disable-next-line max-len
+        walletAccountDetailModal: action?.payload,
+      };
     default:
       return state;
   }

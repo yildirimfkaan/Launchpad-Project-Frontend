@@ -1,37 +1,34 @@
 /* eslint-disable max-len */
-import React, { useState } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux';
 import wallet from '../helpers/wallet';
-import { walletAccountHistoryRequestAction } from '../store/wallet/walletActions';
+import { walletAccountDetailModalAction, walletAccountHistoryRequestAction } from '../store/wallet/walletActions';
 
- 
- function WalletModal({...props}) {
-  const {balance_,signerAddress,accounts,walletAccountHistoryRequest} = props;
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  
-  function getWalletAccountHistory(){
-        walletAccountHistoryRequest();
+function WalletAccountDetailModal({ ...props }) {
+  const { balance_, signerAddress, accounts, walletAccountHistoryRequest ,walletAccountDetailModal,walletAccountDetailModalRequest} = props;
 
+
+  const handleClose = () => {
+    walletAccountDetailModalRequest(false);
+  };
+
+  function getWalletAccountHistory() {
+    walletAccountHistoryRequest();
   }
 
   return (
     <>
-      <a variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </a>
+      
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={walletAccountDetailModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Wallet Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>Balance: {balance_} UNPTest</Modal.Body>
         <Modal.Body>
           {/* {console.log("2",balance_)} */}
-          
           Newtork: Binance Wallet: Metamask
         </Modal.Body>
         <Modal.Body>Wallet Address : {accounts?.[0]} </Modal.Body>
@@ -61,11 +58,11 @@ import { walletAccountHistoryRequestAction } from '../store/wallet/walletActions
 }
 const mapStateToProps = (state) => {
   return {
-    balance_:state.walletReducer.balance_,
-    signerAddress:state.walletReducer.signerAddress,
+    balance_: state.walletReducer.balance_,
+    signerAddress: state.walletReducer.signerAddress,
     accounts: state.walletReducer.accounts,
+    walletAccountDetailModal: state.walletReducer.walletAccountDetailModal,
   };
-
 };
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -75,6 +72,9 @@ const mapDispatchToProps = (dispatch) => {
     walletAccountHistoryRequest: (payload) => {
       dispatch(walletAccountHistoryRequestAction(payload));
     },
+    walletAccountDetailModalRequest: (payload) => {
+      dispatch(walletAccountDetailModalAction(payload));
+    },
   };
 };
-export default connect(mapStateToProps,mapDispatchToProps)(WalletModal);
+export default connect(mapStateToProps, mapDispatchToProps)(WalletAccountDetailModal);

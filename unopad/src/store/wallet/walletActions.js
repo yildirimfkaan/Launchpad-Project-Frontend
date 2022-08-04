@@ -27,7 +27,6 @@ export const connectWalletError = (payload) => {
     payload,
   };
 };
-
 // export const disconnectWallet = (payload) => {
 //   return {
 //     type: types.DISCONNECT_WALLET_REQUEST,
@@ -63,7 +62,6 @@ export const getMyBalanceError = (payload) => {
     payload,
   };
 };
-
 export const walletAccountHistoryRequestAction = (payload) => {
   return {
     type: types.WALLET_ACCOUNT_HISTORY_REQUEST,
@@ -89,13 +87,35 @@ export const walletAccountHistoryModalAction = (payload) => {
   };
 };
 
-
-
-
-
 export const setWalletAccountData = (payload) => {
   return {
     type: types.WALLET_ACCOUNT_DATA,
+    payload,
+  };
+};
+
+
+export const walletAccountDetailRequestAction = (payload) => {
+  return {
+    type: types.WALLET_ACCOUNT_DETAIL_REQUEST,
+    payload,
+  };
+};
+export const walletAccountDetailDataAction = (payload) => {
+  return {
+    type: types.WALLET_ACCOUNT_DETAIL_DATA,
+    payload,
+  };
+};
+export const walletAccountDetailErrorAction = (payload) => {
+  return {
+    type: types.WALLET_ACCOUNT_DETAIL_ERROR,
+    payload,
+  };
+};
+export const walletAccountDetailModalAction = (payload) => {
+  return {
+    type: types.WALLET_ACCOUNT_DETAIL_MODAL,
     payload,
   };
 };
