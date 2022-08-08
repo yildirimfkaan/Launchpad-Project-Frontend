@@ -65,21 +65,21 @@ function Navigation({ ...props }) {
                 as = {Link}
 
                 className={'text-white' + (pathIsActive('sales') ? ' active' : '')}
-                to="/"
+                to="/sales"
               >
                 Sales
               </Nav.Link>
               <Nav.Link
                as = {Link}
                 className={'text-white' + (pathIsActive('staking') ? ' active' : '')}
-                to="/"
+                to="#"
               >
                 Staking
               </Nav.Link>
               <Nav.Link
                as = {Link}
                 className={'text-white' + (pathIsActive('airdrop') ? ' active' : '')}
-                to="/"
+                to="#"
               >
                 Airdrop
               </Nav.Link>
