@@ -20,6 +20,7 @@ import Activation from "./pages/Activation";
 import { Redirect, Route } from "react-router-dom";
 import TxList from "./components/TxList";
 import Connection from "./pages/Connection";
+import Sales from "./pages/Sales/Sales";
 
 const routes = {
   PublicLayout: {
@@ -119,6 +120,12 @@ const routes = {
         path: "/Launchpad",
         name: "Launchpad",
         component: Launchpad,
+        routeComponent: UserRoute
+      },
+      {
+        path: "/sales",
+        name: "Sales",
+        component: Sales,
         routeComponent: UserRoute
       },
       {
