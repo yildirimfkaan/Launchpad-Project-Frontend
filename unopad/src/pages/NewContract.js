@@ -10,6 +10,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import { setWalletAccountData } from '../store/wallet/walletActions';
 // import {connectWallet} from '../store/wallet/walletActions'
 import wallet from '../helpers/wallet';
+import { checkAllConditionForStake } from '../helpers/verificationHelper';
 // import axios from 'axios';
 
 function NewContract({ ...props }) {
@@ -18,11 +19,13 @@ function NewContract({ ...props }) {
     accounts,
     ethereum,
     setWalletAccount,
+    stakeNowActive,
     
   } = props;
   const item = props.project;
   console.log('acc', accounts);
-
+  console.log("stakenow nwcontract ", stakeNowActive)
+  console.log("condition",checkAllConditionForStake())
 
   console.log('provider', provider);
 
@@ -200,12 +203,14 @@ function NewContract({ ...props }) {
                 <Card.Title>{item.project_name}</Card.Title>
                 <Card.Text>{item.project_sale_type}</Card.Text>
                 <div>
-                  {!accounts?.[0] ? (
+                  {(checkAllConditionForStake() && accounts?.[0]) ? ( 
                     <Button variant="primary" onClick={connectWallet}>
                       Stake Now !
                     </Button>
                   ) : (
-                    <Button onClick={disconnect}>Disconnect</Button>
+                    <Button variant="primary" disabled={true}>
+                      Stake Now !
+                    </Button>
                   )}
                   <Button variant="primary" onClick={addUnoTokenFunction}>
                     Import UnoToken{' '}
@@ -219,7 +224,7 @@ function NewContract({ ...props }) {
         </Row>
         <Row>
           <Col>
-            {accounts?.[0] && (
+            {(checkAllConditionForStake() && accounts?.[0]) && (
               <div>
                 <Contract />
               </div>
@@ -236,6 +241,7 @@ const mapStateToProps = (state) => {
     provider: state.walletReducer.provider,
     ethereum: state.walletReducer.ethereum,
     accounts: state.walletReducer.accounts,
+    stakeNowActive: state.walletReducer.stakeNowActive,
   };
 };
 const mapDispatchToProps = (dispatch) => {

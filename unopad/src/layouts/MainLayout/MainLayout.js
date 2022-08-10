@@ -2,10 +2,23 @@ import { connect } from 'react-redux';
 import Footer from '../../components/Footer';
 import Navigation from '../../components/Navigation';
 import Alert from '../../components/Alert';
+import { useEffect } from 'react';
+import { connectWalletDataAction } from '../../store/wallet/walletActions';
+import wallet from '../../helpers/wallet';
 
 function MainLayout({ ...props }) {
-  const { children } = props;
+  const { children, connectWalletData, accounts } = props;
 
+  useEffect(() => {
+    console.log(accounts,"acc before if")
+    if (!accounts?.[0]) {
+      const walletData = JSON.parse(localStorage.getItem('WALLET_VERIFICATION_DATA'));
+      console.log(walletData, 'walletdata');
+      if (walletData) {
+        wallet.connectWallet();
+      }
+    }
+  }, [accounts]);
   return (
     <>
       <Navigation />
@@ -17,7 +30,15 @@ function MainLayout({ ...props }) {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    accounts: state.walletReducer.accounts,
+  };
 };
-
-export default connect(mapStateToProps)(MainLayout);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    connectWalletData: (payload) => {
+      dispatch(connectWalletDataAction(payload));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);

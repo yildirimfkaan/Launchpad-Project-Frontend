@@ -15,7 +15,7 @@ import * as types from './walletActionTypes';
 //  *
 //  * 
 //  */
-export const connectWalletData = (payload) => {
+export const connectWalletDataAction = (payload) => {
   return {
     type: types.CONNECT_WALLET_DATA,
     payload,
@@ -116,6 +116,14 @@ export const walletAccountDetailErrorAction = (payload) => {
 export const walletAccountDetailModalAction = (payload) => {
   return {
     type: types.WALLET_ACCOUNT_DETAIL_MODAL,
+    payload,
+  };
+};
+
+
+export const stakeNowButtonActivationAction = (payload) => {
+  return {
+    type: types.STAKE_NOW_ACTIVATION_BUTTON,
     payload,
   };
 };

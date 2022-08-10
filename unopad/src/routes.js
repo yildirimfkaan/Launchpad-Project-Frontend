@@ -17,9 +17,10 @@ import ResetPassword from './pages/ResetPassword';
 import ProjectForm from './pages/ProjectForm';
 import Activation from "./pages/Activation";
 
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import TxList from "./components/TxList";
 import Connection from "./pages/Connection";
+import Profile from "./pages/Profile";
 import Sales from "./pages/Sales/Sales";
 
 const routes = {
@@ -28,13 +29,7 @@ const routes = {
     name: "Public Layout",
     component: PublicLayout,
     children: [
-      {
-        path: "/",
-        exact: true,
-        name: "Empty Page",
-        component: () => <Redirect to="/login" />,
-        routeComponent: Route
-      },
+      
       {
         path: "/login",
         exact: true,
@@ -99,6 +94,13 @@ const routes = {
     component: MainLayout,
     children: [
       {
+        path: "/",
+        exact: true,
+        name: "Empty Page",
+        component: Home,
+        routeComponent: Route
+      },
+      {
         path: "/NewContract",
         name: "New Contract",
         component: NewContract,
@@ -120,19 +122,25 @@ const routes = {
         path: "/Launchpad",
         name: "Launchpad",
         component: Launchpad,
+        routeComponent: Route
+      },
+      {
+        path: "/Profile",
+        name: "Profile",
+        component: Profile,
         routeComponent: UserRoute
       },
       {
         path: "/sales",
         name: "Sales",
         component: Sales,
-        routeComponent: UserRoute
+        routeComponent: Route
       },
       {
         path: "/project/:id",
         name: "Detail",
         component: Detail,
-        routeComponent: UserRoute
+        routeComponent: Route
       },
       {
         path: "/Txlist",
