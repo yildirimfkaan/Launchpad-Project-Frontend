@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 function Detail({...props}) {
   const { project } = props;
-
+  console.log("projeler",project)
   useEffect(() => {
     const payload = {
       id: props.match.params.id,
@@ -18,7 +18,7 @@ function Detail({...props}) {
 
   useEffect(() => {
     if (project) {
-      console.log('project is ready.');
+      console.log('project is ready.',project);
     }
   }, [project]);
 

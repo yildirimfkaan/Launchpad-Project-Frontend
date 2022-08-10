@@ -17,8 +17,8 @@ import WalletAccountHistoryModal from './WalletAccountHistoryModal';
 import { createBrowserHistory } from 'history';
 
 function Navigation({ ...props }) {
-  const { user, accounts, walletAccountDetailModalRequest, logoutRequest, h } = props;
-
+  const { user, accounts, walletAccountDetailModalRequest, logoutRequest } = props;
+  wallet.getMyBalance("0x21B0BD8D4FC7Bb4475f4FBb7BF692005A0365218");
   // const [modalShow, setModalShow] = useState(false);
   const handleLogout = () => {
     logoutRequest();
@@ -103,7 +103,7 @@ function Navigation({ ...props }) {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href="">Profile</Dropdown.Item>
+                  <Dropdown.Item as = {Link} to="/profile">Profile</Dropdown.Item>
                   {user && <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>}
                   {!user && (
                     <>

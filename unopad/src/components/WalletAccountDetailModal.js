@@ -7,7 +7,7 @@ import wallet from '../helpers/wallet';
 import { walletAccountDetailModalAction, walletAccountHistoryRequestAction } from '../store/wallet/walletActions';
 
 function WalletAccountDetailModal({ ...props }) {
-  const { balance_, signerAddress, accounts, walletAccountHistoryRequest ,walletAccountDetailModal,walletAccountDetailModalRequest} = props;
+  const { balance_, accounts, walletAccountHistoryRequest ,walletAccountDetailModal,walletAccountDetailModalRequest} = props;
 
 
   const handleClose = () => {
@@ -59,7 +59,6 @@ function WalletAccountDetailModal({ ...props }) {
 const mapStateToProps = (state) => {
   return {
     balance_: state.walletReducer.balance_,
-    signerAddress: state.walletReducer.signerAddress,
     accounts: state.walletReducer.accounts,
     walletAccountDetailModal: state.walletReducer.walletAccountDetailModal,
   };

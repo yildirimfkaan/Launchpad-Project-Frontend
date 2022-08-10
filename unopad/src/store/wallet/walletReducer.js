@@ -11,6 +11,8 @@ const initialState = {
   walletAccountDetail: null,
   walletAccountDetailModal: false,
 
+  stakeNowActive:false,
+
   provider2: null,
   signer: null,
   signerAddress: null,
@@ -85,6 +87,13 @@ export const walletReducer = (state = initialState, action) => {
         ...state,
         // eslint-disable-next-line max-len
         walletAccountDetailModal: action?.payload,
+      };
+
+      case types.STAKE_NOW_ACTIVATION_BUTTON:
+      return {
+        ...state,
+        stakeNowActive: action.payload,
+        
       };
     default:
       return state;

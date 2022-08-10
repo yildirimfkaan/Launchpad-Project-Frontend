@@ -1,4 +1,5 @@
 import { Container, Card, Row, Button, NavLink } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function Card1(props) {
   const { projects } = props;
@@ -15,7 +16,7 @@ export default function Card1(props) {
             <Card.Body>
               <Card.Title>{item[1].project_name}</Card.Title>
               <Card.Text>{item[1].project_sale_type}</Card.Text>
-              <NavLink href={'/project/' + item[1].id}>
+              <NavLink as={Link} to={'/project/' + item[1].id}>
                 <Button
                   style={{ backgroundColor: '#365ae1', marginLeft: '10px', marginTop: '10px' }}
                 >

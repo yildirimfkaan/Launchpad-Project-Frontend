@@ -135,6 +135,30 @@ export const signUpError = (payload) => {
     payload,
   };
 };
+ export const verifyEmailRequestAction = (creds) => {
+  return {
+    type: types.VERIFY_EMAIL_REQUEST,
+    creds,
+  };
+};
+export const verifyEmailData = (payload) => {
+  return {
+    type: types.VERIFY_EMAIL_DATA,
+    payload,
+  };
+};
+export const verifyEmailError = (payload) => {
+  return {
+    type: types.VERIFY_EMAIL_ERROR,
+    payload,
+  };
+};
+export const accountVerifiedAction = (payload) => {
+  return {
+    type: types.ACCOUNT_VERIFIED,
+    payload,
+  };
+};
 
 
 

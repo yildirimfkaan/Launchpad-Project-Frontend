@@ -14,6 +14,7 @@ function* loginSaga({ creds }) {
     const { data } = yield call(endpoints.login, formData);
 
     yield put(actions.loginData(data));
+    yield put(actions.verifyEmailRequestAction())
     yield put(
       alert.setAlertAction({
         text: 'User Logged In! Redirecting to Home Page',
@@ -111,6 +112,7 @@ function* activationSaga({ creds }) {
         color: 'success',
       }),
     );
+    yield put(actions.accountVerifiedAction(true))
     setTimeout(() => {
       window.location.href = '/home';
     }, 3000);
@@ -127,6 +129,7 @@ function* activationSaga({ creds }) {
 
 function* logoutSaga() {
   localStorage.removeItem('user');
+  localStorage.removeItem('EMAIL_VERIFICATION_DATA')
   yield put(actions.logoutData());
   createBrowserHistory.push('/');
 }
@@ -159,6 +162,54 @@ function* signUpSaga({ creds }) {
     yield put(actions.signUpError(e));
   }
 }
+
+function* verifyEmailSaga({ creds }) {
+  try {
+    // var formData3 = new FormData();
+
+    // formData3.append('activationCode', creds['activationCode']);
+    // formData3.append('activationToken', creds['activationToken']);
+    // const body = { token: creds['activationToken'], activation_code: creds['activationCode'] };
+
+    const { data } = yield call(endpoints.verifyEmail);
+    
+    console.log("verify",data)
+    console.log("kontrol etmem gereken data",data['is_active'])
+    
+    localStorage.setItem('EMAIL_VERIFICATION_DATA', JSON.stringify(data['is_active']));
+    if(data['is_active']){
+      console.log("active")
+      yield put(actions.verifyEmailData(data),);
+      yield put(actions.accountVerifiedAction(data['is_active']))
+      yield put(
+        alert.setAlertAction({
+          text: 'Your account has been activated successfully!',
+          color: 'success',
+        }),
+      );
+    }
+   else{
+    yield put(
+      alert.setAlertAction({
+        text: 'Redirecting to Activation Page',
+        color: 'success',
+      }),
+    );
+    setTimeout(() => {
+      window.location.href = '/activate_user';
+    }, 5000);
+   }
+  } catch (e) {
+    yield put(
+      alert.setAlertAction({
+        text: e.msg,
+        color: 'danger',
+      }),
+    );
+    yield put(actions.verifyEmailError(e));
+  }
+}
+
 function* watchLoginUser() {
   yield takeEvery(types.LOGIN_REQUEST, loginSaga);
 }
@@ -179,6 +230,10 @@ function* watchResetPassword() {
 function* watchActivation() {
   yield takeEvery(types.ACTIVATION_REQUEST, activationSaga);
 }
+function* watchVerifyEmail() {
+  yield takeEvery(types.VERIFY_EMAIL_REQUEST, verifyEmailSaga);
+}
+
 
 
 export function* userSaga() {
@@ -189,5 +244,6 @@ export function* userSaga() {
     watchForgotPassword(),
     watchResetPassword(),
     watchActivation(),
+    watchVerifyEmail(),
   ]);
 }

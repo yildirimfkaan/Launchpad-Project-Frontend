@@ -19,18 +19,26 @@ async function connectWallet() {
    
     // const library = new ethers.providers.Web3Provider(provider);
     const payload = {
-      provider,
-      ethereum,
-      accounts,
+      provider: provider,
+      ethereum:ethereum,
+      accounts:accounts,
     };
     store.dispatch({ type: types.CONNECT_WALLET_DATA, payload });
+    console.log("walletjs accsss", accounts)
+    console.log(payload,"payload")
+    localStorage.setItem('WALLET_VERIFICATION_DATA',JSON.stringify({accounts}))
   } catch (error) {
     console.log(error)
     store.dispatch({ type: types.CONNECT_WALLET_ERROR, payload: error });
   }
 }
 async function disconnectWallet() {
-  store.dispatch({ type: types.CONNECT_WALLET_DATA, payload: null });
+  localStorage.removeItem('WALLET_VERIFICATION_DATA');
+  setTimeout(() => {
+    store.dispatch({ type: types.CONNECT_WALLET_DATA, payload: null });
+  }, 500);
+  
+  
   console.log('disconnected');
 }
 
