@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import erc20abi from '../helpers/abi';
+import unopad_token from '../helpers/unopad_token';
+import unopad_presale from '../helpers/unopad_presale';
 import ErrorMessage from '../components/ErrorMessage';
 import GetMyBalance from '../components/GetMyBalance';
 // import Transfer from '../components/Transfer';
 import BuyUnoToken from '../components/BuyUnoToken';
 import Web3 from 'web3';
+
+
 
 import { Col, Row } from 'react-bootstrap';
 import Transactions from '../components/Transactions';
@@ -122,16 +126,25 @@ function Contract({ ...props }) {
     const signerAddress = await signer.getAddress();
     const web3 = new Web3(window.ethereum);
     await window.ethereum.enable();
-    const erc20_ = new web3.eth.Contract(erc20abi, contractInfo.address);
+    const contractUnoToken = '0x012b020b2479f42835fafd7037339b5bdba4c3fb';
+    const contractUnoTokenPresale = '0x7e851d4f813c4508e80fb54cc51f7066d54ffefa';
+
+    const unopad_token_abi = new web3.eth.Contract(unopad_token, contractUnoToken);
+    console.log("unopad_token_abi",unopad_token_abi);
+
+    const unopad_presale_abi = new web3.eth.Contract(unopad_presale, contractUnoTokenPresale);
+    console.log("unopad_presale_abi",unopad_presale_abi);
 
     const etherMiktari = data.get('etherValue');
     console.log('ether miktar', etherMiktari);
     try {
-      await erc20_.methods.buyToken().send({
+      await unopad_presale_abi.methods.buy().send( {
+          
         from: signerAddress,
-        to: contractInfo.address,
+        to: contractUnoTokenPresale,
         data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
-        value: web3.utils.toWei(etherMiktari, 'ether'),
+        value: web3.utils.toWei(etherMiktari, "ether")
+
       });
     } catch (err) {
       console.log('error message');
@@ -140,7 +153,7 @@ function Contract({ ...props }) {
     setLoadingtmp(
       // {key:loadingActionTypes.BUY_UNOTOKEN_LOADING,isLoading:false}
      false );
-    const balance_ = await erc20_.methods.balanceOf(signerAddress).call();
+    // const balance_ = await erc20_.methods.balanceOf(signerAddress).call();
     setBuyUnoTokenInfo({
       from: signerAddress,
       to: contractInfo.address,
