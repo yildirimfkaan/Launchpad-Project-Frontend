@@ -1,31 +1,22 @@
-/* eslint-disable max-len */
-import { useEffect, useState } from 'react';
-import Contract from './Contract';
-// import { networkParams } from '../helpers/web3modal/networks';
-// import { toHex } from '../helpers/web3modal/utils';
-// import { ethers } from 'ethers';
-import { Container, Card, Row, Col, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { getProjectByID } from '../../store/project/projectActions';
 import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { setWalletAccountData } from '../../store/wallet/walletActions';
+import { Button, Card, Container } from 'react-bootstrap';
+import { checkAllConditionForStake } from '../../helpers/verificationHelper';
+import Contract from '../Contract';
+import wallet from '../../helpers/wallet';
 import detectEthereumProvider from '@metamask/detect-provider';
-import { setWalletAccountData } from '../store/wallet/walletActions';
-// import {connectWallet} from '../store/wallet/walletActions'
-import wallet from '../helpers/wallet';
-import { checkAllConditionForStake } from '../helpers/verificationHelper';
-// import axios from 'axios';
+import './ProjectDetail.scss';
 
-function NewContract({ ...props }) {
-  const {
-    provider,
-    accounts,
-    ethereum,
-    setWalletAccount,
-    stakeNowActive,
-    
-  } = props;
+function ProjectDetail({ ...props }) {
+  const { project, provider, accounts, ethereum, setWalletAccount, user } = props;
   const item = props.project;
+  console.log('projeler', project);
+
   console.log('acc', accounts);
-  console.log("stakenow nwcontract ", stakeNowActive)
-  console.log("condition",checkAllConditionForStake())
+  console.log('condition', checkAllConditionForStake(user, accounts));
 
   console.log('provider', provider);
 
@@ -43,11 +34,11 @@ function NewContract({ ...props }) {
 
   const connectWallet = async () => {
     wallet.connectWallet();
-   
-   
+
     // const req =
     //   'https://api-testnet.bscscan.com/api?module=account&action=txlist&address=' +
     //   accounts?.[0] +
+    // eslint-disable-next-line max-len
     //   '&startblock=0&endblock=99999999&page=1&offset=10&sort=ascapikey=EZQIX4T8ZWUC2XJ7WT1Q24RQSGC6565S5N';
     // const res = await axios.get(req);
 
@@ -59,7 +50,7 @@ function NewContract({ ...props }) {
   //   setNetwork(Number(id));
   // };
   console.log('acc', accounts?.[0]);
-  console.log("ethereum",ethereum)
+  console.log('ethereum', ethereum);
   console.log('provider', provider);
   const addUnoTokenFunction = async () => {
     try {
@@ -188,13 +179,24 @@ function NewContract({ ...props }) {
     }
   }, [provider]);
   console.log('new contract wallet acc:', accounts?.[0]);
+
+  useEffect(() => {
+    const payload = {
+      id: props.match.params.id,
+    };
+    props.getProjectByID(payload);
+
+    return () => {};
+  }, []);
+
   return (
     <>
-      <Container>
-        <Row>
-          <Col></Col>
-          <Col>
-            <Card>
+      {!project ? (
+        <h1>Page is Loading.....</h1>
+      ) : (
+        <>
+          <Container>
+            <Card className="project-detail-card mx-auto">
               <Card.Img
                 variant="top"
                 src={process.env.REACT_APP_API_URL + '/projects/' + item.id + '/image'}
@@ -203,7 +205,7 @@ function NewContract({ ...props }) {
                 <Card.Title>{item.project_name}</Card.Title>
                 <Card.Text>{item.project_sale_type}</Card.Text>
                 <div>
-                  {(checkAllConditionForStake() && accounts?.[0]) ? ( 
+                  {checkAllConditionForStake(user, accounts) ? (
                     <Button variant="primary" onClick={connectWallet}>
                       Stake Now !
                     </Button>
@@ -219,29 +221,26 @@ function NewContract({ ...props }) {
                 <span>{error ? error.message : null}</span>
               </Card.Body>
             </Card>
-          </Col>
-          <Col></Col>
-        </Row>
-        <Row>
-          <Col>
-            {(checkAllConditionForStake() && accounts?.[0]) && (
+
+            {checkAllConditionForStake(user, accounts) && (
               <div>
                 <Contract />
               </div>
             )}
-          </Col>
-        </Row>
-      </Container>
+          </Container>
+        </>
+      )}
     </>
   );
 }
+
 const mapStateToProps = (state) => {
   return {
-    
     provider: state.walletReducer.provider,
     ethereum: state.walletReducer.ethereum,
     accounts: state.walletReducer.accounts,
-    stakeNowActive: state.walletReducer.stakeNowActive,
+    user: state.userReducer.user,
+    project: state.projectReducer.project,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -252,6 +251,10 @@ const mapDispatchToProps = (dispatch) => {
     setWalletAccount: (payload) => {
       dispatch(setWalletAccountData(payload));
     },
+    getProjectByID: (payload) => {
+      dispatch(getProjectByID(payload));
+    },
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(NewContract);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetail);

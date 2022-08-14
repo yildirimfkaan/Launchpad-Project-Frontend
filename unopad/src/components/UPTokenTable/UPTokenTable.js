@@ -1,7 +1,7 @@
 import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import './UPProjectTable.scss';
+import './UPTokenTable.scss';
 
 function UPProjectTable(props) {
   const { projects } = props;
@@ -26,8 +26,8 @@ function UPProjectTable(props) {
                   <span className='mr-2'>
                     <img
                       alt="img-project-table"
-                      className="responsive"
-                      height={40}
+                      height={30}
+                      width={30}
                       src={process.env.REACT_APP_API_URL + '/projects/' + item[1].id + '/image'}
                     />
                   </span>
@@ -36,7 +36,7 @@ function UPProjectTable(props) {
               </td>
               <td>{item[1].project_sale_type}</td>
               <td>
-                <Link to={'/project/' + item[1].id}>Go detail</Link>
+                <Link to={'/token/' + item[1].id}>Go detail</Link>
               </td>
             </tr>
           );

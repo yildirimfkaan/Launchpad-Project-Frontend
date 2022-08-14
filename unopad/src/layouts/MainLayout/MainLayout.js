@@ -1,19 +1,18 @@
 import { connect } from 'react-redux';
 import Footer from '../../components/Footer';
-import Navigation from '../../components/Navigation';
+import UPNavbar from '../../components/UPNavbar/UPNavbar';
 import Alert from '../../components/Alert';
 import { useEffect } from 'react';
 import { connectWalletDataAction } from '../../store/wallet/walletActions';
 import wallet from '../../helpers/wallet';
+import './MainLayout.scss';
 
 function MainLayout({ ...props }) {
   const { children, connectWalletData, accounts } = props;
 
   useEffect(() => {
-    console.log(accounts,"acc before if")
     if (!accounts?.[0]) {
       const walletData = JSON.parse(localStorage.getItem('WALLET_VERIFICATION_DATA'));
-      console.log(walletData, 'walletdata');
       if (walletData) {
         wallet.connectWallet();
       }
@@ -21,7 +20,7 @@ function MainLayout({ ...props }) {
   }, [accounts]);
   return (
     <>
-      <Navigation />
+      <UPNavbar />
       <Alert />
       {children}
       <Footer />

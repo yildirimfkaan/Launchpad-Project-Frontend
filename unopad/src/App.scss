@@ -1,0 +1,12 @@
+body {
+  overflow-x: hidden;
+}
+
+.responsive {
+  width: 100%;
+  height: auto;
+}
+
+.modal-backdrop.show {
+  z-index: 1055 !important;
+}

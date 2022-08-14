@@ -1,15 +1,16 @@
-
-import Card1 from '../components/Card1';
+import UPProjectCard from '../../components/UPProjectCard/UPProjectCard';
 import React from 'react';
-import About from '../components/About';
-import Service from '../components/Service';
-import Roadmap from '../components/Roadmap';
-import Grows from '../components/Grows';
-import Team from '../components/Team';
-import Countdown from '../components/Countdown';
-import Contact from '../components/Contact';
-import { getProjects } from '../store/project/projectActions';
+import About from '../../components/About';
+import Service from '../../components/Service';
+import Roadmap from '../../components/Roadmap';
+import Grows from '../../components/Grows';
+import Team from '../../components/Team';
+import Countdown from '../../components/Countdown';
+import Contact from '../../components/Contact';
+import { getProjects } from '../../store/project/projectActions';
 import { connect } from 'react-redux';
+import UPQuickHandler from '../../components/UPQuickHandler/UPQuickHandler';
+import { Container } from 'react-bootstrap';
 
 class Launchpad extends React.Component {
   constructor() {
@@ -28,7 +29,7 @@ class Launchpad extends React.Component {
   render() {
     return (
       <>
-        <React.Fragment>
+        <Container>
           <section id="home" class="hero-section">
             <div class="shapes">
               <div class="shape shape-1"></div>
@@ -127,15 +128,22 @@ class Launchpad extends React.Component {
               </div>
             </div>
           </section>
-        </React.Fragment>
-        <br></br>
-        {!this.props.projects ? (
-          <h1>Page is Loading.....</h1>
-        ) : (
-          <>
-            <Card1 {...this.props} />{' '}
-          </>
-        )}
+          <br></br>
+          <UPQuickHandler
+            isSignUpAndKYC={true}
+            isVerifyWallet={true}
+            isStakeUnoToken={true}
+            href="#launchpad-projects"
+          />
+          {!this.props.projects ? (
+            <h1>Page is Loading.....</h1>
+          ) : (
+            <div id="launchpad-projects">
+              <UPProjectCard {...this.props} />{' '}
+            </div>
+          )}
+        </Container>
+
         <br></br>
         <React.Fragment>
           <About />

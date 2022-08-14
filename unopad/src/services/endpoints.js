@@ -7,7 +7,7 @@ export const forgotPassword = (body) => doPost('/password-recovery', body);
 export const resetPassword = (body) => doPost('/reset-password', body);
 export const activation = (body) => doPost('/activate', body);
 export const logut = (body) => doPost('/login', body);
-export const verifyEmail = (body) => doGet('/user/profile', body);
+export const getAccountDetails = (body) => doGet('/user/profile', body);
 
 //Post
 export const getPosts = () => doGet('/projects');

@@ -1,24 +1,26 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
-
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import wallet from '../helpers/wallet';
-import { logoutRequestAction } from '../store/account/userActions';
-import { walletAccountDetailModalAction } from '../store/wallet/walletActions';
-import WalletAccountDetailModal from './WalletAccountDetailModal';
-import WalletAccountHistoryModal from './WalletAccountHistoryModal';
+import wallet from '../../helpers/wallet';
+import { logoutRequestAction } from '../../store/account/userActions';
+import { walletAccountDetailModalAction } from '../../store/wallet/walletActions';
+import UPWalletAccountDetailModal from '../UPWalletAccountDetailModal/UPWalletAccountDetailModal';
+// eslint-disable-next-line max-len
+import UPWalletAccountHistoryModal from '../UPWalletAccountHistoryModal/UPWalletAccountHistoryModal';
 // import {BsPersonCircle} from 'react-icons';
 // import Button from 'react-bootstrap/Button';
 import { createBrowserHistory } from 'history';
+import UPIcons from '../UPIcons/UPIcons';
+import './UPNavbar.scss';
 
 function Navigation({ ...props }) {
   const { user, accounts, walletAccountDetailModalRequest, logoutRequest } = props;
-  wallet.getMyBalance("0x21B0BD8D4FC7Bb4475f4FBb7BF692005A0365218");
+  wallet.getMyBalance('0x21B0BD8D4FC7Bb4475f4FBb7BF692005A0365218');
   // const [modalShow, setModalShow] = useState(false);
   const handleLogout = () => {
     logoutRequest();
@@ -45,39 +47,35 @@ function Navigation({ ...props }) {
     <>
       <Navbar bg="dark" expand="lg" style={{ zIndex: 1 }}>
         <Container>
-          <Navbar.Brand 
-          as = {Link}
-          to="/home">
+          <Navbar.Brand as={Link} to="/home">
             <img src="assets/img/logo.svg" alt="Logo" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto" variant="pills">
               <Nav.Link
-                as = {Link}
-
+                as={Link}
                 className={'text-white' + (pathIsActive('launchpad') ? ' active' : '')}
                 to="/launchpad"
               >
                 Launchpad
               </Nav.Link>
               <Nav.Link
-                as = {Link}
-
+                as={Link}
                 className={'text-white' + (pathIsActive('sales') ? ' active' : '')}
                 to="/sales"
               >
                 Sales
               </Nav.Link>
               <Nav.Link
-               as = {Link}
+                as={Link}
                 className={'text-white' + (pathIsActive('staking') ? ' active' : '')}
                 to="#"
               >
                 Staking
               </Nav.Link>
               <Nav.Link
-               as = {Link}
+                as={Link}
                 className={'text-white' + (pathIsActive('airdrop') ? ' active' : '')}
                 to="#"
               >
@@ -97,14 +95,20 @@ function Navigation({ ...props }) {
                 </Nav.Link>
               )}
 
-              <Dropdown>
-                <Dropdown.Toggle variant="link" id="dropdown-basic">
-                  U
+              <Dropdown id="user-dropdown">
+                <Dropdown.Toggle className="d-flex" variant="link" id="user-dropdown-toggle">
+                  <UPIcons name="MdPerson" color="white" size="24" />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item as = {Link} to="/profile">Profile</Dropdown.Item>
-                  {user && <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>}
+                  {user && (
+                    <>
+                      <Dropdown.Item as={Link} to="/profile">
+                        Profile
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                    </>
+                  )}
                   {!user && (
                     <>
                       <Dropdown.Item href="/login">Login</Dropdown.Item>
@@ -193,8 +197,8 @@ function Navigation({ ...props }) {
                   </ul>
                 </div>
               </nav> */}
-      <WalletAccountDetailModal />
-      <WalletAccountHistoryModal />
+      <UPWalletAccountDetailModal />
+      <UPWalletAccountHistoryModal />
     </>
   );
 }

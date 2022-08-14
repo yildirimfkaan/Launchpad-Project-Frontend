@@ -4,8 +4,8 @@ const initialState = {
   signUpData: null,
   forgotPasswordData: null,
   resetPasswordData: null,
-  walletAccount:null,
-  accountVerifiedData:null,
+  walletAccount: null,
+  accountVerifiedData: null,
   user: null,
   error: {
     type: null,
@@ -67,20 +67,19 @@ export const userReducer = (state = initialState, action) => {
           data: action.payload,
         },
       };
-      case types.ACTIVATION_DATA:
-        return {
-          ...state,
-          activationData: action.payload ? Object.assign({}, action.payload) : null,
-        };
+    case types.ACTIVATION_DATA:
+      return {
+        ...state,
+        activationData: action.payload ? Object.assign({}, action.payload) : null,
+      };
     case types.ACTIVATION_ERROR:
-        return {
-          ...state,
-          error: {
-            type: types.ACTIVATION_ERROR,
-            data: action.payload,
-          },
-        };
-
+      return {
+        ...state,
+        error: {
+          type: types.ACTIVATION_ERROR,
+          data: action.payload,
+        },
+      };
     case types.LOGOUT_DATA:
       return {
         ...state,
@@ -94,25 +93,30 @@ export const userReducer = (state = initialState, action) => {
           data: action.payload,
         },
       };
-    case types.VERIFY_EMAIL_DATA:
-        return {
-          ...state,
-          verifyEmailData: action.payload ? Object.assign({}, action.payload) : null,
-        };
-    case types.VERIFY_EMAIL_ERROR:
-        return {
-          ...state,
-          error: {
-            type: types.VERIFY_EMAIL_ERROR,
-            data: action.payload,
-          },
-        };
+    case types.ACCOUNT_DETAILS_DATA:
+      const payload = {
+        user: action.payload,
+        token: JSON.parse(localStorage.getItem('user')).token,
+      };
+      localStorage.setItem('user', JSON.stringify(payload));
+      return {
+        ...state,
+        user: action.payload ? Object.assign({}, action.payload) : null,
+      };
+    case types.ACCOUNT_DETAILS_ERROR:
+      return {
+        ...state,
+        error: {
+          type: types.ACCOUNT_DETAILS_ERROR,
+          data: action.payload,
+        },
+      };
     case types.ACCOUNT_VERIFIED:
-          return {
-            ...state,
-            accountVerifiedData: action?.payload,
-          };
-   
+      return {
+        ...state,
+        accountVerifiedData: action?.payload,
+      };
+
     default:
       return state;
   }
