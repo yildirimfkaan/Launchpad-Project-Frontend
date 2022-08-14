@@ -4,8 +4,9 @@ import Table from 'react-bootstrap/Table';
 // import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux';
-import { walletAccountHistoryModalAction } from '../store/wallet/walletActions';
+import { walletAccountHistoryModalAction } from '../../store/wallet/walletActions';
 import { Button, Col, Container, Row } from 'react-bootstrap';
+import './UPWalletAccountHistoryModal.scss'
 
 function walletAccountHistoryModal({ ...props }) {
   const { walletAccountHistoryModal, walletAccountHistory, walletAccountHistoryModalRequest } =
@@ -22,7 +23,13 @@ function walletAccountHistoryModal({ ...props }) {
       <Container>
         <Row>
           <Col>
-            <Modal show={walletAccountHistoryModal} fullscreen={true} onHide={handleClose}>
+            <Modal
+              className="wallet-account-history-modal"
+              show={walletAccountHistoryModal}
+              size="xl"
+              onHide={handleClose}
+              centered
+            >
               <Modal.Header closeButton>
                 <Modal.Title>Wallet Account History</Modal.Title>
               </Modal.Header>
@@ -70,8 +77,6 @@ function walletAccountHistoryModal({ ...props }) {
                   </Row>
                 </Container>
               </Modal.Body>
-
-              <Modal.Footer>footer</Modal.Footer>
             </Modal>
           </Col>
         </Row>

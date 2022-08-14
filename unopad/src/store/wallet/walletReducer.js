@@ -11,8 +11,6 @@ const initialState = {
   walletAccountDetail: null,
   walletAccountDetailModal: false,
 
-  stakeNowActive:false,
-
   provider2: null,
   signer: null,
   signerAddress: null,
@@ -50,19 +48,19 @@ export const walletReducer = (state = initialState, action) => {
     case types.WALLET_ACCOUNT_HISTORY_DATA:
       return {
         ...state,
-        // eslint-disable-next-line max-len
+
         walletAccountHistory: action?.payload ? Object.assign([], action.payload) : null,
       };
     case types.WALLET_ACCOUNT_HISTORY_ERROR:
       return {
         ...state,
-        // eslint-disable-next-line max-len
+
         error: { type: types.WALLET_ACCOUNT_HISTORY_ERROR, data: action.payload },
       };
     case types.WALLET_ACCOUNT_HISTORY_MODAL:
       return {
         ...state,
-        // eslint-disable-next-line max-len
+
         walletAccountHistoryModal: action?.payload,
       };
     case types.WALLET_ACCOUNT_DATA:
@@ -73,27 +71,20 @@ export const walletReducer = (state = initialState, action) => {
     case types.WALLET_ACCOUNT_DETAIL_DATA:
       return {
         ...state,
-        // eslint-disable-next-line max-len
+
         walletAccountDetail: action?.payload ? Object.assign([], action.payload) : null,
       };
     case types.WALLET_ACCOUNT_DETAIL_ERROR:
       return {
         ...state,
-        // eslint-disable-next-line max-len
+
         error: { type: types.WALLET_ACCOUNT_DETAIL_ERROR, data: action.payload },
       };
     case types.WALLET_ACCOUNT_DETAIL_MODAL:
       return {
         ...state,
-        // eslint-disable-next-line max-len
-        walletAccountDetailModal: action?.payload,
-      };
 
-      case types.STAKE_NOW_ACTIVATION_BUTTON:
-      return {
-        ...state,
-        stakeNowActive: action.payload,
-        
+        walletAccountDetailModal: action?.payload,
       };
     default:
       return state;

@@ -1,63 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button, Card, Col, Container } from 'react-bootstrap';
+import { Badge, Button, Container } from 'react-bootstrap';
 
-import { verifyEmailRequestAction } from '../store/account/userActions';
+import { accountDetailsRequestAction } from '../store/account/userActions';
 import wallet from '../helpers/wallet';
+import { checkUserVerified, checkUserWalletAccount } from '../helpers/verificationHelper';
 
 function Profile({ ...props }) {
-  const {
-    user,
-    verifyEmailRequest,
-    accountVerifiedData,
-    accounts,
-    stakeNowActive,
-  } = props;
+  const { user, accountDetailsRequest, accounts } = props;
 
-  async function verifyEmail() {
-    console.log('worked');
-    await verifyEmailRequest();
+  useEffect(() => {
+    accountDetailsRequest();
+  }, []);
+
+  function verifyEmail() {
+    console.log('Email verify resend email is not ready yet.');
   }
-  console.log(user);
-  console.log("stake now active", stakeNowActive)
-
-  // useEffect(()=> {
-
-  //   console.log("useEffect acc verified",accountVerifiedData);
-  //   const data = window.localStorage.getItem('EMAIL_VERIFICATION_DATA')
-  //   verifyEmailRequest(JSON.parse(data))
-  // },[])
-
-  // useEffect(()=> {
-
-  //   console.log("useEffect acc verified",accountVerifiedData,"WALLET ACC", accounts?.[0]);
-  //   window.localStorage.setItem('EMAIL_VERIFICATION_DATA',JSON.stringify(accountVerifiedData))
-  //   window.localStorage.setItem('WALLET_VERIFICATION_DATA',JSON.stringify(accounts?.[0]))
-  // },[accountVerifiedData,accounts?.[0]])
 
   return (
     <>
       <Container>
-        <Card>
-          <Card.Header as="h5">Featured</Card.Header>
-          <Card.Body>
-            <Card.Title>Special title treatment</Card.Title>
-            <Card.Text>
-              With supporting text below as a natural lead-in to additional content.
-            </Card.Text>
-            <Col>
-              <Button variant="primary">Profile Details</Button>
-              {accounts?.[0] ? (
-                <Button disabled={true} variant="success">
+        <div className="py-5">
+          <span className="h5">Profile</span>
+          <div className="border rounded p-2">
+            <div>
+              {checkUserWalletAccount(accounts) ? (
+                <Button className="mr-2" disabled={true} variant="success">
                   Wallet Connected
                 </Button>
               ) : (
-                <Button variant="primary" onClick={() => wallet.connectWallet()}>
+                <Button className="mr-2" variant="primary" onClick={() => wallet.connectWallet()}>
                   Connect Wallet
                 </Button>
               )}
-              <Button variant="primary">KYC Check</Button>
-              {accountVerifiedData ? (
+              <Button className="mr-2" variant="primary">
+                KYC Check
+              </Button>
+              {checkUserVerified(user) ? (
                 <Button disabled={true} variant="success">
                   Email Verified
                 </Button>
@@ -66,25 +45,35 @@ function Profile({ ...props }) {
                   Verify Email
                 </Button>
               )}
-            </Col>
-            <Col>
-              <Card.Text>Name , Surname</Card.Text>
-              <Card.Text>Wallet Address:{accounts?.[0]}</Card.Text>
+            </div>
 
-              <Card.Text>Email : {user.username}</Card.Text>
-              {accountVerifiedData ? (
-                <Card.Text>VERIFIED</Card.Text>
-              ) : (
-                <Card.Text>NON-VERIFIED USER</Card.Text>
-              )}
-              {accounts?.[0] ? (
-                <Card.Text>WALLET VERIFIED</Card.Text>
-              ) : (
-                <Card.Text>NON-VERIFIED WALLET</Card.Text>
-              )}
-            </Col>
-          </Card.Body>
-        </Card>
+            <div>
+              <span>
+                <b>Name/Surname:</b> {user.full_name}
+              </span>
+              <div className="d-flex mb-2 mt-2">
+                <span className="mr-2">
+                  <b>Email:</b> {user.email}
+                </span>
+                {checkUserVerified(user) ? (
+                  <Badge bg="success">Verified</Badge>
+                ) : (
+                  <Badge bg="warning">Not verified</Badge>
+                )}
+              </div>
+              <div className="d-flex">
+                <span className="mr-2">
+                  <b>Wallet Address: </b> {accounts?.[0]}
+                </span>
+                {checkUserWalletAccount(accounts) ? (
+                  <Badge bg="success">Verified</Badge>
+                ) : (
+                  <Badge bg="warning">Not verified</Badge>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       </Container>
     </>
   );
@@ -94,15 +83,13 @@ const mapStateToProps = (state) => {
     accountVerifiedData: state.userReducer.accountVerifiedData,
     user: state.userReducer.user,
     accounts: state.walletReducer.accounts,
-    stakeNowActive: state.walletReducer.stakeNowActive,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
-    verifyEmailRequest: (payload) => {
-      dispatch(verifyEmailRequestAction(payload));
+    accountDetailsRequest: (payload) => {
+      dispatch(accountDetailsRequestAction(payload));
     },
   };
 };

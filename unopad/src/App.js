@@ -4,10 +4,20 @@ import routes from './routes';
 import PublicLayout from './layouts/PublicLayout/PublicLayout';
 import PageNotFound from './pages/PageNotFound';
 import createBrowserHistory from './helpers/History';
+import './App.scss';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { loginData } from './store/account/userActions';
 
 const keys = Object.keys(routes);
 
-function App() {
+function App({ ...props }) {
+  const { setLoginData } = props;
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'))?.user;
+    if (user) setLoginData(user);
+  }, []);
+
   return (
     <Router history={createBrowserHistory}>
       <Switch>
@@ -41,4 +51,12 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setLoginData: (payload) => {
+      dispatch(loginData(payload));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(App);

@@ -14,7 +14,6 @@ function* loginSaga({ creds }) {
     const { data } = yield call(endpoints.login, formData);
 
     yield put(actions.loginData(data));
-    yield put(actions.verifyEmailRequestAction())
     yield put(
       alert.setAlertAction({
         text: 'User Logged In! Redirecting to Home Page',
@@ -22,10 +21,13 @@ function* loginSaga({ creds }) {
       }),
     );
     const user = {
-      username: data['username'],
+      user: data['username'],
       token: data['access_token'],
     };
     localStorage.setItem('user', JSON.stringify(user));
+
+    yield put(actions.accountDetailsRequestAction());
+
     setTimeout(() => {
       window.location.href = '/home';
     }, 1000);
@@ -105,14 +107,14 @@ function* activationSaga({ creds }) {
 
     const { data } = yield call(endpoints.activation, body);
     yield put(actions.activationData(data));
-    console.log("saga",data)
+    console.log('saga', data);
     yield put(
       alert.setAlertAction({
         text: 'Your account has been activated successfully! Redirecting to Home Page',
         color: 'success',
       }),
     );
-    yield put(actions.accountVerifiedAction(true))
+    yield put(actions.accountVerifiedAction(true));
     setTimeout(() => {
       window.location.href = '/home';
     }, 3000);
@@ -129,7 +131,6 @@ function* activationSaga({ creds }) {
 
 function* logoutSaga() {
   localStorage.removeItem('user');
-  localStorage.removeItem('EMAIL_VERIFICATION_DATA')
   yield put(actions.logoutData());
   createBrowserHistory.push('/');
 }
@@ -151,7 +152,6 @@ function* signUpSaga({ creds }) {
       }),
     );
     window.location.href = '/login';
-
   } catch (e) {
     yield put(
       alert.setAlertAction({
@@ -163,42 +163,10 @@ function* signUpSaga({ creds }) {
   }
 }
 
-function* verifyEmailSaga({ creds }) {
+function* getAccountDetailsSaga({ creds }) {
   try {
-    // var formData3 = new FormData();
-
-    // formData3.append('activationCode', creds['activationCode']);
-    // formData3.append('activationToken', creds['activationToken']);
-    // const body = { token: creds['activationToken'], activation_code: creds['activationCode'] };
-
-    const { data } = yield call(endpoints.verifyEmail);
-    
-    console.log("verify",data)
-    console.log("kontrol etmem gereken data",data['is_active'])
-    
-    localStorage.setItem('EMAIL_VERIFICATION_DATA', JSON.stringify(data['is_active']));
-    if(data['is_active']){
-      console.log("active")
-      yield put(actions.verifyEmailData(data),);
-      yield put(actions.accountVerifiedAction(data['is_active']))
-      yield put(
-        alert.setAlertAction({
-          text: 'Your account has been activated successfully!',
-          color: 'success',
-        }),
-      );
-    }
-   else{
-    yield put(
-      alert.setAlertAction({
-        text: 'Redirecting to Activation Page',
-        color: 'success',
-      }),
-    );
-    setTimeout(() => {
-      window.location.href = '/activate_user';
-    }, 5000);
-   }
+    const { data } = yield call(endpoints.getAccountDetails);
+    yield put(actions.accountDetailsDataAction(data));
   } catch (e) {
     yield put(
       alert.setAlertAction({
@@ -206,7 +174,7 @@ function* verifyEmailSaga({ creds }) {
         color: 'danger',
       }),
     );
-    yield put(actions.verifyEmailError(e));
+    yield put(actions.accountDetailsErrorAction(e));
   }
 }
 
@@ -230,11 +198,9 @@ function* watchResetPassword() {
 function* watchActivation() {
   yield takeEvery(types.ACTIVATION_REQUEST, activationSaga);
 }
-function* watchVerifyEmail() {
-  yield takeEvery(types.VERIFY_EMAIL_REQUEST, verifyEmailSaga);
+function* watchAccountDetails() {
+  yield takeEvery(types.ACCOUNT_DETAILS_REQUEST, getAccountDetailsSaga);
 }
-
-
 
 export function* userSaga() {
   yield all([
@@ -244,6 +210,6 @@ export function* userSaga() {
     watchForgotPassword(),
     watchResetPassword(),
     watchActivation(),
-    watchVerifyEmail(),
+    watchAccountDetails(),
   ]);
 }

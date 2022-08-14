@@ -135,21 +135,21 @@ export const signUpError = (payload) => {
     payload,
   };
 };
- export const verifyEmailRequestAction = (creds) => {
+ export const accountDetailsRequestAction = (creds) => {
   return {
-    type: types.VERIFY_EMAIL_REQUEST,
+    type: types.ACCOUNT_DETAILS_REQUEST,
     creds,
   };
 };
-export const verifyEmailData = (payload) => {
+export const accountDetailsDataAction = (payload) => {
   return {
-    type: types.VERIFY_EMAIL_DATA,
+    type: types.ACCOUNT_DETAILS_DATA,
     payload,
   };
 };
-export const verifyEmailError = (payload) => {
+export const accountDetailsErrorAction = (payload) => {
   return {
-    type: types.VERIFY_EMAIL_ERROR,
+    type: types.ACCOUNT_DETAILS_ERROR,
     payload,
   };
 };

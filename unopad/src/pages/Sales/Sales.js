@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import UPProjectTable from '../../components/UPProjectTable/UPProjectTable';
+import UPQuickHandler from '../../components/UPQuickHandler/UPQuickHandler';
+import UPProjectTable from '../../components/UPTokenTable/UPTokenTable';
 import { getProjects } from '../../store/project/projectActions';
 import './Sales.scss';
 
@@ -20,13 +21,13 @@ function Sales({ ...props }) {
       >
         Banner
       </div>
-      <div
-        className="sales-quick-handler mt-2 border d-flex 
-        align-items-center justify-content-center text-muted h5"
-      >
-        Quick Handler
-      </div>
-      <div className="mt-2">
+      <UPQuickHandler
+        isSignUpAndKYC={true}
+        isVerifyWallet={true}
+        isStakingUnoToken={false}
+        href="#sales-table"
+      />
+      <div id="sales-table" className="mt-2">
         {projects && (
           <>
             <UPProjectTable {...props} />

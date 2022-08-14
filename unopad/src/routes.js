@@ -2,16 +2,15 @@ import MainLayout from "./layouts/MainLayout/MainLayout";
 import PublicLayout from "./layouts/PublicLayout/PublicLayout";
 
 import Home from './pages/Home';
-import Launchpad from './pages/Launchpad';
+import Launchpad from './pages/Launchpad/Launchpad';
 import UserRoute from './routes/UserRoute';
 import Login from './pages/Login.jsx';
 import SignUp from './pages/SignUp.jsx';
-import Detail from './pages/Detail';
+import ProjectDetail from './pages/ProjectDetail/ProjectDetail';
 import Contract from './pages/Contract';
 import FormTest from './pages/FormTest';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Payment from './pages/Payment';
-import NewContract from "./pages/NewContract";
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import ProjectForm from './pages/ProjectForm';
@@ -22,6 +21,7 @@ import TxList from "./components/TxList";
 import Connection from "./pages/Connection";
 import Profile from "./pages/Profile";
 import Sales from "./pages/Sales/Sales";
+import TokenDetail from "./pages/TokenDetail/TokenDetail";
 
 const routes = {
   PublicLayout: {
@@ -101,12 +101,6 @@ const routes = {
         routeComponent: Route
       },
       {
-        path: "/NewContract",
-        name: "New Contract",
-        component: NewContract,
-        routeComponent: UserRoute
-      },
-      {
         path: "/Connection",
         name: "Connection",
         component: Connection,
@@ -138,8 +132,14 @@ const routes = {
       },
       {
         path: "/project/:id",
-        name: "Detail",
-        component: Detail,
+        name: "Project Detail",
+        component: ProjectDetail,
+        routeComponent: Route
+      },
+      {
+        path: "/token/:id",
+        name: "Token Detail",
+        component: TokenDetail,
         routeComponent: Route
       },
       {
