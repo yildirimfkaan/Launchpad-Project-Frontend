@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { getProjectByID } from '../../store/project/projectActions';
+import { getTokenByID } from '../../store/token/tokenActions';
+// import { getProjectByID } from '../../store/project/projectActions';
+
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import { setWalletAccountData } from '../../store/wallet/walletActions';
@@ -11,9 +13,10 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import './TokenDetail.scss';
 
 function TokenDetail({ ...props }) {
-  const { project, provider, accounts, ethereum, setWalletAccount, user } = props;
-  const item = props.project;
-  console.log('projeler', project);
+  const { token, provider, accounts, ethereum, setWalletAccount, user } = props;
+  const item = props.token;
+  // console.log('projeler', project);
+  console.log('tokens', token);
 
   console.log('acc', accounts);
   console.log('condition', checkAllConditionForStake(user, accounts));
@@ -184,27 +187,50 @@ function TokenDetail({ ...props }) {
     const payload = {
       id: props.match.params.id,
     };
-    props.getProjectByID(payload);
+    props.getTokenByID(payload);
 
     return () => {};
   }, []);
 
   return (
     <>
-      {!project ? (
+      {!token ? (
         <h1>Page is Loading.....</h1>
       ) : (
         <>
           <Container>
-            <Card className="project-detail-card mx-auto">
-              <Card.Img
+            <Card className="token-detail-card mx-auto">
+              {/* <Card.Img
                 variant="top"
                 src={process.env.REACT_APP_API_URL + '/projects/' + item.id + '/image'}
-              />
+              /> */}
+              <Card.Header>
+                <div className="token-detail-name-div">
+                  <Card.Text>{item.token_name}</Card.Text>
+                  <Card.Title>{item.token_symbol}</Card.Title>
+                </div>
+
+                <div className="token-detail-price-div">
+                  <Card.Text>PRICE</Card.Text>
+                  <Card.Title>${item.token_price_in_usd}</Card.Title>
+                  <Card.Title>{item.token_price_in_uno} UNO</Card.Title>
+                </div>
+              </Card.Header>
               <Card.Body>
-                <Card.Title>{item.project_name}</Card.Title>
-                <Card.Text>{item.project_sale_type}</Card.Text>
-                <div>
+                <div className="token-detail-name-div">
+                  <Card.Text>TOTAL RAISED</Card.Text>
+                  <Card.Title>$10/${item.token_total_raise}</Card.Title>
+                </div>
+
+                <div className="token-detail-price-div">
+                  <Card.Text>TOKEN DISTRIBUTION</Card.Text>
+                  <Card.Title>{item.token_distribution}</Card.Title>
+                </div>
+
+                <span>{error ? error.message : null}</span>
+              </Card.Body>
+              <Card.Footer>
+                <div className="token-detail-footer-left-div">
                   {checkAllConditionForStake(user, accounts) ? (
                     <Button variant="primary" onClick={connectWallet}>
                       Stake Now !
@@ -214,12 +240,13 @@ function TokenDetail({ ...props }) {
                       Stake Now !
                     </Button>
                   )}
+                </div>
+                <div className="token-detail-footer-right-div">
                   <Button variant="primary" onClick={addUnoTokenFunction}>
                     Import UnoToken{' '}
                   </Button>
                 </div>
-                <span>{error ? error.message : null}</span>
-              </Card.Body>
+              </Card.Footer>
             </Card>
 
             {checkAllConditionForStake(user, accounts) && (
@@ -240,7 +267,7 @@ const mapStateToProps = (state) => {
     ethereum: state.walletReducer.ethereum,
     accounts: state.walletReducer.accounts,
     user: state.userReducer.user,
-    project: state.projectReducer.project,
+    token: state.tokenReducer.token,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -251,8 +278,8 @@ const mapDispatchToProps = (dispatch) => {
     setWalletAccount: (payload) => {
       dispatch(setWalletAccountData(payload));
     },
-    getProjectByID: (payload) => {
-      dispatch(getProjectByID(payload));
+    getTokenByID: (payload) => {
+      dispatch(getTokenByID(payload));
     },
   };
 };

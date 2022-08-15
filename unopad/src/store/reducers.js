@@ -6,6 +6,8 @@ import { userReducer } from './account/userReducer';
 import { projectReducer } from './project/projectReducer';
 import { walletReducer } from './wallet/walletReducer';
 import { loadingReducer } from './loading/loadingReducer';
+import { tokenReducer } from './token/tokenReducer';
+
 const rootReducer = combineReducers({
   PostReducer,
   alertReducer,
@@ -13,7 +15,7 @@ const rootReducer = combineReducers({
   projectReducer,
   walletReducer,
   loadingReducer,
-
+  tokenReducer,
 });
 
 export default rootReducer;

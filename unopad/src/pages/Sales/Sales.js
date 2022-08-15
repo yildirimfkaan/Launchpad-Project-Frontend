@@ -2,19 +2,18 @@ import { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import UPQuickHandler from '../../components/UPQuickHandler/UPQuickHandler';
-import UPProjectTable from '../../components/UPTokenTable/UPTokenTable';
-import { getProjects } from '../../store/project/projectActions';
+import UPTokenTable from '../../components/UPTokenTable/UPTokenTable';
+import { getTokens } from '../../store/token/tokenActions';
 import './Sales.scss';
 
 function Sales({ ...props }) {
-  const { projects, getProjectsRequest } = props;
-
+  const { tokens, getTokensRequest } = props;
   useEffect(() => {
-    getProjectsRequest();
+    getTokensRequest();
   }, []);
 
   return (
-    <Container className="sales-projects-container">
+    <Container className="sales-tokens-container">
       <div
         className="sales-banner mt-2 border d-flex 
       align-items-center justify-content-center text-muted h5"
@@ -28,9 +27,9 @@ function Sales({ ...props }) {
         href="#sales-table"
       />
       <div id="sales-table" className="mt-2">
-        {projects && (
+        {tokens && (
           <>
-            <UPProjectTable {...props} />
+            <UPTokenTable {...props} />
           </>
         )}
       </div>
@@ -39,13 +38,13 @@ function Sales({ ...props }) {
 }
 const mapStateToProps = (state) => {
   return {
-    projects: state.projectReducer.projects,
+    tokens: state.tokenReducer.tokens,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getProjectsRequest: (payload) => {
-      dispatch(getProjects(payload));
+    getTokensRequest: (payload) => {
+      dispatch(getTokens(payload));
     },
   };
 };
