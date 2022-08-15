@@ -22,3 +22,8 @@ export const getPostDetails = (id) =>
 export const getProjects = () => doGet('/projects')
 export const getProjectByID = (id) => doGet('/projects/' + id)
 export const addProject = (body) => doPost('/projects', body)
+
+//Tokens
+export const getTokens = () => doGet('/tokens')
+export const getTokenByID = (id) => doGet('/tokens/' + id)
+export const addToken = (body) => doPost('/tokens', body)

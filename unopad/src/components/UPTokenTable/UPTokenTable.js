@@ -1,47 +1,54 @@
 import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import './UPTokenTable.scss';
 
-function UPProjectTable(props) {
-  const { projects } = props;
+const TableSelectRow = (nums) => {
+  return window.location.assign('token/' + nums);
+};
+function UPTokenTable(props) {
+  const { tokens } = props;
 
   return (
     <Table bordered hover>
       <thead>
         <tr>
           <th>#</th>
-          <th>Project Name</th>
-          <th>Sale Type</th>
-          <th>Detail</th>
+          <th>Token Name</th>
+          <th>Token Symbol</th>
+          <th>Token Address</th>
         </tr>
       </thead>
       <tbody>
-        {Object.entries(projects).map((item, index) => {
+        {Object.entries(tokens).map((item, index) => {
           return (
-            <tr>
+            <tr
+              onClick={() => {
+                TableSelectRow(item[1].id);
+              }}
+            >
               <td>{index + 1}</td>
               <td>
                 <div className="d-flex align-items-center">
-                  <span className='mr-2'>
+                  {/* <span className="mr-2">
                     <img
                       alt="img-project-table"
                       height={30}
                       width={30}
                       src={process.env.REACT_APP_API_URL + '/projects/' + item[1].id + '/image'}
                     />
-                  </span>
-                  <span>{item[1].project_name}</span>
+                  </span> */}
+                  <span>{item[1].token_name}</span>
                 </div>
               </td>
-              <td>{item[1].project_sale_type}</td>
-              <td>
+              <td>{item[1].token_symbol}</td>
+              <td>{item[1].token_address}</td>
+              {/* <td>
                 <Link to={'/token/' + item[1].id}>Go detail</Link>
-              </td>
+              </td> */}
             </tr>
           );
-        })} 
-        
+        })}
       </tbody>
     </Table>
   );
@@ -49,8 +56,8 @@ function UPProjectTable(props) {
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.projectReducer.projects,
+    tokens: state.tokenReducer.tokens,
   };
 };
 
-export default connect(mapStateToProps)(UPProjectTable);
+export default connect(mapStateToProps)(UPTokenTable);

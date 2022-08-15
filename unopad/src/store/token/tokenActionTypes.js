@@ -1,0 +1,10 @@
+export const GET_TOKENS_REQUEST = 'GET_TOKENS_REQUEST';
+export const GET_TOKENS_DATA = 'GET_TOKENS_DATA';
+export const GET_TOKENS_ERROR = 'GET_TOKENS_ERROR';
+
+export const GET_TOKEN_REQUEST = 'GET_TOKEN_REQUEST';
+export const GET_TOKEN_DATA = 'GET_TOKEN_DATA';
+export const GET_TOKEN_ERROR = 'GET_TOKEN_ERROR';
+
+export const ADD_TOKEN = 'ADD_TOKEN';
+export const TOKEN_ADDED = 'TOKEN_ADDED';
