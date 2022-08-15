@@ -55,3 +55,23 @@ export const tokenAddedAction = (token) => {
     token,
   };
 };
+
+export const filterTokensAction = (payload) => {
+  return {
+    type: types.FILTER_TOKENS,
+    payload,
+  };
+};
+export const sortTokenSortData = (payload) => {
+  return {
+    type: types.SET_TOKEN_SORT_DATA,
+    payload,
+  };
+};
+export const sortingTokensAction = (payload) => {
+  return {
+    type: types.SORTING_TOKENS,
+    payload,
+  };
+};
+

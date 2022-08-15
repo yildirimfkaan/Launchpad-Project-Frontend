@@ -7,7 +7,7 @@ const TableSelectRow = (nums) => {
   return window.location.assign('token/' + nums);
 };
 function UPTokenTable(props) {
-  const { tokens } = props;
+  const tokens = props.filteredTokens?.length ? props.filteredTokens : props.tokens;
 
   return (
     <Table bordered hover>
@@ -20,17 +20,18 @@ function UPTokenTable(props) {
         </tr>
       </thead>
       <tbody>
-        {Object.entries(tokens).map((item, index) => {
-          return (
-            <tr
-              onClick={() => {
-                TableSelectRow(item[1].id);
-              }}
-            >
-              <td>{index + 1}</td>
-              <td>
-                <div className="d-flex align-items-center">
-                  {/* <span className="mr-2">
+        {tokens?.length ? (
+          Object.entries(tokens).map((item, index) => {
+            return (
+              <tr
+                onClick={() => {
+                  TableSelectRow(item[1].id);
+                }}
+              >
+                <td>{index + 1}</td>
+                <td>
+                  <div className="d-flex align-items-center">
+                    {/* <span className="mr-2">
                     <img
                       alt="img-project-table"
                       height={30}
@@ -38,17 +39,20 @@ function UPTokenTable(props) {
                       src={process.env.REACT_APP_API_URL + '/projects/' + item[1].id + '/image'}
                     />
                   </span> */}
-                  <span>{item[1].token_name}</span>
-                </div>
-              </td>
-              <td>{item[1].token_symbol}</td>
-              <td>{item[1].token_address}</td>
-              {/* <td>
+                    <span>{item[1].token_name}</span>
+                  </div>
+                </td>
+                <td>{item[1].token_symbol}</td>
+                <td>{item[1].token_address}</td>
+                {/* <td>
                 <Link to={'/token/' + item[1].id}>Go detail</Link>
               </td> */}
-            </tr>
-          );
-        })}
+              </tr>
+            );
+          })
+        ) : (
+          <span className="text-muted">No token found according to search results.</span>
+        )}
       </tbody>
     </Table>
   );

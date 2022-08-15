@@ -11,6 +11,7 @@ function* getTokenSaga(action) {
   try {
     const { data } = yield call(endpoints.getTokens);
     yield put(actions.getTokensData(data));
+    yield put(actions.sortingTokensAction());
   } catch (e) {
     yield put(
       alert.setAlertAction({

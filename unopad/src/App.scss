@@ -10,3 +10,7 @@ body {
 .modal-backdrop.show {
   z-index: 1055 !important;
 }
+
+.dropdown-toggle::after {
+  content: none;
+}
