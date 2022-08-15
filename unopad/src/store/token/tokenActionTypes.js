@@ -8,3 +8,8 @@ export const GET_TOKEN_ERROR = 'GET_TOKEN_ERROR';
 
 export const ADD_TOKEN = 'ADD_TOKEN';
 export const TOKEN_ADDED = 'TOKEN_ADDED';
+
+
+export const FILTER_TOKENS = 'FILTER_TOKENS';
+export const SET_TOKEN_SORT_DATA = 'SET_TOKEN_SORT_DATA';
+export const SORTING_TOKENS = "SORTING_TOKENS";
