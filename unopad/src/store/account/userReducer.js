@@ -6,6 +6,7 @@ const initialState = {
   resetPasswordData: null,
   walletAccount: null,
   accountVerifiedData: null,
+  resendVerificationEmailData: null,
   user: null,
   error: {
     type: null,
@@ -115,6 +116,19 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         accountVerifiedData: action?.payload,
+      };
+    case types.RESEND_VERIFICATION_EMAIL_DATA:
+      return {
+        ...state,
+        resendVerificationEmailData: action.payload ? Object.assign({}, action.payload) : null,
+      };
+    case types.RESEND_VERIFICATION_EMAIL_ERROR:
+      return {
+        ...state,
+        error: {
+          type: types.RESEND_VERIFICATION_EMAIL_ERROR,
+          data: action.payload,
+        },
       };
 
     default:

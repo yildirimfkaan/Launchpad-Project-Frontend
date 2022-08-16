@@ -1,5 +1,5 @@
 export const checkUserVerified = (user) => {
-  return user?.is_active;
+  return user?.is_active?.toString().toLowerCase() === 'true';
 };
 export const checkUserWalletAccount = (accounts) => {
   return accounts?.[0];

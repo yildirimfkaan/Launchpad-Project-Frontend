@@ -160,6 +160,25 @@ export const accountVerifiedAction = (payload) => {
   };
 };
 
+export const resendVerificationEmailRequestAction = (payload) => {
+  return {
+    type: types.RESEND_VERIFICATION_EMAIL_REQUEST,
+    payload,
+  };
+};
+export const resendVerificationEmailDataAction = (payload) => {
+  return {
+    type: types.RESEND_VERIFICATION_EMAIL_DATA,
+    payload,
+  };
+};
+export const resendVerificationEmailErrorAction = (payload) => {
+  return {
+    type: types.RESEND_VERIFICATION_EMAIL_ERROR,
+    payload,
+  };
+};
+
 
 
 
