@@ -1,22 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import unopad_token from '../helpers/unopad_token';
-import unopad_presale from '../helpers/unopad_presale';
+import dynamic_presale from '../helpers/dynamic_presale';
+import dynamic_token from '../helpers/dynamic_token';
 import Web3 from 'web3';
 import { ethers } from 'ethers';
 
-function buyUnoToken({...props }) {
-  const { balance_, signerAddress, token} = props;
+function SwapToken({...props }) {
+  const { balance_, signerAddress, project} = props;
 
   
-  console.log("kadir-token",token)
+  console.log("kadir-token",project)
   // buyUnoToken_data
   // const buyUnoToken = buyUnoToken_data[0];
   // const buyUnoTokenInfo = buyUnoToken_data[1];
   // const isLoadingtmp = buyUnoToken_data[2];
 
-  const buyToken = async (e) => {
+  const swapToken = async (e) => {
     e.preventDefault();
 
     const data = new FormData(e.target);
@@ -26,22 +26,25 @@ function buyUnoToken({...props }) {
     const signerAddress = await signer.getAddress();
     const web3 = new Web3(window.ethereum);
     await window.ethereum.enable();
-    const contractUnoToken = '0x012b020b2479f42835fafd7037339b5bdba4c3fb';
-    const contractUnoTokenPresale = '0x7e851d4f813c4508e80fb54cc51f7066d54ffefa';
 
-    const unopad_token_abi = new web3.eth.Contract(unopad_token, contractUnoToken);
-    console.log("unopad_token_abi",unopad_token_abi);
+    const contractDynamicToken = '0xa4f07529ce9119ab60d4da69fb8cc28ea6bc6f25';
+    const contractDynamicTokenPresale = '0x1000c894980884a38516884804e7418c654b9f85';
 
-    const unopad_presale_abi = new web3.eth.Contract(unopad_presale, contractUnoTokenPresale);
-    console.log("unopad_presale_abi",unopad_presale_abi);
+
+    const dynamic_token_abi = new web3.eth.Contract(dynamic_token, contractDynamicToken);
+    console.log("dynamic_token_abi",dynamic_token_abi);
+
+    const dynamic_presale_abi = new web3.eth.Contract(dynamic_presale, contractDynamicTokenPresale);
+    console.log("dynamic_presale_abi",dynamic_presale_abi);
+
 
     const etherMiktari = data.get('etherValue');
     console.log('ether miktar', etherMiktari);
     try {
-      await unopad_presale_abi.methods.buy().send( {
+        await dynamic_presale_abi.methods.swap().send( {
           
         from: signerAddress,
-        to: contractUnoTokenPresale,
+        to: contractDynamicTokenPresale,
         data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
         value: web3.utils.toWei(etherMiktari, "ether")
 
@@ -55,13 +58,13 @@ function buyUnoToken({...props }) {
 
   return (
     <>
-      <form className="m-4" onSubmit={buyToken}>
+      <form className="m-4" onSubmit={swapToken}>
         <div
           className="credit-card w-full lg:w-3/4 sm:w-auto 
         shadow-lg mx-auto rounded-xl bg-white"
         >
           <main className="mt-4 p-4">
-            <h1 className="text-xl font-semibold text-gray-700 text-center">Buy Uno Token</h1>
+            <h1 className="text-xl font-semibold text-gray-700 text-center">Swap Token</h1>
             <div className="">
               <div className="my-3">
                 <input
@@ -79,7 +82,7 @@ function buyUnoToken({...props }) {
               className="btn btn-primary submit-button focus:ring focus:outline-none w-full"
               // disabled={isLoadingtmp}
             >
-              Buy Token
+              Swap Token
             </button>
           </footer>
           <div className="px-4">
@@ -108,9 +111,9 @@ function buyUnoToken({...props }) {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{token.token_address}</td>
+                    {/* <td>{token.token_address}</td>
 
-                    <td>{token.token_total_supply}</td>
+                    <td>{token.token_total_supply}</td> */}
                   </tr>
                 </tbody>
               </table>
@@ -130,8 +133,8 @@ const mapStateToProps = (state) => {
     erc20_: state.walletReducer.erc20_,
     balance_: state.walletReducer.balance_,
     contractAddress: state.walletReducer.contractAddress,
-    token: state.tokenReducer.token,
+    project:state.projectReducer.project
   };
 };
 
-export default connect(mapStateToProps)(buyUnoToken);
+export default connect(mapStateToProps)(SwapToken);

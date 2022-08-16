@@ -3,12 +3,15 @@ import { getProjectByID } from '../../store/project/projectActions';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import { setWalletAccountData } from '../../store/wallet/walletActions';
-import { Button, Card, Container } from 'react-bootstrap';
+import { Button, Card, Col, Container, ProgressBar, Row } from 'react-bootstrap';
 import { checkAllConditionForStake } from '../../helpers/verificationHelper';
-import Contract from '../Contract';
+
 import wallet from '../../helpers/wallet';
 import detectEthereumProvider from '@metamask/detect-provider';
 import './ProjectDetail.scss';
+import UPRoadmap from '../../components/UPRoadmap';
+import UPIcons from '../../components/UPIcons/UPIcons'
+import SwapToken from '../../components/SwapToken';
 
 function ProjectDetail({ ...props }) {
   const { project, provider, accounts, ethereum, setWalletAccount, user } = props;
@@ -19,6 +22,7 @@ function ProjectDetail({ ...props }) {
   console.log('condition', checkAllConditionForStake(user, accounts));
 
   console.log('provider', provider);
+  const [stake, setStake] = useState(false);
 
   const [signature, setSignature] = useState('');
   const [error, setError] = useState('');
@@ -31,7 +35,9 @@ function ProjectDetail({ ...props }) {
   const tokenAddress = '0x21B0BD8D4FC7Bb4475f4FBb7BF692005A0365218';
   const tokenSymbol = 'UNPTest';
   const tokenDecimals = 0;
-
+  const stakeSetup = () =>{
+      setStake(true)
+  }
   const connectWallet = async () => {
     wallet.connectWallet();
 
@@ -195,39 +201,106 @@ function ProjectDetail({ ...props }) {
         <h1>Page is Loading.....</h1>
       ) : (
         <>
-          <Container>
-            <Card className="project-detail-card mx-auto">
-              <Card.Img
-                variant="top"
-                src={process.env.REACT_APP_API_URL + '/projects/' + item.id + '/image'}
-              />
-              <Card.Body>
-                <Card.Title>{item.project_name}</Card.Title>
-                <Card.Text>{item.project_sale_type}</Card.Text>
-                <div>
-                  {checkAllConditionForStake(user, accounts) ? (
-                    <Button variant="primary" onClick={connectWallet}>
-                      Stake Now !
-                    </Button>
-                  ) : (
-                    <Button variant="primary" disabled={true}>
-                      Stake Now !
-                    </Button>
-                  )}
-                  <Button variant="primary" onClick={addUnoTokenFunction}>
-                    Import UnoToken{' '}
-                  </Button>
-                </div>
-                <span>{error ? error.message : null}</span>
-              </Card.Body>
-            </Card>
+        <Container>
+            <Row>
+              <Col>
+                <Card>
+                  <Card.Body>
+                    <Card.Title></Card.Title>
+                    <Card.Text>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                      nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+                <Button variant="primary" onClick={addUnoTokenFunction}>
+                  Import UnoToken{' '}
+                </Button>
+              </Col>
+              <Col>
+                <Card className="project-detail-card mx-auto">
+                  <Card.Img
+                    variant="top"
+                    src={process.env.REACT_APP_API_URL + '/projects/' + item.id + '/image'}
+                  />
+                  <Card.Body>
+                    <Card.Title>{item.project_name}</Card.Title>
+                    <Card.Text>{item.project_sale_type}</Card.Text>
+                    <Card.Text>{item.project_explanation_text}</Card.Text>
+                   
+                    <Col className="App">
+                      <ProgressBar now={item.project_percent_raised} />
+                    </Col>
+                    <div>
+                      {checkAllConditionForStake(user, accounts) ? (
+                        <Button variant="primary" onClick={stakeSetup}>
+                          Stake Now !
+                        </Button>
+                      ) : (
+                        <Button variant="primary" disabled={true}>
+                          Stake Now !
+                        </Button>
+                      )}
+                    </div>
+                    <span>{error ? error.message : null}</span>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
 
             {checkAllConditionForStake(user, accounts) && (
               <div>
-                <Contract />
+                <Row>
+                  <Col>
+                    <div className="border rounded p-2">
+                      <div className="d-flex align-items-center border-bottom-0">
+                        <UPIcons
+                          name={user ? 'MdDone' : 'MdPriorityHigh'}
+                          color={user ? '#28a745' : '#ffc107'}
+                          size="24"
+                        />
+                        <span className="h6 mb-0 mx-auto">Account Enabled</span>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div className="border rounded p-2">
+                      <div className="d-flex align-items-center border-bottom-0">
+                        <UPIcons
+                          name={accounts ? 'MdDone' : 'MdPriorityHigh'}
+                          color={accounts ? '#28a745' : '#ffc107'}
+                          size="24"
+                        />
+                        <span className="h6 mb-0 mx-auto">Wallet Enabled</span>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div className="border rounded p-2">
+                      <div className="d-flex align-items-center border-bottom-0">
+                        <UPIcons
+                          name={user ? 'MdDone' : 'MdPriorityHigh'}
+                          color={user ? '#28a745' : '#ffc107'}
+                          size="24"
+                        />
+                        <span className="h6 mb-0 mx-auto">Mail Verified</span>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+                
+                {stake ? (
+                       <SwapToken />
+                      ) : (
+                        <div></div>
+                      )}
+                
               </div>
             )}
+            <UPRoadmap />
           </Container>
+
         </>
       )}
     </>

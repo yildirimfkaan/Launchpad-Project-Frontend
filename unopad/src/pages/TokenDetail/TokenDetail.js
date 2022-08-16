@@ -7,17 +7,18 @@ import { useEffect } from 'react';
 import { setWalletAccountData } from '../../store/wallet/walletActions';
 import { Button, Card, Container } from 'react-bootstrap';
 import { checkAllConditionForStake } from '../../helpers/verificationHelper';
-import Contract from '../Contract';
+// import Contract from '../Contract';
 import wallet from '../../helpers/wallet';
 import detectEthereumProvider from '@metamask/detect-provider';
 import './TokenDetail.scss';
+import BuyUnoToken from '../../components/BuyUnoToken';
 
 function TokenDetail({ ...props }) {
   const { token, provider, accounts, ethereum, setWalletAccount, user } = props;
   const item = props.token;
   // console.log('projeler', project);
   console.log('tokens', token);
-
+  const [stake, setStake] = useState(false);
   console.log('acc', accounts);
   console.log('condition', checkAllConditionForStake(user, accounts));
 
@@ -34,7 +35,9 @@ function TokenDetail({ ...props }) {
   const tokenAddress = '0x21B0BD8D4FC7Bb4475f4FBb7BF692005A0365218';
   const tokenSymbol = 'UNPTest';
   const tokenDecimals = 0;
-
+  const stakeSetup = () =>{
+    setStake(true)
+}
   const connectWallet = async () => {
     wallet.connectWallet();
 
@@ -232,7 +235,7 @@ function TokenDetail({ ...props }) {
               <Card.Footer>
                 <div className="token-detail-footer-left-div">
                   {checkAllConditionForStake(user, accounts) ? (
-                    <Button variant="primary" onClick={connectWallet}>
+                    <Button variant="primary" onClick={stakeSetup}>
                       Stake Now !
                     </Button>
                   ) : (
@@ -248,12 +251,11 @@ function TokenDetail({ ...props }) {
                 </div>
               </Card.Footer>
             </Card>
-
-            {checkAllConditionForStake(user, accounts) && (
-              <div>
-                <Contract />
-              </div>
-            )}
+            {stake ? (
+                       <BuyUnoToken />
+                      ) : (
+                        <div></div>
+                      )}
           </Container>
         </>
       )}

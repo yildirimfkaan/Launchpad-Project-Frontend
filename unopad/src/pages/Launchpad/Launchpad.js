@@ -138,7 +138,7 @@ class Launchpad extends React.Component {
           {!this.props.projects ? (
             <h1>Page is Loading.....</h1>
           ) : (
-            <div id="launchpad-projects">
+            <div id="launchpad-projects" class="d-flex">
               <UPProjectCard {...this.props} />{' '}
             </div>
           )}
