@@ -178,6 +178,28 @@ function* getAccountDetailsSaga({ creds }) {
   }
 }
 
+function* resendVerificationEmail({ payload }) {
+  try {
+    const { data } = yield call(endpoints.resendVerificationEmail);
+    yield put(actions.resendVerificationEmailDataAction(data));
+    yield put(
+      alert.setAlertAction({
+        text: "Verification Email Sent! Don't forget to check your spam/junk folder.",
+        color: 'success',
+      }),
+    );
+  } catch (e) {
+    console.dir(e);
+    yield put(
+      alert.setAlertAction({
+        text: e?.response?.data?.error,
+        color: 'danger',
+      }),
+    );
+    yield put(actions.resendVerificationEmailErrorAction(e));
+  }
+}
+
 function* watchLoginUser() {
   yield takeEvery(types.LOGIN_REQUEST, loginSaga);
 }
@@ -201,6 +223,9 @@ function* watchActivation() {
 function* watchAccountDetails() {
   yield takeEvery(types.ACCOUNT_DETAILS_REQUEST, getAccountDetailsSaga);
 }
+function* watchResendVerificationEmail() {
+  yield takeEvery(types.RESEND_VERIFICATION_EMAIL_REQUEST, resendVerificationEmail);
+}
 
 export function* userSaga() {
   yield all([
@@ -211,5 +236,6 @@ export function* userSaga() {
     watchResetPassword(),
     watchActivation(),
     watchAccountDetails(),
+    watchResendVerificationEmail(),
   ]);
 }

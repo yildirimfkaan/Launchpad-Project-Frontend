@@ -8,6 +8,7 @@ export const resetPassword = (body) => doPost('/reset-password', body);
 export const activation = (body) => doPost('/activate', body);
 export const logut = (body) => doPost('/login', body);
 export const getAccountDetails = (body) => doGet('/user/profile', body);
+export const resendVerificationEmail = () => doPost('/user/activation-email');
 
 //Post
 export const getPosts = () => doGet('/projects');
@@ -19,11 +20,11 @@ export const getPostDetails = (id) =>
   });
 
 //Projects
-export const getProjects = () => doGet('/projects')
-export const getProjectByID = (id) => doGet('/projects/' + id)
-export const addProject = (body) => doPost('/projects', body)
+export const getProjects = () => doGet('/projects');
+export const getProjectByID = (id) => doGet('/projects/' + id);
+export const addProject = (body) => doPost('/projects', body);
 
 //Tokens
-export const getTokens = () => doGet('/tokens')
-export const getTokenByID = (id) => doGet('/tokens/' + id)
-export const addToken = (body) => doPost('/tokens', body)
+export const getTokens = () => doGet('/tokens');
+export const getTokenByID = (id) => doGet('/tokens/' + id);
+export const addToken = (body) => doPost('/tokens', body);

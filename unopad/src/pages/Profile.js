@@ -2,19 +2,22 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Badge, Button, Container } from 'react-bootstrap';
 
-import { accountDetailsRequestAction } from '../store/account/userActions';
+import {
+  accountDetailsRequestAction,
+  resendVerificationEmailRequestAction,
+} from '../store/account/userActions';
 import wallet from '../helpers/wallet';
 import { checkUserVerified, checkUserWalletAccount } from '../helpers/verificationHelper';
 
 function Profile({ ...props }) {
-  const { user, accountDetailsRequest, accounts } = props;
+  const { user, accountDetailsRequest, accounts, resendVerificationEmailRequest } = props;
 
   useEffect(() => {
     accountDetailsRequest();
   }, []);
 
   function verifyEmail() {
-    console.log('Email verify resend email is not ready yet.');
+    resendVerificationEmailRequest();
   }
 
   return (
@@ -90,6 +93,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     accountDetailsRequest: (payload) => {
       dispatch(accountDetailsRequestAction(payload));
+    },
+    resendVerificationEmailRequest: (payload) => {
+      dispatch(resendVerificationEmailRequestAction(payload));
     },
   };
 };
