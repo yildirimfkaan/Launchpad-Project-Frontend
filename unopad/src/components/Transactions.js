@@ -1,8 +1,8 @@
 import React from 'react';
 import TxList from './TxList';
 export default function Transactions(Transfer_data) {
-  // const handleTransfer = Transfer_data[0]
-  const txs = Transfer_data[1];
+  
+  const txs = Transfer_data[0];
   return (
     <>
       <div

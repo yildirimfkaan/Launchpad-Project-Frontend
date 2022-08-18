@@ -20,7 +20,7 @@ import './UPNavbar.scss';
 
 function Navigation({ ...props }) {
   const { user, accounts, walletAccountDetailModalRequest, logoutRequest } = props;
-  wallet.getMyBalance('0x21B0BD8D4FC7Bb4475f4FBb7BF692005A0365218');
+  wallet.getMyBalance('0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb');
   // const [modalShow, setModalShow] = useState(false);
   const handleLogout = () => {
     logoutRequest();
@@ -69,15 +69,15 @@ function Navigation({ ...props }) {
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                className={'text-white' + (pathIsActive('staking') ? ' active' : '')}
-                to="#"
+                className={'text-muted' + (pathIsActive('staking') ? ' active' : '')}
+                to="#" disabled={true}
               >
                 Staking
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                className={'text-white' + (pathIsActive('airdrop') ? ' active' : '')}
-                to="#"
+                className={'text-muted' +  (pathIsActive('airdrop') ? ' active' : '')}
+                to="#" disabled={true}
               >
                 Airdrop
               </Nav.Link>

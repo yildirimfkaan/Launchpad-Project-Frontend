@@ -12,18 +12,14 @@ import wallet from '../../helpers/wallet';
 import detectEthereumProvider from '@metamask/detect-provider';
 import './TokenDetail.scss';
 import BuyUnoToken from '../../components/BuyUnoToken';
+// import Transactions from '../../components/Transactions';
 
 function TokenDetail({ ...props }) {
   const { token, provider, accounts, ethereum, setWalletAccount, user } = props;
   const item = props.token;
-  // console.log('projeler', project);
-  console.log('tokens', token);
+  console.log("token inside",token)
+  const [txs, setTxs] = useState([]);
   const [stake, setStake] = useState(false);
-  console.log('acc', accounts);
-  console.log('condition', checkAllConditionForStake(user, accounts));
-
-  console.log('provider', provider);
-
   const [signature, setSignature] = useState('');
   const [error, setError] = useState('');
   const [chainId, setChainId] = useState();
@@ -32,12 +28,13 @@ function TokenDetail({ ...props }) {
   const [signedMessage, setSignedMessage] = useState('');
   const [verified, setVerified] = useState();
 
-  const tokenAddress = '0x21B0BD8D4FC7Bb4475f4FBb7BF692005A0365218';
-  const tokenSymbol = 'UNPTest';
-  const tokenDecimals = 0;
+  const tokenAddress = '0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb';
+  const tokenSymbol = 'UNOT';
+  const tokenDecimals = 4;
   const stakeSetup = () =>{
     setStake(true)
 }
+  const Transfer_data = [txs];
   const connectWallet = async () => {
     wallet.connectWallet();
 
@@ -55,9 +52,7 @@ function TokenDetail({ ...props }) {
   //   const id = e.target.value;
   //   setNetwork(Number(id));
   // };
-  console.log('acc', accounts?.[0]);
-  console.log('ethereum', ethereum);
-  console.log('provider', provider);
+  // console.log('acc', accounts?.[0]);
   const addUnoTokenFunction = async () => {
     try {
       const provider = await detectEthereumProvider();
@@ -156,11 +151,11 @@ function TokenDetail({ ...props }) {
   // }, []);
 
   useEffect(() => {
-    console.log('before if');
+    
     if (provider?.on) {
       const handleAccountsChanged = (newAccounts) => {
-        console.log('1', accounts?.[0]);
-        console.log('2', newAccounts?.[0]);
+        // console.log('1', accounts?.[0]);
+        // console.log('2', newAccounts?.[0]);
         if (accounts?.[0] !== newAccounts?.[0]) setWalletAccount(newAccounts);
       };
       const handleChainChanged = (_hexChainId) => {
@@ -184,7 +179,7 @@ function TokenDetail({ ...props }) {
       };
     }
   }, [provider]);
-  console.log('new contract wallet acc:', accounts?.[0]);
+  
 
   useEffect(() => {
     const payload = {
@@ -222,7 +217,7 @@ function TokenDetail({ ...props }) {
               <Card.Body>
                 <div className="token-detail-name-div">
                   <Card.Text>TOTAL RAISED</Card.Text>
-                  <Card.Title>$10/${item.token_total_raise}</Card.Title>
+                  <Card.Title>$0/${item.token_total_raise}</Card.Title>
                 </div>
 
                 <div className="token-detail-price-div">
@@ -236,26 +231,29 @@ function TokenDetail({ ...props }) {
                 <div className="token-detail-footer-left-div">
                   {checkAllConditionForStake(user, accounts) ? (
                     <Button variant="primary" onClick={stakeSetup}>
-                      Stake Now !
+                      Buy Now !
                     </Button>
                   ) : (
                     <Button variant="primary" disabled={true}>
-                      Stake Now !
+                      Buy Now !
                     </Button>
                   )}
                 </div>
                 <div className="token-detail-footer-right-div">
                   <Button variant="primary" onClick={addUnoTokenFunction}>
-                    Import UnoToken{' '}
+                    Add UnoToken{' '}
                   </Button>
                 </div>
               </Card.Footer>
             </Card>
-            {stake ? (
+            {stake ? ( <>
                        <BuyUnoToken />
+                       {/* <Transactions {...Transfer_data} /> */}
+                       </>
                       ) : (
                         <div></div>
                       )}
+              
           </Container>
         </>
       )}

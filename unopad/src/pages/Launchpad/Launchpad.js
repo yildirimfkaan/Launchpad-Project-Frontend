@@ -30,7 +30,7 @@ class Launchpad extends React.Component {
     return (
       <>
         <Container>
-          <section id="home" class="hero-section">
+          {/* <section id="home" class="hero-section">
             <div class="shapes">
               <div class="shape shape-1"></div>
               <div class="shape shape-2"></div>
@@ -127,7 +127,13 @@ class Launchpad extends React.Component {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
+           <div
+        className="sales-banner mt-2 border d-flex 
+      align-items-center justify-content-center text-muted h5"
+      >
+        Banner
+      </div>
           <br></br>
           <UPQuickHandler
             isSignUpAndKYC={true}

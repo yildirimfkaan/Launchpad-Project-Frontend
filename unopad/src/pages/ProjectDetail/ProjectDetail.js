@@ -32,9 +32,9 @@ function ProjectDetail({ ...props }) {
   const [signedMessage, setSignedMessage] = useState('');
   const [verified, setVerified] = useState();
 
-  const tokenAddress = '0x21B0BD8D4FC7Bb4475f4FBb7BF692005A0365218';
-  const tokenSymbol = 'UNPTest';
-  const tokenDecimals = 0;
+  const tokenAddress = '0xa4f07529ce9119ab60d4da69fb8cc28ea6bc6f25';
+  const tokenSymbol = 'DUNOT';
+  const tokenDecimals = 4;
   const stakeSetup = () =>{
       setStake(true)
   }
@@ -215,7 +215,7 @@ function ProjectDetail({ ...props }) {
                   </Card.Body>
                 </Card>
                 <Button variant="primary" onClick={addUnoTokenFunction}>
-                  Import UnoToken{' '}
+                  Add DUNOT{' '}
                 </Button>
               </Col>
               <Col>
@@ -235,11 +235,11 @@ function ProjectDetail({ ...props }) {
                     <div>
                       {checkAllConditionForStake(user, accounts) ? (
                         <Button variant="primary" onClick={stakeSetup}>
-                          Stake Now !
+                          Buy Now !
                         </Button>
                       ) : (
                         <Button variant="primary" disabled={true}>
-                          Stake Now !
+                          Buy Now !
                         </Button>
                       )}
                     </div>

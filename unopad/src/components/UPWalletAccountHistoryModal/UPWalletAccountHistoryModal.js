@@ -16,7 +16,6 @@ function walletAccountHistoryModal({ ...props }) {
     walletAccountHistoryModalRequest(false);
   };
 
-  console.log('history', walletAccountHistory);
 
   return (
     <>

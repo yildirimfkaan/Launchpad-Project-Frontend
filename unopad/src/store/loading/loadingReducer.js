@@ -18,11 +18,11 @@ const initialState = {
 export const loadingReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_LOADING:
-      console.log("-1")
-      console.log("4",action.payload)
+      
+      console.log("loading reducer action payload : ",action.payload)
       const loading = state.isLoading ? state.isLoading: {};
       loading[action.payload.key] = action.payload.isLoading;
-      console.log("3",loading)
+      console.log("type'a göre loading true false datası",loading)
       return {
         ...state,
         isLoading: loading ? Object.assign({}, loading) : null,

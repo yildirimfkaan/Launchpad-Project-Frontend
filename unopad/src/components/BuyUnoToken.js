@@ -5,52 +5,52 @@ import unopad_token from '../helpers/unopad_token';
 import unopad_presale from '../helpers/unopad_presale';
 import Web3 from 'web3';
 import { ethers } from 'ethers';
+import { setLoadingAction } from '../store/loading/loadingActions';
+import * as loadingActionTypes from '../store/loading/loadingActionTypes';
+import wallet from '../helpers/wallet';
+function buyUnoToken({ ...props }) {
+  const { balance_, signerAddress, token, setLoading, isLoading } = props;
 
-function buyUnoToken({...props }) {
-  const { balance_, signerAddress, token} = props;
-
+  const contractUnoToken = '0x012b020b2479f42835fafd7037339b5bdba4c3fb';
+  const contractUnoTokenPresale = '0x7e851d4f813c4508e80fb54cc51f7066d54ffefa';
+  console.log('isloading', isLoading);
+  console.log(
+    'buyunotoken page loading value',
+    isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING],
+  );
   
-  console.log("kadir-token",token)
-  // buyUnoToken_data
-  // const buyUnoToken = buyUnoToken_data[0];
-  // const buyUnoTokenInfo = buyUnoToken_data[1];
-  // const isLoadingtmp = buyUnoToken_data[2];
-
+    
+  
   const buyToken = async (e) => {
     e.preventDefault();
-
+    setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: true });
     const data = new FormData(e.target);
-    
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = await provider.getSigner();
     const signerAddress = await signer.getAddress();
     const web3 = new Web3(window.ethereum);
     await window.ethereum.enable();
-    const contractUnoToken = '0x012b020b2479f42835fafd7037339b5bdba4c3fb';
-    const contractUnoTokenPresale = '0x7e851d4f813c4508e80fb54cc51f7066d54ffefa';
-
     const unopad_token_abi = new web3.eth.Contract(unopad_token, contractUnoToken);
-    console.log("unopad_token_abi",unopad_token_abi);
+    console.log('unopad_token_abi', unopad_token_abi);
 
     const unopad_presale_abi = new web3.eth.Contract(unopad_presale, contractUnoTokenPresale);
-    console.log("unopad_presale_abi",unopad_presale_abi);
+    console.log('unopad_presale_abi', unopad_presale_abi);
 
     const etherMiktari = data.get('etherValue');
     console.log('ether miktar', etherMiktari);
     try {
-      await unopad_presale_abi.methods.buy().send( {
-          
+      await unopad_presale_abi.methods.buy().send({
         from: signerAddress,
         to: contractUnoTokenPresale,
         data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
-        value: web3.utils.toWei(etherMiktari, "ether")
-
+        value: web3.utils.toWei(etherMiktari, 'ether'),
       });
+      wallet.getMyBalance(contractUnoToken)
+      setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
     } catch (err) {
       console.log('error message');
       console.log(err);
     }
-
   };
 
   return (
@@ -77,7 +77,7 @@ function buyUnoToken({...props }) {
             <button
               type="submit"
               className="btn btn-primary submit-button focus:ring focus:outline-none w-full"
-              // disabled={isLoadingtmp}
+              disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
             >
               Buy Token
             </button>
@@ -103,14 +103,15 @@ function buyUnoToken({...props }) {
                   <tr>
                     <th>To</th>
 
-                    <th>Total Supply</th>
+                   
+                    <th>UNOT Balance</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{token.token_address}</td>
+                    <td>{contractUnoTokenPresale}</td>
 
-                    <td>{token.token_total_supply}</td>
+                    <td>{balance_}</td>
                   </tr>
                 </tbody>
               </table>
@@ -131,7 +132,14 @@ const mapStateToProps = (state) => {
     balance_: state.walletReducer.balance_,
     contractAddress: state.walletReducer.contractAddress,
     token: state.tokenReducer.token,
+    isLoading: state.loadingReducer.isLoading,
   };
 };
-
-export default connect(mapStateToProps)(buyUnoToken);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setLoading: (payload) => {
+      dispatch(setLoadingAction(payload));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(buyUnoToken);

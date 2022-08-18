@@ -22,7 +22,8 @@ function WalletAccountDetailModal({ ...props }) {
   const handleClose = () => {
     walletAccountDetailModalRequest(false);
   };
-
+  console.log("balance detail modal",balance_)
+  
   function getWalletAccountHistory() {
     walletAccountHistoryRequest();
   }
@@ -35,7 +36,7 @@ function WalletAccountDetailModal({ ...props }) {
         </Modal.Header>
         <Modal.Body>
           <b>Balance: </b>
-          {balance_} UNPTest
+          {balance_} 
         </Modal.Body>
         <Modal.Body>
           <b>Newtork: </b>
