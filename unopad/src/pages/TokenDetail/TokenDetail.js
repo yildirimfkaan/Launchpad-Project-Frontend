@@ -12,7 +12,6 @@ import wallet from '../../helpers/wallet';
 import detectEthereumProvider from '@metamask/detect-provider';
 import './TokenDetail.scss';
 import BuyUnoToken from '../../components/BuyUnoToken';
-// import Transactions from '../../components/Transactions';
 
 function TokenDetail({ ...props }) {
   const { token, provider, accounts, ethereum, setWalletAccount, user } = props;
@@ -246,14 +245,7 @@ function TokenDetail({ ...props }) {
                 </div>
               </Card.Footer>
             </Card>
-            {stake ? ( <>
-                       <BuyUnoToken />
-                       {/* <Transactions {...Transfer_data} /> */}
-                       </>
-                      ) : (
-                        <div></div>
-                      )}
-              
+            {checkAllConditionForStake(user, accounts) && stake ? <BuyUnoToken /> : <div></div>}
           </Container>
         </>
       )}

@@ -29,6 +29,7 @@ function buyUnoToken({ ...props }) {
     const signer = await provider.getSigner();
     const signerAddress = await signer.getAddress();
     const web3 = new Web3(window.ethereum);
+    await wallet.controlAndSwitchOrAddNetwork();
     await window.ethereum.enable();
     const unopad_token_abi = new web3.eth.Contract(unopad_token, contractUnoToken);
     console.log('unopad_token_abi', unopad_token_abi);

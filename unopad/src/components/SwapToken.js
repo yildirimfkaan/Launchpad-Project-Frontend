@@ -25,6 +25,7 @@ function SwapToken({...props }) {
     const signer = await provider.getSigner();
     const signerAddress = await signer.getAddress();
     const web3 = new Web3(window.ethereum);
+    await wallet.controlAndSwitchOrAddNetwork();
     await window.ethereum.enable();
 
    
