@@ -3,7 +3,7 @@ import store from '../store';
 import * as types from '../store/wallet/walletActionTypes';
 import Web3 from 'web3';
 import erc20abi from '../helpers/abi';
-import * as loadingActionTypes from '../store/loading/loadingActionTypes';
+// import * as loadingActionTypes from '../store/loading/loadingActionTypes';
 // import { setLoading } from '../store/loading/loadingActions';
 
 async function connectWallet() {
@@ -24,8 +24,6 @@ async function connectWallet() {
       accounts:accounts,
     };
     store.dispatch({ type: types.CONNECT_WALLET_DATA, payload });
-    console.log("walletjs accsss", accounts)
-    console.log(payload,"payload")
     localStorage.setItem('WALLET_VERIFICATION_DATA',JSON.stringify({accounts}))
   } catch (error) {
     console.log(error)
@@ -44,12 +42,12 @@ async function disconnectWallet() {
 
 async function getMyBalance(contractAddress) {
   try {
-    console.log("0")
-    store.dispatch({
-      type: loadingActionTypes.SET_LOADING,
-      payload: { key: loadingActionTypes.GET_MY_BALANCE_LOADING, isLoading: true },
-    });
-    console.log("1")
+   
+    // store.dispatch({
+    //   type: loadingActionTypes.SET_LOADING,
+    //   payload: { key: loadingActionTypes.GET_MY_BALANCE_LOADING, isLoading: true },
+    // });
+    
     const provider2 = new ethers.providers.Web3Provider(window.ethereum);
     await provider2.send('eth_requestAccounts', []);
 
@@ -71,12 +69,12 @@ async function getMyBalance(contractAddress) {
       balance_,
       contractAddress,
     };
-    console.log("2")
+    
     store.dispatch({ type: types.GET_MY_BALANCE_DATA, payload });
-    store.dispatch({
-      type: loadingActionTypes.SET_LOADING,
-      payload: { key: loadingActionTypes.GET_MY_BALANCE_LOADING, isLoading: false },
-    });
+    // store.dispatch({
+    //   type: loadingActionTypes.SET_LOADING,
+    //   payload: { key: loadingActionTypes.GET_MY_BALANCE_LOADING, isLoading: false },
+    // });
     console.log('getmybalance', payload);
   } catch (error) {
     store.dispatch({ type: types.GET_MY_BALANCE_ERROR, payload: error });
