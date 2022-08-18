@@ -290,7 +290,7 @@ function ProjectDetail({ ...props }) {
                   </Col>
                 </Row>
                 
-                {stake ? (
+                {checkAllConditionForStake(user, accounts) && stake ? (
                        <SwapToken />
                       ) : (
                         <div></div>

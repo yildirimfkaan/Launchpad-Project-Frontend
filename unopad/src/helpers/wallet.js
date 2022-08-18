@@ -8,25 +8,24 @@ import erc20abi from '../helpers/abi';
 
 async function connectWallet() {
   try {
-    
-    const {ethereum} = window;
-    
+    const { ethereum } = window;
+
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-   
+
     const accounts = await ethereum.request({
       method: 'eth_requestAccounts',
     });
-   
+
     // const library = new ethers.providers.Web3Provider(provider);
     const payload = {
       provider: provider,
-      ethereum:ethereum,
-      accounts:accounts,
+      ethereum: ethereum,
+      accounts: accounts,
     };
     store.dispatch({ type: types.CONNECT_WALLET_DATA, payload });
     localStorage.setItem('WALLET_VERIFICATION_DATA',JSON.stringify({accounts}))
   } catch (error) {
-    console.log(error)
+    console.log(error);
     store.dispatch({ type: types.CONNECT_WALLET_ERROR, payload: error });
   }
 }
@@ -35,9 +34,41 @@ async function disconnectWallet() {
   setTimeout(() => {
     store.dispatch({ type: types.CONNECT_WALLET_DATA, payload: null });
   }, 500);
-  
-  
+
   console.log('disconnected');
+}
+
+async function controlAndSwitchOrAddNetwork() {
+  const web3 = new Web3(window.ethereum);
+  const chainId = 97;
+  if (window.ethereum.networkVersion !== chainId) {
+    try {
+      await window.ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [
+          {
+            chainName: 'Smart Chain - Testnet',
+            chainId: web3.utils.toHex(chainId),
+            rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
+          },
+        ],
+      });
+    } catch (err) {
+      // This error code indicates that the chain has not been added to MetaMask
+      if (err.code === 4902) {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [
+            {
+              chainName: 'Smart Chain - Testnet',
+              chainId: web3.utils.toHex(chainId),
+              rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
+            },
+          ],
+        });
+      }
+    }
+  }
 }
 
 async function getMyBalance(contractAddress) {
@@ -81,4 +112,4 @@ async function getMyBalance(contractAddress) {
   }
 }
 
-export default { connectWallet, disconnectWallet, getMyBalance };
+export default { connectWallet, disconnectWallet, getMyBalance, controlAndSwitchOrAddNetwork };
