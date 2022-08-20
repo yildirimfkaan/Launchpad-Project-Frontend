@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Footer from '../../components/Footer';
 import UPNavbar from '../../components/UPNavbar/UPNavbar';
-import Alert from '../../components/Alert';
+import UPAlerts from '../../components/UPAlerts/UPAlerts';
 import { useEffect } from 'react';
 import { connectWalletDataAction } from '../../store/wallet/walletActions';
 import wallet from '../../helpers/wallet';
@@ -21,7 +21,7 @@ function MainLayout({ ...props }) {
   return (
     <>
       <UPNavbar />
-      <Alert />
+      <UPAlerts />
       {children}
       <Footer />
     </>

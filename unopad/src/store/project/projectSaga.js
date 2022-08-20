@@ -14,8 +14,10 @@ function* getProjectsSaga(action) {
   } catch (e) {
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: 'Project Not Added.',
-        color: 'danger',
+        variant: 'danger',
+        outTimeMS: 6000,
       }),
     );
     yield put(actions.getProjectsError(e));
@@ -30,8 +32,10 @@ function* getProjectByIDSaga(action) {
   } catch (e) {
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: 'Project Not Added.',
-        color: 'danger',
+        variant: 'danger',
+        outTimeMS: 6000,
       }),
     );
     yield put(actions.getProjectByIDError(e));
@@ -45,15 +49,18 @@ function* addProject(action) {
     yield put(actions.projectAddedAction(data));
     yield put(
       alert.setAlertAction({
+        title: 'Success!',
         text: 'Project Added!',
-        color: 'success',
+        variant: 'success',
       }),
     );
   } catch (e) {
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: 'Project Not Added.',
-        color: 'danger',
+        variant: 'danger',
+        outTimeMS: 6000,
       }),
     );
   }
