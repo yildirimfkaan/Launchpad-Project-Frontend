@@ -1,3 +1,6 @@
+@import '~@sweetalert2/theme-bootstrap-4/bootstrap-4.scss';
+@import 'animate.css';
+
 body {
   overflow-x: hidden;
 }
@@ -13,4 +16,11 @@ body {
 
 .dropdown-toggle::after {
   content: none;
+}
+
+.swal2-show {
+  animation: fadeIn 0.5s;
+}
+.swal2-hide {
+  animation: fadeOut 0.5s;
 }

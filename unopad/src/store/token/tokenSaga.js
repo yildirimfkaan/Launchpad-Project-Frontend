@@ -15,8 +15,10 @@ function* getTokenSaga(action) {
   } catch (e) {
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: 'Token Not Added.',
         color: 'danger',
+        outTimeMS: 6000,
       }),
     );
     yield put(actions.getTokensError(e));
@@ -31,8 +33,10 @@ function* getTokenByIDSaga(action) {
   } catch (e) {
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: 'Token Not Added.',
-        color: 'danger',
+        variant: 'danger',
+        outTimeMS: 6000,
       }),
     );
     yield put(actions.getTokenByIDError(e));
@@ -46,15 +50,18 @@ function* addToken(action) {
     yield put(actions.tokenAddedAction(data));
     yield put(
       alert.setAlertAction({
+        title: 'Success!',
         text: 'Token Added!',
-        color: 'success',
+        variant: 'success',
       }),
     );
   } catch (e) {
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: 'Token Not Added.',
-        color: 'danger',
+        variant: 'danger',
+        outTimeMS: 6000,
       }),
     );
   }

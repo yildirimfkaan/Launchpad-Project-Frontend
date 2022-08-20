@@ -19,8 +19,12 @@ export const alertReducer = (state = initialState, action) => {
       return {
         ...state,
         alert: {
+          title: '',
           text: '',
-          color: '',
+          time: '',
+          variant: '',
+          outTimeMS: 0,
+
         },
       };
 

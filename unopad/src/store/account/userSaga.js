@@ -4,6 +4,7 @@ import * as types from './userActionTypes';
 import * as actions from './userActions';
 import * as alert from '../alert/alertActions';
 import * as endpoints from '../../services/endpoints';
+import Swal from 'sweetalert2';
 
 function* loginSaga({ creds }) {
   try {
@@ -16,8 +17,9 @@ function* loginSaga({ creds }) {
     yield put(actions.loginData(data));
     yield put(
       alert.setAlertAction({
+        title: 'Success!',
         text: 'User Logged In! Redirecting to Home Page',
-        color: 'success',
+        variant: 'success',
       }),
     );
     const user = {
@@ -34,8 +36,10 @@ function* loginSaga({ creds }) {
   } catch (e) {
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: e?.response?.data?.detail,
-        color: 'danger',
+        variant: 'danger',
+        outTimeMS: 6000,
       }),
     );
     yield put(actions.loginError(e));
@@ -52,15 +56,18 @@ function* forgotPasswordSaga({ creds }) {
 
     yield put(
       alert.setAlertAction({
+        title: 'Success!',
         text: 'Valid Mail Adress! Check your mail for password reset adress...',
-        color: 'success',
+        variant: 'success',
       }),
     );
   } catch (e) {
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: e.msg,
-        color: 'danger',
+        variant: 'danger',
+        outTimeMS: 6000,
       }),
     );
     yield put(actions.forgotPasswordError(e));
@@ -80,8 +87,9 @@ function* resetPasswordSaga({ creds }) {
 
     yield put(
       alert.setAlertAction({
+        title: 'Success!',
         text: 'Your password has been reset successfully! Redirecting to Login Page',
-        color: 'success',
+        variant: 'success',
       }),
     );
     setTimeout(() => {
@@ -90,8 +98,10 @@ function* resetPasswordSaga({ creds }) {
   } catch (e) {
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: e.msg,
-        color: 'danger',
+        variant: 'danger',
+        outTimeMS: 6000,
       }),
     );
     yield put(actions.resetPasswordError(e));
@@ -110,8 +120,9 @@ function* activationSaga({ creds }) {
     console.log('saga', data);
     yield put(
       alert.setAlertAction({
+        title: 'Success!',
         text: 'Your account has been activated successfully! Redirecting to Home Page',
-        color: 'success',
+        variant: 'success',
       }),
     );
     yield put(actions.accountVerifiedAction(true));
@@ -121,8 +132,10 @@ function* activationSaga({ creds }) {
   } catch (e) {
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: e.msg,
-        color: 'danger',
+        variant: 'danger',
+        outTimeMS: 6000,
       }),
     );
     yield put(actions.activationError(e));
@@ -147,16 +160,19 @@ function* signUpSaga({ creds }) {
 
     yield put(
       alert.setAlertAction({
+        title: 'Success!',
         text: 'User Signed In!',
-        color: 'success',
+        variant: 'success',
       }),
     );
     window.location.href = '/login';
   } catch (e) {
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: e.msg,
-        color: 'danger',
+        variant: 'danger',
+        outTimeMS: 6000,
       }),
     );
     yield put(actions.signUpError(e));
@@ -170,8 +186,10 @@ function* getAccountDetailsSaga({ creds }) {
   } catch (e) {
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: e.msg,
-        color: 'danger',
+        variant: 'danger',
+        outTimeMS: 6000,
       }),
     );
     yield put(actions.accountDetailsErrorAction(e));
@@ -182,18 +200,19 @@ function* resendVerificationEmail({ payload }) {
   try {
     const { data } = yield call(endpoints.resendVerificationEmail);
     yield put(actions.resendVerificationEmailDataAction(data));
-    yield put(
-      alert.setAlertAction({
-        text: "Verification Email Sent! Don't forget to check your spam/junk folder.",
-        color: 'success',
-      }),
-    );
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: "Verification Email Sent! Don't forget to check your spam/junk folder.",
+    });
   } catch (e) {
-    console.dir(e);
     yield put(
       alert.setAlertAction({
+        title: 'Error!',
         text: e?.response?.data?.error,
-        color: 'danger',
+        variant: 'danger',
+        outTimeMS: 6000,
       }),
     );
     yield put(actions.resendVerificationEmailErrorAction(e));
