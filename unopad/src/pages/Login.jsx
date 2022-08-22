@@ -27,9 +27,12 @@ class Login extends Component {
     e.preventDefault();
     const { data } = this.state;
     const errors = this.validate();
-
+    const payload = {
+      data,
+      history: this.props.history,
+    }
     if (Object.keys(errors).length === 0) {
-      this.props.login(data);
+      this.props.login(payload);
 
       this.setState({
         data: {
@@ -89,7 +92,7 @@ class Login extends Component {
 
             <Button
               type="button"
-              onClick={(event) => (window.location.href = '/signup')}
+              onClick={(event) => (this.props.history.push('/signup'))}
               style={{ backgroundColor: '#365ae1', marginLeft: '10px', marginTop: '10px' }}
             >
               SignUp

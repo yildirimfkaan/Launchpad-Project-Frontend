@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import './UPTokenTable.scss';
 
-const TableSelectRow = (nums) => {
-  return window.location.assign('token/' + nums);
-};
+
 function UPTokenTable(props) {
   const tokens = props.filteredTokens?.length ? props.filteredTokens : props.tokens;
+  const {history} = props;
+
+  const TableSelectRow = (nums) => {
+    return history.push('token/' + nums);
+  };
 
   return (
     <Table bordered hover>

@@ -4,13 +4,13 @@ import UPIcons from '../UPIcons/UPIcons';
 import './UPQuickHandler.scss';
 
 function UPQuickHandler({ ...props }) {
-  const { user, accounts, isSignUpAndKYC, isVerifyWallet, isStakeUnoToken, href } = props;
+  const { user, accounts, isSignUpAndKYC, isVerifyWallet, isStakeUnoToken, href, history } = props;
 
   return (
     <>
-      <Row className='py-4'>
+      <Row className="py-4">
         {isSignUpAndKYC && (
-          <Col className='mt-2' lg="3" md="6" sm="12">
+          <Col className="mt-2" lg="3" md="6" sm="12">
             <div className="border rounded p-2">
               <div className="d-flex align-items-center border-bottom-0">
                 <UPIcons
@@ -30,7 +30,7 @@ function UPQuickHandler({ ...props }) {
                   disabled={user}
                   onClick={() => {
                     if (!user) {
-                      window.location.href = '/login';
+                      history.push('/login');
                     }
                   }}
                 >
@@ -41,7 +41,7 @@ function UPQuickHandler({ ...props }) {
           </Col>
         )}
         {isVerifyWallet && (
-          <Col className='mt-2' lg="3" md="6" sm="12">
+          <Col className="mt-2" lg="3" md="6" sm="12">
             <div className="border rounded p-2">
               <div className="d-flex align-items-center border-bottom-0">
                 <UPIcons
@@ -61,7 +61,7 @@ function UPQuickHandler({ ...props }) {
                   disabled={user}
                   onClick={() => {
                     if (!user) {
-                      window.location.href = '/login';
+                      history.push('/login');
                     }
                   }}
                 >
@@ -72,7 +72,7 @@ function UPQuickHandler({ ...props }) {
           </Col>
         )}
         {isStakeUnoToken && (
-          <Col className='mt-2' lg="3" md="6" sm="12">
+          <Col className="mt-2" lg="3" md="6" sm="12">
             <div className="border rounded p-2">
               <div className="d-flex align-items-center border-bottom-0">
                 <UPIcons name="MdDone" color="#28a745" size="24" />
@@ -88,7 +88,7 @@ function UPQuickHandler({ ...props }) {
             </div>
           </Col>
         )}
-        <Col className='mt-2' lg="3" md="6" sm="12">
+        <Col className="mt-2" lg="3" md="6" sm="12">
           <div className="border rounded p-2">
             <div className="d-flex align-items-center border-bottom-0">
               <UPIcons name="MdDone" color="#28a745" size="24" />

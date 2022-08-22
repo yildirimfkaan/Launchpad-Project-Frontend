@@ -9,8 +9,8 @@ import Swal from 'sweetalert2';
 function* loginSaga({ creds }) {
   try {
     var formData = new FormData();
-    formData.append('username', creds['username']);
-    formData.append('password', creds['password']);
+    formData.append('username', creds.data['username']);
+    formData.append('password', creds.data['password']);
 
     const { data } = yield call(endpoints.login, formData);
 
@@ -23,15 +23,13 @@ function* loginSaga({ creds }) {
       }),
     );
     const user = {
-      user: data['username'],
+      user: data,
       token: data['access_token'],
     };
     localStorage.setItem('user', JSON.stringify(user));
 
-    yield put(actions.accountDetailsRequestAction());
-
     setTimeout(() => {
-      window.location.href = '/home';
+      creds.history.push('/home');
     }, 1000);
   } catch (e) {
     yield put(
@@ -93,7 +91,7 @@ function* resetPasswordSaga({ creds }) {
       }),
     );
     setTimeout(() => {
-      window.location.href = '/login';
+      creds.history.push('/login');
     }, 2000);
   } catch (e) {
     yield put(
@@ -127,7 +125,7 @@ function* activationSaga({ creds }) {
     );
     yield put(actions.accountVerifiedAction(true));
     setTimeout(() => {
-      window.location.href = '/home';
+      creds.history.push('/home');
     }, 3000);
   } catch (e) {
     yield put(
@@ -151,9 +149,9 @@ function* logoutSaga() {
 function* signUpSaga({ creds }) {
   try {
     var formData = new FormData();
-    formData.append('username', creds['username']);
-    formData.append('password', creds['password']);
-    formData.append('email', creds['email']);
+    formData.append('username', creds.data['username']);
+    formData.append('password', creds.data['password']);
+    formData.append('email', creds.data['email']);
 
     const { data } = yield call(endpoints.signUp, formData);
     yield put(actions.signUpData(data));
@@ -165,7 +163,7 @@ function* signUpSaga({ creds }) {
         variant: 'success',
       }),
     );
-    window.location.href = '/login';
+    creds.history.push('/login');
   } catch (e) {
     yield put(
       alert.setAlertAction({

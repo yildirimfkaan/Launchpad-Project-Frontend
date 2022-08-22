@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import UPAlerts from '../../components/UPAlerts/UPAlerts';
 import './PublicLayout.scss';
 
 function PublicLayout({ ...props }) {
@@ -7,7 +6,6 @@ function PublicLayout({ ...props }) {
 
   return (
     <>
-      <UPAlerts />
       <div className="public-layout d-flex flex-row align-items-center justify-content-center">
         {children}
       </div>

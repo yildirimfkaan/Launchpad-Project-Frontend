@@ -30,8 +30,14 @@ class Activation extends Component {
     const { data } = this.state;
     const errors = this.validate();
 
+    const payload = {
+      activationCode: data.activationCode,
+      activationToken: data.activationToken,
+      history: this.props.history,
+    }
+
     if (Object.keys(errors).length === 0) {
-      this.props.activation(data);
+      this.props.activation(payload);
 
       this.setState({
         data: {

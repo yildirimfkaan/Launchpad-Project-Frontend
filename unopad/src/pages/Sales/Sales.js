@@ -62,6 +62,7 @@ function Sales({ ...props }) {
         isVerifyWallet={true}
         isStakingUnoToken={false}
         href="#sales-table"
+        history={props.history}
       />
       <div id="token-filter-section" className="py-2">
         <Form>
