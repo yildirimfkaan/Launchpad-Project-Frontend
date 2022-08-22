@@ -36,7 +36,13 @@ const UPAlerts = (props) => {
           {time && <small>{time}</small>}
         </Toast.Header>
       )}
-      <Toast.Body className={'up-toast-body text-white'}>{text}</Toast.Body>
+      <Toast.Body className={'up-toast-body text-white'}>
+        <span>{text}</span>
+      </Toast.Body>
+      <span
+        className="alerts-duration bg-white rounded"
+        style={{ animationDuration: (outTimeMS ? outTimeMS : 4000) / 1000 + 's' }}
+      ></span>
     </Toast>
   );
 };

@@ -140,6 +140,7 @@ class Launchpad extends React.Component {
             isVerifyWallet={true}
             isStakeUnoToken={true}
             href="#launchpad-projects"
+            history={this.props.history}
           />
           {!this.props.projects ? (
             <h1>Page is Loading.....</h1>

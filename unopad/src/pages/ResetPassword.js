@@ -30,8 +30,14 @@ class ResetPassword extends Component {
     const { data } = this.state;
     const errors = this.validate();
 
+    const payload = {
+      password: data.password,
+      resetToken: data.resetToken,
+      history: this.props.history,
+    }
+
     if (Object.keys(errors).length === 0) {
-      this.props.resetpassword(data);
+      this.props.resetpassword(payload);
 
       this.setState({
         data: {

@@ -29,8 +29,13 @@ class SignUp extends Component {
     const { data } = this.state;
     const errors = this.validate();
 
+    const payload = {
+      data,
+      history: this.props.history,
+    }
+
     if (Object.keys(errors).length === 0) {
-      this.props.sign(data);
+      this.props.sign(payload);
 
       this.setState({
         data: {

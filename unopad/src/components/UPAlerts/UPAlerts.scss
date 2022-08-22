@@ -1,6 +1,19 @@
-.up-toast{
+.up-toast {
     position: absolute;
     top: 80px;
     right: 0px;
     z-index: 1060;
+}
+
+.alerts-duration {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    bottom: -1px;
+    animation: duration;
+}
+
+@keyframes duration {
+    from {width: 100%;}
+    to {width: 0%;}
 }
