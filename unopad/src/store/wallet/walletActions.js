@@ -120,6 +120,13 @@ export const walletAccountDetailModalAction = (payload) => {
   };
 };
 
+export const WalletConnectModalAction = (payload) => {
+  return {
+    type: types.WALLET_CONNECT_MODAL,
+    payload,
+  };
+};
+
 
 export const stakeNowButtonActivationAction = (payload) => {
   return {

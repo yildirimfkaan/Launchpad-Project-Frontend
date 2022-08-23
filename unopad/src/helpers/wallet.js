@@ -3,17 +3,23 @@ import store from '../store';
 import * as types from '../store/wallet/walletActionTypes';
 import Web3 from 'web3';
 import erc20abi from '../helpers/abi';
+
 // import * as loadingActionTypes from '../store/loading/loadingActionTypes';
 // import { setLoading } from '../store/loading/loadingActions';
 
+
+
+
+
 async function connectWallet() {
   try {
+
     const { ethereum } = window;
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
     const accounts = await ethereum.request({
-      method: 'eth_requestAccounts',
+       method: 'eth_requestAccounts',
     });
 
     // const library = new ethers.providers.Web3Provider(provider);
@@ -23,7 +29,9 @@ async function connectWallet() {
       accounts: accounts,
     };
     store.dispatch({ type: types.CONNECT_WALLET_DATA, payload });
+
     localStorage.setItem('WALLET_VERIFICATION_DATA',JSON.stringify({accounts}))
+    store.dispatch({ type: types.WALLET_CONNECT_MODAL, payload:false });
   } catch (error) {
     console.log(error);
     store.dispatch({ type: types.CONNECT_WALLET_ERROR, payload: error });
@@ -40,19 +48,14 @@ async function disconnectWallet() {
 
 async function controlAndSwitchOrAddNetwork() {
   const web3 = new Web3(window.ethereum);
+  console.log("network version kontrol ",window.ethereum.networkVersion)
   const chainId = 97;
   if (window.ethereum.networkVersion !== chainId) {
     try {
-      await window.ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: [
-          {
-            chainName: 'Smart Chain - Testnet',
-            chainId: web3.utils.toHex(chainId),
-            rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
-          },
-        ],
-      });
+      await web3.currentProvider.request({
+        method: 'wallet_switchEthereumChain',
+          params: [{ chainId: Web3.utils.toHex(chainId) }],
+        });
     } catch (err) {
       // This error code indicates that the chain has not been added to MetaMask
       if (err.code === 4902) {
@@ -111,5 +114,8 @@ async function getMyBalance(contractAddress) {
     store.dispatch({ type: types.GET_MY_BALANCE_ERROR, payload: error });
   }
 }
+
+
+
 
 export default { connectWallet, disconnectWallet, getMyBalance, controlAndSwitchOrAddNetwork };
