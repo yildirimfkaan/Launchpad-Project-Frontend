@@ -8,10 +8,14 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import wallet from '../../helpers/wallet';
 import { logoutRequestAction } from '../../store/account/userActions';
-import { walletAccountDetailModalAction } from '../../store/wallet/walletActions';
+import {
+  walletAccountDetailModalAction,
+  WalletConnectModalAction,
+} from '../../store/wallet/walletActions';
 import UPWalletAccountDetailModal from '../UPWalletAccountDetailModal/UPWalletAccountDetailModal';
 // eslint-disable-next-line max-len
 import UPWalletAccountHistoryModal from '../UPWalletAccountHistoryModal/UPWalletAccountHistoryModal';
+import UPWalletConnectModal from '../UPWalletConnectModal/UPWalletConnectModal';
 // import {BsPersonCircle} from 'react-icons';
 // import Button from 'react-bootstrap/Button';
 import { createBrowserHistory } from 'history';
@@ -19,7 +23,13 @@ import UPIcons from '../UPIcons/UPIcons';
 import './UPNavbar.scss';
 
 function Navigation({ ...props }) {
-  const { user, accounts, walletAccountDetailModalRequest, logoutRequest } = props;
+  const {
+    user,
+    accounts,
+    walletAccountDetailModalRequest,
+    logoutRequest,
+    WalletConnectModalRequest,
+  } = props;
   wallet.getMyBalance('0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb');
   // const [modalShow, setModalShow] = useState(false);
   const handleLogout = () => {
@@ -40,6 +50,10 @@ function Navigation({ ...props }) {
 
   const handleShow = () => {
     walletAccountDetailModalRequest(true);
+  };
+
+  const handleShowWallet = () => {
+    WalletConnectModalRequest(true);
   };
 
   console.log('state', props);
@@ -70,23 +84,21 @@ function Navigation({ ...props }) {
               <Nav.Link
                 as={Link}
                 className={'text-muted' + (pathIsActive('staking') ? ' active' : '')}
-                to="#" disabled={true}
+                to="#"
+                disabled={true}
               >
                 Staking
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                className={'text-muted' +  (pathIsActive('airdrop') ? ' active' : '')}
-                to="#" disabled={true}
+                className={'text-muted' + (pathIsActive('airdrop') ? ' active' : '')}
+                to="#"
+                disabled={true}
               >
                 Airdrop
               </Nav.Link>
               {!accounts?.[0] ? (
-                <Nav.Link
-                  className="text-white"
-                  variant="primary"
-                  onClick={() => wallet.connectWallet()}
-                >
+                <Nav.Link className="text-white" onClick={handleShowWallet}>
                   Connect Wallet
                 </Nav.Link>
               ) : (
@@ -199,6 +211,7 @@ function Navigation({ ...props }) {
               </nav> */}
       <UPWalletAccountDetailModal />
       <UPWalletAccountHistoryModal />
+      <UPWalletConnectModal />
     </>
   );
 }
@@ -215,6 +228,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     walletAccountDetailModalRequest: (payload) => {
       dispatch(walletAccountDetailModalAction(payload));
+    },
+    WalletConnectModalRequest: (payload) => {
+      dispatch(WalletConnectModalAction(payload));
     },
   };
 };
