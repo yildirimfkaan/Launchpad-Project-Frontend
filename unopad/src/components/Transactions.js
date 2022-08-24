@@ -3,6 +3,10 @@ import TxList from './TxList';
 export default function Transactions(Transfer_data) {
   
   const txs = Transfer_data[0];
+  const err = Transfer_data[1]
+  if (txs.length === 0) {
+    return null     
+} 
   return (
     <>
       <div
@@ -11,9 +15,9 @@ export default function Transactions(Transfer_data) {
       >
         <div className="mt-4 p-4">
           <h1 className="text-xl font-semibold text-gray-700 text-center">Recent transactions</h1>
-          <p>
-            <TxList txs={txs} />
-          </p>
+          
+            <TxList txs={txs} err={err} />
+          
         </div>
       </div>
     </>
