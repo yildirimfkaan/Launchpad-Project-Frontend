@@ -13,7 +13,7 @@ import erc20abi from '../helpers/abi';
 
 async function connectWallet() {
   try {
-
+    console.log("kadirwalletcheck")
     const { ethereum } = window;
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -29,7 +29,7 @@ async function connectWallet() {
       accounts: accounts,
     };
     store.dispatch({ type: types.CONNECT_WALLET_DATA, payload });
-
+    localStorage.setItem('-walletlink:https://www.walletlink.org:Addresses', accounts);
     localStorage.setItem('WALLET_VERIFICATION_DATA',JSON.stringify({accounts}))
     store.dispatch({ type: types.WALLET_CONNECT_MODAL, payload:false });
   } catch (error) {
@@ -39,10 +39,20 @@ async function connectWallet() {
 }
 async function disconnectWallet() {
   localStorage.removeItem('WALLET_VERIFICATION_DATA');
+  localStorage.removeItem('-walletlink:https://www.walletlink.org:Addresses');
+  localStorage.removeItem('-walletlink:https://www.walletlink.org:DefaultChainId');
+  localStorage.removeItem('-walletlink:https://www.walletlink.org:session:linked');
+  localStorage.removeItem('-walletlink:https://www.walletlink.org:session:id');
+  localStorage.removeItem('-walletlink:https://www.walletlink.org:DefaultJsonRpcUrl');
+  localStorage.removeItem('-walletlink:https://www.walletlink.org:HasChainOverriddenFromRelay');
+  localStorage.removeItem('-walletlink:https://www.walletlink.org:session:secret');
+  localStorage.removeItem('-walletlink:https://www.walletlink.org:HasChainBeenSwitched');
+  localStorage.removeItem('-walletlink:https://www.walletlink.org:IsStandaloneSigning');
+  
   setTimeout(() => {
     store.dispatch({ type: types.CONNECT_WALLET_DATA, payload: null });
   }, 500);
-
+  window.location.reload();
   console.log('disconnected');
 }
 

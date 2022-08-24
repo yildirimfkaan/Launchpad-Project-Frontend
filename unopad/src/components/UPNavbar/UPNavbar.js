@@ -21,6 +21,7 @@ import UPWalletConnectModal from '../UPWalletConnectModal/UPWalletConnectModal';
 import { createBrowserHistory } from 'history';
 import UPIcons from '../UPIcons/UPIcons';
 import './UPNavbar.scss';
+import { useEffect } from 'react';
 
 function Navigation({ ...props }) {
   const {
@@ -30,7 +31,13 @@ function Navigation({ ...props }) {
     logoutRequest,
     WalletConnectModalRequest,
   } = props;
-  wallet.getMyBalance('0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb');
+
+  useEffect(() => {
+    if (accounts?.[0]) {
+      wallet.getMyBalance('0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb');
+    }
+  }, [accounts]);
+  // wallet.getMyBalance('0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb');
   // const [modalShow, setModalShow] = useState(false);
   const handleLogout = () => {
     logoutRequest();
