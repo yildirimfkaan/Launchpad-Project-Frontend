@@ -7,7 +7,7 @@ import UserRoute from './routes/UserRoute';
 import Login from './pages/Login.jsx';
 import SignUp from './pages/SignUp.jsx';
 import ProjectDetail from './pages/ProjectDetail/ProjectDetail';
-import Contract from './pages/Contract';
+
 import FormTest from './pages/FormTest';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Payment from './pages/Payment';
@@ -18,7 +18,7 @@ import Activation from "./pages/Activation";
 
 import { Route } from "react-router-dom";
 import TxList from "./components/TxList";
-import Connection from "./pages/Connection";
+// import Connection from "./pages/Connection";
 import Profile from "./pages/Profile";
 import Sales from "./pages/Sales/Sales";
 import TokenDetail from "./pages/TokenDetail/TokenDetail";
@@ -99,18 +99,6 @@ const routes = {
         name: "Empty Page",
         component: Home,
         routeComponent: Route
-      },
-      {
-        path: "/Connection",
-        name: "Connection",
-        component: Connection,
-        routeComponent: UserRoute
-      },
-      {
-        path: "/Contract",
-        name: "Contract",
-        component: Contract,
-        routeComponent: UserRoute
       },
       {
         path: "/Launchpad",
