@@ -16,8 +16,7 @@ import BuyUnoToken from '../../components/BuyUnoToken';
 function TokenDetail({ ...props }) {
   const { token, provider, accounts, ethereum, setWalletAccount, user } = props;
   const item = props.token;
-  console.log("token inside",token)
-  const [txs, setTxs] = useState([]);
+  console.log('token inside', token);
   const [stake, setStake] = useState(false);
   const [signature, setSignature] = useState('');
   const [error, setError] = useState('');
@@ -30,10 +29,10 @@ function TokenDetail({ ...props }) {
   const tokenAddress = '0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb';
   const tokenSymbol = 'UNOT';
   const tokenDecimals = 4;
-  const stakeSetup = () =>{
-    setStake(true)
-}
-  const Transfer_data = [txs];
+  const stakeSetup = () => {
+    setStake(true);
+  };
+  
   const connectWallet = async () => {
     wallet.connectWallet();
 
@@ -150,7 +149,6 @@ function TokenDetail({ ...props }) {
   // }, []);
 
   useEffect(() => {
-    
     if (provider?.on) {
       const handleAccountsChanged = (newAccounts) => {
         // console.log('1', accounts?.[0]);
@@ -178,7 +176,6 @@ function TokenDetail({ ...props }) {
       };
     }
   }, [provider]);
-  
 
   useEffect(() => {
     const payload = {
@@ -245,7 +242,14 @@ function TokenDetail({ ...props }) {
                 </div>
               </Card.Footer>
             </Card>
-            {checkAllConditionForStake(user, accounts) && stake ? <BuyUnoToken /> : <div></div>}
+            {checkAllConditionForStake(user, accounts) && stake ? (
+              <>
+                <BuyUnoToken />
+                
+              </>
+            ) : (
+              <div></div>
+            )}
           </Container>
         </>
       )}

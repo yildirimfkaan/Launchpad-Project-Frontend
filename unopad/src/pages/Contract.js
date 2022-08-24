@@ -9,8 +9,6 @@ import GetMyBalance from '../components/GetMyBalance';
 import BuyUnoToken from '../components/BuyUnoToken';
 import Web3 from 'web3';
 
-
-
 import { Col, Row } from 'react-bootstrap';
 import Transactions from '../components/Transactions';
 import { connect } from 'react-redux';
@@ -20,7 +18,7 @@ import { setLoadingAction } from '../store/loading/loadingActions';
 // import * as loadingActionTypes from '../store/loading/loadingActionTypes';
 
 function Contract({ ...props }) {
-  const { balance_, signerAddress ,setLoading} = props;
+  const { balance_, signerAddress, setLoading } = props;
   const [isLoadingtmp, setLoadingtmp] = useState(false);
   const [TransferStatus, TransferSetStatus] = useState(false);
   const [getMyBalanceStatus, setGetMyBalanceStatus] = useState(false);
@@ -47,16 +45,16 @@ function Contract({ ...props }) {
     balance: '-',
   });
 
-  useEffect(
-    () => {
-      if (contractInfo.address !== '-') {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-        const erc20 = new ethers.Contract(contractInfo.address, erc20abi, provider);
-
-        const web3 = new Web3(window.ethereum);
-        const erc20_ = new web3.eth.Contract(erc20abi, contractInfo.address);
-        erc20.on('Transfer', (from, to, amount, event) => {
+  useEffect(() => {
+      console.log("basladı")
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const contractUnoToken = '0x012b020b2479f42835fafd7037339b5bdba4c3fb';
+      console.log('unopadtoken', unopad_token);
+      const unopad_token_abi = new ethers.Contract(contractUnoToken, unopad_token, provider);
+      
+      try{
+        unopad_token_abi.on('Transfer', (from, to, amount, event) => {
+          console.log(from, to, amount);
           setTxs((currentTxs) => [
             ...currentTxs,
             {
@@ -67,19 +65,23 @@ function Contract({ ...props }) {
             },
           ]);
         });
-        setContractListened(erc20);
-        if (isLoadingtmp) {
-          setLoadingtmp(false);
-          setGetMyBalanceStatus(true);
-        }
-        return () => {
-          contractListened.removeAllListeners();
-        };
+        console.log("listener started")
       }
-    },
-    [contractInfo.address],
-    [isLoadingtmp],
-  );
+      catch(e){
+          console.log("error",e)
+
+      }
+      setContractListened(unopad_token_abi);
+      if (isLoadingtmp) {
+        setLoadingtmp(false);
+        setGetMyBalanceStatus(true);
+      }
+      return () => {
+        console.log("listener bitti")
+        contractListened.removeAllListeners();
+      };
+    
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoadingtmp(true);
@@ -113,14 +115,16 @@ function Contract({ ...props }) {
       tokenSymbol: tokenSymbol_,
       totalSupply: totalSupply_,
     });
+    TransferSetStatus(true);
   };
   const buyUnoToken = async (e) => {
     e.preventDefault();
     setLoadingtmp(
       // {key:loadingActionTypes.BUY_UNOTOKEN_LOADING,isLoading:true}
-      true);
+      true,
+    );
     const data = new FormData(e.target);
-    
+
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = await provider.getSigner();
     const signerAddress = await signer.getAddress();
@@ -130,21 +134,19 @@ function Contract({ ...props }) {
     const contractUnoTokenPresale = '0x7e851d4f813c4508e80fb54cc51f7066d54ffefa';
 
     const unopad_token_abi = new web3.eth.Contract(unopad_token, contractUnoToken);
-    console.log("unopad_token_abi",unopad_token_abi);
+    console.log('unopad_token_abi', unopad_token_abi);
 
     const unopad_presale_abi = new web3.eth.Contract(unopad_presale, contractUnoTokenPresale);
-    console.log("unopad_presale_abi",unopad_presale_abi);
+    console.log('unopad_presale_abi', unopad_presale_abi);
 
     const etherMiktari = data.get('etherValue');
     console.log('ether miktar', etherMiktari);
     try {
-      await unopad_presale_abi.methods.buy().send( {
-          
+      await unopad_presale_abi.methods.buy().send({
         from: signerAddress,
         to: contractUnoTokenPresale,
         data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
-        value: web3.utils.toWei(etherMiktari, "ether")
-
+        value: web3.utils.toWei(etherMiktari, 'ether'),
       });
     } catch (err) {
       console.log('error message');
@@ -152,7 +154,8 @@ function Contract({ ...props }) {
     }
     setLoadingtmp(
       // {key:loadingActionTypes.BUY_UNOTOKEN_LOADING,isLoading:false}
-     false );
+      false,
+    );
     // const balance_ = await erc20_.methods.balanceOf(signerAddress).call();
     setBuyUnoTokenInfo({
       from: signerAddress,
@@ -176,7 +179,7 @@ function Contract({ ...props }) {
     // const erc20_ = new web3.eth.Contract(erc20abi, contractInfo.address );
     // const balance_ = await erc20_.methods.balanceOf(signerAddress).call();
     // setLoading(false);
-    TransferSetStatus(true);
+
     // setBalanceInfo({
     //   address: store.getState().walletReducer.signerAddress,
     //   balance: String(wallet.getMyBalance.balance_)
@@ -192,7 +195,7 @@ function Contract({ ...props }) {
     await erc20.transfer(data.get('recipient'), data.get('amount'));
   };
 
-  const Transfer_data = [handleTransfer, txs];
+  const Transfer_data = [txs];
   const buyUnoToken_data = [buyUnoToken, buyUnoTokenInfo, isLoadingtmp];
   return (
     <div style={{ width: '100%' }}>
@@ -282,8 +285,7 @@ const mapDispatchToProps = (dispatch) => {
     setLoading: (payload) => {
       dispatch(setLoadingAction(payload));
     },
-
   };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(Contract);
+export default connect(mapStateToProps, mapDispatchToProps)(Contract);
