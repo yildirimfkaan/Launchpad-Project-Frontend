@@ -30,8 +30,10 @@ function Navigation({ ...props }) {
     walletAccountDetailModalRequest,
     logoutRequest,
     WalletConnectModalRequest,
+    token,project,
   } = props;
-
+  // console.log("tok",token)
+  // console.log("pro",project)
   useEffect(() => {
     if (accounts?.[0]) {
       wallet.getMyBalance('0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb');
@@ -226,6 +228,8 @@ const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
     accounts: state.walletReducer.accounts,
+    token: state.tokenReducer.token,
+    project: state.projectReducer.project,
   };
 };
 const mapDispatchToProps = (dispatch) => {
