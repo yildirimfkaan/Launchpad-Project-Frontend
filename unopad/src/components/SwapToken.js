@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
+import Swal from 'sweetalert2';
+import Spinner from 'react-bootstrap/Spinner';
 import dynamic_presale_abi from '../helpers/dynamic_presale';
 import dynamic_token_abi from '../helpers/dynamic_token';
 import Web3 from 'web3';
@@ -12,17 +14,16 @@ import Transactions from './Transactions';
 
 function SwapToken({ ...props }) {
   const { balance_, signerAddress, project, setLoading, isLoading } = props;
-  const contractDynamicToken = '0xa4f07529ce9119ab60d4da69fb8cc28ea6bc6f25';
-  const contractDynamicTokenPresale = '0x1000c894980884a38516884804e7418c654b9f85';
+  const contractDynamicToken = project.project_token.token_address;
+  const contractDynamicTokenPresale = project.project_token.presale_contract.contract_address;
   const [txs, setTxs] = useState([]);
   const [contractListened, setContractListened] = useState();
 
+  console.log("projeleeerrrss",project)
+  console.log("tt",project.project_token.presale_contract.contract_address)
   useEffect(() => {
     console.log('basladı');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const contractDynamicToken = '0xa4f07529ce9119ab60d4da69fb8cc28ea6bc6f25';
-    const contractDynamicTokenPresale = '0x1000c894980884a38516884804e7418c654b9f85';
-
     const dynamic_token = new ethers.Contract(contractDynamicToken, dynamic_token_abi, provider);
     console.log("kntrt bilsigi ", dynamic_token_abi)
     try {
@@ -51,6 +52,7 @@ function SwapToken({ ...props }) {
 
   const swapToken = async (e) => {
     e.preventDefault();
+    setTxs([])
     console.log('set loading func set');
     console.log('load2', isLoading);
     setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: true });
@@ -82,9 +84,21 @@ function SwapToken({ ...props }) {
       });
       wallet.getMyBalance(contractDynamicToken);
       setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: false });
+      Swal.fire({
+        icon: 'success',
+        text: 'Transaction succeed',
+      });
+
     } catch (err) {
       console.log('error message');
-      console.log(err);
+      console.dir(err);
+
+      Swal.fire({
+        icon: 'warning',
+        text: err.message,
+      });
+      setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: false });
+
     }
   };
   const Transfer_txs = [txs];
@@ -114,7 +128,17 @@ function SwapToken({ ...props }) {
               className="btn btn-primary submit-button focus:ring focus:outline-none w-full"
               disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING]}
             >
-              Buy Token
+              {' '}
+              {!isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING] ? (
+                'BuyToken'
+              ) : (
+                <div className="d-flex align-items-center justify-content-center">
+                  <Spinner animation="border" role="status">
+                    <span className="visually-hidden"></span>
+                  </Spinner>
+                  <span className="ml-2">Pending Transaction...</span>
+                </div>
+              )}
             </button>
           </footer>
           <div className="px-4">
@@ -168,6 +192,7 @@ const mapStateToProps = (state) => {
     contractAddress: state.walletReducer.contractAddress,
     project: state.projectReducer.project,
     isLoading: state.loadingReducer.isLoading,
+    token: state.tokenReducer.token,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -159,7 +159,7 @@ function* signUpSaga({ creds }) {
     yield put(
       alert.setAlertAction({
         title: 'Success!',
-        text: 'User Signed In!',
+        text: 'User Signed Up!',
         variant: 'success',
       }),
     );

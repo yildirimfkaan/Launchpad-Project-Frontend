@@ -14,21 +14,23 @@ function BuyUnoToken({ ...props }) {
   const { balance_, signerAddress, token, setLoading, isLoading } = props;
   const [txs, setTxs] = useState([]);
   const [contractListened, setContractListened] = useState();
-  const contractUnoToken = '0x012b020b2479f42835fafd7037339b5bdba4c3fb';
-  const contractUnoTokenPresale = '0x7e851d4f813c4508e80fb54cc51f7066d54ffefa';
   console.log('isloading', isLoading);
+  console.log('token bilgisi', token);
+  console.log('token_address bilgisi', token.token_address);
+  console.log('token presale_contract', token.presale_contract.contract_address);
   console.log(
     'buyunotoken page loading value',
     isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING],
   );
 
   useEffect(() => {
+    console.log('token bilgisi', token);
     console.log('basladı');
+
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const contractUnoToken = '0x012b020b2479f42835fafd7037339b5bdba4c3fb';
-    const contractUnoTokenPresale = '0x7e851d4f813c4508e80fb54cc51f7066d54ffefa';
+   
     console.log('unopadtoken', unopad_token_abi);
-    const unopad_token = new ethers.Contract(contractUnoToken, unopad_token_abi, provider);
+    const unopad_token = new ethers.Contract(token.token_address, unopad_token_abi, provider);
 
     try {
       unopad_token.on('Transfer', (from, to, amount, event) => {
@@ -56,7 +58,7 @@ function BuyUnoToken({ ...props }) {
 
   const buyToken = async (e) => {
     e.preventDefault();
-    setTxs([])
+    setTxs([]);
     setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: true });
     const data = new FormData(e.target);
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -65,10 +67,13 @@ function BuyUnoToken({ ...props }) {
     const web3 = new Web3(window.ethereum);
     await wallet.controlAndSwitchOrAddNetwork();
     await window.ethereum.enable();
-    const unopad_token = new web3.eth.Contract(unopad_token_abi, contractUnoToken);
+    const unopad_token = new web3.eth.Contract(unopad_token_abi, token.token_address);
     console.log('unopad_token_abi', unopad_token);
 
-    const unopad_presale = new web3.eth.Contract(unopad_presale_abi, contractUnoTokenPresale);
+    const unopad_presale = new web3.eth.Contract(
+      unopad_presale_abi,
+      token.presale_contract.contract_address,
+    );
     console.log('unopad_presale_contract', unopad_presale);
 
     const etherMiktari = data.get('etherValue');
@@ -76,11 +81,11 @@ function BuyUnoToken({ ...props }) {
     try {
       await unopad_presale.methods.buy().send({
         from: signerAddress,
-        to: contractUnoTokenPresale,
+        to: token.presale_contract.contract_address,
         data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
         value: web3.utils.toWei(etherMiktari, 'ether'),
       });
-      wallet.getMyBalance(contractUnoToken);
+      wallet.getMyBalance(token.token_address);
       setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
       Swal.fire({
         icon: 'success',
@@ -127,11 +132,13 @@ function BuyUnoToken({ ...props }) {
               {' '}
               {!isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING] ? (
                 'BuyToken'
-              ) : (<div className="d-flex align-items-center justify-content-center">
-                <Spinner animation="border" role="status">
-                  <span className="visually-hidden"></span>
-                </Spinner><span className='ml-2'>Pending Transaction...</span></div>
-                
+              ) : (
+                <div className="d-flex align-items-center justify-content-center">
+                  <Spinner animation="border" role="status">
+                    <span className="visually-hidden"></span>
+                  </Spinner>
+                  <span className="ml-2">Pending Transaction...</span>
+                </div>
               )}
             </button>
           </footer>
@@ -161,7 +168,7 @@ function BuyUnoToken({ ...props }) {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{contractUnoTokenPresale}</td>
+                    <td>{token.presale_contract.contract_address}</td>
 
                     <td>{balance_}</td>
                   </tr>
