@@ -13,7 +13,7 @@ import erc20abi from '../helpers/abi';
 
 async function connectWallet() {
   try {
-    console.log("kadirwalletcheck")
+
     const { ethereum } = window;
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
