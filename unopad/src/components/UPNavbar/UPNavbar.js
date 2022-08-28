@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -27,10 +27,12 @@ function Navigation({ ...props }) {
   const {
     user,
     accounts,
+    balance_,
     walletAccountDetailModalRequest,
     logoutRequest,
     WalletConnectModalRequest,
-    token,project,
+    token,
+    project,
   } = props;
   // console.log("tok",token)
   // console.log("pro",project)
@@ -78,21 +80,21 @@ function Navigation({ ...props }) {
             <Nav className="ml-auto" variant="pills">
               <Nav.Link
                 as={Link}
-                className={'text-white' + (pathIsActive('launchpad') ? ' active' : '')}
+                className={'text-white px-2' + (pathIsActive('launchpad') ? ' active' : '')}
                 to="/launchpad"
               >
                 Launchpad
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                className={'text-white' + (pathIsActive('sales') ? ' active' : '')}
+                className={'text-white px-2' + (pathIsActive('sales') ? ' active' : '')}
                 to="/sales"
               >
                 Sales
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                className={'text-muted' + (pathIsActive('staking') ? ' active' : '')}
+                className={'text-muted px-2' + (pathIsActive('staking') ? ' active' : '')}
                 to="#"
                 disabled={true}
               >
@@ -100,20 +102,39 @@ function Navigation({ ...props }) {
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                className={'text-muted' + (pathIsActive('airdrop') ? ' active' : '')}
+                className={'text-muted px-2' + (pathIsActive('airdrop') ? ' active' : '')}
                 to="#"
                 disabled={true}
               >
                 Airdrop
               </Nav.Link>
               {!accounts?.[0] ? (
-                <Nav.Link className="text-white" onClick={handleShowWallet}>
+                <Button variant="outline-primary" className="text-white" onClick={handleShowWallet}>
                   Connect Wallet
-                </Nav.Link>
+                </Button>
               ) : (
-                <Nav.Link className="text-white" onClick={handleShow}>
-                  Wallet Account
-                </Nav.Link>
+                <ButtonGroup size="sm">
+                  {balance_ !== null && balance_ !== undefined && (
+                    <Button
+                      title={balance_}
+                      variant="outline-primary"
+                      size="sm"
+                      className="d-flex align-items-center navbar-balance-button text-white"
+                    >
+                      <div className="navbar-balance-text text-truncate mr-1">{balance_}</div>
+                      <span>UNT</span>
+                    </Button>
+                  )}
+                  <Button
+                    title={accounts?.[0]}
+                    variant="outline-primary"
+                    className="navbar-account-button text-truncate text-white"
+                    size="sm"
+                    onClick={handleShow}
+                  >
+                    {accounts?.[0]}
+                  </Button>
+                </ButtonGroup>
               )}
 
               <Dropdown id="user-dropdown">
@@ -230,6 +251,7 @@ const mapStateToProps = (state) => {
     accounts: state.walletReducer.accounts,
     token: state.tokenReducer.token,
     project: state.projectReducer.project,
+    balance_: state.walletReducer.balance_,
   };
 };
 const mapDispatchToProps = (dispatch) => {
