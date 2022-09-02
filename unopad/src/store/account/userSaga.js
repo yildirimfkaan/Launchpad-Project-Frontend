@@ -115,7 +115,7 @@ function* activationSaga({ creds }) {
 
     const { data } = yield call(endpoints.activation, body);
     yield put(actions.activationData(data));
-    console.log('saga', data);
+    
     yield put(
       alert.setAlertAction({
         title: 'Success!',

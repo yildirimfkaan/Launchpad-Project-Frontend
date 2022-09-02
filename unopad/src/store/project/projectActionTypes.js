@@ -8,3 +8,6 @@ export const GET_PROJECT_ERROR = 'GET_PROJECT_ERROR';
 
 export const ADD_PROJECT = 'ADD_PROJECT';
 export const PROJECT_ADDED = 'PROJECT_ADDED';
+
+export const SWAP_TOKEN_ERROR = "SWAP_TOKEN_ERROR";
+export const SWAP_TOKEN_MODAL = "SWAP_TOKEN_MODAL";

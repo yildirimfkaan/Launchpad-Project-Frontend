@@ -3,6 +3,7 @@ import * as types from './projectActionTypes';
 const initialState = {
   projects: null,
   project: null,
+  swapTokenModal: false,
   error: {
     type: null,
     data: null,
@@ -36,6 +37,18 @@ export const projectReducer = (state = initialState, action) => {
           type: types.GET_PROJECT_ERROR,
           data: action.payload,
         },
+      };
+    case types.SWAP_TOKEN_ERROR:
+      return {
+        ...state,
+
+        error: { type: types.SWAP_TOKEN_ERROR, data: action.payload },
+      };
+    case types.SWAP_TOKEN_MODAL:
+      return {
+        ...state,
+
+        swapTokenModal: action?.payload,
       };
     default:
       return state;

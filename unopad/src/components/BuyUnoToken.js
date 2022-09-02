@@ -13,28 +13,13 @@ import Spinner from 'react-bootstrap/Spinner';
 function BuyUnoToken({ ...props }) {
   const { balance_, signerAddress, token, setLoading, isLoading } = props;
   const [txs, setTxs] = useState([]);
-  const [contractListened, setContractListened] = useState();
-  console.log('isloading', isLoading);
-  console.log('token bilgisi', token);
-  console.log('token_address bilgisi', token.token_address);
-  console.log('token presale_contract', token.presale_contract.contract_address);
-  console.log(
-    'buyunotoken page loading value',
-    isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING],
-  );
-
   useEffect(() => {
-    console.log('token bilgisi', token);
-    console.log('basladı');
-
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-   
-    console.log('unopadtoken', unopad_token_abi);
     const unopad_token = new ethers.Contract(token.token_address, unopad_token_abi, provider);
 
     try {
       unopad_token.on('Transfer', (from, to, amount, event) => {
-        console.log(from, to, amount);
+      
         setTxs((currentTxs) => [
           ...currentTxs,
           {
@@ -45,14 +30,11 @@ function BuyUnoToken({ ...props }) {
           },
         ]);
       });
-      console.log('listener started');
     } catch (e) {
       console.log('error', e);
     }
-    setContractListened(unopad_token);
     return () => {
-      console.log('listener bitti');
-      contractListened.removeAllListeners();
+      unopad_token.removeAllListeners();
     };
   }, []);
 
@@ -68,16 +50,11 @@ function BuyUnoToken({ ...props }) {
     await wallet.controlAndSwitchOrAddNetwork();
     await window.ethereum.enable();
     const unopad_token = new web3.eth.Contract(unopad_token_abi, token.token_address);
-    console.log('unopad_token_abi', unopad_token);
-
     const unopad_presale = new web3.eth.Contract(
       unopad_presale_abi,
       token.presale_contract.contract_address,
     );
-    console.log('unopad_presale_contract', unopad_presale);
-
     const etherMiktari = data.get('etherValue');
-    console.log('ether miktar', etherMiktari);
     try {
       await unopad_presale.methods.buy().send({
         from: signerAddress,

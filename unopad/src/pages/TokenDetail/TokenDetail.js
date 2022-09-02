@@ -11,12 +11,13 @@ import { checkAllConditionForStake } from '../../helpers/verificationHelper';
 import wallet from '../../helpers/wallet';
 import detectEthereumProvider from '@metamask/detect-provider';
 import './TokenDetail.scss';
-import BuyUnoToken from '../../components/BuyUnoToken';
+import UPBuyTokenModal from '../../components/UPBuyTokenModal/UPBuyTokenModal';
+import { buyTokenModalAction } from '../../store/token/tokenActions';
 
 function TokenDetail({ ...props }) {
-  const { token, provider, accounts, ethereum, setWalletAccount, user } = props;
+  const { token, provider, accounts, ethereum, setWalletAccount, user, buyTokenModalRequest } =
+    props;
   const item = props.token;
-  console.log('token inside', token);
   const [stake, setStake] = useState(false);
   const [signature, setSignature] = useState('');
   const [error, setError] = useState('');
@@ -32,25 +33,15 @@ function TokenDetail({ ...props }) {
   const stakeSetup = () => {
     setStake(true);
   };
-  
-  const connectWallet = async () => {
-    wallet.connectWallet();
-
-    // const req =
-    //   'https://api-testnet.bscscan.com/api?module=account&action=txlist&address=' +
-    //   accounts?.[0] +
-    // eslint-disable-next-line max-len
-    //   '&startblock=0&endblock=99999999&page=1&offset=10&sort=ascapikey=EZQIX4T8ZWUC2XJ7WT1Q24RQSGC6565S5N';
-    // const res = await axios.get(req);
-
-    // console.log('response', res);
+  const handleShow = () => {
+    buyTokenModalRequest(true);
   };
 
-  // const handleNetwork = (e) => {
-  //   const id = e.target.value;
-  //   setNetwork(Number(id));
-  // };
-  // console.log('acc', accounts?.[0]);
+  const connectWallet = async () => {
+    wallet.connectWallet();
+  };
+
+  
   const addUnoTokenFunction = async () => {
     try {
       const provider = await detectEthereumProvider();
@@ -76,59 +67,6 @@ function TokenDetail({ ...props }) {
       console.log('error:', error);
     }
   };
-
-  // const handleInput = (e) => {
-  //   const msg = e.target.value;
-  //   setMessage(msg);
-  // };
-
-  // const switchNetwork = async () => {
-  //   try {
-  //     await library.provider.request({
-  //       method: 'wallet_switchEthereumChain',
-  //       params: [{ chainId: toHex(network) }],
-  //     });
-  //   } catch (switchError) {
-  //     if (switchError.code === 4902) {
-  //       try {
-  //         await library.provider.request({
-  //           method: 'wallet_addEthereumChain',
-  //           params: [networkParams[toHex(network)]],
-  //         });
-  //       } catch (error) {
-  //         setError(error);
-  //       }
-  //     }
-  //   }
-  // };
-
-  // const signMessage = async () => {
-  //   if (!library) return;
-  //   try {
-  //     const signature = await library.provider.request({
-  //       method: 'personal_sign',
-  //       params: [message, walletAccount],
-  //     });
-  //     setSignedMessage(message);
-  //     setSignature(signature);
-  //   } catch (error) {
-  //     setError(error);
-  //   }
-  // };
-
-  // const verifyMessage = async () => {
-  //   if (!library) return;
-  //   try {
-  //     const verify = await library.provider.request({
-  //       method: 'personal_ecRecover',
-  //       params: [signedMessage, signature],
-  //     });
-  //     setVerified(verify === walletAccount.toLowerCase());
-  //   } catch (error) {
-  //     setError(error);
-  //   }
-  // };
-
   const refreshState = () => {
     // setWalletAccount(null);
     setChainId();
@@ -142,17 +80,9 @@ function TokenDetail({ ...props }) {
     wallet.disconnectWallet();
   };
 
-  // useEffect(() => {
-  //   if (web3Modal.cachedProvider) {
-  //     // connectWallet();
-  //   }
-  // }, []);
-
   useEffect(() => {
     if (provider?.on) {
       const handleAccountsChanged = (newAccounts) => {
-        // console.log('1', accounts?.[0]);
-        // console.log('2', newAccounts?.[0]);
         if (accounts?.[0] !== newAccounts?.[0]) setWalletAccount(newAccounts);
       };
       const handleChainChanged = (_hexChainId) => {
@@ -194,10 +124,7 @@ function TokenDetail({ ...props }) {
         <>
           <Container>
             <Card className="token-detail-card mx-auto">
-              {/* <Card.Img
-                variant="top"
-                src={process.env.REACT_APP_API_URL + '/projects/' + item.id + '/image'}
-              /> */}
+             
               <Card.Header>
                 <div className="token-detail-name-div">
                   <Card.Text>{item.token_name}</Card.Text>
@@ -226,7 +153,13 @@ function TokenDetail({ ...props }) {
               <Card.Footer>
                 <div className="token-detail-footer-left-div">
                   {checkAllConditionForStake(user, accounts) ? (
-                    <Button variant="primary" onClick={stakeSetup}>
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        stakeSetup();
+                        handleShow();
+                      }}
+                    >
                       Buy Now !
                     </Button>
                   ) : (
@@ -244,8 +177,7 @@ function TokenDetail({ ...props }) {
             </Card>
             {checkAllConditionForStake(user, accounts) && stake ? (
               <>
-                <BuyUnoToken />
-                
+                <UPBuyTokenModal />
               </>
             ) : (
               <div></div>
@@ -268,14 +200,14 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    // connectWalletRequest: (payload) => {
-    //   dispatch(connectWallet(payload));
-    // },
     setWalletAccount: (payload) => {
       dispatch(setWalletAccountData(payload));
     },
     getTokenByID: (payload) => {
       dispatch(getTokenByID(payload));
+    },
+    buyTokenModalRequest: (payload) => {
+      dispatch(buyTokenModalAction(payload));
     },
   };
 };

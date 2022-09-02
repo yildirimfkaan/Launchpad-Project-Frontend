@@ -17,18 +17,15 @@ function SwapToken({ ...props }) {
   const contractDynamicToken = project.project_token.token_address;
   const contractDynamicTokenPresale = project.project_token.presale_contract.contract_address;
   const [txs, setTxs] = useState([]);
-  const [contractListened, setContractListened] = useState();
-
-  console.log("projeleeerrrss",project)
-  console.log("tt",project.project_token.presale_contract.contract_address)
+  
   useEffect(() => {
-    console.log('basladı');
+    
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const dynamic_token = new ethers.Contract(contractDynamicToken, dynamic_token_abi, provider);
-    console.log("kntrt bilsigi ", dynamic_token_abi)
+    
     try {
       dynamic_token.on('Transfer', (from, to, amount, event) => {
-        console.log(from, to, amount);
+        
         setTxs((currentTxs) => [
           ...currentTxs,
           {
@@ -39,22 +36,21 @@ function SwapToken({ ...props }) {
           },
         ]);
       });
-      console.log('listener started');
+      
     } catch (e) {
       console.log('error', e);
     }
-    setContractListened(dynamic_token);
+    
     return () => {
-      console.log('listener bitti');
-      contractListened.removeAllListeners();
+      
+      dynamic_token.removeAllListeners();
     };
   }, []);
 
   const swapToken = async (e) => {
     e.preventDefault();
     setTxs([])
-    console.log('set loading func set');
-    console.log('load2', isLoading);
+   
     setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: true });
     const data = new FormData(e.target);
 
@@ -65,7 +61,6 @@ function SwapToken({ ...props }) {
     await wallet.controlAndSwitchOrAddNetwork();
     await window.ethereum.enable();
 
-    console.log('pra', project);
 
     const dynamic_token = new web3.eth.Contract(dynamic_token_abi, contractDynamicToken);
     console.log('dynamic_token', dynamic_token);

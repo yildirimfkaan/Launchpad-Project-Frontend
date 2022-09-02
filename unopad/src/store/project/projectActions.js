@@ -55,3 +55,15 @@ export const projectAddedAction = (project) => {
     project,
   };
 };
+export const swapTokenErrorAction = (payload) => {
+  return {
+    type: types.SWAP_TOKEN_ERROR,
+    payload,
+  };
+};
+export const swapTokenModalAction = (payload) => {
+  return {
+    type: types.SWAP_TOKEN_MODAL,
+    payload,
+  };
+};

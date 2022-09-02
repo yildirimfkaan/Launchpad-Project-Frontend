@@ -5,6 +5,7 @@ const initialState = {
   tokens: null,
   token: null,
   filteredTokens: null,
+  buyTokenModal: false,
   tokenSortData: {
     sortType: TOKENS_SORT_TYPES.ASCENDING,
     sortKey: TOKENS_SORT_KEYS.TOKEN_NAME,
@@ -88,7 +89,7 @@ export const tokenReducer = (state = initialState, action) => {
         return -1;
       });
 
-      if (state.filteredTokens?.length ) {
+      if (state.filteredTokens?.length) {
         return {
           ...state,
           filteredTokens: sortedTokens ? [...sortedTokens] : null,
@@ -97,6 +98,19 @@ export const tokenReducer = (state = initialState, action) => {
       return {
         ...state,
         tokens: sortedTokens ? [...sortedTokens] : null,
+      };
+
+    case types.BUY_TOKEN_ERROR:
+      return {
+        ...state,
+
+        error: { type: types.BUY_TOKEN_ERROR, data: action.payload },
+      };
+    case types.BUY_TOKEN_MODAL:
+      return {
+        ...state,
+
+        buyTokenModal: action?.payload,
       };
     default:
       return state;
