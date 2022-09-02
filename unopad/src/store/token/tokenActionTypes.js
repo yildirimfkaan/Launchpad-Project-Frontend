@@ -13,3 +13,7 @@ export const TOKEN_ADDED = 'TOKEN_ADDED';
 export const FILTER_TOKENS = 'FILTER_TOKENS';
 export const SET_TOKEN_SORT_DATA = 'SET_TOKEN_SORT_DATA';
 export const SORTING_TOKENS = "SORTING_TOKENS";
+
+export const BUY_TOKEN_DATA = "BUY_TOKEN_DATA";
+export const BUY_TOKEN_ERROR = "BUY_TOKEN_ERROR";
+export const BUY_TOKEN_MODAL = "BUY_TOKEN_MODAL";

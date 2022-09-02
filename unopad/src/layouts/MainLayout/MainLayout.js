@@ -10,10 +10,10 @@ function MainLayout({ ...props }) {
   const { children, accounts, provider, setWalletAccount } = props;
 
   useEffect(() => {
-    console.log('kadirprovider0');
+    
 
     if (provider && window.ethereum?.on) {
-      // const newAccounts = accountInfo();
+      
       const HandleAccountChange = function(Newaccounts) {
 
         if (accounts?.[0] != Newaccounts?.[0]) setWalletAccount(Newaccounts);

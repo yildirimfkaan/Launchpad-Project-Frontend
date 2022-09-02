@@ -3,7 +3,6 @@ import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import wallet from '../../helpers/wallet';
@@ -16,8 +15,6 @@ import UPWalletAccountDetailModal from '../UPWalletAccountDetailModal/UPWalletAc
 // eslint-disable-next-line max-len
 import UPWalletAccountHistoryModal from '../UPWalletAccountHistoryModal/UPWalletAccountHistoryModal';
 import UPWalletConnectModal from '../UPWalletConnectModal/UPWalletConnectModal';
-// import {BsPersonCircle} from 'react-icons';
-// import Button from 'react-bootstrap/Button';
 import { createBrowserHistory } from 'history';
 import UPIcons from '../UPIcons/UPIcons';
 import './UPNavbar.scss';
@@ -34,15 +31,12 @@ function Navigation({ ...props }) {
     token,
     project,
   } = props;
-  // console.log("tok",token)
-  // console.log("pro",project)
   useEffect(() => {
     if (accounts?.[0]) {
       wallet.getMyBalance('0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb');
     }
   }, [accounts]);
-  // wallet.getMyBalance('0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb');
-  // const [modalShow, setModalShow] = useState(false);
+
   const handleLogout = () => {
     logoutRequest();
   };
@@ -55,19 +49,12 @@ function Navigation({ ...props }) {
     }
     return false;
   };
-  // function getWalletAccountDetail() {
-  //   walletAccountDetailRequest();
-  // }
-
   const handleShow = () => {
     walletAccountDetailModalRequest(true);
   };
-
   const handleShowWallet = () => {
     WalletConnectModalRequest(true);
   };
-
-  console.log('state', props);
   return (
     <>
       <Navbar bg="dark" expand="lg" style={{ zIndex: 1 }}>
@@ -163,82 +150,6 @@ function Navigation({ ...props }) {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
-      {/* <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="/home">
-                  <img src="assets/img/logo.svg" alt="Logo" />
-                </a>
-                <button
-                  class="navbar-toggler"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#navbarSupportedContent"
-                  aria-controls="navbarSupportedContent"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span class="toggler-icon"></span>
-                  <span class="toggler-icon"></span>
-                  <span class="toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                  <ul id="nav" class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                      <a class="page-scroll active" href="/launchpad">
-                        Launchpad
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="page-scroll" >
-                        Sales
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="page-scroll" >
-                        Staking
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="page-scroll" >
-                        Airdrop
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      {!accounts?.[0] ? (
-                        <a variant="primary" onClick={() => wallet.connectWallet()}>
-                          Connect Wallet
-                        </a>
-                      ) : (
-                        <WalletModal />
-                      )}
-                    </li>
-
-                    {user && (
-                      <li class="nav-item">
-                        <a class="page-scroll" onClick={handleLogout}>
-                          {' '}
-                          Logout
-                        </a>
-                      </li>
-                    )}
-                    {!user && (
-                      <>
-                        <li class="nav-item">
-                          <a class="page-scroll" href="/login">
-                            Login
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="page-scroll" href="/signup">
-                            SignUp
-                          </a>
-                        </li>
-                      </>
-                    )}
-                  </ul>
-                </div>
-              </nav> */}
       <UPWalletAccountDetailModal />
       <UPWalletAccountHistoryModal />
       <UPWalletConnectModal />

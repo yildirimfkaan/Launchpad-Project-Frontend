@@ -20,7 +20,7 @@ class ForgotPassword extends Component {
     e.preventDefault();
     const { data } = this.state;
     const errors = this.validate();
-    console.log('asdasdasd');
+    
     if (Object.keys(errors).length === 0) {
       this.props.forgotpassword(data);
 

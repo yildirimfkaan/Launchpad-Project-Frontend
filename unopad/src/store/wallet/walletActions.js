@@ -1,20 +1,6 @@
 import * as types from './walletActionTypes';
 
-// /**
-//  *
-//  * 
-//  */
-// export const connectWallet = (payload) => {
-//   console.log("action payload" , payload)
-//   return {
-//     type: types.CONNECT_WALLET_REQUEST,
-//     payload,
-//   };
-// };
-// /**
-//  *
-//  * 
-//  */
+
 export const connectWalletDataAction = (payload) => {
   return {
     type: types.CONNECT_WALLET_DATA,
@@ -27,16 +13,7 @@ export const connectWalletError = (payload) => {
     payload,
   };
 };
-// export const disconnectWallet = (payload) => {
-//   return {
-//     type: types.DISCONNECT_WALLET_REQUEST,
-//     payload,
-//   };
-// };
-/**
- *
- * 
- */
+
 export const disconnectWalletData = (payload) => {
   return {
     type: types.DISCONNECT_WALLET_DATA,

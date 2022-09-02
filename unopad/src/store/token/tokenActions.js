@@ -75,3 +75,21 @@ export const sortingTokensAction = (payload) => {
   };
 };
 
+export const buyTokenDataAction = (payload) => {
+  return {
+    type: types.BUY_TOKEN_DATA,
+    payload,
+  };
+};
+export const buyTokenErrorAction = (payload) => {
+  return {
+    type: types.BUY_TOKEN_ERROR,
+    payload,
+  };
+};
+export const buyTokenModalAction = (payload) => {
+  return {
+    type: types.BUY_TOKEN_MODAL,
+    payload,
+  };
+};
