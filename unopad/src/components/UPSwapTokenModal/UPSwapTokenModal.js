@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux';
 import { swapTokenModalAction } from '../../store/project/projectActions';
-import SwapToken from '../SwapToken';
+import SwapToken from './SwapToken';
 import './UPSwapTokenModal.scss';
 import * as loadingActionTypes from '../../store/loading/loadingActionTypes';
 

@@ -179,6 +179,26 @@ export const resendVerificationEmailErrorAction = (payload) => {
   };
 };
 
+//CheckUserToken
+export const checkUserTokenRequestAction = (payload) => {
+  return {
+    type: types.CHECK_USER_TOKEN_REQUEST,
+    payload,
+  };
+};
+export const checkUserTokenDataAction = (payload) => {
+  return {
+    type: types.CHECK_USER_TOKEN_DATA,
+    payload,
+  };
+};
+export const checkUserTokenErrorAction = (payload) => {
+  return {
+    type: types.CHECK_USER_TOKEN_ERROR,
+    payload,
+  };
+};
+
 
 
 

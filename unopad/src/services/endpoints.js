@@ -9,6 +9,7 @@ export const activation = (body) => doPost('/activate', body);
 export const logut = (body) => doPost('/login', body);
 export const getAccountDetails = (body) => doGet('/user/profile', body);
 export const resendVerificationEmail = () => doPost('/user/activation-email');
+export const checkUserToken = () => doGet('/user/check_token');
 
 //Post
 export const getPosts = () => doGet('/projects');
