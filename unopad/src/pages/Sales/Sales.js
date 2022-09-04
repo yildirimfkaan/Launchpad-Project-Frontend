@@ -77,10 +77,10 @@ function Sales({ ...props }) {
       </div>
       <h3>Sales</h3>
       <div id="token-sorting-section" className="d-flex align-items-center py-2">
-        <Dropdown className="mr-2">
+        <Dropdown className="me-2">
           <Dropdown.Toggle variant="outline-secondary" className="d-flex align-items-center">
             <UPIcons name="MdSort" size="18" />
-            <span className="ml-1">{sortTypes[tokenSortData.sortType].name}</span>
+            <span className="ms-1">{sortTypes[tokenSortData.sortType].name}</span>
           </Dropdown.Toggle>
 
           <Dropdown.Menu className="py-1">
@@ -92,7 +92,7 @@ function Sales({ ...props }) {
                   onClick={() => changeSortType(index)}
                 >
                   <UPIcons name={sortType.icon} size="18" />
-                  <span className="ml-2">{sortType.name}</span>
+                  <span className="ms-2">{sortType.name}</span>
                 </Dropdown.Item>
               );
             })}
@@ -101,7 +101,7 @@ function Sales({ ...props }) {
         <Dropdown>
           <Dropdown.Toggle variant="outline-secondary" className="d-flex align-items-center">
             <UPIcons name="BiFilterAlt" size="18" />
-            <span className="ml-1">{sortKeys[tokenSortData.sortKey].name}</span>
+            <span className="ms-1">{sortKeys[tokenSortData.sortKey].name}</span>
           </Dropdown.Toggle>
 
           <Dropdown.Menu className="py-1">

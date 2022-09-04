@@ -8,6 +8,7 @@ const initialState = {
   accountVerifiedData: null,
   resendVerificationEmailData: null,
   user: null,
+  checkUserToken: null,
   error: {
     type: null,
     data: null,
@@ -130,7 +131,19 @@ export const userReducer = (state = initialState, action) => {
           data: action.payload,
         },
       };
-
+    case types.CHECK_USER_TOKEN_DATA:
+      return {
+        ...state,
+        checkUserToken: action.payload,
+      };
+    case types.CHECK_USER_TOKEN_ERROR:
+      return {
+        ...state,
+        error: {
+          type: types.CHECK_USER_TOKEN_ERROR,
+          data: action.payload,
+        },
+      };
     default:
       return state;
   }

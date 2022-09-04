@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux';
-import BuyUnoToken from '../BuyUnoToken';
+import BuyUnoToken from './BuyUnoToken';
 
 import * as loadingActionTypes from '../../store/loading/loadingActionTypes';
 import { buyTokenModalAction } from '../../store/token/tokenActions';

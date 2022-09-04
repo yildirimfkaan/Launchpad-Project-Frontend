@@ -1,25 +1,21 @@
 import MainLayout from "./layouts/MainLayout/MainLayout";
 import PublicLayout from "./layouts/PublicLayout/PublicLayout";
 
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import Launchpad from './pages/Launchpad/Launchpad';
 import UserRoute from './routes/UserRoute';
-import Login from './pages/Login.jsx';
-import SignUp from './pages/SignUp.jsx';
+import Login from './pages/Login/Login';
+import SignUp from './pages/SignUp/SignUp';
 import ProjectDetail from './pages/ProjectDetail/ProjectDetail';
 
-import FormTest from './pages/FormTest';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import Payment from './pages/Payment';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword';
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 import ProjectForm from './pages/ProjectForm';
-import Activation from "./pages/Activation";
+import Activation from "./pages/Activition/Activation";
 
 import { Route } from "react-router-dom";
-import TxList from "./components/TxList";
-// import Connection from "./pages/Connection";
-import Profile from "./pages/Profile";
+import Profile from "./pages/Profile/Profile";
 import Sales from "./pages/Sales/Sales";
 import TokenDetail from "./pages/TokenDetail/TokenDetail";
 
@@ -72,20 +68,6 @@ const routes = {
         component: SignUp,
         routeComponent: Route
       },
-      {
-        path: "/FormTest",
-        exact: true,
-        name: "Form Test",
-        component: FormTest,
-        routeComponent: Route
-      },
-      {
-        path: "/Payment",
-        exact: true,
-        name: "Payment",
-        component: Payment,
-        routeComponent: Route
-      },
     ],
   },
   MainLayout: {
@@ -129,12 +111,6 @@ const routes = {
         name: "Token Detail",
         component: TokenDetail,
         routeComponent: Route
-      },
-      {
-        path: "/Txlist",
-        name: "Txlist",
-        component: TxList,
-        routeComponent: UserRoute
       },
       {
         path: "/Home",

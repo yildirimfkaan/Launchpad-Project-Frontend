@@ -1,10 +1,10 @@
 import { takeEvery, put, all, call } from 'redux-saga/effects';
-import createBrowserHistory from '../../helpers/History';
 import * as types from './userActionTypes';
 import * as actions from './userActions';
 import * as alert from '../alert/alertActions';
 import * as endpoints from '../../services/endpoints';
 import Swal from 'sweetalert2';
+import { errorHandler } from '../../helpers/errorHandler';
 
 function* loginSaga({ creds }) {
   try {
@@ -115,7 +115,7 @@ function* activationSaga({ creds }) {
 
     const { data } = yield call(endpoints.activation, body);
     yield put(actions.activationData(data));
-    
+
     yield put(
       alert.setAlertAction({
         title: 'Success!',
@@ -143,7 +143,6 @@ function* activationSaga({ creds }) {
 function* logoutSaga() {
   localStorage.removeItem('user');
   yield put(actions.logoutData());
-  createBrowserHistory.push('/');
 }
 
 function* signUpSaga({ creds }) {
@@ -182,14 +181,7 @@ function* getAccountDetailsSaga({ creds }) {
     const { data } = yield call(endpoints.getAccountDetails);
     yield put(actions.accountDetailsDataAction(data));
   } catch (e) {
-    yield put(
-      alert.setAlertAction({
-        title: 'Error!',
-        text: e.msg,
-        variant: 'danger',
-        outTimeMS: 6000,
-      }),
-    );
+    errorHandler(e);
     yield put(actions.accountDetailsErrorAction(e));
   }
 }
@@ -214,6 +206,16 @@ function* resendVerificationEmail({ payload }) {
       }),
     );
     yield put(actions.resendVerificationEmailErrorAction(e));
+  }
+}
+
+function* checkUserToken({ payload }) {
+  try {
+    const { data } = yield call(endpoints.checkUserToken);
+    yield put(actions.checkUserTokenDataAction(data));
+  } catch (e) {
+    errorHandler(e);
+    yield put(actions.checkUserTokenErrorAction(e));
   }
 }
 
@@ -243,6 +245,9 @@ function* watchAccountDetails() {
 function* watchResendVerificationEmail() {
   yield takeEvery(types.RESEND_VERIFICATION_EMAIL_REQUEST, resendVerificationEmail);
 }
+function* watchCheckUserToken() {
+  yield takeEvery(types.CHECK_USER_TOKEN_REQUEST, checkUserToken);
+}
 
 export function* userSaga() {
   yield all([
@@ -254,5 +259,6 @@ export function* userSaga() {
     watchActivation(),
     watchAccountDetails(),
     watchResendVerificationEmail(),
+    watchCheckUserToken(),
   ]);
 }

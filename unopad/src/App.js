@@ -2,20 +2,23 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import routes from './routes';
 import PublicLayout from './layouts/PublicLayout/PublicLayout';
-import PageNotFound from './pages/PageNotFound';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
 import createBrowserHistory from './helpers/History';
 import './App.scss';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { loginData } from './store/account/userActions';
+import { checkUserTokenRequestAction, loginData } from './store/account/userActions';
 
 const keys = Object.keys(routes);
 
 function App({ ...props }) {
-  const { setLoginData } = props;
+  const { setLoginData, checkUserToken } = props;
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'))?.user;
     if (user) setLoginData(user);
+
+    const token = JSON.parse(localStorage.getItem('user'))?.token;
+    if (token) checkUserToken();
   }, []);
 
   return (
@@ -55,6 +58,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setLoginData: (payload) => {
       dispatch(loginData(payload));
+    },
+    checkUserToken: (payload) => {
+      dispatch(checkUserTokenRequestAction(payload));
     },
   };
 };

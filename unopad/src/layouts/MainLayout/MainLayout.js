@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Footer from '../../components/Footer';
+import UPFooter from '../../components/UPFooter/UPFooter';
 import UPNavbar from '../../components/UPNavbar/UPNavbar';
 import { useEffect } from 'react';
 import { connectWalletDataAction, setWalletAccountData } from '../../store/wallet/walletActions';
@@ -39,7 +39,7 @@ function MainLayout({ ...props }) {
     <>
       <UPNavbar />
       {children}
-      <Footer />
+      <UPFooter />
     </>
   );
 }
