@@ -15,13 +15,13 @@ import './UPBuyTokenModal.scss';
 function BuyUnoToken({ ...props }) {
   const { balance_, signerAddress, token, setLoading, isLoading } = props;
   const [txs, setTxs] = useState([]);
+
   useEffect(() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const unopad_token = new ethers.Contract(token.token_address, unopad_token_abi, provider);
 
     try {
       unopad_token.on('Transfer', (from, to, amount, event) => {
-      
         setTxs((currentTxs) => [
           ...currentTxs,
           {
@@ -58,7 +58,7 @@ function BuyUnoToken({ ...props }) {
     );
     const etherMiktari = data.get('etherValue');
     try {
-      await unopad_presale.methods.buy().send({
+        await unopad_presale.methods.buy().send({
         from: signerAddress,
         to: token.presale_contract.contract_address,
         data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
@@ -71,14 +71,21 @@ function BuyUnoToken({ ...props }) {
         text: 'Transaction succeed',
       });
     } catch (err) {
-      console.log('error message');
-      console.dir(err);
-
-      Swal.fire({
-        icon: 'warning',
-        text: err.message,
-      });
-      setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
+      if (err?.receipt?.transactionHash) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Transaction is Failed',
+          // eslint-disable-next-line max-len, no-template-curly-in-string
+          html: "<a href=https://testnet.bscscan.com/tx/"+err.receipt.transactionHash+" target='_blank'> Check Detail Transaction !</a>",
+        });
+        setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          text: err.message,
+        });
+        setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
+      }
     }
   };
   const Transfer_txs = [txs];

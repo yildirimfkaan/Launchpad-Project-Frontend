@@ -49,7 +49,7 @@ function WalletAccountDetailModal({ ...props }) {
           <Button variant="primary" onClick={handleClose}>
             Copy Address
           </Button>
-          <Button variant="primary" href={`https://testnet.bscscan.com/address/` + accounts?.[0]}>
+          <Button variant="primary" target='_blank' href={`https://testnet.bscscan.com/address/` + accounts?.[0]}>
             View in Explorer
           </Button>
           <Button variant="primary" onClick={getWalletAccountHistory}>
