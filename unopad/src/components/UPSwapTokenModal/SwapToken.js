@@ -18,15 +18,13 @@ function SwapToken({ ...props }) {
   const contractDynamicToken = project.project_token.token_address;
   const contractDynamicTokenPresale = project.project_token.presale_contract.contract_address;
   const [txs, setTxs] = useState([]);
-  
+
   useEffect(() => {
-    
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const dynamic_token = new ethers.Contract(contractDynamicToken, dynamic_token_abi, provider);
-    
+
     try {
       dynamic_token.on('Transfer', (from, to, amount, event) => {
-        
         setTxs((currentTxs) => [
           ...currentTxs,
           {
@@ -37,21 +35,19 @@ function SwapToken({ ...props }) {
           },
         ]);
       });
-      
     } catch (e) {
       console.log('error', e);
     }
-    
+
     return () => {
-      
       dynamic_token.removeAllListeners();
     };
   }, []);
 
   const swapToken = async (e) => {
     e.preventDefault();
-    setTxs([])
-   
+    setTxs([]);
+
     setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: true });
     const data = new FormData(e.target);
 
@@ -62,15 +58,9 @@ function SwapToken({ ...props }) {
     await wallet.controlAndSwitchOrAddNetwork();
     await window.ethereum.enable();
 
-
     const dynamic_token = new web3.eth.Contract(dynamic_token_abi, contractDynamicToken);
-    console.log('dynamic_token', dynamic_token);
-
     const dynamic_presale = new web3.eth.Contract(dynamic_presale_abi, contractDynamicTokenPresale);
-    console.log('dynamic_presale', dynamic_presale);
-
     const etherMiktari = data.get('etherValue');
-    console.log('ether miktar', etherMiktari);
     try {
       await dynamic_presale.methods.swap().send({
         from: signerAddress,
@@ -84,17 +74,25 @@ function SwapToken({ ...props }) {
         icon: 'success',
         text: 'Transaction succeed',
       });
-
     } catch (err) {
-      console.log('error message');
-      console.dir(err);
-
-      Swal.fire({
-        icon: 'warning',
-        text: err.message,
-      });
-      setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: false });
-
+      if (err?.receipt?.transactionHash) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Transaction is Failed',
+          // eslint-disable-next-line max-len, no-template-curly-in-string
+          html:
+            '<a href=https://testnet.bscscan.com/tx/' +
+            err.receipt.transactionHash +
+            " target='_blank'> Check Detail Transaction !</a>",
+        });
+        setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: false });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          text: err.message,
+        });
+        setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: false });
+      }
     }
   };
   const Transfer_txs = [txs];
