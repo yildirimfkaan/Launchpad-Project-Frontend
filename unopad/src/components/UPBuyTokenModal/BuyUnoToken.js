@@ -101,10 +101,13 @@ function BuyUnoToken({ ...props }) {
             <div className="">
               <div className="my-3">
                 <input
-                  type="text"
+                  type="number"
                   name="etherValue"
                   className="input input-bordered block w-full focus:ring focus:outline-none"
                   placeholder="Ether Value"
+                  min="0.001"
+                  step="0.001"
+                  disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
                 />
               </div>
             </div>

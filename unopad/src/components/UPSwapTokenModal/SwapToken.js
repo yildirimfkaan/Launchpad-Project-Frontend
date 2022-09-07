@@ -108,10 +108,13 @@ function SwapToken({ ...props }) {
             <div className="">
               <div className="my-3">
                 <input
-                  type="text"
+                  type="number"
                   name="etherValue"
                   className="input input-bordered block w-full focus:ring focus:outline-none"
-                  placeholder="Ether Value"
+                  placeholder="Ether Value" 
+                  min="0.002"
+                  step="0.002"
+                  disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING]}
                 />
               </div>
             </div>
