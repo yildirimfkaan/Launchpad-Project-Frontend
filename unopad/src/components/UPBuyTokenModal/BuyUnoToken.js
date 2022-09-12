@@ -11,11 +11,33 @@ import wallet from '../../helpers/wallet';
 import UPTransactions from '../UPTransactions/UPTransactions';
 import Spinner from 'react-bootstrap/Spinner';
 import './UPBuyTokenModal.scss';
+import { FloatingLabel, Form } from 'react-bootstrap';
 
 function BuyUnoToken({ ...props }) {
   const { balance_, signerAddress, token, setLoading, isLoading } = props;
   const [txs, setTxs] = useState([]);
+  const [unoTokenInputValue, setUnoTokenInputValue] = useState({
+    UnoTokenAmount: 1,
+    etherValue: 0.001,
+  });
 
+  const UnoTokenOnChangeHandler = (event) => {
+    const { name, value } = event.target;
+    if(name=='etherValue'){
+      const unoTokenValue = value*1000;
+      unoTokenInputValue.UnoTokenAmount  = unoTokenValue;
+      unoTokenInputValue.etherValue = value;
+      setUnoTokenInputValue({ ...unoTokenInputValue });
+    }
+    else if (name=='UnoTokenAmount'){
+      const etherValue = value/1000;
+      unoTokenInputValue.UnoTokenAmount  = value;
+      unoTokenInputValue.etherValue = etherValue;
+      setUnoTokenInputValue({ ...unoTokenInputValue });
+    }
+    
+    
+  };
   useEffect(() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const unopad_token = new ethers.Contract(token.token_address, unopad_token_abi, provider);
@@ -58,7 +80,7 @@ function BuyUnoToken({ ...props }) {
     );
     const etherMiktari = data.get('etherValue');
     try {
-        await unopad_presale.methods.buy().send({
+      await unopad_presale.methods.buy().send({
         from: signerAddress,
         to: token.presale_contract.contract_address,
         data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
@@ -76,7 +98,10 @@ function BuyUnoToken({ ...props }) {
           icon: 'error',
           title: 'Transaction is Failed',
           // eslint-disable-next-line max-len, no-template-curly-in-string
-          html: "<a href=https://testnet.bscscan.com/tx/"+err.receipt.transactionHash+" target='_blank'> Check Detail Transaction !</a>",
+          html:
+            '<a href=https://testnet.bscscan.com/tx/' +
+            err.receipt.transactionHash +
+            " target='_blank'> Check Detail Transaction !</a>",
         });
         setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
       } else {
@@ -100,15 +125,39 @@ function BuyUnoToken({ ...props }) {
             <h1 className="text-xl font-semibold text-gray-700 text-center">Buy Uno Token</h1>
             <div className="">
               <div className="my-3">
-                <input
+                <FloatingLabel
+                label="Ether Value"
+                className='mb-3'
+                >
+                <Form.Control
                   type="number"
                   name="etherValue"
                   className="input input-bordered block w-full focus:ring focus:outline-none"
                   placeholder="Ether Value"
                   min="0.001"
                   step="0.001"
+                  value={unoTokenInputValue.etherValue}
+                  onChange={UnoTokenOnChangeHandler}
                   disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
                 />
+                </FloatingLabel>
+                <FloatingLabel
+                label="Uno Token Amount"
+                className='mb-3'>
+                <Form.Control
+                  type="number"
+                  name="UnoTokenAmount"
+                  id="UnoTokenAmount"
+                  className="input input-bordered block w-full focus:ring focus:outline-none"
+                  placeholder="UnoTokenAmount"
+                  value={unoTokenInputValue.UnoTokenAmount}
+                  onChange={UnoTokenOnChangeHandler}
+                  min="1"
+                  step="1"
+                  disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
+                />
+                </FloatingLabel>
+                
               </div>
             </div>
           </main>

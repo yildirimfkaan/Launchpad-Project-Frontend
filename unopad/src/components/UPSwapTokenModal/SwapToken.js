@@ -12,12 +12,33 @@ import * as loadingActionTypes from '../../store/loading/loadingActionTypes';
 import wallet from '../../helpers/wallet';
 import UPTransactions from '../UPTransactions/UPTransactions';
 import './UPSwapTokenModal.scss';
+import { FloatingLabel, Form } from 'react-bootstrap';
 
 function SwapToken({ ...props }) {
   const { balance_, signerAddress, project, setLoading, isLoading } = props;
   const contractDynamicToken = project.project_token.token_address;
+
   const contractDynamicTokenPresale = project.project_token.presale_contract.contract_address;
   const [txs, setTxs] = useState([]);
+  const [swapTokenInputValue, setSwapTokenInputValue] = useState({
+    swapTokenAmount: 1,
+    etherValue: 0.002,
+  });
+
+  const swapTokenOnChangeHandler = (event) => {
+    const { name, value } = event.target;
+    if (name == 'etherValue') {
+      const swapTokenValue = value * 500;
+      swapTokenInputValue.swapTokenAmount = swapTokenValue;
+      swapTokenInputValue.etherValue = value;
+      setSwapTokenInputValue({ ...swapTokenInputValue });
+    } else if (name == 'swapTokenAmount') {
+      const etherValue = value / 500;
+      swapTokenInputValue.swapTokenAmount = value;
+      swapTokenInputValue.etherValue = etherValue;
+      setSwapTokenInputValue({ ...swapTokenInputValue });
+    }
+  };
 
   useEffect(() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -107,15 +128,32 @@ function SwapToken({ ...props }) {
             <h1 className="text-xl font-semibold text-gray-700 text-center">Buy Token</h1>
             <div className="">
               <div className="my-3">
-                <input
-                  type="number"
-                  name="etherValue"
-                  className="input input-bordered block w-full focus:ring focus:outline-none"
-                  placeholder="Ether Value" 
-                  min="0.002"
-                  step="0.002"
-                  disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING]}
-                />
+                <FloatingLabel label="Ether Value" className="mb-3">
+                  <Form.Control
+                    type="number"
+                    name="etherValue"
+                    className="input input-bordered block w-full focus:ring focus:outline-none"
+                    placeholder="Ether Value"
+                    min="0.002"
+                    step="0.002"
+                    onChange={swapTokenOnChangeHandler}
+                    value={swapTokenInputValue.etherValue}
+                    disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING]}
+                  />
+                </FloatingLabel>
+                <FloatingLabel label="Swap Token Amount" className="mb-3">
+                  <Form.Control
+                    type="number"
+                    name="swapTokenAmount"
+                    className="input input-bordered block w-full focus:ring focus:outline-none"
+                    placeholder="Swap Token Amount"
+                    min="1"
+                    step="1"
+                    onChange={swapTokenOnChangeHandler}
+                    value={swapTokenInputValue.swapTokenAmount}
+                    disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING]}
+                  />
+                </FloatingLabel>
               </div>
             </div>
           </main>
