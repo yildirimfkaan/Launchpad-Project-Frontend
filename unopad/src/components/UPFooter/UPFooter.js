@@ -3,7 +3,7 @@ import './UPFooter.scss';
 
 function Footer() {
   return (
-    <React.Fragment>
+    <>
       <footer class="footer mt-5 pt-5 img-bg footer-bg footer-section bg-primary text-white">
         <div class="container">
           <div class="row">
@@ -123,7 +123,7 @@ function Footer() {
       <script src="../assets/js/contact-form.js"></script>
       <script src="../assets/js/wow.min.js"></script>
       <script src="../assets/js/main.js"></script>
-    </React.Fragment>
+    </>
   );
 }
 

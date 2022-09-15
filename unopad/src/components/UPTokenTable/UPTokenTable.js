@@ -42,7 +42,7 @@ function UPTokenTable(props) {
                       src={process.env.REACT_APP_API_URL + '/projects/' + item[1].id + '/image'}
                     />
                   </span> */}
-                    <span>{item[1].token_name}</span>
+                    <div>{item[1].token_name}</div>
                   </div>
                 </td>
                 <td>{item[1].token_symbol}</td>
@@ -54,7 +54,7 @@ function UPTokenTable(props) {
             );
           })
         ) : (
-          <span className="text-muted">No token found according to search results.</span>
+          <div className="text-muted">No token found according to search results.</div>
         )}
       </tbody>
     </Table>
