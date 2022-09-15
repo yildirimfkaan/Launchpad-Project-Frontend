@@ -12,7 +12,7 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import ProjectForm from './pages/ProjectForm';
-import Activation from "./pages/Activition/Activation";
+import Activation from "./pages/Activation/Activation";
 
 import { Route } from "react-router-dom";
 import Profile from "./pages/Profile/Profile";

@@ -3,7 +3,7 @@ import './UPHomeComponents.scss';
 
 function Grows() {
   return (
-    <React.Fragment>
+    
       <section className="grows-section pt-150">
         <div className="container">
           <div className="row">
@@ -40,7 +40,7 @@ function Grows() {
           </div>
         </div>
       </section>
-    </React.Fragment>
+    
   );
 }
 

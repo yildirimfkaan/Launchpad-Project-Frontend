@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import UPFormControl from '../../components/UPFormControl/UPFormControl';
 import { activationRequest } from '../../store/account/userActions';
-import './Activition.scss';
+import './Activation.scss';
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop),

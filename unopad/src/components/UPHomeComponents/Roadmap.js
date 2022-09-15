@@ -3,7 +3,7 @@ import './UPHomeComponents.scss';
 
 function Roadmap() {
   return (
-    <React.Fragment>
+    
       <section
         id="roadmap"
         className="roadmap-section pt-100 pb-70 img-bg"
@@ -52,7 +52,7 @@ function Roadmap() {
           </div>
         </div>
       </section>
-    </React.Fragment>
+    
   );
 }
 

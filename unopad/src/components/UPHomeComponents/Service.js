@@ -3,7 +3,7 @@ import './UPHomeComponents.scss';
 
 function Service() {
   return (
-    <React.Fragment>
+    
       <section id="service" class="service-section pt-150 pb-120">
         <div class="container">
           <div class="row">
@@ -95,7 +95,7 @@ function Service() {
           </div>
         </div>
       </section>
-    </React.Fragment>
+    
   );
 }
 
