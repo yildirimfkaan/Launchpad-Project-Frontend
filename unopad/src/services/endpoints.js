@@ -29,3 +29,6 @@ export const addProject = (body) => doPost('/projects', body);
 export const getTokens = () => doGet('/tokens');
 export const getTokenByID = (id) => doGet('/tokens/' + id);
 export const addToken = (body) => doPost('/tokens', body);
+
+//bscApi
+export const GetTxlist = (body) => doPost('/bsc', body);
