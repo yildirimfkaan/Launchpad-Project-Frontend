@@ -36,7 +36,7 @@ function walletAccountHistoryModal({ ...props }) {
                 <Container>
                   <Row>
                     <Col>
-                      <Table striped bordered hover size="sm">
+                      <Table striped bordered hover responsive="xl">
                         <thead>
                           <tr>
                             <th>blockNumber</th>
