@@ -1,3 +1,7 @@
 .wallet-account-history-modal {
     z-index: 1056 !important;
 }
+.wallet-account-history-table {
+    height: 640px;
+    overflow: auto;
+}
