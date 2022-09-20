@@ -1,41 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, FormGroup, Button } from 'react-bootstrap';
 
 import { addProjectAction } from '../store/project/projectActions';
 
-class ProjectForm extends Component {
-  state = {
+function ProjectForm ({...props}) {
+  const {addProject} = props;
+  const [state, setState] = useState({
     project_name: '',
     project_number_of_participants: '',
     project_nameErr: '',
     project_number_of_participantsErr: '',
     project_number_of_registrations: '',
     project_number_of_registrationsErr: '',
-  };
+  });
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const { project_name, project_number_of_participants, project_number_of_registrations } =
-      this.state;
+      state;
 
     let valid = true;
 
     if (project_name === '') {
-      this.setState({
+      setState({
         project_nameErr: 'project_name cannot be blank.',
       });
       valid = false;
     }
 
     if (project_number_of_participants === '') {
-      this.setState({
+      setState({
         project_number_of_participantsErr: 'project_number_of_participants cannot be blank.',
       });
       valid = false;
     }
     if (project_number_of_registrations === '') {
-      this.setState({
+      setState({
         project_number_of_registrationsErr: 'project_number_of_registrations cannot be blank.',
       });
       valid = false;
@@ -48,9 +49,9 @@ class ProjectForm extends Component {
         project_number_of_registrations,
       };
 
-      this.props.addProject(data);
+      addProject(data);
 
-      this.setState({
+      setState({
         project_name: '',
         project_number_of_participants: '',
         project_nameErr: '',
@@ -61,14 +62,14 @@ class ProjectForm extends Component {
     }
   };
 
-  handleChange = (e) => {
-    this.setState({
+  const handleChange = (e) => {
+    setState({
       [e.target.id]: e.target.value,
       [e.target.id + 'Err']: '',
     });
   };
 
-  render() {
+  
     const {
       project_name,
       project_number_of_participants,
@@ -76,13 +77,13 @@ class ProjectForm extends Component {
       project_number_of_participantsErr,
       project_number_of_registrations,
       project_number_of_registrationsErr,
-    } = this.state;
+    } = state;
 
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Form.Label htmlFor="project_name">project_name</Form.Label>
-          <Form.Control id="project_name" value={project_name} onChange={this.handleChange} />
+          <Form.Control id="project_name" value={project_name} onChange={handleChange} />
           <span id="project_nameErr" style={{ color: 'red', fontSize: '12px' }}>
             {project_nameErr}
           </span>
@@ -95,7 +96,7 @@ class ProjectForm extends Component {
           <Form.Control
             id="project_number_of_participants"
             value={project_number_of_participants}
-            onChange={this.handleChange}
+            onChange={handleChange}
           />
           <span id="project_number_of_participantsErr" style={{ color: 'red', fontSize: '12px' }}>
             {project_number_of_participantsErr}
@@ -109,35 +110,20 @@ class ProjectForm extends Component {
           <Form.Control
             id="project_number_of_registrations"
             value={project_number_of_registrations}
-            onChange={this.handleChange}
+            onChange={handleChange}
           />
           <span id="project_number_of_registrationsErr" style={{ color: 'red', fontSize: '12px' }}>
             {project_number_of_registrationsErr}
           </span>
         </FormGroup>
-
-        {/* <FormGroup>
-          <Label htmlFor="description">Description</Label>
-          <Input
-            type="textarea"
-            value={description}
-            id="description"
-            onChange={this.handleChange}
-            rows="5"
-          />
-          <span id="descriptionErr" style={{ color: 'red', fontSize: '12px' }}>
-            {descriptionErr}
-          </span>
-        </FormGroup> */}
-
         <Button type='submit' color="primary">Add</Button>
       </Form>
     );
-  }
+  
 }
 
 const mapDispatchToProps = (dispatch) => {
-  //store.dispatch
+  
   return {
     addProject: (data) => {
       dispatch(addProjectAction(data));

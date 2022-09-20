@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import UPFormControl from '../../components/UPFormControl/UPFormControl';
@@ -9,38 +9,38 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop),
 });
 
-class Activation extends Component {
-  state = {
+function Activation({ ...props }) {
+  const { history, activation } = props;
+  const [state, setState] = useState({
     data: {
       activationCode: '',
       activationToken: params.token,
     },
     errors: {},
-  };
-
-  validate = () => {
-    const { data } = this.state;
+  });
+  const validate = () => {
+    const { data } = state;
     const errors = {};
     if (data.activationCode === '') errors.activationCode = 'Activation Code cannot be blank.';
 
     return errors;
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { data } = this.state;
-    const errors = this.validate();
+    const { data } = state;
+    const errors = validate();
 
     const payload = {
       activationCode: data.activationCode,
       activationToken: data.activationToken,
-      history: this.props.history,
-    }
+      history: history,
+    };
 
     if (Object.keys(errors).length === 0) {
-      this.props.activation(payload);
+      activation(payload);
 
-      this.setState({
+      setState({
         data: {
           activationCode: '',
           activationToken: params.token,
@@ -48,58 +48,51 @@ class Activation extends Component {
         errors: {},
       });
     } else {
-      this.setState({
+      setState({
         errors,
       });
     }
   };
 
-  handleChange = (e) => {
-    this.setState({
+  const handleChange = (e) => {
+    setState({
       data: {
-        ...this.state.data,
+        ...state.data,
         activationCode: e.target.value,
-        
-    },
-      
+      },
+
       errors: {
-        ...this.state.errors,
+        ...state.errors,
         activationCode: '',
       },
     });
-    
-};
- 
-  render() {
-    const { data, errors } = this.state;
-    console.log("data",data)
-    console.log("asd")
-    return (
-      <>
-        <Row>
-          <Col>
-            <Form onSubmit={this.handleSubmit} style={{ textAlign: 'center' }}>
-              <UPFormControl
-                label="ActivationCode"
-                type="password"
-                value={data.activationCode}
-                handleChange={this.handleChange}
-                error={errors.activationCode}
-              />
+  };
+  const { data, errors } = state;
+  return (
+    <>
+      <Row>
+        <Col>
+          <Form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
+            <UPFormControl
+              label="ActivationCode"
+              type="password"
+              value={data.activationCode}
+              handleChange={handleChange}
+              error={errors.activationCode}
+            />
 
-              <Button
-                type="submit"
-                style={{ backgroundColor: '#365ae1', marginTop: '10px', justifyContent: 'center' }}
-              >
-                Activate your Account
-              </Button>
-            </Form>
-            {/* <Button color="primary" onClick={this.handleSign}>SignUp</Button> */}
-          </Col>
-        </Row>
-      </>
-    );
-  }
+            <Button
+              type="submit"
+              style={{ backgroundColor: '#365ae1', marginTop: '10px', justifyContent: 'center' }}
+            >
+              Activate your Account
+            </Button>
+          </Form>
+          {/* <Button color="primary" onClick={this.handleSign}>SignUp</Button> */}
+        </Col>
+      </Row>
+    </>
+  );
 }
 const mapDispatchToProps = (dispatch) => {
   return {

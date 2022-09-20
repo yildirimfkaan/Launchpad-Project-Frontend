@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import UPFormControl from '../../components/UPFormControl/UPFormControl';
@@ -9,38 +9,40 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop),
 });
 
-class ResetPassword extends Component {
-  state = {
+function ResetPassword ({...props}) {
+  const {history,resetpassword} = props;
+  const [state, setState] = useState({
     data: {
       password: '',
       resetToken: params.token,
     },
     errors: {},
-  };
+  });
+  
 
-  validate = () => {
-    const { data } = this.state;
+  const validate = () => {
+    const { data } = state;
     const errors = {};
     if (data.password === '') errors.password = 'Password cannot be blank.';
 
     return errors;
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { data } = this.state;
-    const errors = this.validate();
+    const { data } = state;
+    const errors = validate();
 
     const payload = {
       password: data.password,
       resetToken: data.resetToken,
-      history: this.props.history,
+      history: history,
     }
 
     if (Object.keys(errors).length === 0) {
-      this.props.resetpassword(payload);
+      resetpassword(payload);
 
-      this.setState({
+      setState({
         data: {
           password: '',
           resetToken: params.token,
@@ -48,38 +50,38 @@ class ResetPassword extends Component {
         errors: {},
       });
     } else {
-      this.setState({
+      setState({
         errors,
       });
     }
   };
 
-  handleChange = (e) => {
-    this.setState({
+  const handleChange = (e) => {
+    setState({
       data: {
-        ...this.state.data,
+        ...state.data,
         [e.target.id]: e.target.value,
       },
       errors: {
-        ...this.state.errors,
+        ...state.errors,
         [e.target.id]: '',
       },
     });
   };
 
-  render() {
-    const { data, errors } = this.state;
+  
+    const { data, errors } = state;
 
     return (
       <>
         <Row>
           <Col>
-            <Form onSubmit={this.handleSubmit} style={{ textAlign: 'center' }}>
+            <Form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
               <UPFormControl
                 label="Password"
                 type="password"
                 value={data.password}
-                handleChange={this.handleChange}
+                handleChange={handleChange}
                 error={errors.password}
               />
 
@@ -95,7 +97,7 @@ class ResetPassword extends Component {
         </Row>
       </>
     );
-  }
+  
 }
 const mapDispatchToProps = (dispatch) => {
   return {
