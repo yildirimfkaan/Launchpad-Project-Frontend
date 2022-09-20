@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import UPFormControl from '../../components/UPFormControl/UPFormControl';
 import { signUpRequest } from '../../store/account/userActions';
 import './SignUp.scss';
 
-class SignUp extends Component {
-  state = {
+function SignUp ({...props}){
+  const {sign,history} = props;
+  const [state, setState] = useState({
     data: {
       username: '',
       password: '',
-      email: '',
+      email:'',
     },
     errors: {},
-  };
+  });
 
-  validate = () => {
-    const { data } = this.state;
+  const validate = () => {
+    const { data } = state;
     const errors = {};
 
     if (data.username === '') errors.username = 'Username cannot be blank.';
@@ -25,20 +26,20 @@ class SignUp extends Component {
     return errors;
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { data } = this.state;
-    const errors = this.validate();
+    const { data } = state;
+    const errors = validate();
 
     const payload = {
       data,
-      history: this.props.history,
+      history: history,
     }
 
     if (Object.keys(errors).length === 0) {
-      this.props.sign(payload);
+      sign(payload);
 
-      this.setState({
+      setState({
         data: {
           username: '',
           password: '',
@@ -47,51 +48,51 @@ class SignUp extends Component {
         errors: {},
       });
     } else {
-      this.setState({
+      setState({
         errors,
       });
     }
   };
 
-  handleChange = (e) => {
-    this.setState({
+  const handleChange = (e) => {
+    setState({
       data: {
-        ...this.state.data,
+        ...state.data,
         [e.target.id]: e.target.value,
       },
       errors: {
-        ...this.state.errors,
+        ...state.errors,
         [e.target.id]: '',
       },
     });
   };
 
-  render() {
-    const { data, errors } = this.state;
+  
+    const { data, errors } = state;
 
     return (
       <Row>
         <Col>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <UPFormControl
               label="Username"
               type="text"
               value={data.username}
-              handleChange={this.handleChange}
+              handleChange={handleChange}
               error={errors.username}
             />
             <UPFormControl
               label="Email"
               type="text"
               value={data.email}
-              handleChange={this.handleChange}
+              handleChange={handleChange}
               error={errors.email}
             />
             <UPFormControl
               label="Password"
               type="password"
               value={data.password}
-              handleChange={this.handleChange}
+              handleChange={handleChange}
               error={errors.password}
             />
             <Button
@@ -111,7 +112,7 @@ class SignUp extends Component {
         </Col>
       </Row>
     );
-  }
+  
 }
 
 const mapDispatchToProps = (dispatch) => {

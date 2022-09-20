@@ -1,66 +1,67 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import UPFormControl from '../../components/UPFormControl/UPFormControl';
 import { forgotPasswordRequest } from '../../store/account/userActions';
 import './ForgotPassoword.scss';
 
-class ForgotPassword extends Component {
-  state = {
+function ForgotPassword ({...props}) {
+  const {forgotpassword} = props;
+  const [state, setState] = useState({
     data: {
       email: '',
     },
     errors: {},
-  };
-  validate = () => {
-    const { data } = this.state;
+  });
+  const validate = () => {
+    const { data } = state;
     const errors = {};
     if (data.username === '') errors.email = 'Email cannot be blank.';
     return errors;
   };
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { data } = this.state;
-    const errors = this.validate();
+    const { data } = state;
+    const errors = validate();
     
     if (Object.keys(errors).length === 0) {
-      this.props.forgotpassword(data);
+      forgotpassword(data);
 
-      this.setState({
+      setState({
         data: {
           email: '',
         },
         errors: {},
       });
     } else {
-      this.setState({
+      setState({
         errors,
       });
     }
   };
-  handleChange = (e) => {
-    this.setState({
+  const handleChange = (e) => {
+    setState({
       data: {
-        ...this.state.data,
+        ...state.data,
         [e.target.id]: e.target.value,
       },
       errors: {
-        ...this.state.errors,
+        ...state.errors,
         [e.target.id]: '',
       },
     });
   };
-  render() {
-    const { data, errors } = this.state;
+  
+    const { data, errors } = state;
     return (
       <Row>
         <Col>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <UPFormControl
               label="Email"
               type="text"
               value={data.email}
-              handleChange={this.handleChange}
+              handleChange={handleChange}
               error={errors.email}
             />
             <Button
@@ -79,7 +80,7 @@ class ForgotPassword extends Component {
         </Col>
       </Row>
     );
-  }
+  
 }
 const mapDispatchToProps = (dispatch) => {
   return {
