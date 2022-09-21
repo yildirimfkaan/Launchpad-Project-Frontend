@@ -7,19 +7,14 @@ import erc20abi from '../helpers/abi';
 // import * as loadingActionTypes from '../store/loading/loadingActionTypes';
 // import { setLoading } from '../store/loading/loadingActions';
 
-
-
-
-
 async function connectWallet() {
   try {
-
     const { ethereum } = window;
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
     const accounts = await ethereum.request({
-       method: 'eth_requestAccounts',
+      method: 'eth_requestAccounts',
     });
 
     // const library = new ethers.providers.Web3Provider(provider);
@@ -30,8 +25,8 @@ async function connectWallet() {
     };
     store.dispatch({ type: types.CONNECT_WALLET_DATA, payload });
     localStorage.setItem('-walletlink:https://www.walletlink.org:Addresses', accounts);
-    localStorage.setItem('WALLET_VERIFICATION_DATA',JSON.stringify({accounts}))
-    store.dispatch({ type: types.WALLET_CONNECT_MODAL, payload:false });
+    localStorage.setItem('WALLET_VERIFICATION_DATA', JSON.stringify({ accounts }));
+    store.dispatch({ type: types.WALLET_CONNECT_MODAL, payload: false });
   } catch (error) {
     console.log(error);
     store.dispatch({ type: types.CONNECT_WALLET_ERROR, payload: error });
@@ -48,7 +43,7 @@ async function disconnectWallet() {
   localStorage.removeItem('-walletlink:https://www.walletlink.org:session:secret');
   localStorage.removeItem('-walletlink:https://www.walletlink.org:HasChainBeenSwitched');
   localStorage.removeItem('-walletlink:https://www.walletlink.org:IsStandaloneSigning');
-  
+
   setTimeout(() => {
     store.dispatch({ type: types.CONNECT_WALLET_DATA, payload: null });
   }, 500);
@@ -58,14 +53,14 @@ async function disconnectWallet() {
 
 async function controlAndSwitchOrAddNetwork() {
   const web3 = new Web3(window.ethereum);
-  console.log("network version kontrol ",window.ethereum.networkVersion)
+  console.log('network version kontrol ', window.ethereum.networkVersion);
   const chainId = 97;
   if (window.ethereum.networkVersion !== chainId) {
     try {
       await web3.currentProvider.request({
         method: 'wallet_switchEthereumChain',
-          params: [{ chainId: Web3.utils.toHex(chainId) }],
-        });
+        params: [{ chainId: Web3.utils.toHex(chainId) }],
+      });
     } catch (err) {
       // This error code indicates that the chain has not been added to MetaMask
       if (err.code === 4902) {
@@ -86,12 +81,6 @@ async function controlAndSwitchOrAddNetwork() {
 
 async function getMyBalance(contractAddress) {
   try {
-   
-    // store.dispatch({
-    //   type: loadingActionTypes.SET_LOADING,
-    //   payload: { key: loadingActionTypes.GET_MY_BALANCE_LOADING, isLoading: true },
-    // });
-    
     const provider2 = new ethers.providers.Web3Provider(window.ethereum);
     await provider2.send('eth_requestAccounts', []);
 
@@ -113,19 +102,13 @@ async function getMyBalance(contractAddress) {
       balance_,
       contractAddress,
     };
-    
+
     store.dispatch({ type: types.GET_MY_BALANCE_DATA, payload });
-    // store.dispatch({
-    //   type: loadingActionTypes.SET_LOADING,
-    //   payload: { key: loadingActionTypes.GET_MY_BALANCE_LOADING, isLoading: false },
-    // });
+
     console.log('getmybalance', payload);
   } catch (error) {
     store.dispatch({ type: types.GET_MY_BALANCE_ERROR, payload: error });
   }
 }
-
-
-
 
 export default { connectWallet, disconnectWallet, getMyBalance, controlAndSwitchOrAddNetwork };
