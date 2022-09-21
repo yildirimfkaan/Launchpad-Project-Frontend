@@ -48,7 +48,7 @@ const routes = {
         routeComponent: Route
       },
       {
-        path: "/resetpassword",
+        path: "/reset-password",
         exact: true,
         name: "Reset Password",
         component: ResetPassword,

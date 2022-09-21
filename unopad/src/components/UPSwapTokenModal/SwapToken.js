@@ -15,7 +15,7 @@ import './UPSwapTokenModal.scss';
 import { FloatingLabel, Form } from 'react-bootstrap';
 
 function SwapToken({ ...props }) {
-  const { balance_, signerAddress, project, setLoading, isLoading } = props;
+  const { balance_, signerAddress, project, setLoading, isLoading, token } = props;
   const contractDynamicToken = project.project_token.token_address;
 
   const contractDynamicTokenPresale = project.project_token.presale_contract.contract_address;
@@ -89,7 +89,7 @@ function SwapToken({ ...props }) {
         data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
         value: web3.utils.toWei(etherMiktari, 'ether'),
       });
-      wallet.getMyBalance(contractDynamicToken);
+      wallet.getMyBalance(token.token_address);
       setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: false });
       Swal.fire({
         icon: 'success',

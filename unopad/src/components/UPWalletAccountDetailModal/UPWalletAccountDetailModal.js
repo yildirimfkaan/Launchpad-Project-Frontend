@@ -25,7 +25,6 @@ function WalletAccountDetailModal({ ...props }) {
   const handleClose = () => {
     walletAccountDetailModalRequest(false);
   };
-  console.log('balance detail modal', balance_);
 
   function getWalletAccountHistory() {
     walletAccountHistoryRequest();
