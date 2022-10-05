@@ -60,7 +60,7 @@ function Navigation({ ...props }) {
       <Navbar bg="dark" expand="lg" style={{ zIndex: 1 }}>
         <Container>
           <Navbar.Brand as={Link} to="/home">
-            <img src="assets/img/logo.svg" alt="Logo" />
+            <img src="" alt="Logo" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
