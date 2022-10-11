@@ -16,7 +16,7 @@ export default function Card1(props) {
             <Card.Title>{item[1].project_name}</Card.Title>
             <Card.Text>{item[1].project_sale_type}</Card.Text>
             <NavLink as={Link} to={'/project/' + item[1].id}>
-              <Button style={{ backgroundColor: '#365ae1', marginLeft: '10px', marginTop: '10px' }}>
+              <Button className="me-2 mt-2">
                 Go to Details
               </Button>
             </NavLink>

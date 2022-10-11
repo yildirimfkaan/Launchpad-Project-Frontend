@@ -85,11 +85,11 @@ function Login({ ...props }) {
             error={errors.password}
           />
         </Form>
-        <div style={{ textAlign: 'center' }}>
+        <div className='mt-2' style={{ textAlign: 'center' }}>
           <Button
+          className='me-2'
             form="loginForm"
             type="submit"
-            style={{ backgroundColor: '#365ae1', marginTop: '10px' }}
           >
             Login
           </Button>
@@ -97,7 +97,6 @@ function Login({ ...props }) {
           <Button
             type="button"
             onClick={(event) => props.history.push('/signup')}
-            style={{ backgroundColor: '#365ae1', marginLeft: '10px', marginTop: '10px' }}
           >
             SignUp
           </Button>

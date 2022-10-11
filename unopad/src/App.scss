@@ -1,8 +1,11 @@
+@import './variables.scss';
+@import '~bootstrap/scss/bootstrap';
 @import '~@sweetalert2/theme-bootstrap-4/bootstrap-4.scss';
 @import 'animate.css';
 
 body {
   overflow-x: hidden;
+  font-family: 'Work Sans';
 }
 
 .responsive {
@@ -23,4 +26,77 @@ body {
 }
 .swal2-hide {
   animation: fadeOut 0.5s;
+}
+
+.navbar .active {
+  background-color: transparent !important;
+  border-bottom: 2px solid $unopad-primary !important;
+  color: $unopad-primary !important;
+  border-radius: 0px !important;
+}
+
+.text-fs-head-xl {
+  font-family: 'Work Sans' !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 60px !important;
+  line-height: 74px !important;
+}
+.text-fs-head-lg {
+  font-family: 'Work Sans' !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 35px !important;
+  line-height: 41px !important;
+}
+.text-fs-head-md {
+  font-family: 'Work Sans' !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 25px !important;
+  line-height: 29px !important;
+}
+.text-fs-head-sm {
+  font-family: 'Work Sans' !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  line-height: 23px !important;
+}
+.text-fs-head-xs {
+  font-family: 'Work Sans' !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  line-height: 21px !important;
+}
+.text-fs-body-lg {
+  font-family: 'Work Sans' !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 20px !important;
+  line-height: 30px !important;
+}
+.text-fs-body-md {
+  font-family: 'Work Sans' !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 17px !important;
+  line-height: 30px !important;
+}
+.text-fs-body-sm {
+  font-family: 'Work Sans' !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  line-height: 32px !important;
+}
+.text-fs-tag {
+  font-family: 'Work Sans' !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 13px !important;
+  line-height: 15px !important;
+  text-align: center !important;
+  letter-spacing: 0.0309526px !important;
 }

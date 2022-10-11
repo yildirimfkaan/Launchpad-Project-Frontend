@@ -1,0 +1,128 @@
+//Color system
+
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #f2f2f4 !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #b2b1b4 !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$lila-gray: #e7e6ee !default;
+$black: #000 !default;
+
+// fusv-disable
+$grays: (
+  '100': $gray-100,
+  '200': $gray-200,
+  '300': $gray-300,
+  '400': $gray-400,
+  '500': $gray-500,
+  '600': $gray-600,
+  '700': $gray-700,
+  '800': $gray-800,
+  '900': $gray-900,
+) !default;
+// fusv-enable
+
+$blue: #007bff!default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #d82079 !default;
+$red: #dc3545 !default;
+$orange: #fd7e14 !default;
+$yellow: #ffc107 !default;
+$green: #28a745 !default;
+$teal: #20c997 !default;
+$cyan: #2cbce0 !default;
+$transparent: transparent !default;
+
+$unopad-primary: #d82079;
+$unopad-secondary: #2cbce0;
+$unopad-tertiary: #252b4a;
+$unopad-t-head-color: #0f0f0f;
+$unopad-t-body-color: #727272;
+$unopad-light: #e6e6e0;
+$unopad-dark: #000105;
+$unopad-gradient-vertical: linear-gradient(90deg, #2a317f 46.55%, #e5007e 93.1%);
+$unopad-gradient-horizontal: linear-gradient(360deg, #372f7e -14.71%, #e4007d 113.73%);
+
+$unopad-primary-light: #eb8fbb;
+$unopad-secondary-light: #95ddef;
+$unopad-tertiary-light: #9194a4;
+$unopad-t-head-color-light: #868686;
+$unopad-t-body-color-light: #b8b8b8;
+$unopad-ultra-light: #e6e6e0;
+$unopad-dark-light: #7f7f81;
+
+// scss-docs-start colors-map
+$colors: (
+  'blue': $blue,
+  'indigo': $indigo,
+  'purple': $purple,
+  'pink': $pink,
+  'red': $red,
+  'orange': $orange,
+  'yellow': $yellow,
+  'green': $green,
+  'teal': $teal,
+  'cyan': $cyan,
+  'white': $white,
+  'transparent': $transparent,
+) !default;
+// scss-docs-end colors-map
+
+$primary: $unopad-primary !default;
+$primary-light: $unopad-primary-light !default;
+$secondary: $unopad-secondary !default;
+$secondary-light: $unopad-secondary-light !default;
+$tertiary: $unopad-tertiary !default;
+$tertiary-light: $unopad-tertiary-light !default;
+$t-head-color: $unopad-t-head-color !default;
+$t-head-color-light: $unopad-t-body-color-light !default;
+$t-body-color: $unopad-t-body-color !default;
+$t-body-color-light: $unopad-t-body-color-light !default;
+$light: $unopad-light !default;
+$ultra-light: $unopad-ultra-light !default;
+$dark: $unopad-dark !default;
+$dark-light: $unopad-dark-light !default;
+$success: $green !default;
+$info: $blue !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$text-muted: $gray-500 !default;
+$link-color: $cyan !default;
+$transparent: $transparent !default;
+// scss-docs-start theme-colors-map
+$theme-colors: (
+  'primary': $primary,
+  'primary-light': $primary-light,
+  'secondary': $secondary,
+  'secondary-light': $secondary-light,
+  'tertiary': $tertiary,
+  'tertiary-light': $tertiary-light,
+  't-head-color': $t-head-color,
+  't-head-color-light': $t-head-color-light,
+  't-body-color': $t-body-color,
+  't-body-color-light': $t-body-color-light,
+  'light': $light,
+  'ultra-light': $ultra-light,
+  'dark': $dark,
+  'dark-light': $dark-light,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'teal': $teal,
+  'transparent': $transparent,
+) !default;
+
+$font-weight-lighter: 300 !default;
+$font-weight-light: 400 !default;
+$font-weight-normal: 500 !default;
+$font-weight-bold: 700 !default;
+$font-weight-bolder: 800 !default;
+$font-weight-base: $font-weight-normal !default;
+$headings-font-weight: $font-weight-bold !default;
