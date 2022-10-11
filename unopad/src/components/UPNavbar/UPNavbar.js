@@ -19,6 +19,8 @@ import { createBrowserHistory } from 'history';
 import UPIcons from '../UPIcons/UPIcons';
 import './UPNavbar.scss';
 import { useEffect } from 'react';
+import unopadLogo from '../../assets/img/logo/unopad-logo.png';
+import { mainColors } from '../../helpers/colors';
 
 function Navigation({ ...props }) {
   const {
@@ -57,31 +59,38 @@ function Navigation({ ...props }) {
   };
   return (
     <>
-      <Navbar bg="dark" expand="lg" style={{ zIndex: 1 }}>
+      <Navbar bg="transparent" expand="lg" style={{ zIndex: 1 }}>
         <Container>
           <Navbar.Brand as={Link} to="/home">
-            <img src="" alt="Logo" />
+            <img src={unopadLogo} alt="Logo" heigth={83} width={116} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
+          <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
             <Nav className="ml-auto" variant="pills">
               <Nav.Link
                 as={Link}
-                className={'text-white px-2' + (pathIsActive('launchpad') ? ' active' : '')}
+                className={
+                  'text-fs-head-xs text-dark-light px-2' +
+                  (pathIsActive('launchpad') ? ' active' : '')
+                }
                 to="/launchpad"
               >
                 Launchpad
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                className={'text-white px-2' + (pathIsActive('sales') ? ' active' : '')}
+                className={
+                  'text-fs-head-xs text-dark-light px-2' + (pathIsActive('sales') ? ' active' : '')
+                }
                 to="/sales"
               >
                 Sales
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                className={'text-muted px-2' + (pathIsActive('staking') ? ' active' : '')}
+                className={
+                  'text-fs-head-xs text-muted px-2' + (pathIsActive('staking') ? ' active' : '')
+                }
                 to="#"
                 disabled={true}
               >
@@ -89,24 +98,25 @@ function Navigation({ ...props }) {
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                className={'text-muted px-2' + (pathIsActive('airdrop') ? ' active' : '')}
+                className={
+                  'text-fs-head-xs text-muted px-2' + (pathIsActive('airdrop') ? ' active' : '')
+                }
                 to="#"
                 disabled={true}
               >
                 Airdrop
               </Nav.Link>
               {!accounts?.[0] ? (
-                <Button variant="outline-primary" className="text-white" onClick={handleShowWallet}>
+                <Button variant="outline-primary" onClick={handleShowWallet}>
                   Connect Wallet
                 </Button>
               ) : (
-                <ButtonGroup size="sm">
+                <ButtonGroup>
                   {balance_ !== null && balance_ !== undefined && (
                     <Button
                       title={balance_}
                       variant="outline-primary"
-                      size="sm"
-                      className="d-flex align-items-center navbar-balance-button text-white"
+                      className="d-flex align-items-center navbar-balance-button"
                     >
                       <div className="navbar-balance-text text-truncate mr-1">{balance_}</div>
                       <span>UNT</span>
@@ -115,8 +125,7 @@ function Navigation({ ...props }) {
                   <Button
                     title={accounts?.[0]}
                     variant="outline-primary"
-                    className="navbar-account-button text-truncate text-white"
-                    size="sm"
+                    className="navbar-account-button text-truncate"
                     onClick={handleShow}
                   >
                     {accounts?.[0]}
@@ -126,7 +135,7 @@ function Navigation({ ...props }) {
 
               <Dropdown id="user-dropdown">
                 <Dropdown.Toggle className="d-flex" variant="link" id="user-dropdown-toggle">
-                  <UPIcons name="MdPerson" color="white" size="24" />
+                  <UPIcons name="MdPerson" color={mainColors['dark-light']} size="26" />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>

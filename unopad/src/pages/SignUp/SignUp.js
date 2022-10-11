@@ -5,13 +5,13 @@ import UPFormControl from '../../components/UPFormControl/UPFormControl';
 import { signUpRequest } from '../../store/account/userActions';
 import './SignUp.scss';
 
-function SignUp ({...props}){
-  const {sign,history} = props;
+function SignUp({ ...props }) {
+  const { sign, history } = props;
   const [state, setState] = useState({
     data: {
       username: '',
       password: '',
-      email:'',
+      email: '',
     },
     errors: {},
   });
@@ -34,7 +34,7 @@ function SignUp ({...props}){
     const payload = {
       data,
       history: history,
-    }
+    };
 
     if (Object.keys(errors).length === 0) {
       sign(payload);
@@ -67,52 +67,41 @@ function SignUp ({...props}){
     });
   };
 
-  
-    const { data, errors } = state;
+  const { data, errors } = state;
 
-    return (
-      <Row>
-        <Col>
-          <Form onSubmit={handleSubmit}>
-            <UPFormControl
-              label="Username"
-              type="text"
-              value={data.username}
-              handleChange={handleChange}
-              error={errors.username}
-            />
-            <UPFormControl
-              label="Email"
-              type="text"
-              value={data.email}
-              handleChange={handleChange}
-              error={errors.email}
-            />
-            <UPFormControl
-              label="Password"
-              type="password"
-              value={data.password}
-              handleChange={handleChange}
-              error={errors.password}
-            />
-            <Button
-             type="submit"
-              style={{
-                backgroundColor: '#365ae1',
-                display: 'flex',
-                margin: 'auto',
-                marginTop: '10px',
-                justifyContent: 'center',
-              }}
-            >
-              SignUp
-            </Button>
-          </Form>
-          {/* <Button color="primary" onClick={this.handleSign}>SignUp</Button> */}
-        </Col>
-      </Row>
-    );
-  
+  return (
+    <Row>
+      <Col>
+        <Form onSubmit={handleSubmit}>
+          <UPFormControl
+            label="Username"
+            type="text"
+            value={data.username}
+            handleChange={handleChange}
+            error={errors.username}
+          />
+          <UPFormControl
+            label="Email"
+            type="text"
+            value={data.email}
+            handleChange={handleChange}
+            error={errors.email}
+          />
+          <UPFormControl
+            label="Password"
+            type="password"
+            value={data.password}
+            handleChange={handleChange}
+            error={errors.password}
+          />
+          <Button className="mt-2" type="submit">
+            SignUp
+          </Button>
+        </Form>
+        {/* <Button color="primary" onClick={this.handleSign}>SignUp</Button> */}
+      </Col>
+    </Row>
+  );
 }
 
 const mapDispatchToProps = (dispatch) => {
