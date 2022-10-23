@@ -4,7 +4,9 @@ import Service from '../../components/UPHomeComponents/Service';
 import Roadmap from '../../components/UPHomeComponents/Roadmap';
 import Grows from '../../components/UPHomeComponents/Grows';
 import Subscribe from '../../components/UPSubscribe/Subscribe';
+import HomeSales from '../../components/UPHomeSales/HomeSales';
 import './Home.scss';
+
 
 function Home() {
   return (
@@ -15,6 +17,11 @@ function Home() {
       >
         Banner
       </div>
+      <HomeSales />
+
+      <br></br>
+      <br></br>
+      <br></br>
       <Subscribe />
       <About />
       <Service />

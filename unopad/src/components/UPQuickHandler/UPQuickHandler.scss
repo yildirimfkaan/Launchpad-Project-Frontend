@@ -1,5 +1,34 @@
-.quick-handler-body{
-    display: flex;
-    align-items: center;
-    min-height: 200px;
+.quick-handler-container {
+  height: 460px;
+}
+.quick-handler-body {
+  height: 225px;
+}
+.quick-handler-col {
+  margin-top: 120px !important;
+}
+
+@media only screen and (max-width: 1400px) {
+  .quick-handler-container {
+    height: 500px;
+  }
+  .quick-handler-body {
+    height: 260px;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .quick-handler-container {
+    height: 530px;
+  }
+  .quick-handler-body {
+    height: 300px;
+  }
+}
+@media only screen and (max-width: 992px) {
+  .quick-handler-container {
+    height: 460px;
+  }
+  .quick-handler-body {
+    height: 225px;
+  }
 }

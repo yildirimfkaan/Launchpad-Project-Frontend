@@ -1,105 +1,232 @@
+import { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import UPIcons from '../UPIcons/UPIcons';
 import './UPQuickHandler.scss';
 
 function UPQuickHandler({ ...props }) {
-  const { user, accounts, isSignUpAndKYC, isVerifyWallet, isStakeUnoToken, href, history } = props;
+  const {
+    user,
+    accounts,
+    isSignUpAndKYC,
+    signUpAndKYCImg,
+    isVerifyWallet,
+    verifyWalletImg,
+    isStakeUnoToken,
+    stakeUnoTokenImg,
+    registerForSaleImg,
+    href,
+    history,
+    className,
+  } = props;
+
+  const [signUpAndKycRef, setSignUpAndKycRef] = useState(null);
+  const [verifyWalletRef, setVerifyWalletRef] = useState(null);
+  const [stakeUnoTokenRef, setStakeUnoTokenRef] = useState(null);
+  const [registerForSaleRef, setRegisterForSaleRef] = useState(null);
+
+  const [size, setSize] = useState([0, 0]);
+
+  function updateSize() {
+    setSize([window.innerWidth, window.innerHeight]);
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => {
+      window.removeEventListener('resize', updateSize);
+    };
+  }, []);
+
+  function getImgStyle(ref, img) {
+    const halfHeight = Math.floor(img?.height / 2);
+    return {
+      position: 'absolute',
+      top: ref?.offsetTop - halfHeight,
+    };
+  }
 
   return (
     <>
-      <Row className="py-4">
+      <Row className={className}>
         {isSignUpAndKYC && (
-          <Col className="mt-2" lg="3" md="6" sm="12">
-            <div className="border rounded p-2">
-              <div className="d-flex align-items-center border-bottom-0">
-                <UPIcons
-                  name={user ? 'MdDone' : 'MdPriorityHigh'}
-                  color={user ? '#28a745' : '#ffc107'}
-                  size="24"
-                />
-                <span className="h6 mb-0 mx-auto">SIGN UP AND KYC</span>
+          <Col
+            id="sign-up-and-kyc-col"
+            ref={(newRef) => setSignUpAndKycRef(newRef)}
+            className="quick-handler-col"
+            lg={isStakeUnoToken ? '3' : '4'}
+            md="6"
+            sm="12"
+          >
+            <div className="d-flex justify-content-center align-items-start">
+              <img
+                alt="sign-up-and-kyc"
+                src={signUpAndKYCImg.src}
+                style={getImgStyle(signUpAndKycRef, signUpAndKYCImg)}
+              />
+            </div>
+
+            <div
+              className="bg-white rounded pb-5 px-4 mx-1 shadow 
+              quick-handler-container d-flex flex-column justify-content-end"
+            >
+              <div className="h6 mb-0 text-center text-primary text-fs-head-xs">
+                SIGN UP AND KYC
               </div>
-              <div className="quick-handler-body py-3 px-1 text-muted">
+              <div
+                className="py-3 text-t-body-color text-center text-fs-body-md 
+              quick-handler-body"
+              >
                 In order to participate in sales on Unopad, you must sign up and KYC first. You can
                 still stake and earn UNOTOKEN without registering.
               </div>
               <div className="d-flex justify-content-center border-top-0">
                 <Button
-                  variant={user ? 'outline-success' : 'outline-warning'}
+                  className="text-fs-head-sm py-2"
+                  variant="primary"
                   disabled={user}
                   onClick={() => {
                     if (!user) {
-                      history.push('/login');
+                      //history.push('/login');
                     }
                   }}
                 >
-                  {!user ? 'Start the KYC Process' : 'Done'}
+                  Active Sales
                 </Button>
               </div>
             </div>
           </Col>
         )}
         {isVerifyWallet && (
-          <Col className="mt-2" lg="3" md="6" sm="12">
-            <div className="border rounded p-2">
-              <div className="d-flex align-items-center border-bottom-0">
-                <UPIcons
-                  name={user ? 'MdDone' : 'MdPriorityHigh'}
-                  color={user ? '#28a745' : '#ffc107'}
-                  size="24"
-                />
-                <span className="h6 mb-0 mx-auto">VERIFY WALLET</span>
-              </div>
-              <div className="quick-handler-body py-3 px-1 text-muted">
+          <Col
+            id="verify-wallet-col"
+            ref={(newRef) => setVerifyWalletRef(newRef)}
+            className="quick-handler-col"
+            lg={isStakeUnoToken ? '3' : '4'}
+            md="6"
+            sm="12"
+          >
+            <div className="d-flex justify-content-center align-items-start">
+              <img
+                alt="sign-up-and-kyc"
+                src={verifyWalletImg.src}
+                style={getImgStyle(verifyWalletRef, verifyWalletImg)}
+              />
+            </div>
+
+            <div
+              className="bg-white rounded pb-5 px-4 mx-1 shadow 
+              quick-handler-container d-flex flex-column justify-content-end"
+            >
+              <div className="h6 mb-0 text-center text-primary text-fs-head-xs">VERIFY WALLET</div>
+              <div
+                className="py-3 text-t-body-color text-center text-fs-body-md 
+              quick-handler-body"
+              >
                 Once you have registered and submitted your KYC, you must verify your wallet. This
                 is the only wallet you will be able to use for sales.
               </div>
               <div className="d-flex justify-content-center border-top-0">
                 <Button
-                  variant={user ? 'outline-success' : 'outline-warning'}
+                  className="text-fs-head-sm py-2"
+                  variant="primary"
                   disabled={user}
                   onClick={() => {
                     if (!user) {
-                      history.push('/login');
+                      //history.push('/login');
                     }
                   }}
                 >
-                  {!user ? 'Verify Wallet' : 'Done'}
+                  Active Sales
                 </Button>
               </div>
             </div>
           </Col>
         )}
         {isStakeUnoToken && (
-          <Col className="mt-2" lg="3" md="6" sm="12">
-            <div className="border rounded p-2">
-              <div className="d-flex align-items-center border-bottom-0">
-                <UPIcons name="MdDone" color="#28a745" size="24" />
-                <span className="h6 mb-0 mx-auto">STAKE UNOTOKEN</span>
-              </div>
-              <div className="quick-handler-body py-3 px-1 text-muted">
+          <Col
+            id="stake-uno-token-col"
+            ref={(newRef) => setStakeUnoTokenRef(newRef)}
+            className="quick-handler-col"
+            lg={isStakeUnoToken ? '3' : '4'}
+            md="6"
+            sm="12"
+          >
+            <div className="d-flex justify-content-center align-items-start">
+              <img
+                alt="sign-up-and-kyc"
+                src={stakeUnoTokenImg.src}
+                style={getImgStyle(stakeUnoTokenRef, stakeUnoTokenImg)}
+              />
+            </div>
+
+            <div
+              className="bg-white rounded pb-5 px-4 mx-1 shadow 
+              quick-handler-container d-flex flex-column justify-content-end"
+            >
+              <div className="h6 mb-0 text-center text-primary text-fs-head-xs">STAKE UNOTOKEN</div>
+              <div
+                className="py-3 text-t-body-color text-center text-fs-body-md 
+              quick-handler-body"
+              >
                 By staking UNOTOKEN, you earn allocation in IDOs. If you do not want to participate
                 in sales, you can still benefit from staking.
               </div>
               <div className="d-flex justify-content-center border-top-0">
-                <Button variant="outline-success">Start Staking</Button>
+                <Button
+                  className="text-fs-head-sm py-2"
+                  variant="primary"
+                  disabled={user}
+                  onClick={() => {
+                    if (!user) {
+                      //history.push('/login');
+                    }
+                  }}
+                >
+                  Active Sales
+                </Button>
               </div>
             </div>
           </Col>
         )}
-        <Col className="mt-2" lg="3" md="6" sm="12">
-          <div className="border rounded p-2">
-            <div className="d-flex align-items-center border-bottom-0">
-              <UPIcons name="MdDone" color="#28a745" size="24" />
-              <span className="h6 mb-0 mx-auto">REGISTER FOR SALE</span>
+        <Col
+          id="register-for-sale-col"
+          ref={(newRef) => setRegisterForSaleRef(newRef)}
+          className="quick-handler-col"
+          lg={isStakeUnoToken ? '3' : '4'}
+          md="6"
+          sm="12"
+        >
+          <div className="d-flex justify-content-center align-items-start">
+            <img
+              alt="sign-up-and-kyc"
+              src={registerForSaleImg.src}
+              style={getImgStyle(registerForSaleRef, registerForSaleImg)}
+            />
+          </div>
+
+          <div
+            className="bg-white rounded pb-5 px-4 mx-1 shadow  
+            quick-handler-container d-flex flex-column justify-content-end"
+          >
+            <div className="h6 mb-0 text-center text-primary text-fs-head-xs">
+              REGISTER FOR SALE
             </div>
-            <div className="quick-handler-body py-3 px-1 text-muted">
+            <div className="py-3 text-t-body-color text-center text-fs-body-md quick-handler-body">
               During the registration period, you must confirm your interest in participation. Once
               registration closes, you will not be able to register until the next sale.
             </div>
             <div className="d-flex justify-content-center border-top-0">
-              <Button variant="outline-success" onClick={() => (window.location.href = href)}>
+              <Button
+                className="text-fs-head-sm py-2"
+                variant="primary"
+                disabled={user}
+                onClick={() => {
+                  if (!user) {
+                    //history.push('/login');
+                  }
+                }}
+              >
                 Active Sales
               </Button>
             </div>

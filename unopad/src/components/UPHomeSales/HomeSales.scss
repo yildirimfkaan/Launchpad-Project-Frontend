@@ -1,0 +1,46 @@
+@import '../../variables.scss';
+
+.main-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  text-align: center;
+}
+
+.text {
+  width: 50%;
+  margin-top: 35px;
+  text-align: center;
+}
+
+.back-model {
+  background: url('Group74.png');
+  background-size: cover;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+
+  .card-row {
+    margin-top: 20vw !important;
+  }
+}
+
+.table-sales {
+  border-collapse: separate;
+  border-spacing: 0 1em;
+  .table-head {
+    background: $unopad-gradient-horizontal;
+  }
+  tbody {
+    tr {
+      background-color: white;
+    }
+  }
+}
+.home-sales-container{
+    min-height: 1100px;
+}
