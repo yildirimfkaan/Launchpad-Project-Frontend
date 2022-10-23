@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 import UPQuickHandler from '../../components/UPQuickHandler/UPQuickHandler';
 import { Container } from 'react-bootstrap';
 import './Launchpad.scss';
+import { quickHandlerImages } from '../../helpers/quickHandlerImages';
 
 function Launchpad({ ...props }) {
   const { getProjects, projects } = props;
 
   useEffect(() => {
-    getProjects();  
+    getProjects();
   }, []);
 
   return (
@@ -24,8 +25,12 @@ function Launchpad({ ...props }) {
       <br></br>
       <UPQuickHandler
         isSignUpAndKYC={true}
+        signUpAndKYCImg={quickHandlerImages.lpSignUpAndKYCImg}
         isVerifyWallet={true}
+        verifyWalletImg={quickHandlerImages.lpVerifyWalletImg}
         isStakeUnoToken={true}
+        stakeUnoTokenImg={quickHandlerImages.lpStakeUnoTokenImg}
+        registerForSaleImg={quickHandlerImages.lpRegisterForProject}
         href="#launchpad-projects"
         history={props.history}
       />

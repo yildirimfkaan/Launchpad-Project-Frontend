@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import UPIcons from '../../components/UPIcons/UPIcons';
 import UPQuickHandler from '../../components/UPQuickHandler/UPQuickHandler';
 import UPTokenTable from '../../components/UPTokenTable/UPTokenTable';
+import { quickHandlerImages } from '../../helpers/quickHandlerImages';
 import {
   filterTokensAction,
   getTokens,
@@ -58,9 +59,13 @@ function Sales({ ...props }) {
         Banner
       </div>
       <UPQuickHandler
+        className="justify-content-center"
         isSignUpAndKYC={true}
+        signUpAndKYCImg={quickHandlerImages.salesSignUpAndKYCImg}
         isVerifyWallet={true}
+        verifyWalletImg={quickHandlerImages.salesVerifyWalletImg}
         isStakingUnoToken={false}
+        registerForSaleImg={quickHandlerImages.salesRegisterForSale}
         href="#sales-table"
         history={props.history}
       />
