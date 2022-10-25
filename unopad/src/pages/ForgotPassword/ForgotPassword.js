@@ -1,9 +1,11 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import UPFormControl from '../../components/UPFormControl/UPFormControl';
 import { forgotPasswordRequest } from '../../store/account/userActions';
 import './ForgotPassoword.scss';
+import { NavLink } from 'react-router-dom';
 
 function ForgotPassword ({...props}) {
   const {forgotpassword} = props;
@@ -54,8 +56,17 @@ function ForgotPassword ({...props}) {
   
     const { data, errors } = state;
     return (
-      <Row>
-        <Col>
+      <Row className="d-flex justify-content-center align-items-center">
+        <Col className="public-layout-col d-flex justify-content-center align-items-center bg-white px-1 py-2">
+        <div className="public-layout-image d-md-flex d-none flex-column justify-content-center align-items-center bg-tertiary px-1 py-2">
+          <div className="text-fs-head-lg text-center text-light px-2">
+          Forgot password on the way of the future of <div className="text-primary">fundraising?</div>
+          </div>
+          <div className="text-fs-body-md text-center text-light px-2">
+          Please enter the email adress you would lile to reset information sent to.
+          </div>
+        </div>
+        <div className="d-flex flex-column justify-content-center aling-items-center px-4 mx-2 public-layout-form">
           <Form onSubmit={handleSubmit}>
             <UPFormControl
               label="Email"
@@ -66,17 +77,18 @@ function ForgotPassword ({...props}) {
             />
             <Button
               type="submit"
-              style={{
-                backgroundColor: '#365ae1',
-                display: 'flex',
-                margin: 'auto',
-                marginTop: '10px',
-                justifyContent: 'center',
-              }}
+              className="mb-4 mt-4 bg-unopad-primary col-sm-12"
             >
-              Reset Password
+              Send Password Reset Email
             </Button>
           </Form>
+          <NavLink
+            className="d-flex justify-content-center m-0 text-primary"
+            to="/login"
+          >
+            Back to Login
+          </NavLink>
+        </div>
         </Col>
       </Row>
     );

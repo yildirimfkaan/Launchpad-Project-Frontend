@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { Form, FormGroup } from 'react-bootstrap';
 import './UPFormControl.scss';
@@ -8,9 +9,9 @@ const FormControl = (props) => {
 
   return (
     <FormGroup>
-      <Form.Label for={name} style={{ marginTop: '10px' }}>
+      <Form.Label className="mt-2 text-fs-body-lg text-t-head-color" for={name}>
         {label}
-      </Form.Label>
+      </Form.Label> 
       <Form.Control type={type} id={name} invalid={!!error} onChange={handleChange} value={value} />
       {/*  <FormFeedback>{error}</FormFeedback> */}
     </FormGroup>
