@@ -1,9 +1,13 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import UPFormControl from '../../components/UPFormControl/UPFormControl';
 import { signUpRequest } from '../../store/account/userActions';
+import { NavLink } from 'react-router-dom';
 import './SignUp.scss';
+import unopadLogo from '../../assets/img/logo/unopad-logo-white.png';
+
 
 function SignUp({ ...props }) {
   const { sign, history } = props;
@@ -70,34 +74,62 @@ function SignUp({ ...props }) {
   const { data, errors } = state;
 
   return (
-    <Row>
-      <Col>
-        <Form onSubmit={handleSubmit}>
-          <UPFormControl
-            label="Username"
-            type="text"
-            value={data.username}
-            handleChange={handleChange}
-            error={errors.username}
-          />
-          <UPFormControl
-            label="Email"
-            type="text"
-            value={data.email}
-            handleChange={handleChange}
-            error={errors.email}
-          />
-          <UPFormControl
-            label="Password"
-            type="password"
-            value={data.password}
-            handleChange={handleChange}
-            error={errors.password}
-          />
-          <Button className="mt-2" type="submit">
-            SignUp
-          </Button>
-        </Form>
+    <Row className="d-flex justify-content-center align-items-center">
+      <Col className="public-signup-layout-col d-flex justify-content-center align-items-center bg-white px-1 py-2">
+        <div className="public-signup-layout-image d-md-flex d-none flex-column justify-content-center align-items-center bg-tertiary px-1 py-2">
+          <div className="text-fs-head-lg text-center text-light px-2">
+            Welcome to the future of <div className="text-primary">fundraising</div>
+          </div>
+          <div className="text-fs-body-md text-center text-light px-2">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua
+          </div>
+          <img src={unopadLogo} alt="Logo" heigth={83} width={116} className="mt-4"/>
+        </div>
+        <div className="d-flex flex-column justify-content-center aling-items-center px-4 mx-2 public-signup-layout-form">
+          <Form onSubmit={handleSubmit}>
+            <UPFormControl
+              label="Username"
+              type="text"
+              value={data.username}
+              handleChange={handleChange}
+              error={errors.username}
+            />
+            <UPFormControl
+              label="Email"
+              type="text"
+              value={data.email}
+              handleChange={handleChange}
+              error={errors.email}
+            />
+            <UPFormControl
+              label="Password"
+              type="password"
+              value={data.password}
+              handleChange={handleChange}
+              error={errors.password}
+            />
+            <Button className="mb-4 mt-4 bg-unopad-primary col-sm-12" type="submit">
+              SignUp
+            </Button>
+          </Form>
+          <NavLink
+            className="d-flex justify-content-center m-0 text-primary"
+            to="/forgotpassword"
+          >
+            Forgot Password?
+          </NavLink>
+
+          <Col className="m-1 d-flex justify-content-center">
+            <NavLink className="text-fs-body-md text-t-body-color justify-content-center" to="/signup">
+              Don't have an account yet?
+            </NavLink>
+
+            <NavLink className="text-primary p-1" to="/forgotpassword">
+              Forgot Password
+            </NavLink>
+          </Col>
+        </div>
         {/* <Button color="primary" onClick={this.handleSign}>SignUp</Button> */}
       </Col>
     </Row>

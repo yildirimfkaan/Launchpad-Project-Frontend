@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import UPNavbar from '../../components/UPNavbar/UPNavbar';
 import './PublicLayout.scss';
 
 function PublicLayout({ ...props }) {
@@ -6,7 +7,8 @@ function PublicLayout({ ...props }) {
 
   return (
     <>
-      <div className="public-layout d-flex flex-row align-items-center justify-content-center">
+      <UPNavbar />
+      <div className="public-layout d-flex flex-row justify-content-center py-5 my-5">
         {children}
       </div>
     </>

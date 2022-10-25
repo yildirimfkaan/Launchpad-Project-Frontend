@@ -1,14 +1,15 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Form, Row, Col, Button } from 'react-bootstrap';
+import { Form, Col, Button, Row } from 'react-bootstrap';
 import UPFormControl from '../../components/UPFormControl/UPFormControl';
-import { loginRequest} from '../../store/account/userActions';
+import { loginRequest } from '../../store/account/userActions';
 import { NavLink } from 'react-router-dom';
 import './Login.scss';
-
+// import loginBg from '../../assets/img/background/login-background-img.png';
 
 function Login({ ...props }) {
-  const {login} = props;
+  const { login } = props;
   const [state, setState] = useState({
     data: {
       username: '',
@@ -67,47 +68,59 @@ function Login({ ...props }) {
   const { data, errors } = state;
 
   return (
-    <Row>
-      <Col>
-        <Form id="loginForm" onSubmit={handleSubmit}>
-          <UPFormControl
-            label="Username"
-            type="text"
-            value={data.username}
-            handleChange={handleChange}
-            error={errors.username}
-          />
-          <UPFormControl
-            label="Password"
-            type="password"
-            value={data.password}
-            handleChange={handleChange}
-            error={errors.password}
-          />
-        </Form>
-        <div className='mt-2' style={{ textAlign: 'center' }}>
-          <Button
-          className='me-2'
-            form="loginForm"
-            type="submit"
-          >
-            Login
-          </Button>
-
-          <Button
-            type="button"
-            onClick={(event) => props.history.push('/signup')}
-          >
-            SignUp
-          </Button>
+    <Row className="d-flex justify-content-center align-items-center">
+      <Col className="public-layout-col d-flex justify-content-center align-items-center bg-white px-1 py-2">
+        <div className="public-layout-image d-md-flex d-none flex-column justify-content-center align-items-center bg-tertiary px-1 py-2">
+          <div className="text-fs-head-lg text-center text-light px-2">
+            Welcome to the future of <div className="text-primary">fundraising</div>
+          </div>
+          <div className="text-fs-body-md text-center text-light px-2">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua
+          </div>
         </div>
-        <NavLink
-          className="navbar-brand"
-          to="/forgotpassword"
-          style={{ display: 'flex', justifyContent: 'center', margin: 'auto' }}
-        >
-          Forgot Password?
-        </NavLink>
+        <div className="d-flex flex-column justify-content-center aling-items-center px-4 mx-2 public-layout-form">
+          <Form id="loginForm" onSubmit={handleSubmit}>
+            <UPFormControl
+              label="Username"
+              type="text"
+              value={data.username}
+              handleChange={handleChange}
+              error={errors.username}
+            />
+            <UPFormControl
+              label="Password"
+              type="password"
+              value={data.password}
+              handleChange={handleChange}
+              error={errors.password}
+            />
+            <Button
+              className="mb-4 mt-4 bg-unopad-primary col-sm-12"
+              form="loginForm"
+              type="submit"
+            >
+              Login
+            </Button>
+          </Form>
+
+          <NavLink
+            className="forgotpassword-link d-flex justify-content-center m-2 text-primary"
+            to="/forgotpassword"
+          >
+            Forgot Password?
+          </NavLink>
+
+          <Col className="m-1 d-flex justify-content-center">
+            <NavLink className="text-fs-body-md text-t-body-color" to="/signup">
+              Don't have an account yet?
+            </NavLink>
+
+            <NavLink className="signup-link text-primary" to="/signup">
+              SignUp
+            </NavLink>
+          </Col>
+        </div>
       </Col>
     </Row>
   );
@@ -117,7 +130,6 @@ const mapDispatchToProps = (dispatch) => {
     login: (creds) => {
       dispatch(loginRequest(creds));
     },
-   
   };
 };
 
