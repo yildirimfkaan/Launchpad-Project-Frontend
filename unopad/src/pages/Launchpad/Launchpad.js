@@ -29,13 +29,7 @@ function Launchpad({ ...props }) {
         href="#launchpad-projects"
         history={props.history}
       />
-      {!projects ? (
-        <h1>Page is Loading.....</h1>
-      ) : (
-        <div id="launchpad-projects" class="d-flex">
-          <UPProjectCard {...props} />{' '}
-        </div>
-      )}
+      {!projects ? <h1>Page is Loading.....</h1> : <UPProjectCard {...props} />}
     </Container>
   );
 }
