@@ -7,7 +7,7 @@ function PublicLayout({ ...props }) {
 
   return (
     <>
-      <UPNavbar />
+      <UPNavbar {...props}/>
       <div className="public-layout d-flex flex-row justify-content-center py-5 my-5">
         {children}
       </div>

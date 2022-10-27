@@ -21,6 +21,9 @@ import './UPNavbar.scss';
 import { useEffect } from 'react';
 import unopadLogo from '../../assets/img/logo/unopad-logo.png';
 import { mainColors } from '../../helpers/colors';
+import BannerHome from '../UPBanner/UPBannerHome/BannerHome';
+import BannerLaunchpad from '../UPBanner/UPBannerLaunchpad/BannerLaunchpad';
+import BannerSales from '../UPBanner/UPBannerSales/BannerSales';
 
 function Navigation({ ...props }) {
   const {
@@ -32,7 +35,12 @@ function Navigation({ ...props }) {
     WalletConnectModalRequest,
     token,
     project,
+    history,
+    MainLayoutStatus,
   } = props;
+  console.log('MainlayoutStatus', MainLayoutStatus);
+
+  const pathname = history?.location.pathname;
   useEffect(() => {
     if (accounts?.[0]) {
       wallet.getMyBalance('0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb');
@@ -57,8 +65,32 @@ function Navigation({ ...props }) {
   const handleShowWallet = () => {
     WalletConnectModalRequest(true);
   };
+  const BannerReturn = () => {
+    if (pathname.toLowerCase() === '/') {
+      return <BannerHome />;
+    } else if (pathname.toLowerCase() === '/launchpad') {
+      return <BannerLaunchpad />;
+    } else if (pathname.toLowerCase() === '/sales') {
+      return <BannerSales />;
+    } else {
+      return '';
+    }
+  };
+
+  const getBannerClassName = () => {
+    if (MainLayoutStatus === 'True') {
+      if (pathname.toLowerCase() === '/' || pathname.toLowerCase() === '/launchpad') {
+        return 'banner-design';
+      } else {
+        return 'banner-design-profile';
+      }
+    } else {
+      return 'banner-public';
+    }
+  };
+
   return (
-    <>
+    <Container fluid className={getBannerClassName()}>
       <Navbar bg="transparent" expand="lg" style={{ zIndex: 1 }}>
         <Container>
           <Navbar.Brand as={Link} to="/home">
@@ -70,7 +102,7 @@ function Navigation({ ...props }) {
               <Nav.Link
                 as={Link}
                 className={
-                  'text-fs-head-xs text-dark-light px-2' +
+                  'text-fs-head-xs text-white px-2 public-nav' +
                   (pathIsActive('launchpad') ? ' active' : '')
                 }
                 to="/launchpad"
@@ -80,7 +112,8 @@ function Navigation({ ...props }) {
               <Nav.Link
                 as={Link}
                 className={
-                  'text-fs-head-xs text-dark-light px-2' + (pathIsActive('sales') ? ' active' : '')
+                  'text-fs-head-xs text-white px-2 public-nav' +
+                  (pathIsActive('sales') ? ' active' : '')
                 }
                 to="/sales"
               >
@@ -89,7 +122,8 @@ function Navigation({ ...props }) {
               <Nav.Link
                 as={Link}
                 className={
-                  'text-fs-head-xs text-muted px-2' + (pathIsActive('staking') ? ' active' : '')
+                  'text-fs-head-xs text-muted px-2 public-nav' +
+                  (pathIsActive('staking') ? ' active' : '')
                 }
                 to="#"
                 disabled={true}
@@ -99,7 +133,8 @@ function Navigation({ ...props }) {
               <Nav.Link
                 as={Link}
                 className={
-                  'text-fs-head-xs text-muted px-2' + (pathIsActive('airdrop') ? ' active' : '')
+                  'text-fs-head-xs text-muted px-2 public-nav' +
+                  (pathIsActive('airdrop') ? ' active' : '')
                 }
                 to="#"
                 disabled={true}
@@ -162,7 +197,9 @@ function Navigation({ ...props }) {
       <UPWalletAccountDetailModal />
       <UPWalletAccountHistoryModal />
       <UPWalletConnectModal />
-    </>
+
+      {BannerReturn()}
+    </Container>
   );
 }
 const mapStateToProps = (state) => {
