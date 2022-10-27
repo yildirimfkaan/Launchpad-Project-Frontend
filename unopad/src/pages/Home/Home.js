@@ -6,6 +6,7 @@ import Grows from '../../components/UPHomeComponents/Grows';
 import Subscribe from '../../components/UPSubscribe/Subscribe';
 import HomeSales from '../../components/UPHomeSales/HomeSales';
 import './Home.scss';
+import MeatTeam from '../../components/UPMeetTeam/MeetTeam';
 
 
 function Home() {
@@ -22,6 +23,7 @@ function Home() {
       <br></br>
       <br></br>
       <br></br>
+      <MeatTeam />
       <Subscribe />
       <About />
       <Service />
