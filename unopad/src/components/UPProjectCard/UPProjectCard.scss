@@ -1,0 +1,28 @@
+@import '../../variables.scss';
+.project-img-div{
+
+    background: url("card-title-background.png");
+    height: 149px;
+    width: auto;
+    background-size: cover;
+}
+.project-progress-bar{
+    border-radius: 40px !important;
+    .progress-bar{
+        background: $unopad-gradient-vertical;
+        border-radius: 40px !important;
+    }
+}
+.project-name-div{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.project-icon{
+    border-radius: 50% ;
+}
+
+tr:last-child{
+    border-bottom-color:$unopad-primary;
+}

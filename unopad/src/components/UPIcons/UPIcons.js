@@ -48,6 +48,35 @@ function UPIcons({ ...props }) {
       return (
         <BoxIcons.BiSortUp className={iconClassName} style={iconStyle} color={color} size={size} />
       );
+    } else if (name === 'BiCopy') {
+      return (
+        <BoxIcons.BiCopy className={iconClassName} style={iconStyle} color={color} size={size} />
+      );
+    } else if (name === 'BiExit') {
+      return (
+        <BoxIcons.BiExit className={iconClassName} style={iconStyle} color={color} size={size} />
+      );
+    } else if (name === 'BiHistory') {
+      return (
+        <BoxIcons.BiHistory className={iconClassName} style={iconStyle} color={color} size={size} />
+      );
+    } else if (name === 'BiExport') {
+      return (
+        <BoxIcons.BiExport className={iconClassName} style={iconStyle} color={color} size={size} />
+      );
+    } else if (name === 'BiCoin') {
+      return (
+        <BoxIcons.BiCoin className={iconClassName} style={iconStyle} color={color} size={size} />
+      );
+    } else if (name === 'BiTimeFive') {
+      return (
+        <BoxIcons.BiTimeFive
+          className={iconClassName}
+          style={iconStyle}
+          color={color}
+          size={size}
+        />
+      );
     }
   }
 
