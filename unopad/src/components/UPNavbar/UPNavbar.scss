@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .navbar-balance-text {
   max-width: 100px;
 }
@@ -11,4 +13,35 @@
   max-width: 125px;
   box-shadow: none !important;
   outline: none !important;
+}
+
+
+.banner-design{
+
+    background: url('Banner.png');
+    background-size: cover;
+    height: 950px;
+    justify-content: center;
+    align-items: center;
+  
+
+}
+
+.banner-design-profile{
+
+  background: url('Banner2.png');
+  background-size: cover;
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.banner-public{
+  
+  .public-nav{
+    color: $unopad-tertiary !important;
+
+  }
 }

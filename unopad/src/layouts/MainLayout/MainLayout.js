@@ -9,6 +9,8 @@ import './MainLayout.scss';
 function MainLayout({ ...props }) {
   const { children, accounts, provider, setWalletAccount } = props;
 
+  
+
   useEffect(() => {
     
 
@@ -37,7 +39,7 @@ function MainLayout({ ...props }) {
   }, [accounts]);
   return (
     <>
-      <UPNavbar />
+      <UPNavbar {...props} />
       {children}
       <UPFooter />
     </>
@@ -48,6 +50,7 @@ const mapStateToProps = (state) => {
   return {
     accounts: state.walletReducer.accounts,
     provider: state.walletReducer.provider,
+    MainLayoutStatus: "True",
   };
 };
 const mapDispatchToProps = (dispatch) => {

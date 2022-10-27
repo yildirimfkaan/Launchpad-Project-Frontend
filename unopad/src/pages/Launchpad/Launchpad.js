@@ -16,12 +16,7 @@ function Launchpad({ ...props }) {
 
   return (
     <Container>
-      <div
-        className="sales-banner mt-2 border d-flex 
-      align-items-center justify-content-center text-muted h5"
-      >
-        Banner
-      </div>
+
       <br></br>
       <UPQuickHandler
         isSignUpAndKYC={true}

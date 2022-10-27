@@ -12,12 +12,7 @@ import MeatTeam from '../../components/UPMeetTeam/MeetTeam';
 function Home() {
   return (
     <>
-      <div
-        className="home-banner mt-2 border d-flex 
-      align-items-center justify-content-center text-muted h5"
-      >
-        Banner
-      </div>
+
       <HomeSales />
 
       <br></br>

@@ -1,0 +1,28 @@
+@import "../../../variables.scss";
+.sales-banner{
+    height: 90%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+.search-sales-design{
+  background: linear-gradient(126.59deg, rgba(255, 255, 255, 0.4) 12.11%, rgba(255, 255, 255, 0.1) 73.08%);
+  box-shadow: 0px 2.8743px 17.2458px -0.718575px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(14.3715px);
+  margin-top: 90px;
+
+  }
+  .form-control::placeholder{
+    color: $gray-200;
+  }
+  .search-sales-icon{
+    color: $gray-200;
+    border-right: 0px;
+    background: transparent;
+    
+  }
+  .search-sales-input{
+    background: transparent;
+    border-left: 0px;
+  }
+
+}

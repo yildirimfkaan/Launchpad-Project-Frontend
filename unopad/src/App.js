@@ -33,7 +33,7 @@ function App({ ...props }) {
                 exact={route.exact}
                 path={route.path}
                 render={(props) => (
-                  <layout.component>
+                  <layout.component {...props}>
                     <route.component {...props} />
                   </layout.component>
                 )}

@@ -52,12 +52,7 @@ function Sales({ ...props }) {
 
   return (
     <Container className="sales-tokens-container">
-      <div
-        className="sales-banner mt-2 border d-flex 
-      align-items-center justify-content-center text-muted h5"
-      >
-        Banner
-      </div>
+
       <UPQuickHandler
         className="justify-content-center"
         isSignUpAndKYC={true}
