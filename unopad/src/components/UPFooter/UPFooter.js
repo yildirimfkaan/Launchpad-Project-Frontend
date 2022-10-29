@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Nav, Row } from 'react-bootstrap';
+import { Col, Container, Nav, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import unopadLogo from '../../assets/img/logo/unopad-logo.png';
@@ -15,7 +15,7 @@ function Footer({ ...props }) {
   const { WalletConnectModalRequest, walletAccountDetailModalRequest, accounts } = props;
 
   return (
-    <div className="d-flex flex-column my-5 py-5">
+    <Container className="d-flex flex-column my-5 py-5">
       <img className="mb-5 m-auto" alt="unopad-logo" src={unopadLogo} height={119} />
       <Row className="border-top border-bottom py-4">
         <Col xs="6" md="3" className="my-2">
@@ -80,7 +80,7 @@ function Footer({ ...props }) {
           </Nav.Link>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }
 
