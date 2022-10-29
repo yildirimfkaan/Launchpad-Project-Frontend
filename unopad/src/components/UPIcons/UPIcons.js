@@ -1,5 +1,6 @@
 import * as Material from 'react-icons/md';
 import * as BoxIcons from 'react-icons/bi';
+import * as FontAwesome from 'react-icons/fa';
 
 function UPIcons({ ...props }) {
   const { className, iconClassName, style, iconStyle, name, color, size } = props;
@@ -71,6 +72,42 @@ function UPIcons({ ...props }) {
     } else if (name === 'BiTimeFive') {
       return (
         <BoxIcons.BiTimeFive
+          className={iconClassName}
+          style={iconStyle}
+          color={color}
+          size={size}
+        />
+      );
+    } else if (name === 'FaBehanceSquare') {
+      return (
+        <FontAwesome.FaBehanceSquare
+          className={iconClassName}
+          style={iconStyle}
+          color={color}
+          size={size}
+        />
+      );
+    } else if (name === 'FaTwitter') {
+      return (
+        <FontAwesome.FaTwitter
+          className={iconClassName}
+          style={iconStyle}
+          color={color}
+          size={size}
+        />
+      );
+    } else if (name === 'FaLinkedin') {
+      return (
+        <FontAwesome.FaLinkedin
+          className={iconClassName}
+          style={iconStyle}
+          color={color}
+          size={size}
+        />
+      );
+    } else if (name === 'FaYoutube') {
+      return (
+        <FontAwesome.FaYoutube
           className={iconClassName}
           style={iconStyle}
           color={color}

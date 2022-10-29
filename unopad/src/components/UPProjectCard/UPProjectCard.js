@@ -11,7 +11,7 @@ export default function Card1(props) {
   return (
     <Row className="d-flex justify-content-around mt-2">
       {Object.entries(projects).map((item, index) => (
-        <Col className="d-flex flex-column" lg={4} sm={12} md={6}>
+        <Col className="d-flex flex-column shadow" lg={4} sm={12} md={6}>
           <NavLink as={Link} to={'/project/' + item[1].id}>
             <div className="project-img-div ">
               <div className="d-flex pt-5 text-ultra-light align-items-center ">

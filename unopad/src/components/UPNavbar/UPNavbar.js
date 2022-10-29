@@ -20,6 +20,7 @@ import UPIcons from '../UPIcons/UPIcons';
 import './UPNavbar.scss';
 import { useEffect } from 'react';
 import unopadLogo from '../../assets/img/logo/unopad-logo.png';
+import unopadWhiteLogo from '../../assets/img/logo/unopad-logo-white.png';
 import { mainColors } from '../../helpers/colors';
 import BannerHome from '../UPBanner/UPBannerHome/BannerHome';
 import BannerLaunchpad from '../UPBanner/UPBannerLaunchpad/BannerLaunchpad';
@@ -94,7 +95,12 @@ function Navigation({ ...props }) {
       <Navbar bg="transparent" expand="lg" style={{ zIndex: 1 }}>
         <Container>
           <Navbar.Brand as={Link} to="/home">
-            <img src={unopadLogo} alt="Logo" heigth={83} width={116} />
+            <img
+              src={MainLayoutStatus === 'True' ? unopadWhiteLogo : unopadLogo}
+              alt="Logo"
+              heigth={83}
+              width={116}
+            />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
