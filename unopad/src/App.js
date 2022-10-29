@@ -44,7 +44,7 @@ function App({ ...props }) {
         <Route
           path="*"
           render={(props) => (
-            <PublicLayout>
+            <PublicLayout {...props}>
               <PageNotFound />
             </PublicLayout>
           )}
