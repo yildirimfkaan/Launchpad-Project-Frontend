@@ -51,13 +51,9 @@ function WalletConnectModal({ ...props }) {
         </Modal.Body>
 
         <Modal.Footer className="justify-content-center">
-     
-       
-      <Button variant="danger" size="lg" onClick={handleClose}>
-        Close
-      </Button>
-    
-
+          <Button variant="danger" size="lg" onClick={handleClose}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

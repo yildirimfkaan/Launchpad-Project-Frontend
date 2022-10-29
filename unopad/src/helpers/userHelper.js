@@ -1,4 +1,3 @@
 export const checkUser = () => {
-    return JSON.parse(localStorage.getItem('user'));
-  };
-  
+  return JSON.parse(localStorage.getItem('user'));
+};

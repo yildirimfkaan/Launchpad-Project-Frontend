@@ -89,24 +89,24 @@ export const walletReducer = (state = initialState, action) => {
 
         walletAccountDetailModal: action?.payload,
       };
-      case types.WALLET_CONNECT_MODAL_DATA:
-        return {
-          ...state,
-  
-          WalletConnect: action?.payload ? Object.assign([], action.payload) : null,
-        };
-      case types.WALLET_CONNECT_MODAL_ERROR:
-        return {
-          ...state,
-  
-          error: { type: types.WALLET_CONNECT_MODAL_ERROR, data: action.payload },
-        };
-      case types.WALLET_CONNECT_MODAL:
-        return {
-          ...state,
-  
-          WalletConnectModal: action?.payload,
-        };
+    case types.WALLET_CONNECT_MODAL_DATA:
+      return {
+        ...state,
+
+        WalletConnect: action?.payload ? Object.assign([], action.payload) : null,
+      };
+    case types.WALLET_CONNECT_MODAL_ERROR:
+      return {
+        ...state,
+
+        error: { type: types.WALLET_CONNECT_MODAL_ERROR, data: action.payload },
+      };
+    case types.WALLET_CONNECT_MODAL:
+      return {
+        ...state,
+
+        WalletConnectModal: action?.payload,
+      };
     default:
       return state;
   }

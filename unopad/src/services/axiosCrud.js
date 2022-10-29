@@ -1,4 +1,4 @@
-import * as Service from "./Service";
+import * as Service from './Service';
 
 export const doGet = (endpoint, body) => {
   return Service.axiosGet({

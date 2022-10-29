@@ -1,5 +1,5 @@
-import MainLayout from "./layouts/MainLayout/MainLayout";
-import PublicLayout from "./layouts/PublicLayout/PublicLayout";
+import MainLayout from './layouts/MainLayout/MainLayout';
+import PublicLayout from './layouts/PublicLayout/PublicLayout';
 
 import Home from './pages/Home/Home';
 import Launchpad from './pages/Launchpad/Launchpad';
@@ -12,112 +12,111 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import ProjectForm from './pages/ProjectForm';
-import Activation from "./pages/Activation/Activation";
+import Activation from './pages/Activation/Activation';
 
-import { Route } from "react-router-dom";
-import Profile from "./pages/Profile/Profile";
-import Sales from "./pages/Sales/Sales";
-import TokenDetail from "./pages/TokenDetail/TokenDetail";
+import { Route } from 'react-router-dom';
+import Profile from './pages/Profile/Profile';
+import Sales from './pages/Sales/Sales';
+import TokenDetail from './pages/TokenDetail/TokenDetail';
 
 const routes = {
   PublicLayout: {
     exact: true,
-    name: "Public Layout",
+    name: 'Public Layout',
     component: PublicLayout,
     children: [
-      
       {
-        path: "/login",
+        path: '/login',
         exact: true,
-        name: "Login",
+        name: 'Login',
         component: Login,
-        routeComponent: Route
+        routeComponent: Route,
       },
       {
-        path: "/ProjectAdd",
+        path: '/ProjectAdd',
         exact: true,
-        name: "Project Form",
+        name: 'Project Form',
         component: ProjectForm,
-        routeComponent: Route
+        routeComponent: Route,
       },
       {
-        path: "/forgotpassword",
+        path: '/forgotpassword',
         exact: true,
-        name: "Forgot Password",
+        name: 'Forgot Password',
         component: ForgotPassword,
-        routeComponent: Route
+        routeComponent: Route,
       },
       {
-        path: "/reset-password",
+        path: '/reset-password',
         exact: true,
-        name: "Reset Password",
+        name: 'Reset Password',
         component: ResetPassword,
-        routeComponent: Route
+        routeComponent: Route,
       },
       {
-        path: "/activate_user",
+        path: '/activate_user',
         exact: true,
-        name: "Activation",
+        name: 'Activation',
         component: Activation,
-        routeComponent: Route
+        routeComponent: Route,
       },
       {
-        path: "/SignUp",
+        path: '/SignUp',
         exact: true,
-        name: "Sign Up",
+        name: 'Sign Up',
         component: SignUp,
-        routeComponent: Route
+        routeComponent: Route,
       },
     ],
   },
   MainLayout: {
     exact: true,
-    name: "Main",
+    name: 'Main',
     component: MainLayout,
     children: [
       {
-        path: "/",
+        path: '/',
         exact: true,
-        name: "Empty Page",
+        name: 'Empty Page',
         component: Home,
-        routeComponent: Route
+        routeComponent: Route,
       },
       {
-        path: "/Launchpad",
-        name: "Launchpad",
+        path: '/Launchpad',
+        name: 'Launchpad',
         component: Launchpad,
-        routeComponent: Route
+        routeComponent: Route,
       },
       {
-        path: "/Profile",
-        name: "Profile",
+        path: '/Profile',
+        name: 'Profile',
         component: Profile,
-        routeComponent: UserRoute
+        routeComponent: UserRoute,
       },
       {
-        path: "/sales",
-        name: "Sales",
+        path: '/sales',
+        name: 'Sales',
         component: Sales,
-        routeComponent: Route
+        routeComponent: Route,
       },
       {
-        path: "/project/:id",
-        name: "Project Detail",
+        path: '/project/:id',
+        name: 'Project Detail',
         component: ProjectDetail,
-        routeComponent: Route
+        routeComponent: Route,
       },
       {
-        path: "/token/:id",
-        name: "Token Detail",
+        path: '/token/:id',
+        name: 'Token Detail',
         component: TokenDetail,
-        routeComponent: Route
+        routeComponent: Route,
       },
       {
-        path: "/Home",
+        path: '/Home',
         exact: true,
-        name: "Home",
+        name: 'Home',
         component: Home,
-        routeComponent: UserRoute
+        routeComponent: UserRoute,
       },
     ],
   },

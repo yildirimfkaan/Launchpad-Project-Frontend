@@ -1,19 +1,13 @@
 import React, { useState } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import './UPRoadMap.scss'
-
+import './UPRoadMap.scss';
 
 function UPRoadmap() {
   const [key, setKey] = useState('registrationOpens');
 
   return (
-    <Tabs
-      id="controlled-tab-example"
-      activeKey={key}
-      onSelect={(k) => setKey(k)}
-      className="mb-3"
-    >
+    <Tabs id="controlled-tab-example" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
       <Tab eventKey="registrationOpens" title="Registration Opens">
         Token Info / Sale Info
       </Tab>
@@ -24,10 +18,10 @@ function UPRoadmap() {
         empty
       </Tab>
       <Tab eventKey="boosterRound" title="Booster Round" disabled>
-       empty
+        empty
       </Tab>
       <Tab eventKey="saleEnds" title="Sale Ends" disabled>
-       empty
+        empty
       </Tab>
     </Tabs>
   );

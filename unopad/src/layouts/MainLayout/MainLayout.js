@@ -9,17 +9,11 @@ import './MainLayout.scss';
 function MainLayout({ ...props }) {
   const { children, accounts, provider, setWalletAccount } = props;
 
-  
-
   useEffect(() => {
-    
-
     if (provider && window.ethereum?.on) {
-      
-      const HandleAccountChange = function(Newaccounts) {
-
+      const HandleAccountChange = function (Newaccounts) {
         if (accounts?.[0] != Newaccounts?.[0]) setWalletAccount(Newaccounts);
-      }
+      };
       window.ethereum.on('accountsChanged', HandleAccountChange);
       return () => {
         if (window.ethereum.removeListener) {
@@ -50,7 +44,7 @@ const mapStateToProps = (state) => {
   return {
     accounts: state.walletReducer.accounts,
     provider: state.walletReducer.provider,
-    MainLayoutStatus: "True",
+    MainLayoutStatus: 'True',
   };
 };
 const mapDispatchToProps = (dispatch) => {

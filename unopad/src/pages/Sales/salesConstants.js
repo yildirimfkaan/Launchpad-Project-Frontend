@@ -26,4 +26,4 @@ const sortKeys = [
   { name: 'Token Address', key: 'token_address' },
 ];
 
-export {TOKENS_SORT_TYPES, TOKENS_SORT_KEYS, sortTypes, sortKeys}
+export { TOKENS_SORT_TYPES, TOKENS_SORT_KEYS, sortTypes, sortKeys };

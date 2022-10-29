@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import './UPTokenTable.scss';
 
-
 function UPTokenTable(props) {
   const tokens = props.filteredTokens?.length ? props.filteredTokens : props.tokens;
-  const {history} = props;
+  const { history } = props;
 
   const TableSelectRow = (nums) => {
     return history.push('token/' + nums);

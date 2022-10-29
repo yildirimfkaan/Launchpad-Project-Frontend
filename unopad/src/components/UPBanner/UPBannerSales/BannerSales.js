@@ -19,11 +19,11 @@ function BannerSales() {
       <Row className="text-white text-fs-body-md mt-4 text-center " style={{ width: '100%' }}>
         <Col>
           <InputGroup className="search-sales-design">
-            <InputGroup.Text id="basic-addon1" className='search-sales-icon'>
+            <InputGroup.Text id="basic-addon1" className="search-sales-icon">
               <BsSearch />
             </InputGroup.Text>
             <Form.Control
-              className='search-sales-input text-fs-body-sm'
+              className="search-sales-input text-fs-body-sm"
               type="text"
               placeholder="Search by project name, token symbol or token contract adress..."
               aria-label="text"

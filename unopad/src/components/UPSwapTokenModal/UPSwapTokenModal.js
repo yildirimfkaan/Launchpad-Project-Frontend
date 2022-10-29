@@ -6,7 +6,7 @@ import SwapToken from './SwapToken';
 import './UPSwapTokenModal.scss';
 import * as loadingActionTypes from '../../store/loading/loadingActionTypes';
 
-function UPSwapTokenModal ({ ...props }) {
+function UPSwapTokenModal({ ...props }) {
   const { swapTokenModal, swapTokenModalRequest, isLoading } = props;
 
   const handleClose = () => {
@@ -18,7 +18,9 @@ function UPSwapTokenModal ({ ...props }) {
 
   return (
     <Modal show={swapTokenModal} onHide={handleClose} size="lg" centered>
-      <Modal.Header closeButton className="border-bottom-0 h4">Swap Token</Modal.Header>
+      <Modal.Header closeButton className="border-bottom-0 h4">
+        Swap Token
+      </Modal.Header>
       <Modal.Body>
         <SwapToken />
       </Modal.Body>
@@ -38,4 +40,4 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(UPSwapTokenModal );
+export default connect(mapStateToProps, mapDispatchToProps)(UPSwapTokenModal);

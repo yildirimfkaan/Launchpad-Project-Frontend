@@ -7,8 +7,8 @@ import { forgotPasswordRequest } from '../../store/account/userActions';
 import './ForgotPassoword.scss';
 import { NavLink } from 'react-router-dom';
 
-function ForgotPassword ({...props}) {
-  const {forgotpassword} = props;
+function ForgotPassword({ ...props }) {
+  const { forgotpassword } = props;
   const [state, setState] = useState({
     data: {
       email: '',
@@ -25,7 +25,7 @@ function ForgotPassword ({...props}) {
     e.preventDefault();
     const { data } = state;
     const errors = validate();
-    
+
     if (Object.keys(errors).length === 0) {
       forgotpassword(data);
 
@@ -53,17 +53,18 @@ function ForgotPassword ({...props}) {
       },
     });
   };
-  
-    const { data, errors } = state;
-    return (
-      <Row className="d-flex justify-content-center align-items-center">
-        <Col className="public-layout-col d-flex justify-content-center align-items-center bg-white px-1 py-2">
+
+  const { data, errors } = state;
+  return (
+    <Row className="d-flex justify-content-center align-items-center">
+      <Col className="public-layout-col d-flex justify-content-center align-items-center bg-white px-1 py-2">
         <div className="public-layout-image d-md-flex d-none flex-column justify-content-center align-items-center bg-tertiary px-1 py-2">
           <div className="text-fs-head-lg text-center text-light px-2">
-          Forgot password on the way of the future of <div className="text-primary">fundraising?</div>
+            Forgot password on the way of the future of{' '}
+            <div className="text-primary">fundraising?</div>
           </div>
           <div className="text-fs-body-md text-center text-light px-2">
-          Please enter the email adress you would lile to reset information sent to.
+            Please enter the email adress you would lile to reset information sent to.
           </div>
         </div>
         <div className="d-flex flex-column justify-content-center aling-items-center px-4 mx-2 public-layout-form">
@@ -75,24 +76,17 @@ function ForgotPassword ({...props}) {
               handleChange={handleChange}
               error={errors.email}
             />
-            <Button
-              type="submit"
-              className="mb-4 mt-4 bg-unopad-primary col-sm-12"
-            >
+            <Button type="submit" className="mb-4 mt-4 bg-unopad-primary col-sm-12">
               Send Password Reset Email
             </Button>
           </Form>
-          <NavLink
-            className="d-flex justify-content-center m-0 text-primary"
-            to="/login"
-          >
+          <NavLink className="d-flex justify-content-center m-0 text-primary" to="/login">
             Back to Login
           </NavLink>
         </div>
-        </Col>
-      </Row>
-    );
-  
+      </Col>
+    </Row>
+  );
 }
 const mapDispatchToProps = (dispatch) => {
   return {

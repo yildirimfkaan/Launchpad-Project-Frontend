@@ -54,7 +54,7 @@ function WalletAccountDetailModal({ ...props }) {
       <Modal.Body className="px-5">
         <div className="account-div text-fs-head-xs mb-3">Account </div>
         <Container className="body-div">
-          <Row className='py-2'>
+          <Row className="py-2">
             <Col className="d-flex flex-column align-items-center">
               <div className="titles text-fs-body-sm">Balance</div>
               <div className="titles text-fs-head-xs">{balance_}</div>
@@ -62,7 +62,6 @@ function WalletAccountDetailModal({ ...props }) {
             <Col className="d-flex flex-column align-items-center">
               <div className="titles text-fs-body-sm">Network</div>
               <div className="titles text-fs-head-xs">Newtork</div>
-              
             </Col>
             <Col className="d-flex flex-column align-items-center">
               <div className="titles text-fs-body-sm"> Wallet</div>

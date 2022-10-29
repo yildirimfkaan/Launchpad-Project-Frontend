@@ -18,7 +18,9 @@ function UPBuyTokenModal({ ...props }) {
 
   return (
     <Modal show={buyTokenModal} onHide={handleClose} size="lg" centered>
-      <Modal.Header closeButton className="border-bottom-0 h4">Buy Uno Token</Modal.Header>
+      <Modal.Header closeButton className="border-bottom-0 h4">
+        Buy Uno Token
+      </Modal.Header>
       <Modal.Body>
         <BuyUnoToken />
       </Modal.Body>

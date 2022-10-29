@@ -7,7 +7,7 @@ export const providerOptions = {
     options: {
       appName: 'Web 3 Modal Demo', // Required
       // Required unless you provide a JSON RPC url; see `rpc` below
-      infuraId: process.env.INFURA_KEY, 
+      infuraId: process.env.INFURA_KEY,
     },
   },
   walletconnect: {

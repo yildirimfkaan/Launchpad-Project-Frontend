@@ -24,7 +24,6 @@ export const alertReducer = (state = initialState, action) => {
           time: '',
           variant: '',
           outTimeMS: 0,
-
         },
       };
 

@@ -1,6 +1,5 @@
 import * as types from './walletActionTypes';
 
-
 export const connectWalletDataAction = (payload) => {
   return {
     type: types.CONNECT_WALLET_DATA,
@@ -71,7 +70,6 @@ export const setWalletAccountData = (payload) => {
   };
 };
 
-
 export const walletAccountDetailRequestAction = (payload) => {
   return {
     type: types.WALLET_ACCOUNT_DETAIL_REQUEST,
@@ -103,7 +101,6 @@ export const WalletConnectModalAction = (payload) => {
     payload,
   };
 };
-
 
 export const stakeNowButtonActivationAction = (payload) => {
   return {

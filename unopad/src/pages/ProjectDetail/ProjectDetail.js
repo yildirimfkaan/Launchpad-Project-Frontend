@@ -14,17 +14,10 @@ import { swapTokenModalAction } from '../../store/project/projectActions';
 import UPSwapTokenModal from '../../components/UPSwapTokenModal/UPSwapTokenModal';
 
 function ProjectDetail({ ...props }) {
-  const {
-    project,
-    provider,
-    accounts,
-    ethereum,
-    setWalletAccount,
-    user,
-    swapTokenModalRequest,
-  } = props;
+  const { project, provider, accounts, ethereum, setWalletAccount, user, swapTokenModalRequest } =
+    props;
   const item = props.project;
-  
+
   const [stake, setStake] = useState(false);
 
   const [signature, setSignature] = useState('');
@@ -46,12 +39,8 @@ function ProjectDetail({ ...props }) {
   };
   const connectWallet = async () => {
     wallet.connectWallet();
-
-  
   };
 
-  
-  
   const addUnoTokenFunction = async () => {
     try {
       const provider = await detectEthereumProvider();
@@ -66,7 +55,6 @@ function ProjectDetail({ ...props }) {
           },
         },
       });
-     
 
       if (wasAdded) {
         console.log('Thanks for your interest!');
@@ -94,7 +82,6 @@ function ProjectDetail({ ...props }) {
   useEffect(() => {
     if (provider?.on) {
       const handleAccountsChanged = (newAccounts) => {
-       
         if (accounts?.[0] !== newAccounts?.[0]) setWalletAccount(newAccounts);
       };
       const handleChainChanged = (_hexChainId) => {

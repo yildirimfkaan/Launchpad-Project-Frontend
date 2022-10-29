@@ -24,9 +24,9 @@ function ResetPassword({ ...props }) {
     const { data } = state;
     const errors = {};
     if (data.password === '') errors.password = 'Password cannot be blank.';
-    if (data.password.length > 32 || data.password.length < 6){
-      errors.password = 'Password should be between 6-32 characters.'
-    };
+    if (data.password.length > 32 || data.password.length < 6) {
+      errors.password = 'Password should be between 6-32 characters.';
+    }
     if (data.confirmPassword === '') errors.confirmPassword = 'Confirm Password cannot be blank.';
     if (data.confirmPassword !== data.password) errors.confirmPassword = 'Passwords do not match! ';
     return errors;
@@ -85,7 +85,7 @@ function ResetPassword({ ...props }) {
     });
   };
   const { data, errors } = state;
-  
+
   return (
     <>
       <Row>

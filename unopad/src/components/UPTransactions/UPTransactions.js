@@ -3,12 +3,11 @@ import UPTxList from '../UPTxList/UPTxList';
 import './UPTransactions.scss';
 
 export default function Transactions(Transfer_data) {
-  
   const txs = Transfer_data[0];
-  const err = Transfer_data[1]
+  const err = Transfer_data[1];
   if (txs.length === 0) {
-    return null     
-} 
+    return null;
+  }
   return (
     <>
       <div
@@ -17,9 +16,8 @@ export default function Transactions(Transfer_data) {
       >
         <div className="mt-4 p-4">
           <h1 className="text-xl font-semibold text-gray-700 text-center">Recent transactions</h1>
-          
-            <UPTxList txs={txs} err={err} />
-          
+
+          <UPTxList txs={txs} err={err} />
         </div>
       </div>
     </>

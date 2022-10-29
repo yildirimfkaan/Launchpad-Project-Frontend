@@ -74,7 +74,7 @@ export const resetPasswordError = (payload) => {
  *
  * @param {activationToken,activationCode} creds
  */
- export const activationRequest = (creds) => {
+export const activationRequest = (creds) => {
   return {
     type: types.ACTIVATION_REQUEST,
     creds,
@@ -93,23 +93,22 @@ export const activationError = (payload) => {
   };
 };
 
-
 export const logoutRequestAction = (payload) => {
   return {
     type: types.LOGOUT_REQUEST,
-    payload
+    payload,
   };
 };
 export const logoutData = (payload) => {
   return {
     type: types.LOGIN_DATA,
-    payload
+    payload,
   };
 };
 export const logoutError = (payload) => {
   return {
     type: types.LOGIN_ERROR,
-    payload
+    payload,
   };
 };
 
@@ -135,7 +134,7 @@ export const signUpError = (payload) => {
     payload,
   };
 };
- export const accountDetailsRequestAction = (creds) => {
+export const accountDetailsRequestAction = (creds) => {
   return {
     type: types.ACCOUNT_DETAILS_REQUEST,
     creds,
@@ -198,8 +197,3 @@ export const checkUserTokenErrorAction = (payload) => {
     payload,
   };
 };
-
-
-
-
-

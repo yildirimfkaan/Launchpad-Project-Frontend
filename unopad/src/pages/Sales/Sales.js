@@ -52,7 +52,6 @@ function Sales({ ...props }) {
 
   return (
     <Container className="sales-tokens-container">
-
       <UPQuickHandler
         className="justify-content-center"
         isSignUpAndKYC={true}

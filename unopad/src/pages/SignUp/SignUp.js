@@ -8,7 +8,6 @@ import { NavLink } from 'react-router-dom';
 import './SignUp.scss';
 import unopadLogo from '../../assets/img/logo/unopad-logo-white.png';
 
-
 function SignUp({ ...props }) {
   const { sign, history } = props;
   const [state, setState] = useState({
@@ -84,7 +83,7 @@ function SignUp({ ...props }) {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
             incididunt ut labore et dolore magna aliqua
           </div>
-          <img src={unopadLogo} alt="Logo" heigth={83} width={116} className="mt-4"/>
+          <img src={unopadLogo} alt="Logo" heigth={83} width={116} className="mt-4" />
         </div>
         <div className="d-flex flex-column justify-content-center aling-items-center px-4 mx-2 public-signup-layout-form">
           <Form onSubmit={handleSubmit}>
@@ -113,15 +112,15 @@ function SignUp({ ...props }) {
               SignUp
             </Button>
           </Form>
-          <NavLink
-            className="d-flex justify-content-center m-0 text-primary"
-            to="/forgotpassword"
-          >
+          <NavLink className="d-flex justify-content-center m-0 text-primary" to="/forgotpassword">
             Forgot Password?
           </NavLink>
 
           <Col className="m-1 d-flex justify-content-center">
-            <NavLink className="text-fs-body-md text-t-body-color justify-content-center" to="/signup">
+            <NavLink
+              className="text-fs-body-md text-t-body-color justify-content-center"
+              to="/signup"
+            >
               Don't have an account yet?
             </NavLink>
 

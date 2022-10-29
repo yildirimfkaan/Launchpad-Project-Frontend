@@ -41,7 +41,6 @@ function TokenDetail({ ...props }) {
     wallet.connectWallet();
   };
 
-  
   const addUnoTokenFunction = async () => {
     try {
       const provider = await detectEthereumProvider();
@@ -124,7 +123,6 @@ function TokenDetail({ ...props }) {
         <>
           <Container>
             <Card className="token-detail-card mx-auto">
-             
               <Card.Header>
                 <div className="token-detail-name-div">
                   <Card.Text>{item.token_name}</Card.Text>

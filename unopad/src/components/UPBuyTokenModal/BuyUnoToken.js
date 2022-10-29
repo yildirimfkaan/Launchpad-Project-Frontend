@@ -23,20 +23,17 @@ function BuyUnoToken({ ...props }) {
 
   const UnoTokenOnChangeHandler = (event) => {
     const { name, value } = event.target;
-    if(name=='etherValue'){
-      const unoTokenValue = value*1000;
-      unoTokenInputValue.UnoTokenAmount  = unoTokenValue;
+    if (name == 'etherValue') {
+      const unoTokenValue = value * 1000;
+      unoTokenInputValue.UnoTokenAmount = unoTokenValue;
       unoTokenInputValue.etherValue = value;
       setUnoTokenInputValue({ ...unoTokenInputValue });
-    }
-    else if (name=='UnoTokenAmount'){
-      const etherValue = value/1000;
-      unoTokenInputValue.UnoTokenAmount  = value;
+    } else if (name == 'UnoTokenAmount') {
+      const etherValue = value / 1000;
+      unoTokenInputValue.UnoTokenAmount = value;
       unoTokenInputValue.etherValue = etherValue;
       setUnoTokenInputValue({ ...unoTokenInputValue });
     }
-    
-    
   };
   useEffect(() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -125,39 +122,33 @@ function BuyUnoToken({ ...props }) {
             <h1 className="text-xl font-semibold text-gray-700 text-center">Buy Uno Token</h1>
             <div className="">
               <div className="my-3">
-                <FloatingLabel
-                label="Ether Value"
-                className='mb-3'
-                >
-                <Form.Control
-                  type="number"
-                  name="etherValue"
-                  className="input input-bordered block w-full focus:ring focus:outline-none"
-                  placeholder="Ether Value"
-                  min="0.001"
-                  step="0.001"
-                  value={unoTokenInputValue.etherValue}
-                  onChange={UnoTokenOnChangeHandler}
-                  disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
-                />
+                <FloatingLabel label="Ether Value" className="mb-3">
+                  <Form.Control
+                    type="number"
+                    name="etherValue"
+                    className="input input-bordered block w-full focus:ring focus:outline-none"
+                    placeholder="Ether Value"
+                    min="0.001"
+                    step="0.001"
+                    value={unoTokenInputValue.etherValue}
+                    onChange={UnoTokenOnChangeHandler}
+                    disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
+                  />
                 </FloatingLabel>
-                <FloatingLabel
-                label="Uno Token Amount"
-                className='mb-3'>
-                <Form.Control
-                  type="number"
-                  name="UnoTokenAmount"
-                  id="UnoTokenAmount"
-                  className="input input-bordered block w-full focus:ring focus:outline-none"
-                  placeholder="UnoTokenAmount"
-                  value={unoTokenInputValue.UnoTokenAmount}
-                  onChange={UnoTokenOnChangeHandler}
-                  min="1"
-                  step="1"
-                  disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
-                />
+                <FloatingLabel label="Uno Token Amount" className="mb-3">
+                  <Form.Control
+                    type="number"
+                    name="UnoTokenAmount"
+                    id="UnoTokenAmount"
+                    className="input input-bordered block w-full focus:ring focus:outline-none"
+                    placeholder="UnoTokenAmount"
+                    value={unoTokenInputValue.UnoTokenAmount}
+                    onChange={UnoTokenOnChangeHandler}
+                    min="1"
+                    step="1"
+                    disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
+                  />
                 </FloatingLabel>
-                
               </div>
             </div>
           </main>

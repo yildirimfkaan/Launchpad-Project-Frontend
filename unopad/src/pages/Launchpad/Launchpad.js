@@ -16,7 +16,6 @@ function Launchpad({ ...props }) {
 
   return (
     <Container>
-
       <br></br>
       <UPQuickHandler
         isSignUpAndKYC={true}

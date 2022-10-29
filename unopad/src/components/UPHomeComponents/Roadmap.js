@@ -6,12 +6,12 @@ function Roadmap() {
     <section id="roadmap" className="roadmap-section pt-100 pb-70 img-bg">
       <div className="container">
         <div className="row">
-        <div
-        className="roadmap-banner mt-1 border d-flex 
+          <div
+            className="roadmap-banner mt-1 border d-flex 
       align-items-center justify-content-center text-muted h5"
-      >
-        Roadmap
-      </div>
+          >
+            Roadmap
+          </div>
         </div>
       </div>
     </section>

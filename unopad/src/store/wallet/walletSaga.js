@@ -11,7 +11,12 @@ function* walletAccountHistory() {
   try {
     const { accounts } = store.getState().walletReducer;
 
-    const TxInfo = { module: 'account', action: 'txlist', address: accounts[0], params: {sort: 'desc'} };
+    const TxInfo = {
+      module: 'account',
+      action: 'txlist',
+      address: accounts[0],
+      params: { sort: 'desc' },
+    };
     const res = yield call(endpoints.GetTxlist, TxInfo);
 
     yield put(actions.walletAccountHistoryDataAction(res.data.result));

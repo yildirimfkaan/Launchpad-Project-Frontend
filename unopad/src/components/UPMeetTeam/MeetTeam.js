@@ -64,7 +64,6 @@ function MeetTeam() {
           <div className="text-fs-body-md">Tijen Sakin</div>
           <div className="text-fs-body-sm">Product Designer</div>
         </Col>
-       
       </Row>
       <Row className="d-flex justify-content-center align-items-center mt-2 px-1 py-2">
         <Col

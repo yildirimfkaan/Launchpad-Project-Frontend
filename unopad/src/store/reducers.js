@@ -8,7 +8,6 @@ import { walletReducer } from './wallet/walletReducer';
 import { loadingReducer } from './loading/loadingReducer';
 import { tokenReducer } from './token/tokenReducer';
 
-
 const rootReducer = combineReducers({
   PostReducer,
   alertReducer,
@@ -17,8 +16,6 @@ const rootReducer = combineReducers({
   walletReducer,
   loadingReducer,
   tokenReducer,
-  
-  
 });
 
 export default rootReducer;

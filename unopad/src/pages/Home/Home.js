@@ -8,11 +8,9 @@ import HomeSales from '../../components/UPHomeSales/HomeSales';
 import './Home.scss';
 import MeatTeam from '../../components/UPMeetTeam/MeetTeam';
 
-
 function Home() {
   return (
     <>
-
       <HomeSales />
 
       <br></br>
@@ -23,7 +21,7 @@ function Home() {
       <About />
       <Service />
       <Roadmap />
-      
+
       <Grows />
     </>
   );

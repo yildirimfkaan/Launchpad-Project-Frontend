@@ -19,7 +19,7 @@ function HomeSales(...props) {
         </Col>
       </Row>
       <div className="back-model">
-        <Container className='home-sales-container d-flex flex-column justify-content-end'>
+        <Container className="home-sales-container d-flex flex-column justify-content-end">
           <UPQuickHandler
             className="justify-content-center px-5"
             isSignUpAndKYC={true}
