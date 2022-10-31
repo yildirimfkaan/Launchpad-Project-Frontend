@@ -6,6 +6,7 @@ import UPQuickHandler from '../../components/UPQuickHandler/UPQuickHandler';
 import { Container } from 'react-bootstrap';
 import './Launchpad.scss';
 import { quickHandlerImages } from '../../helpers/quickHandlerImages';
+import TripleCard from '../../components/UPTripleCard/TripleCard';
 
 function Launchpad({ ...props }) {
   const { getProjects, projects } = props;
@@ -29,6 +30,7 @@ function Launchpad({ ...props }) {
         history={props.history}
       />
       {!projects ? <h1>Page is Loading.....</h1> : <UPProjectCard {...props} />}
+      <TripleCard/>
     </Container>
   );
 }

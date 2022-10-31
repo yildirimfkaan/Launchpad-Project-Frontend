@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import UPIcons from '../../components/UPIcons/UPIcons';
 import UPQuickHandler from '../../components/UPQuickHandler/UPQuickHandler';
 import UPTokenTable from '../../components/UPTokenTable/UPTokenTable';
+import TripleCard from '../../components/UPTripleCard/TripleCard';
 import { quickHandlerImages } from '../../helpers/quickHandlerImages';
 import {
   filterTokensAction,
@@ -125,6 +126,7 @@ function Sales({ ...props }) {
           </>
         )}
       </div>
+      <TripleCard/>
     </Container>
   );
 }
