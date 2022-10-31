@@ -25,6 +25,8 @@ import { mainColors } from '../../helpers/colors';
 import BannerHome from '../UPBanner/UPBannerHome/BannerHome';
 import BannerLaunchpad from '../UPBanner/UPBannerLaunchpad/BannerLaunchpad';
 import BannerSales from '../UPBanner/UPBannerSales/BannerSales';
+import BannerToken from '../UPBanner/UPBannerToken/BannerToken';
+import BannerUserProfileDetail from '../UPBanner/UPBannerUserProfileDetail/BannerUserProfileDetail';
 
 function Navigation({ ...props }) {
   const {
@@ -73,6 +75,11 @@ function Navigation({ ...props }) {
       return <BannerLaunchpad />;
     } else if (pathname.toLowerCase() === '/sales') {
       return <BannerSales />;
+    } else if (pathname.toLowerCase().split("/")[1] === 'token') {
+      return <BannerToken />;
+    } 
+    else if (pathname.toLowerCase() === '/profile') {
+      return <BannerUserProfileDetail />;
     } else {
       return '';
     }
