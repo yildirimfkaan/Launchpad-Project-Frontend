@@ -75,10 +75,9 @@ function Navigation({ ...props }) {
       return <BannerLaunchpad />;
     } else if (pathname.toLowerCase() === '/sales') {
       return <BannerSales />;
-    } else if (pathname.toLowerCase().split("/")[1] === 'token') {
+    } else if (pathname.toLowerCase().split('/')[1] === 'token') {
       return <BannerToken />;
-    } 
-    else if (pathname.toLowerCase() === '/profile') {
+    } else if (pathname.toLowerCase() === '/profile') {
       return <BannerUserProfileDetail />;
     } else {
       return '';
@@ -87,7 +86,10 @@ function Navigation({ ...props }) {
 
   const getBannerClassName = () => {
     if (MainLayoutStatus === 'True') {
-      if (pathname.toLowerCase() === '/' || pathname.toLowerCase() === '/launchpad') {
+      if (
+        pathname.toLowerCase() === '/' ||
+        pathname.toLowerCase() === '/launchpad'
+      ) {
         return 'banner-design';
       } else {
         return 'banner-design-profile';
@@ -101,7 +103,7 @@ function Navigation({ ...props }) {
     <Container fluid className={getBannerClassName()}>
       <Navbar bg="transparent" expand="lg" style={{ zIndex: 1 }}>
         <Container>
-          <Navbar.Brand as={Link} to="/home">
+          <Navbar.Brand as={Link} to="/">
             <img
               src={MainLayoutStatus === 'True' ? unopadLogoWhite : unopadLogo}
               alt="Logo"

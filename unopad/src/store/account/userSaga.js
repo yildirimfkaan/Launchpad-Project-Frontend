@@ -29,7 +29,7 @@ function* loginSaga({ creds }) {
     localStorage.setItem('user', JSON.stringify(user));
 
     setTimeout(() => {
-      creds.history.push('/home');
+      creds.history.push('/');
     }, 1000);
   } catch (e) {
     yield put(
@@ -125,7 +125,7 @@ function* activationSaga({ creds }) {
     );
     yield put(actions.accountVerifiedAction(true));
     setTimeout(() => {
-      creds.history.push('/home');
+      creds.history.push('/');
     }, 3000);
   } catch (e) {
     yield put(
