@@ -8,26 +8,32 @@ import './Subscribe.scss';
 
 function Subscribe() {
   return (
-    <Container>
+    <Container className="subscribe">
+      <Col className="icon1"></Col>
+
+      <Col className="icon2"></Col>
+
       <Row>
+        <Col className="text-white text-fs-head-xl text-center">Subscribe For Newsletter</Col>
+      </Row>
+      <Row>
+        <Col></Col>
+        <Col lg={8} className="text-white text-fs-head-md text-center mt-4">
+          We have all been in this industry too long not to make the security of your funds our
+          absolute top priority. We’ve received multiple audits from Open Zeppelin and Trail
+        </Col>
+        <Col></Col>
+      </Row>
+
+      <Row style={{width:"70%"}}>
         <Col>
-          <div className="subscribe">
-            <div className="icon1"></div>
-            <div className="icon2"></div>
-            <div className="text-white text-fs-head-xl title">Subscribe For Newsletter</div>
+          <InputGroup className="email-form">
+            <Form.Control className="email" type="email" placeholder="Email Address" />
 
-            <div className="text-white text-fs-head-md text">
-              We have all been in this industry too long not to make the security of your funds our
-              absolute top priority. We’ve received multiple audits from Open Zeppelin and Trail
-            </div>
-            <InputGroup className="email-form">
-              <Form.Control className="email" type="email" placeholder="Email Address" />
-
-              <Button className="email-button" variant="primary" type="submit">
-                Learn More
-              </Button>
-            </InputGroup>
-          </div>
+            <Button className="email-button" variant="primary" type="submit">
+              Learn More
+            </Button>
+          </InputGroup>
         </Col>
       </Row>
     </Container>

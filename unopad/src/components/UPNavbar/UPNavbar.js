@@ -27,6 +27,12 @@ import BannerLaunchpad from '../UPBanner/UPBannerLaunchpad/BannerLaunchpad';
 import BannerSales from '../UPBanner/UPBannerSales/BannerSales';
 import BannerToken from '../UPBanner/UPBannerToken/BannerToken';
 import BannerUserProfileDetail from '../UPBanner/UPBannerUserProfileDetail/BannerUserProfileDetail';
+import BannerStats from '../UPBanner/UPBannerStats/BannerStats';
+import BannerFaq from '../UPBanner/UPBannerFaq/BannerFaq';
+import BannerTermsOfService from '../UPBanner/UPBannerTermsOfService/BannerTermsOfService';
+import BannerPrivacyPolicy from '../UPBanner/UPBannerPrivacyPolicy/BannerPrivacyPolicy';
+import BannerProjectInformation
+from '../UPBanner/UPBannerProjectInformation/BannerProjectInformation';
 
 function Navigation({ ...props }) {
   const {
@@ -79,6 +85,16 @@ function Navigation({ ...props }) {
       return <BannerToken />;
     } else if (pathname.toLowerCase() === '/profile') {
       return <BannerUserProfileDetail />;
+    } else if (pathname.toLowerCase() === '/stats') {
+      return <BannerStats />;
+    } else if (pathname.toLowerCase() === '/faq') {
+      return <BannerFaq />;
+    } else if (pathname.toLowerCase() === '/termsofservice') {
+      return <BannerTermsOfService />;
+    } else if (pathname.toLowerCase() === '/privacypolicy') {
+      return <BannerPrivacyPolicy />;
+    } else if (pathname.toLowerCase() === '/projectinformation') {
+      return <BannerProjectInformation />;
     } else {
       return '';
     }
@@ -86,10 +102,7 @@ function Navigation({ ...props }) {
 
   const getBannerClassName = () => {
     if (MainLayoutStatus === 'True') {
-      if (
-        pathname.toLowerCase() === '/' ||
-        pathname.toLowerCase() === '/launchpad'
-      ) {
+      if (pathname.toLowerCase() === '/' || pathname.toLowerCase() === '/launchpad') {
         return 'banner-design';
       } else {
         return 'banner-design-profile';
