@@ -111,13 +111,7 @@ const routes = {
         component: TokenDetail,
         routeComponent: Route,
       },
-      {
-        path: '/Home',
-        exact: true,
-        name: 'Home',
-        component: Home,
-        routeComponent: UserRoute,
-      },
+
     ],
   },
 };
