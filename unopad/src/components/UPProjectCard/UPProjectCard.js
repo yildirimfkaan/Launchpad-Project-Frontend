@@ -5,20 +5,21 @@ import UPIcons from '../UPIcons/UPIcons';
 import { mainColors } from '../../helpers/colors';
 import metamaskIcon from '../UPWalletAccountDetailModal/metamask-icon.png';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import unopadMiniIcon from '../../assets/img/logo/unopad-logo-mini.png';
 
 export default function Card1(props) {
   const { projects } = props;
   return (
-    <Row className="d-flex justify-content-around mt-2">
+    <Row className="justify-content-between mt-5">
       {Object.entries(projects).map((item, index) => (
-        <Col className="d-flex flex-column shadow" lg={4} sm={12} md={6}>
-          <NavLink as={Link} to={'/project/' + item[1].id}>
+        <Col className="d-flex flex-column" lg={4} sm={12} md={6}>
+          <NavLink as={Link} to={'/project/' + item[1].id} className="shadow">
             <div className="project-img-div ">
-              <div className="d-flex pt-5 text-ultra-light align-items-center ">
+              <div className="d-flex pt-4 text-ultra-light align-items-center ">
                 <div className="ps-3 pe-2 pt-4">
                   <img alt="metamask-icon" src={metamaskIcon} className="project-icon" />
                 </div>
-                <div className="ps-3 pe-3 pt-4">
+                <div className="ps-3 pe-3 ">
                   <div className="text-fs-project-name">{item[1].project_name}</div>
                   <div className="text-fs-head-sm">1 asd = 0.003 UNO</div>
                 </div>
@@ -26,10 +27,21 @@ export default function Card1(props) {
             </div>
             <div className="d-flex text-fs-body-md ps-2 pt-3">
               Total Raised:<div className="text-primary text-fs-head-md ps-2"> $100.00 </div>
+              <div
+                className=" ms-auto p-2 mt-1 ended-logo px-3 me-1 d-flex align-items-center 
+              text-fs-body-sm"
+              >
+                Ended
+              </div>
+              <img
+                className="unopad-icon ms-1 mt-1 me-1"
+                alt="unopadmini-icon"
+                src={unopadMiniIcon}
+              />
             </div>
             <div>
               <ProgressBar
-                className="project-progress-bar mt-3 mb-3"
+                className="project-progress-bar mt-3 mb-3 mx-2"
                 style={{ height: '30px' }}
                 now={85}
                 label={'Sale: 92.45%  Burned: 5.32%'}

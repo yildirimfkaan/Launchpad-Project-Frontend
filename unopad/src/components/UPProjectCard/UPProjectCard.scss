@@ -3,7 +3,6 @@
 
     background: url("card-title-background.png");
     height: 149px;
-    width: auto;
     background-size: cover;
 }
 .project-progress-bar{
@@ -25,4 +24,15 @@
 
 tr:last-child{
     border-bottom-color:$unopad-primary;
+}
+.ended-logo{
+    color: $unopad-primary;
+    background: rgba(228, 0, 125, 0.18);;
+    border-radius: 27px;
+    height: 18px;
+    width: auto;
+    text-align: center;
+}
+.unopad-icon{
+    height: 16px;
 }
