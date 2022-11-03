@@ -11,14 +11,22 @@ function UPTokenTable(props) {
     return history.push('token/' + nums);
   };
 
+  console.log(tokens);
+
   return (
-    <Table bordered hover>
+    <Table className='sales-table-design' responsive hover borderless>
       <thead>
-        <tr>
+        <tr className="text-t-body-color text-fs-tag">
           <th>#</th>
-          <th>Token Name</th>
-          <th>Token Symbol</th>
-          <th>Token Address</th>
+          <th>Project Name</th>
+          <th>IDO Token Price</th>
+          <th>Current Price</th>
+          <th>ATH</th>
+          <th>ATH IDO ROI</th>
+          <th>No. Registration</th>
+          <th>Total Raised</th>
+          <th>Total Tokens Sold</th>
+          <th>Sale Ended At</th>
         </tr>
       </thead>
       <tbody>
@@ -29,26 +37,20 @@ function UPTokenTable(props) {
                 onClick={() => {
                   TableSelectRow(item[1].id);
                 }}
+                className="text-t-head-color"
               >
                 <td>{index + 1}</td>
                 <td>
-                  <div className="d-flex align-items-center">
-                    {/* <span className="mr-2">
-                    <img
-                      alt="img-project-table"
-                      height={30}
-                      width={30}
-                      src={process.env.REACT_APP_API_URL + '/projects/' + item[1].id + '/image'}
-                    />
-                  </span> */}
-                    <div>{item[1].token_name}</div>
-                  </div>
+                    {item[1].token_name}
                 </td>
                 <td>{item[1].token_symbol}</td>
-                <td>{item[1].token_address}</td>
-                {/* <td>
-                <Link to={'/token/' + item[1].id}>Go detail</Link>
-              </td> */}
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
               </tr>
             );
           })

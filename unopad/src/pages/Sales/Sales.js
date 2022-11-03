@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Container, Dropdown, Form } from 'react-bootstrap';
+import { Col, Container, Dropdown, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import UPIcons from '../../components/UPIcons/UPIcons';
-import UPQuickHandler from '../../components/UPQuickHandler/UPQuickHandler';
+import Subscribe from '../../components/UPSubscribe/Subscribe';
+
 import UPTokenTable from '../../components/UPTokenTable/UPTokenTable';
 import TripleCard from '../../components/UPTripleCard/TripleCard';
-import { quickHandlerImages } from '../../helpers/quickHandlerImages';
+
 import {
   filterTokensAction,
   getTokens,
@@ -17,16 +18,13 @@ import { sortKeys, sortTypes } from './salesConstants';
 
 function Sales({ ...props }) {
   const {
-    filteredTokens,
     tokens,
     tokenSortData,
     getTokensRequest,
-    filterTokens,
     setSortData,
     sortingTokens,
   } = props;
 
-  const [filterInput, setFilterInput] = useState('');
   const [selectedSortType, setSelectedSortType] = useState('');
   const [selectedSortKey, setSelectedSortKey] = useState('');
 
@@ -34,10 +32,6 @@ function Sales({ ...props }) {
     getTokensRequest();
   }, []);
 
-  useEffect(() => {
-    filterTokens(filterInput);
-    sortingTokens();
-  }, [filterInput]);
 
   function changeSortType(sortType) {
     const newTokenSortData = { ...tokenSortData, sortType };
@@ -53,32 +47,27 @@ function Sales({ ...props }) {
 
   return (
     <Container className="sales-tokens-container">
-      <UPQuickHandler
-        className="justify-content-center"
-        isSignUpAndKYC={true}
-        signUpAndKYCImg={quickHandlerImages.salesSignUpAndKYCImg}
-        isVerifyWallet={true}
-        verifyWalletImg={quickHandlerImages.salesVerifyWalletImg}
-        isStakingUnoToken={false}
-        registerForSaleImg={quickHandlerImages.salesRegisterForSale}
-        href="#sales-table"
-        history={props.history}
-      />
-      <div id="token-filter-section" className="py-2">
-        <Form>
-          <Form.Group>
-            <Form.Control
-              placeholder="Search by token name, token symbol or token address..."
-              value={filterInput}
-              onChange={(e) => setFilterInput(e.target.value)}
-            />
-          </Form.Group>
-        </Form>
+
+
+      <div className='mt-4'>
+        <Row>
+          <div className="text-center text-fs-head-lg text-t-head-color">COMPLETED SALES</div>
+        </Row>
+        <Row>
+          <Col></Col>
+          <Col lg={6}>
+            <div className="text-center text-fs-body-md text-t-head-color">
+              Leverage on any tokens with a protocol trusted with billions for its performance and
+              reliability.
+            </div>
+          </Col>
+          <Col></Col>
+        </Row>
       </div>
-      <h3>Sales</h3>
-      <div id="token-sorting-section" className="d-flex align-items-center py-2">
-        <Dropdown className="me-2">
-          <Dropdown.Toggle variant="outline-secondary" className="d-flex align-items-center">
+
+      <div id="token-sorting-section" className="d-flex align-items-center py-2 mt-4">
+        <Dropdown className="me-2 sales-table-button">
+          <Dropdown.Toggle className="d-flex align-items-center">
             <UPIcons name="MdSort" size="18" />
             <span className="ms-1">{sortTypes[tokenSortData.sortType].name}</span>
           </Dropdown.Toggle>
@@ -98,8 +87,8 @@ function Sales({ ...props }) {
             })}
           </Dropdown.Menu>
         </Dropdown>
-        <Dropdown>
-          <Dropdown.Toggle variant="outline-secondary" className="d-flex align-items-center">
+        <Dropdown className="sales-table-button">
+          <Dropdown.Toggle className="d-flex align-items-center">
             <UPIcons name="BiFilterAlt" size="18" />
             <span className="ms-1">{sortKeys[tokenSortData.sortKey].name}</span>
           </Dropdown.Toggle>
@@ -126,7 +115,10 @@ function Sales({ ...props }) {
           </>
         )}
       </div>
-      <TripleCard/>
+      <TripleCard />
+      <br></br>
+      <br></br>
+      <Subscribe />
     </Container>
   );
 }
