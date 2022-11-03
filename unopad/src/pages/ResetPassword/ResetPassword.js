@@ -1,10 +1,12 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import UPFormControl from '../../components/UPFormControl/UPFormControl';
 import { resetPasswordRequest } from '../../store/account/userActions';
-import './ResetPassword.scss';
 import { setAlertAction } from '../../store/alert/alertActions';
+import './ResetPassword.scss';
+import { NavLink } from 'react-router-dom';
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop),
@@ -88,36 +90,61 @@ function ResetPassword({ ...props }) {
 
   return (
     <>
-      <Row>
-        <Col>
-          <Form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
-            <UPFormControl
-              label="Password"
-              type="password"
-              id="password"
-              value={data.password}
-              handleChange={(e) => {
-                handleChange(e, 'password');
-              }}
-              error={errors.password}
-            />
-            <UPFormControl
-              label="Confirm Password"
-              type="password"
-              id="confirmPassword"
-              value={data.confirmPassword}
-              handleChange={(e) => {
-                handleChange(e, 'confirmPassword');
-              }}
-              error={errors.confirmPassword}
-            />
-            <Button
-              type="submit"
-              style={{ backgroundColor: '#365ae1', marginTop: '10px', justifyContent: 'center' }}
+      <Row className="d-flex justify-content-center align-items-center">
+        <Col className="public-resetpw-layout-col d-flex justify-content-center align-items-center bg-white px-1 py-2">
+          <div className="public-resetpw-layout-image d-md-flex d-none flex-column justify-content-center align-items-center bg-tertiary px-1 py-2">
+            <div className="text-fs-head-lg text-center text-light px-2">
+              Welcome to the future of <div className="text-primary">fundraising</div>
+            </div>
+            <div className="text-fs-body-md text-center text-light px-2">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua
+            </div>
+          </div>
+          <div className="d-flex flex-column justify-content-center aling-items-center px-4 mx-2 public-resetpw-layout-form">
+            <Form onSubmit={handleSubmit}>
+              <UPFormControl
+                label="Password"
+                type="password"
+                id="password"
+                value={data.password}
+                handleChange={(e) => {
+                  handleChange(e, 'password');
+                }}
+                error={errors.password}
+              />
+              <UPFormControl
+                label="Confirm Password"
+                type="password"
+                id="confirmPassword"
+                value={data.confirmPassword}
+                handleChange={(e) => {
+                  handleChange(e, 'confirmPassword');
+                }}
+                error={errors.confirmPassword}
+              />
+              <Button className="mb-4 mt-4 bg-unopad-primary col-sm-12" type="submit">
+                Reset Password
+              </Button>
+            </Form>
+
+            {/* <NavLink
+              className="forgotpassword-link d-flex justify-content-center m-2 text-primary"
+              to="/forgotpassword"
             >
-              Reset Password
-            </Button>
-          </Form>
+              Forgot Password?
+            </NavLink> */}
+
+            <Col className="m-1 d-flex justify-content-center">
+              <NavLink className="text-fs-body-md text-t-body-color" to="/signup">
+                Don't have an account yet?
+              </NavLink>
+              &nbsp;
+              <NavLink className="signup-link text-primary" to="/signup">
+                SignUp
+              </NavLink>
+            </Col>
+          </div>
         </Col>
       </Row>
     </>

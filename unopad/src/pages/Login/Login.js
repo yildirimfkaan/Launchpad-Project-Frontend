@@ -115,7 +115,7 @@ function Login({ ...props }) {
             <NavLink className="text-fs-body-md text-t-body-color" to="/signup">
               Don't have an account yet?
             </NavLink>
-
+            &nbsp; 
             <NavLink className="signup-link text-primary" to="/signup">
               SignUp
             </NavLink>

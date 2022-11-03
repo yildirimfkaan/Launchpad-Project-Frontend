@@ -112,20 +112,20 @@ function SignUp({ ...props }) {
               SignUp
             </Button>
           </Form>
-          <NavLink className="d-flex justify-content-center m-0 text-primary" to="/forgotpassword">
+          {/* <NavLink className="d-flex justify-content-center m-0 text-primary" to="/forgotpassword">
             Forgot Password?
-          </NavLink>
+          </NavLink> */}
 
           <Col className="m-1 d-flex justify-content-center">
             <NavLink
               className="text-fs-body-md text-t-body-color justify-content-center"
               to="/signup"
             >
-              Don't have an account yet?
+              Do you have an account?
             </NavLink>
 
-            <NavLink className="text-primary p-1" to="/forgotpassword">
-              Forgot Password
+            <NavLink className="text-primary p-1" to="/login">
+              Login
             </NavLink>
           </Col>
         </div>
