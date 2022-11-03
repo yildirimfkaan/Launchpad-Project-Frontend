@@ -6,8 +6,22 @@ import './BannerSales.scss';
 import Form from 'react-bootstrap/Form';
 import { BsSearch } from 'react-icons/bs';
 import { InputGroup } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import {
+  filterTokensAction,
+  sortingTokensAction,
+} from '../../../store/token/tokenActions';
 
-function BannerSales() {
+function BannerSales({ ...props }) {
+  const { filterTokens, sortingTokens } = props;
+  const [filterInput, setFilterInput] = useState('');
+
+  useEffect(() => {
+    filterTokens(filterInput);
+    sortingTokens();
+  }, [filterInput]);
+
   return (
     <Container className="sales-banner">
       <Row className="text-white text-fs-head-xs">
@@ -28,6 +42,8 @@ function BannerSales() {
               placeholder="Search by project name, token symbol or token contract adress..."
               aria-label="text"
               aria-describedby="basic-addon1"
+              value={filterInput}
+              onChange={(e) => setFilterInput(e.target.value)}
             />
           </InputGroup>
         </Col>
@@ -35,5 +51,20 @@ function BannerSales() {
     </Container>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    filteredTokens: state.tokenReducer.filteredTokens,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    filterTokens: (payload) => {
+      dispatch(filterTokensAction(payload));
+    },
+    sortingTokens: (payload) => {
+      dispatch(sortingTokensAction(payload));
+    },
+  };
+};
 
-export default BannerSales;
+export default connect(mapStateToProps, mapDispatchToProps)(BannerSales);

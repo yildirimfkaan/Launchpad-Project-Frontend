@@ -12,7 +12,7 @@ function BannerHome() {
         <Col>
           <div>Trust.</div>
           <div>Earning.</div>
-          <div>Trust.</div>
+          <div>Technology.</div>
         </Col>
       </Row>
       <Row className="text-primary text-fs-head-lg">

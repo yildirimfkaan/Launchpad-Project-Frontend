@@ -1,0 +1,22 @@
+.sales-table-design{
+
+    border-collapse: separate;
+    border-spacing: 0 1em;
+    width: 100%;
+
+    tbody{
+
+        tr{          
+            background: #FAFAFA;
+            box-shadow: 0px 2px 4px 1px rgba(138, 136, 136, 0.22);
+            border-radius: 4.8px;
+            td{
+                height: 80px;
+                text-align: center;
+                padding-top: 2%;
+            }
+        }
+        
+    }
+
+}   

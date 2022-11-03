@@ -80,7 +80,7 @@ function Navigation({ ...props }) {
     } else if (pathname.toLowerCase() === '/launchpad') {
       return <BannerLaunchpad />;
     } else if (pathname.toLowerCase() === '/sales') {
-      return <BannerSales />;
+      return <BannerSales {...props} />;
     } else if (pathname.toLowerCase().split('/')[1] === 'token') {
       return <BannerToken />;
     } else if (pathname.toLowerCase() === '/profile') {

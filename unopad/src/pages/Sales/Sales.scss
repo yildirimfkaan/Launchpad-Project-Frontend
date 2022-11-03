@@ -1,3 +1,4 @@
+@import "../../variables.scss";
 .sales-projects-container {
     min-height: 50vh;
 }
@@ -6,4 +7,19 @@
 }
 .sales-quick-handler {
     min-height: 100px;
+}
+
+.sales-table-button{
+    .dropdown-toggle{
+        background-color: #FAFAFA;
+        color:#727272;
+        border-color: #FAFAFA;
+
+    }
+    .dropdown-toggle:hover{
+        background-color: $unopad-primary;
+        color: $unopad-light;
+        border-color: $unopad-primary;
+        border: 0px;
+    }
 }
