@@ -49,8 +49,7 @@ function Profile({ ...props }) {
         <Tabs
           defaultActiveKey="profile"
           activeKey={activeTab ? activeTab : 'profile'}
-          id="justify-tab-example"
-          className="mb-3 text-fs-head-xs"
+          className="text-fs-head-xs"
           justify
           onSelect={(e) => handleSelect(e)}
         >
