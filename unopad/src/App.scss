@@ -34,63 +34,70 @@ body {
   color: $unopad-primary !important;
   border-radius: 0px !important;
 }
-.nav-link {
-  color: $t-body-color !important;
+
+.pagination .active {
+  .page-link {
+    color: $unopad-primary !important;
+    background-color: $unopad-primary-light !important;
+    border: none;
+  }
 }
-.nav-tabs .active {
-  background-color: transparent !important;
-  border-bottom: 2px solid $unopad-primary !important;
+
+.nav-item .active {
+  border: 1px solid $unopad-primary !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
   color: $unopad-primary !important;
-  border-radius: 0px !important;
+  font-family: 'Work Sans' !important;
+  font-weight: 700 !important;
+}
+
+.nav-item {
+  border-top: none;
   border-left: none;
   border-right: none;
-  border-top: none;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 18px !important;
+  line-height: 21px !important;
 }
-.nav-tabs .nav-link:hover {
-  border:0px !important;
+
+.nav-item:hover {
+  font-weight: 700 !important;
 }
-.nav-tabs .nav-link:active {
-  border-left: 0px !important;
-  border-right: 0px !important;
-  border-top: 0px !important;
+
+.nav-item .nav-link {
+  color: $t-body-color;
+  border: 0px;
 }
-.nav-tabs .nav-link:focus {
-  border-left: 0px !important;
-  border-right: 0px !important;
-  border-top: 0px !important;
+
+.page-link {
+  border-radius: 100px !important;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  color: $gray-500;
+  background-color: $gray-300;
+  margin-left: 6px;
+  margin-right: 6px;
+  -webkit-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.3);
+  box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.3);
+  font-family: 'Work Sans' !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 17px !important;
+  line-height: 30px !important;
 }
-.nav-link:hover {
-  border:0px !important;
+.page-link:hover {
+  color: $unopad-primary !important;
 }
-.nav-link:active {
-  border-left: 0px !important;
-  border-right: 0px !important;
-  border-top: 0px !important;
-}
-.nav-link:focus {
-  border-left: 0px !important;
-  border-right: 0px !important;
-  border-top: 0px !important;
-}
-.nav-tabs .nav-item:hover {
-  border-left: 0px !important;
-  border-right: 0px !important;
-  border-top: 0px !important;
-}
-.nav-item:active {
-  border-left: 0px !important;
-  border-right: 0px !important;
-  border-top: 0px !important;
-}
-.nav-item:focus {
-  border-left: 0px !important;
-  border-right: 0px !important;
-  border-top: 0px !important;
-}
-.tabs:hover {
-  border-left: 0px !important;
-  border-right: 0px !important;
-  border-top: 0px !important;
+.page-link:focus {
+  color: $unopad-primary !important;
 }
 
 .text-fs-head-xl {

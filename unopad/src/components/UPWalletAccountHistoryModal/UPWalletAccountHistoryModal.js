@@ -130,7 +130,7 @@ function WalletAccountHistoryModal({ ...props }) {
                   <Container className="wallet-account-history-table">
                     <Row>
                       <Col>
-                        <Table striped bordered hover responsive="xl">
+                        <Table className='sales-table-design' bordered hover responsive="xl">
                           <thead>
                             <tr>
                               <th>blockNumber</th>
@@ -179,7 +179,7 @@ function WalletAccountHistoryModal({ ...props }) {
                   </div>
                 )}
               </Modal.Body>
-              <Modal.Footer className="border-top-0">
+              <Modal.Footer className="border-top-0 justify-content-center">
                 {pages?.length ? (
                   <Pagination>
                     <Pagination.First onClick={() => firstPage()} />
