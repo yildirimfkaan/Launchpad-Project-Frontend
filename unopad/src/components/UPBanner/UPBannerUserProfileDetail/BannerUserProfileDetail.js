@@ -2,9 +2,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import Registration from '../../../assets/img/logo/registration.png';
-import KycActive from '../../../assets/img/logo/kyc-active.png';
-import WalletDisabled from '../../../assets/img/logo/wallet-disabled.png';
+import Registration from '../../../assets/img/svg-icons/mail-active.svg';
+import KycActive from '../../../assets/img/svg-icons/key-active.svg';
+import WalletDisabled from '../../../assets/img/svg-icons/wallet-active.svg';
 
 import './BannerUserProfileDetail.scss';
 
@@ -28,7 +28,7 @@ function BannerUserProfileDetail() {
                 <img alt="be" src={Registration} />
               </li>
               <li>
-                <div className="mt-3">Registration</div>
+                <div className="mt-3">E-Mail Verification</div>
               </li>
             </ul>
           </Col>
@@ -48,7 +48,7 @@ function BannerUserProfileDetail() {
               <img alt="be" src={WalletDisabled} />
               </li>
               <li>
-                <div className="mt-3">Verify C-Chain Wallet Ownership</div>
+                <div className="mt-3">Wallet Verification</div>
               </li>
             </ul>
           </Col>

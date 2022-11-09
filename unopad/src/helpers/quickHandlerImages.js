@@ -1,8 +1,8 @@
-import lpSignUpAndKYCImgSrc from '../assets/img/quick-handler-images/qh-lp-sign-up-and-kyc.png';
-import lpVerifyWalletImgSrc from '../assets/img/quick-handler-images/qh-lp-verify-wallet.png';
-import lpStakeUnoTokenImgSrc from '../assets/img/quick-handler-images/qh-lp-stake-unotoken.png';
+import lpSignUpAndKYCImgSrc from '../assets/img/quick-handler-images/qh-lp-sign-up-and-kyc.svg';
+import lpVerifyWalletImgSrc from '../assets/img/quick-handler-images/qh-lp-verify-wallet.svg';
+import lpStakeUnoTokenImgSrc from '../assets/img/quick-handler-images/qh-lp-stake-unotoken.svg';
 // eslint-disable-next-line max-len
-import lpRegisterForProjectSrc from '../assets/img/quick-handler-images/qh-lp-register-for-project.png';
+import lpRegisterForProjectSrc from '../assets/img/quick-handler-images/qh-lp-register-for-project.svg';
 // eslint-disable-next-line max-len
 import salesSignUpAndKYCImgSrc from '../assets/img/quick-handler-images/qh-s-sign-up-and-kyc.png';
 import salesVerifyWalletImgSrc from '../assets/img/quick-handler-images/qh-s-verify-wallet.png';
