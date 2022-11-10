@@ -2,9 +2,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import beIcon from '../../../assets/img/logo/Vector.png';
-import linkedinIcon from '../../../assets/img/logo/linkedin-icon.png';
-import twitterIcon from '../../../assets/img/logo/twitter-icon.png';
+import beIcon from '../../../assets/img/logo/behance.svg';
+import linkedinIcon from '../../../assets/img/logo/linkedin.svg';
+import twitterIcon from '../../../assets/img/logo/twitter.svg';
 
 import './BannerToken.scss';
 

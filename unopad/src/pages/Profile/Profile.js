@@ -10,7 +10,7 @@ import {
 import wallet from '../../helpers/wallet';
 import { checkUserVerified, checkUserWalletAccount } from '../../helpers/verificationHelper';
 import './Profile.scss';
-import walletLogo from '../../../src/assets/img/logo/wallet.png';
+import walletLogo from '../../../src/assets/img/svg-icons/wallet-active.svg';
 function Profile({ ...props }) {
   const { user, accountDetailsRequest, accounts, resendVerificationEmailRequest } = props;
 
