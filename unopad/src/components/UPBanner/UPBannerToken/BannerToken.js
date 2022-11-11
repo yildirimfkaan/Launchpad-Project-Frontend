@@ -13,7 +13,12 @@ function BannerToken() {
     <>
       <Container className="token-banner">
         <Row className="text-white text-fs-head-xs">
-          <Col>Home / Sales / Product Page</Col>
+          <Col>
+            <a className="text-white" href="/">
+              Home
+            </a>
+            /Sales/Product Page
+          </Col>
         </Row>
         <Row className="text-white text-fs-head-lg mt-4">
           <Col lg={12} md={12}>

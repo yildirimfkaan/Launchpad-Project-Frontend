@@ -1,0 +1,30 @@
+@import "../../../variables.scss";
+
+
+.user-profile-detail-banner-row{
+    margin-top: 50px !important;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .user-profile-detail-banner-row{
+      margin-top: 7px !important;
+    }
+  }
+  
+  
+  .user-profile-detail-banner-icon{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  
+  }
+  
+  
+  @media only screen and (max-width: 768px) {
+    .user-profile-detail-banner-icon{
+      display: flex;
+      justify-content: start !important;
+      
+  
+    }
+  }

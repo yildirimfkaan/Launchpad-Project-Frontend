@@ -27,11 +27,15 @@ import BannerLaunchpad from '../UPBanner/UPBannerLaunchpad/BannerLaunchpad';
 import BannerSales from '../UPBanner/UPBannerSales/BannerSales';
 import BannerToken from '../UPBanner/UPBannerToken/BannerToken';
 import BannerUserProfileDetail from '../UPBanner/UPBannerUserProfileDetail/BannerUserProfileDetail';
+import BannerUserProfileDetailVerify 
+from '../UPBanner/UPBannerUserProfileDetail/BannerUserProfileDetailVerify';
+import BannerUserProfileDetailKYC 
+from '../UPBanner/UPBannerUserProfileDetail/BannerUserProfileDetailKYC';
 import BannerStats from '../UPBanner/UPBannerStats/BannerStats';
 import BannerFaq from '../UPBanner/UPBannerFaq/BannerFaq';
 import BannerTermsOfService from '../UPBanner/UPBannerTermsOfService/BannerTermsOfService';
 import BannerPrivacyPolicy from '../UPBanner/UPBannerPrivacyPolicy/BannerPrivacyPolicy';
-import BannerProjectInformation
+import BannerProjectInformation 
 from '../UPBanner/UPBannerProjectInformation/BannerProjectInformation';
 
 function Navigation({ ...props }) {
@@ -50,6 +54,7 @@ function Navigation({ ...props }) {
   console.log('MainlayoutStatus', MainLayoutStatus);
 
   const pathname = history?.location.pathname;
+  const PathnameHash = history?.location.hash;
   useEffect(() => {
     if (accounts?.[0]) {
       wallet.getMyBalance('0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb');
@@ -75,6 +80,7 @@ function Navigation({ ...props }) {
     WalletConnectModalRequest(true);
   };
   const BannerReturn = () => {
+    console.log('url', PathnameHash);
     if (pathname.toLowerCase() === '/') {
       return <BannerHome />;
     } else if (pathname.toLowerCase() === '/launchpad') {
@@ -84,7 +90,15 @@ function Navigation({ ...props }) {
     } else if (pathname.toLowerCase().split('/')[1] === 'token') {
       return <BannerToken />;
     } else if (pathname.toLowerCase() === '/profile') {
-      return <BannerUserProfileDetail />;
+      if (PathnameHash.toLowerCase() === '#profile') {
+        return <BannerUserProfileDetail />;
+      } else if (PathnameHash.toLowerCase() === '#verify') {
+        return <BannerUserProfileDetailVerify />;
+      } else if (PathnameHash.toLowerCase() === '#kyc') {
+        return <BannerUserProfileDetailKYC />;
+      } else {
+        return <BannerUserProfileDetail />;
+      }
     } else if (pathname.toLowerCase() === '/stats') {
       return <BannerStats />;
     } else if (pathname.toLowerCase() === '/faq') {
@@ -114,7 +128,7 @@ function Navigation({ ...props }) {
 
   return (
     <Container fluid className={getBannerClassName()}>
-      <Navbar bg="transparent" expand="lg" style={{ zIndex: 1 }}>
+      <Navbar bg="transparent"  expand="lg" style={{ zIndex: 1 }}>
         <Container>
           <Navbar.Brand as={Link} to="/">
             <img
@@ -125,7 +139,7 @@ function Navigation({ ...props }) {
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+          <Navbar.Collapse  id="basic-navbar-nav" className="justify-content-end">
             <Nav className="ml-auto" variant="pills">
               <Nav.Link
                 as={Link}
@@ -225,7 +239,6 @@ function Navigation({ ...props }) {
       <UPWalletAccountDetailModal />
       <UPWalletAccountHistoryModal />
       <UPWalletConnectModal />
-
       {BannerReturn()}
     </Container>
   );

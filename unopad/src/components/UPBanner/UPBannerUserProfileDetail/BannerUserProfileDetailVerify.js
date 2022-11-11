@@ -11,7 +11,7 @@ function BannerUserProfileDetail() {
   return (
     <>
       <Container className="user-profile-detail-banner">
-        <Row className="text-white text-fs-head-xs">
+      <Row className="text-white text-fs-head-xs">
           <Col>
             <a className="text-white" href="/">
               Home
@@ -21,15 +21,14 @@ function BannerUserProfileDetail() {
             /User Profile
             </a>
 
-            <a className="text-white" href="/profile#profile">
-            /Profile Details
+            <a className="text-white" href="/profile#verify">
+            /Verify
             </a>
             
           </Col>
         </Row>
 
         <BannerUserProfileIconRow/>
-
       </Container>
     </>
   );
