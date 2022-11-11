@@ -4,14 +4,13 @@ import Col from 'react-bootstrap/Col';
 
 
 
-import './BannerUserProfileDetail.scss';
 import BannerUserProfileIconRow from './BannerUserProfileIconRow';
 
 function BannerUserProfileDetail() {
   return (
     <>
       <Container className="user-profile-detail-banner">
-        <Row className="text-white text-fs-head-xs">
+      <Row className="text-white text-fs-head-xs">
           <Col>
             <a className="text-white" href="/">
               Home
@@ -21,15 +20,14 @@ function BannerUserProfileDetail() {
             /User Profile
             </a>
 
-            <a className="text-white" href="/profile#profile">
-            /Profile Details
+            <a className="text-white" href="/profile#kyc">
+            /KYC
             </a>
             
           </Col>
         </Row>
 
         <BannerUserProfileIconRow/>
-
       </Container>
     </>
   );

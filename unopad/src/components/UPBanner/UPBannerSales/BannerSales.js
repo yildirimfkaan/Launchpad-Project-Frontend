@@ -8,10 +8,7 @@ import { BsSearch } from 'react-icons/bs';
 import { InputGroup } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import {
-  filterTokensAction,
-  sortingTokensAction,
-} from '../../../store/token/tokenActions';
+import { filterTokensAction, sortingTokensAction } from '../../../store/token/tokenActions';
 
 function BannerSales({ ...props }) {
   const { filterTokens, sortingTokens } = props;
@@ -25,7 +22,12 @@ function BannerSales({ ...props }) {
   return (
     <Container className="sales-banner">
       <Row className="text-white text-fs-head-xs">
-        <Col>Home / Sales</Col>
+        <Col>
+          <a className="text-white" href="/">
+            Home
+          </a>
+          /Sales
+        </Col>
       </Row>
       <Row className="text-white text-fs-head-lg mt-4" style={{ width: '29%' }}>
         <Col>Unopad Sales</Col>

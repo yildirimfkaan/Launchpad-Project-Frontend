@@ -8,7 +8,12 @@ function BannerLaunchpad() {
   return (
     <Container className="launchpad-banner">
       <Row className="text-white text-fs-head-xs">
-        <Col>Home / Launchpad</Col>
+        <Col>
+          <a className="text-white" href="/">
+            Home
+          </a>
+          /Launchpad
+        </Col>
       </Row>
       <Row className="text-white text-fs-head-lg mt-4">
         <Col lg={3} md={4}>
