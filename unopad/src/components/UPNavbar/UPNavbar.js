@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -27,16 +27,16 @@ import BannerLaunchpad from '../UPBanner/UPBannerLaunchpad/BannerLaunchpad';
 import BannerSales from '../UPBanner/UPBannerSales/BannerSales';
 import BannerToken from '../UPBanner/UPBannerToken/BannerToken';
 import BannerUserProfileDetail from '../UPBanner/UPBannerUserProfileDetail/BannerUserProfileDetail';
-import BannerUserProfileDetailVerify 
-from '../UPBanner/UPBannerUserProfileDetail/BannerUserProfileDetailVerify';
-import BannerUserProfileDetailKYC 
-from '../UPBanner/UPBannerUserProfileDetail/BannerUserProfileDetailKYC';
+// eslint-disable-next-line max-len
+import BannerUserProfileDetailVerify from '../UPBanner/UPBannerUserProfileDetail/BannerUserProfileDetailVerify';
+// eslint-disable-next-line max-len
+import BannerUserProfileDetailKYC from '../UPBanner/UPBannerUserProfileDetail/BannerUserProfileDetailKYC';
 import BannerStats from '../UPBanner/UPBannerStats/BannerStats';
 import BannerFaq from '../UPBanner/UPBannerFaq/BannerFaq';
 import BannerTermsOfService from '../UPBanner/UPBannerTermsOfService/BannerTermsOfService';
 import BannerPrivacyPolicy from '../UPBanner/UPBannerPrivacyPolicy/BannerPrivacyPolicy';
-import BannerProjectInformation 
-from '../UPBanner/UPBannerProjectInformation/BannerProjectInformation';
+// eslint-disable-next-line max-len
+import BannerProjectInformation from '../UPBanner/UPBannerProjectInformation/BannerProjectInformation';
 
 function Navigation({ ...props }) {
   const {
@@ -128,7 +128,7 @@ function Navigation({ ...props }) {
 
   return (
     <Container fluid className={getBannerClassName()}>
-      <Navbar bg="transparent"  expand="lg" style={{ zIndex: 1 }}>
+      <Navbar bg="transparent" expand="lg" style={{ zIndex: 1 }}>
         <Container>
           <Navbar.Brand as={Link} to="/">
             <img
@@ -138,9 +138,13 @@ function Navigation({ ...props }) {
               width={116}
             />
           </Navbar.Brand>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse  id="basic-navbar-nav" className="justify-content-end">
-            <Nav className="ml-auto" variant="pills">
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            className="justify-content-end flex-column align-items-end"
+          >
+            <Nav className="ml-auto align-items-center py-3 pe-2" variant="pills">
               <Nav.Link
                 as={Link}
                 className={
@@ -183,56 +187,94 @@ function Navigation({ ...props }) {
               >
                 Airdrop
               </Nav.Link>
-              {!accounts?.[0] ? (
-                <Button variant="outline-primary" onClick={handleShowWallet}>
-                  Connect Wallet
-                </Button>
-              ) : (
-                <ButtonGroup>
-                  {balance_ !== null && balance_ !== undefined && (
-                    <Button
-                      title={balance_}
-                      variant="outline-primary"
-                      className="d-flex align-items-center navbar-balance-button"
-                    >
-                      <div className="navbar-balance-text text-truncate mr-1">{balance_}</div>
-                      <span>UNT</span>
-                    </Button>
-                  )}
-                  <Button
-                    title={accounts?.[0]}
-                    variant="outline-primary"
-                    className="navbar-account-button text-truncate"
-                    onClick={handleShow}
+              {!user && (
+                <>
+                  <Nav.Link
+                    as={Link}
+                    className={
+                      'text-fs-head-xs text-white px-2 public-nav' +
+                      (pathIsActive('login') ? ' active' : '')
+                    }
+                    to="/login"
                   >
-                    {accounts?.[0]}
-                  </Button>
-                </ButtonGroup>
+                    Login
+                  </Nav.Link>
+                  <Nav.Link
+                    as={Link}
+                    className={
+                      'text-fs-head-xs text-white px-2 public-nav' +
+                      (pathIsActive('signup') ? ' active' : '')
+                    }
+                    to="/signup"
+                  >
+                    Sign up
+                  </Nav.Link>
+                </>
+              )}
+              {!accounts?.[0] && (
+                <Nav.Link
+                  as={Link}
+                  className={'text-fs-head-xs text-white px-2 public-nav'}
+                  to="#"
+                  onClick={handleShowWallet}
+                >
+                  Connect Wallet
+                </Nav.Link>
               )}
 
-              <Dropdown id="user-dropdown">
-                <Dropdown.Toggle className="d-flex" variant="link" id="user-dropdown-toggle">
-                  <UPIcons name="MdPerson" color={mainColors['dark-light']} size="26" />
-                </Dropdown.Toggle>
+              {user && (
+                <Dropdown id="user-dropdown">
+                  <Dropdown.Toggle
+                    className="d-flex aling-items-center px-2"
+                    variant="link"
+                    id="user-dropdown-toggle"
+                  >
+                    <div className="bg-white py-1 px-2 shadow rounded">
+                      <UPIcons name="MdPerson" color={mainColors['dark-light']} size="26" />
+                    </div>
+                  </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  {user && (
-                    <>
-                      <Dropdown.Item as={Link} to="/profile">
-                        Profile
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-                    </>
-                  )}
-                  {!user && (
-                    <>
-                      <Dropdown.Item href="/login">Login</Dropdown.Item>
-                      <Dropdown.Item href="/signup">Signup</Dropdown.Item>
-                    </>
-                  )}
-                </Dropdown.Menu>
-              </Dropdown>
+                  <Dropdown.Menu>
+                    <Dropdown.Item as={Link} to="/profile">
+                      Profile
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              )}
             </Nav>
+            {accounts?.[0] && (
+              <div
+                className={
+                  'd-flex justify-content-center justify-content-lg-end rounded text-white ' +
+                  'm-auto mx-lg-3' +
+                  (balance_ !== null && balance_ !== undefined
+                    ? ' bg-primary navbar-wallet-account-container'
+                    : '')
+                }
+              >
+                {balance_ !== null && balance_ !== undefined && (
+                  <div
+                    title={balance_}
+                    className="d-flex align-items-center navbar-balance-button 
+                bg-primary rounded px-2 justify-content-center"
+                  >
+                    <div className="navbar-balance-text text-truncate mr-1">{balance_}</div>
+                    <span>UNT</span>
+                  </div>
+                )}
+
+                <div
+                  title={accounts?.[0]}
+                  className="navbar-account-button
+                bg-white rounded text-tertiary text-fs-head-xxs d-flex align-items-center px-2"
+                  onClick={handleShow}
+                >
+                  <span className="text-truncate me-1">{accounts?.[0]}</span>
+                  <UPIcons name="BiWallet" color={mainColors['primary']} size="24" />
+                </div>
+              </div>
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>

@@ -78,6 +78,15 @@ function UPIcons({ ...props }) {
           size={size}
         />
       );
+    } else if (name === 'BiWallet') {
+      return (
+        <BoxIcons.BiWallet
+          className={iconClassName}
+          style={iconStyle}
+          color={color}
+          size={size}
+        />
+      );
     } else if (name === 'FaBehanceSquare') {
       return (
         <FontAwesome.FaBehanceSquare
