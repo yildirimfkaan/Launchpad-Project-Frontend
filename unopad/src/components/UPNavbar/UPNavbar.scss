@@ -3,17 +3,6 @@
 .navbar-balance-text {
   max-width: 100px;
 }
-.navbar-balance-button {
-  max-width: 125px;
-  box-shadow: none !important;
-  outline: none !important;
-  cursor: default !important;
-}
-.navbar-account-button {
-  max-width: 125px;
-  box-shadow: none !important;
-  outline: none !important;
-}
 
 .banner-design{
 
@@ -92,6 +81,28 @@
   
   .public-nav{
     color: $unopad-tertiary !important;
-
   }
+  .public-nav.disabled{
+    color: $unopad-dark-light !important;
+  }
+}
+
+.navbar-wallet-account-container {
+  width: 350px;
+}
+
+.navbar-account-button {
+  width: 250px;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px rgb(0 0 0 / 25%) !important;
+}
+
+.navbar-account-button:hover {
+  width: 250px;
+  background-color: $gray-300 !important;
+  cursor: pointer;
+}
+
+.navbar-balance-button {
+  width: 100px;
 }
