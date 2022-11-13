@@ -87,6 +87,15 @@ function UPIcons({ ...props }) {
           size={size}
         />
       );
+    } else if (name === 'BiLinkExternal') {
+      return (
+        <BoxIcons.BiLinkExternal
+          className={iconClassName}
+          style={iconStyle}
+          color={color}
+          size={size}
+        />
+      );
     } else if (name === 'FaBehanceSquare') {
       return (
         <FontAwesome.FaBehanceSquare
