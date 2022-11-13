@@ -259,7 +259,7 @@ function Navigation({ ...props }) {
                     className="d-flex align-items-center navbar-balance-button 
                 bg-primary rounded px-2 justify-content-center"
                   >
-                    <div className="navbar-balance-text text-truncate mr-1">{balance_}</div>
+                    <div className="navbar-balance-text text-truncate mr-1 py-1">{balance_}</div>
                     <span>UNT</span>
                   </div>
                 )}
@@ -270,7 +270,7 @@ function Navigation({ ...props }) {
                 bg-white rounded text-tertiary text-fs-head-xxs d-flex align-items-center px-2"
                   onClick={handleShow}
                 >
-                  <span className="text-truncate me-1">{accounts?.[0]}</span>
+                  <span className="text-truncate me-1 ps-3 pe-2 py-1">{accounts?.[0]}</span>
                   <UPIcons name="BiWallet" color={mainColors['primary']} size="24" />
                 </div>
               </div>

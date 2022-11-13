@@ -8,7 +8,7 @@ import { checkAllConditionForStake } from '../../helpers/verificationHelper';
 import wallet from '../../helpers/wallet';
 import detectEthereumProvider from '@metamask/detect-provider';
 import './ProjectDetail.scss';
-import UPRoadmap from '../../components/UPRoadMap/UPRoadmap';
+import UPProjectInfo from '../../components/UPProjectInfo/UPProjectInfo';
 import UPIcons from '../../components/UPIcons/UPIcons';
 import { swapTokenModalAction } from '../../store/project/projectActions';
 import UPSwapTokenModal from '../../components/UPSwapTokenModal/UPSwapTokenModal';
@@ -222,7 +222,7 @@ function ProjectDetail({ ...props }) {
               )}
             </div>
           )}
-          <UPRoadmap />
+          <UPProjectInfo {...props} />
         </Container>
       )}
     </>

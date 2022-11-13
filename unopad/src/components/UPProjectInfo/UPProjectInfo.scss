@@ -1,0 +1,56 @@
+@import '../../variables.scss';
+.project-info-tab {
+  background-color: $gray-200;
+  color: $unopad-t-body-color !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  cursor: pointer;
+}
+.project-info-tab.project-info-tab-active {
+  background-color: white;
+  color: $unopad-t-body-color !important;
+  border-top-right-radius: 30px;
+  box-shadow: 2px 4px 4px rgba(229, 0, 126, 0.13);
+}
+.project-info-content-container {
+  max-height: 675px;
+  overflow-y: auto;
+}
+.project-info-content-container::-webkit-scrollbar,
+.project-about-content-container::-webkit-scrollbar,
+.project-about-sidebar::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+.project-info-content-container::-webkit-scrollbar-track,
+.project-about-content-container::-webkit-scrollbar-track,
+.project-about-sidebar::-webkit-scrollbar-track {
+  background: $gray-300;
+  border-radius: 10px;
+}
+.project-info-content-container::-webkit-scrollbar-thumb,
+.project-about-content-container::-webkit-scrollbar-thumb,
+.project-about-sidebar::-webkit-scrollbar-thumb {
+  background: $unopad-primary;
+  border-radius: 10px;
+}
+.project-info-content-container::-webkit-scrollbar-thumb:hover,
+.project-about-content-container::-webkit-scrollbar-thumb:hover,
+.project-about-sidebar::-webkit-scrollbar-thumb:hover {
+  background: $unopad-primary-light;
+}
+.project-about-link {
+  cursor: pointer;
+}
+.project-about-img {
+  height: auto;
+  width: 100%;
+}
+.project-about-content-container {
+  max-height: 630px !important;
+  overflow-y: auto !important;
+}
+.project-about-sidebar {
+  max-height: 630px !important;
+  overflow-y: auto !important;
+}
