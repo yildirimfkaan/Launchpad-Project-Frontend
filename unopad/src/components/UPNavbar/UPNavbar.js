@@ -139,7 +139,7 @@ function Navigation({ ...props }) {
             />
           </Navbar.Brand>
 
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Toggle aria-controls="basic-navbar-nav" className='navbar-dark' />
           <Navbar.Collapse
             id="basic-navbar-nav"
             className="justify-content-end flex-column align-items-end"

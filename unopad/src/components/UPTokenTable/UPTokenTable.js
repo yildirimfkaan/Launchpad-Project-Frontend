@@ -99,7 +99,7 @@ function UPTokenTable(props) {
   };
 
   const TableSelectRow = (nums) => {
-    return history.push('token/' + nums);
+    return history.push('project/' + nums);
   };
 
   console.log(tokens);

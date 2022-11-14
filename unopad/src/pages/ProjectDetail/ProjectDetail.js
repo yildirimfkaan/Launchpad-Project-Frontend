@@ -78,7 +78,7 @@ function ProjectDetail({ ...props }) {
   const disconnect = async () => {
     wallet.disconnectWallet();
   };
-
+  console.log('item', item);
   useEffect(() => {
     if (provider?.on) {
       const handleAccountsChanged = (newAccounts) => {
@@ -120,62 +120,109 @@ function ProjectDetail({ ...props }) {
       {!project ? (
         <h1>Page is Loading.....</h1>
       ) : (
-        <Container>
+        <Container className="mt-5 px-5">
           <Row>
-            <Col>
-              <Card>
-                <Card.Body>
-                  <Card.Title></Card.Title>
-                  <Card.Text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-              <Button variant="primary" onClick={addUnoTokenFunction}>
-                Add DUNOT{' '}
-              </Button>
-            </Col>
-            <Col>
-              <Card className="project-detail-card mx-auto">
-                <Card.Img
-                  variant="top"
-                  src={process.env.REACT_APP_API_URL + '/projects/' + item.id + '/image'}
-                />
-                <Card.Body>
-                  <Card.Title>{item.project_name}</Card.Title>
-                  <Card.Text>{item.project_sale_type}</Card.Text>
-                  <Card.Text>{item.project_explanation_text}</Card.Text>
+            <Card className="project-detail-card col-md-12 col-sm-12">
+              <Card.Header className="bg-white">
+                <div
+                  className="project-detail-name-div d-flex justify-content-between 
+              align-items-center col-md-6 col-sm-4" 
+                >
+                  {' '}
+                  <Row className=''>
+                    <div>
+                      <img
+                        alt="project_logo"
+                        src={process.env.REACT_APP_API_URL + '/projects/' + item.id + '/image'}
+                        height={92} width={92}
+                      />
+                    </div>
+                  </Row>
+                  
+                  <Row className="col-md-12 col-lg-12 mx-0">
+                    <Card.Title className="text-fs-head-lg"> Metamask</Card.Title>
+                    <Card.Text className="text-fs-body-sm">Lorem Ipsum Dolor</Card.Text>
+                  </Row>
+                </div>
+                <div className="project-detail-price-div">
+                  <Card.Text className="text-fs-body-sm mb-0">PRICE</Card.Text>
+                  <Card.Title className="text-fs-head-md 
+                  mb-0">${item.token_price_in_usd}</Card.Title>
+                  <Card.Text className="text-fs-body-md">{item.token_price_in_uno} UNO</Card.Text>
+                </div>
+              </Card.Header>
+              <Card.Body>
+                <div className="project-detail-name-div">
+                  <Card.Text className="text-fs-body-md">Round</Card.Text>
+                  <Card.Title className="text-fs-head-md">Sale Ended</Card.Title>
+                </div>
 
-                  <Col className="App">
-                    <ProgressBar now={item.project_percent_raised} />
-                  </Col>
-                  <div>
-                    {checkAllConditionForStake(user, accounts) ? (
-                      <Button
-                        variant="primary"
-                        onClick={() => {
-                          stakeSetup();
-                          handleShow();
-                        }}
-                      >
-                        Buy Now !
-                      </Button>
-                    ) : (
-                      <Button variant="primary" disabled={true}>
-                        Buy Now !
-                      </Button>
-                    )}
-                  </div>
-                  <span>{error ? error.message : null}</span>
-                </Card.Body>
-              </Card>
-            </Col>
+                <div className="project-detail-price-div">
+                  <Card.Text className="text-fs-body-md">Time Left</Card.Text>
+                  <Card.Title className="text-fs-head-md">Sale Ended</Card.Title>
+                </div>
+                {/* <Card.Title>{item.project_name}</Card.Title>
+                  <Card.Text>{item.project_sale_type}</Card.Text>
+                  <Card.Text>{item.project_explanation_text}</Card.Text> */}
+
+                <span>{error ? error.message : null}</span>
+              </Card.Body>
+
+              <div>
+                {/* <ProgressBar now={item.project_percent_raised} /> */}
+                <ProgressBar
+                  className="project-progress-bar mt-3 mb-3 mx-2"
+                  style={{ height: '30px' }}
+                  now={85}
+                  label={'Sale: 92.45%  Burned: 5.32%'}
+                />
+              </div>
+              <Card.Body className="project-detail-card-body">
+                <div className="project-detail-name-div">
+                  <Card.Text>TOKEN DISTRIBUTION</Card.Text>
+                  <Card.Title className='text-fs-head-md'>
+                    {/* {item.token_distribution} */}
+                    Sale Ended
+                    </Card.Title>
+                </div>
+
+                <div className="project-detail-price-div">
+                  <Card.Text>TOTAL RAISED</Card.Text>
+                  <Card.Title>$0/${item.token_total_raise}</Card.Title>
+                </div>
+
+                <span>{error ? error.message : null}</span>
+              </Card.Body>
+              <Card.Footer className="bg-white">
+                <div className="project-detail-footer-left-div">
+                  <Card.Title>Want to automate the sale?</Card.Title>
+                </div>
+                <div className="project-detail-footer-right-div">
+                  <Button variant="primary" onClick={addUnoTokenFunction} className="mx-2">
+                    Add DUNOT{' '}
+                  </Button>
+                  {checkAllConditionForStake(user, accounts) ? (
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        stakeSetup();
+                        handleShow();
+                      }}
+                    >
+                      View My Automations
+                    </Button>
+                  ) : (
+                    <Button variant="primary" disabled={true}>
+                      View My Automations
+                    </Button>
+                  )}
+                </div>
+              </Card.Footer>
+            </Card>
           </Row>
 
           {checkAllConditionForStake(user, accounts) && (
-            <div>
+            <div className="mt-3">
               <Row>
                 <Col>
                   <div className="border rounded p-2">

@@ -5,7 +5,7 @@ import { getTokenByID } from '../../store/token/tokenActions';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import { setWalletAccountData } from '../../store/wallet/walletActions';
-import { Button, Card, Container } from 'react-bootstrap';
+import { Button, Card, Container, ProgressBar, Row } from 'react-bootstrap';
 import { checkAllConditionForStake } from '../../helpers/verificationHelper';
 // import Contract from '../Contract';
 import wallet from '../../helpers/wallet';
@@ -13,6 +13,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import './TokenDetail.scss';
 import UPBuyTokenModal from '../../components/UPBuyTokenModal/UPBuyTokenModal';
 import { buyTokenModalAction } from '../../store/token/tokenActions';
+import metamaskLogo from '../../assets/img/logo/metamask_sales_logo.png';
 
 function TokenDetail({ ...props }) {
   const { token, provider, accounts, ethereum, setWalletAccount, user, buyTokenModalRequest } =
@@ -121,65 +122,104 @@ function TokenDetail({ ...props }) {
         <h1>Page is Loading.....</h1>
       ) : (
         <>
-          <Container>
-            <Card className="token-detail-card mx-auto">
-              <Card.Header>
-                <div className="token-detail-name-div">
-                  <Card.Text>{item.token_name}</Card.Text>
-                  <Card.Title>{item.token_symbol}</Card.Title>
-                </div>
+          <Container className="mt-5">
+            <Row>
+              <Card className="token-detail-card">
+                <Card.Header>
+                  <div
+                    className="token-detail-name-div d-flex justify-content-center 
+                  align-items-center"
+                  >
+                    <Row>
+                      <div>
+                        <img src={metamaskLogo} alt="Metamask Logo" />
+                      </div>
+                    </Row>
 
-                <div className="token-detail-price-div">
-                  <Card.Text>PRICE</Card.Text>
-                  <Card.Title>${item.token_price_in_usd}</Card.Title>
-                  <Card.Title>{item.token_price_in_uno} UNO</Card.Title>
-                </div>
-              </Card.Header>
-              <Card.Body>
-                <div className="token-detail-name-div">
-                  <Card.Text>TOTAL RAISED</Card.Text>
-                  <Card.Title>$0/${item.token_total_raise}</Card.Title>
-                </div>
+                    <Row>
+                      <Card.Title> Metamask</Card.Title>
+                      <Card.Text>Lorem Ipsum</Card.Text>
+                    </Row>
+                  </div>
 
-                <div className="token-detail-price-div">
+                  <div className="token-detail-price-div">
+                    <Card.Text>PRICE</Card.Text>
+                    <Card.Title>${item.token_price_in_usd}</Card.Title>
+                    <Card.Text>{item.token_price_in_uno} UNO</Card.Text>
+                  </div>
+                </Card.Header>
+                <Card.Body>
+                  <div className="token-detail-name-div">
+                    <Card.Text>Round</Card.Text>
+                    <Card.Title>Sale Ended</Card.Title>
+                  </div>
+
+                  <div className="token-detail-price-div">
+                    <Card.Text>Time Left</Card.Text>
+                    <Card.Title>Sale Ended</Card.Title>
+                  </div>
+
+                  <span>{error ? error.message : null}</span>
+                </Card.Body>
+                <div>
+                  {' '}
+                  <ProgressBar
+                    className="project-progress-bar mt-3 mb-3 mx-2"
+                    style={{ height: '30px' }}
+                    now={85}
+                    label={'Sale: 92.45%  Burned: 5.32%'}
+                  />
+                </div>
+                
+                <Card.Body>
+                  <div className="token-detail-name-div">
                   <Card.Text>TOKEN DISTRIBUTION</Card.Text>
-                  <Card.Title>{item.token_distribution}</Card.Title>
-                </div>
+                    <Card.Title>{item.token_distribution}</Card.Title>
+                  </div>
 
-                <span>{error ? error.message : null}</span>
-              </Card.Body>
-              <Card.Footer>
-                <div className="token-detail-footer-left-div">
-                  {checkAllConditionForStake(user, accounts) ? (
-                    <Button
-                      variant="primary"
-                      onClick={() => {
-                        stakeSetup();
-                        handleShow();
-                      }}
-                    >
-                      Buy Now !
+                  <div className="token-detail-price-div">
+                    
+                    <Card.Text>TOTAL RAISED</Card.Text>
+                    <Card.Title>$0/${item.token_total_raise}</Card.Title>
+                  </div>
+
+                  <span>{error ? error.message : null}</span>
+                </Card.Body>
+
+                <Card.Footer>
+                  <div className="token-detail-footer-left-div">
+                  <Card.Title>Want to automate the sale?</Card.Title>
+                  </div>
+                  <div className="token-detail-footer-right-div">
+                    <Button variant="primary" onClick={addUnoTokenFunction} className="mx-2">
+                      Add UnoToken{' '}
                     </Button>
-                  ) : (
-                    <Button variant="primary" disabled={true}>
-                      Buy Now !
-                    </Button>
-                  )}
-                </div>
-                <div className="token-detail-footer-right-div">
-                  <Button variant="primary" onClick={addUnoTokenFunction}>
-                    Add UnoToken{' '}
-                  </Button>
-                </div>
-              </Card.Footer>
-            </Card>
-            {checkAllConditionForStake(user, accounts) && stake ? (
-              <>
-                <UPBuyTokenModal />
-              </>
-            ) : (
-              <div></div>
-            )}
+                    {checkAllConditionForStake(user, accounts) ? (
+                      <Button
+                        variant="primary"
+                        onClick={() => {
+                          stakeSetup();
+                          handleShow();
+                        }}
+                      >
+                        View my Automations
+                      </Button>
+                    ) : (
+                      <Button variant="primary" disabled={true}>
+                       View my Automations
+                      </Button>
+                    )}
+                  </div>
+                </Card.Footer>
+              </Card>
+              {checkAllConditionForStake(user, accounts) && stake ? (
+                <>
+                  <UPBuyTokenModal />
+                </>
+              ) : (
+                <div></div>
+              )}
+            </Row>
           </Container>
         </>
       )}

@@ -1,3 +1,20 @@
-.project-detail-card{
-    width: 350px;
+@import '../../variables.scss';
+.project-detail-card:hover{
+    background-color: $white;
+}
+.project-detail-price-div{
+    float: right;
+    text-align: center;
+}
+.project-detail-name-div{
+    float: left;
+}
+.project-detail-footer-left-div{
+    float: left;
+}
+.project-detail-footer-right-div{
+    float: right;
+}
+.project-detail-card-body{
+    border-top: 1px solid $gray-500;
 }
