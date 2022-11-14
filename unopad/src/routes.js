@@ -17,7 +17,7 @@ import Activation from './pages/Activation/Activation';
 import { Route } from 'react-router-dom';
 import Profile from './pages/Profile/Profile';
 import Sales from './pages/Sales/Sales';
-import TokenDetail from './pages/TokenDetail/TokenDetail';
+// import TokenDetail from './pages/TokenDetail/TokenDetail';
 
 const routes = {
   PublicLayout: {
@@ -105,13 +105,7 @@ const routes = {
         component: ProjectDetail,
         routeComponent: Route,
       },
-      {
-        path: '/token/:id',
-        name: 'Token Detail',
-        component: TokenDetail,
-        routeComponent: Route,
-      },
-
+    
     ],
   },
 };
