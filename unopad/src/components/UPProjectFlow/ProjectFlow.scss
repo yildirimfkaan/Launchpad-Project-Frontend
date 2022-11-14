@@ -1,0 +1,57 @@
+@import "../../variables.scss";
+
+
+
+@media only screen and (max-width: 768px) {
+  .checkbox-profile-detail-row{
+    margin-top: 10px !important;
+  }
+}
+
+.checkbox-profile-detail-row{
+    margin-top: 50px !important;
+  
+  .checkbox-row{
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+  
+  }
+
+  @media only screen and (min-width: 576px) {
+    .checkbox-row-content{
+      max-width: 130px;
+      
+    }
+  }
+
+  
+  @media only screen and (max-width: 576px) {
+    .checkbox-row{
+      display: flex;
+      flex-direction: column;
+      height: 200px;
+    }
+  
+  }
+  
+    
+  .checkbox-title{
+    color: $unopad-t-head-color;
+    margin-top: 15px;
+  
+  }
+  
+  .checkbox-date{
+    color: $unopad-t-body-color;
+    margin-top: 10px;
+  }
+  
+  .checkbox-line{
+    color:  $unopad-t-head-color;
+    width: 100%;
+  }
+
+  }
+
+  

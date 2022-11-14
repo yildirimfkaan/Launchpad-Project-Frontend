@@ -12,6 +12,7 @@ import UPProjectInfo from '../../components/UPProjectInfo/UPProjectInfo';
 import UPIcons from '../../components/UPIcons/UPIcons';
 import { swapTokenModalAction } from '../../store/project/projectActions';
 import UPSwapTokenModal from '../../components/UPSwapTokenModal/UPSwapTokenModal';
+import ProjectFlow from '../../components/UPProjectFlow/ProjectFlow';
 
 function ProjectDetail({ ...props }) {
   const { project, provider, accounts, ethereum, setWalletAccount, user, swapTokenModalRequest } =
@@ -269,6 +270,7 @@ function ProjectDetail({ ...props }) {
               )}
             </div>
           )}
+           <ProjectFlow/>
           <UPProjectInfo {...props} />
         </Container>
       )}
