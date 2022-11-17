@@ -5,7 +5,7 @@ import './UPProjectInfo.scss';
 
 function ProjectSaleInfo({ ...props }) {
   const { project, history } = props;
-
+  
   return (
     <>
       <Row className="border-bottom pb-2">
@@ -15,7 +15,7 @@ function ProjectSaleInfo({ ...props }) {
         <Col sm="6">
           <div className="d-flex align-items-center justify-content-sm-end">
             <UPIcons name="BiLinkExternal" />
-            <span className="text-fs-head-xxs ms-1">https://battleforgiostone.com/</span>
+            <span className="text-fs-head-xxs ms-1">{project.website_url}</span>
           </div>
         </Col>
       </Row>
@@ -25,11 +25,11 @@ function ProjectSaleInfo({ ...props }) {
         </Col>
         <Col sm="6">
           <div className="d-flex align-items-center justify-content-sm-end">
-            <span className="text-fs-head-xxs ms-1">1,349</span>
+            <span className="text-fs-head-xxs ms-1">{project.number_of_registrations}</span>
           </div>
         </Col>
       </Row>
-      <Row className="border-bottom py-2">
+      {/* <Row className="border-bottom py-2">
         <Col sm="6">
           <span className="text-fs-body-md text-t-body-color">Vesting</span>
         </Col>
@@ -48,7 +48,7 @@ function ProjectSaleInfo({ ...props }) {
             <span className="text-fs-head-xxs ms-1">Oct 8th 2022 at 18:30</span>
           </div>
         </Col>
-      </Row>
+      </Row> */}
       <Row className="pt-2">
         <Col sm="6">
           <span className="text-fs-body-md text-t-body-color">Sale Contract Address</span>
@@ -56,7 +56,12 @@ function ProjectSaleInfo({ ...props }) {
         <Col sm="6">
           <div className="d-flex align-items-center justify-content-sm-end">
             <UPIcons name="BiLinkExternal" />
-            <span className="text-fs-head-xxs ms-1">0x86CbB9...</span>
+            <span
+              className="text-fs-head-xxs 
+            ms-1"
+            >
+              {project.token.presale_contract.contract_address}
+            </span>
           </div>
         </Col>
       </Row>

@@ -10,13 +10,15 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import './ProjectDetail.scss';
 import UPProjectInfo from '../../components/UPProjectInfo/UPProjectInfo';
 import UPIcons from '../../components/UPIcons/UPIcons';
-import { swapTokenModalAction } from '../../store/project/projectActions';
-import UPSwapTokenModal from '../../components/UPSwapTokenModal/UPSwapTokenModal';
+// import { swapTokenModalAction } from '../../store/project/projectActions';
+import { buyTokenModalAction } from '../../store/token/tokenActions';
+import UPBuyTokenModal from '../../components/UPBuyTokenModal/UPBuyTokenModal';
 import ProjectFlow from '../../components/UPProjectFlow/ProjectFlow';
 
 function ProjectDetail({ ...props }) {
-  const { project, provider, accounts, ethereum, setWalletAccount, user, swapTokenModalRequest } =
+  const { project, provider, accounts, ethereum, setWalletAccount, user, buyTokenModalRequest } =
     props;
+    
   const item = props.project;
 
   const [stake, setStake] = useState(false);
@@ -36,7 +38,7 @@ function ProjectDetail({ ...props }) {
     setStake(true);
   };
   const handleShow = () => {
-    swapTokenModalRequest(true);
+    buyTokenModalRequest(true);
   };
   const connectWallet = async () => {
     wallet.connectWallet();
@@ -79,7 +81,7 @@ function ProjectDetail({ ...props }) {
   const disconnect = async () => {
     wallet.disconnectWallet();
   };
-  console.log('item', item);
+ 
   useEffect(() => {
     if (provider?.on) {
       const handleAccountsChanged = (newAccounts) => {
@@ -134,22 +136,22 @@ function ProjectDetail({ ...props }) {
                     <div>
                       <img
                         alt="project_logo"
-                        src={process.env.REACT_APP_API_URL + '/projects/' + item.id + '/image'}
+                        src={process.env.REACT_APP_API_URL + '/projects/' + item.id + '/logo'}
                         height={92} width={92}
                       />
                     </div>
                   </Row>
                   
                   <Row className="col-md-12 col-lg-12 mx-0">
-                    <Card.Title className="text-fs-head-lg"> Metamask</Card.Title>
-                    <Card.Text className="text-fs-body-sm">Lorem Ipsum Dolor</Card.Text>
+                    <Card.Title className="text-fs-head-lg"> {item.name}</Card.Title>
+                    <Card.Text className="text-fs-body-sm">{item.token.symbol}</Card.Text>
                   </Row>
                 </div>
                 <div className="project-detail-price-div">
                   <Card.Text className="text-fs-body-sm mb-0">PRICE</Card.Text>
                   <Card.Title className="text-fs-head-md 
-                  mb-0">${item.token_price_in_usd}</Card.Title>
-                  <Card.Text className="text-fs-body-md">{item.token_price_in_uno} UNO</Card.Text>
+                  mb-0">${item.token.price_in_usd}</Card.Title>
+                  <Card.Text className="text-fs-body-md">{item.token.price_in_uno} UNO</Card.Text>
                 </div>
               </Card.Header>
               <Card.Body>
@@ -183,21 +185,21 @@ function ProjectDetail({ ...props }) {
                   className="project-progress-bar mt-3 mb-3 mx-2"
                   style={{ height: '30px' }}
                   now={85}
-                  label={'Sale: 92.45%  Burned: 5.32%'}
+                  label={'Sale: 92.45% '}
                 />
               </div>
               <Card.Body className="project-detail-card-body">
                 <div className="project-detail-name-div">
                   <Card.Text>TOKEN DISTRIBUTION</Card.Text>
                   <Card.Title className='text-fs-head-md'>
-                    {/* {item.token_distribution} */}
-                    Sale Ended
+                    {item.token.distribution}
+                    
                     </Card.Title>
                 </div>
 
                 <div className="project-detail-price-div">
                   <Card.Text>TOTAL RAISED</Card.Text>
-                  <Card.Title>$0/${item.token_total_raise}</Card.Title>
+                  <Card.Title>${item.total_tokens_sold}/${item.total_raised}</Card.Title>
                 </div>
 
                 <span>{error ? error.message : null}</span>
@@ -272,7 +274,7 @@ function ProjectDetail({ ...props }) {
               </Row>
 
               {checkAllConditionForStake(user, accounts) && stake ? (
-                <UPSwapTokenModal />
+                <UPBuyTokenModal />
               ) : (
                 <div></div>
               )}
@@ -306,8 +308,8 @@ const mapDispatchToProps = (dispatch) => {
     getProjectByID: (payload) => {
       dispatch(getProjectByID(payload));
     },
-    swapTokenModalRequest: (payload) => {
-      dispatch(swapTokenModalAction(payload));
+    buyTokenModalRequest: (payload) => {
+      dispatch(buyTokenModalAction(payload));
     },
   };
 };
