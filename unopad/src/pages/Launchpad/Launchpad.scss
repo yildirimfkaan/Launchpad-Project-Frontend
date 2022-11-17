@@ -1,7 +1,9 @@
 .completed-sales-div{
-    background: url("../../assets/img/logo/completed-sales-bg.png") no-repeat left center;
+    background: url("../../assets/img/logo/completed-sales-bg.png") no-repeat left top;
     min-height: 1190px;
     width: auto;
+    background-size: contain;
+    background-position-y: 30%;
 
 }
 .completed-sales-title-container{

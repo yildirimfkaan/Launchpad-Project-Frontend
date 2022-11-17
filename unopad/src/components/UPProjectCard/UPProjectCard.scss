@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 .project-img-div{
 
-    background: url("card-title-background.png");
+    // background: url("card-title-background.png");
     height: 149px;
     background-size: cover;
 }
@@ -20,6 +20,8 @@
 
 .project-icon{
     border-radius: 50% ;
+    height: 40px;
+    max-width: 40px;
 }
 
 tr:last-child{

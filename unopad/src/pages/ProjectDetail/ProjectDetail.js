@@ -155,12 +155,20 @@ function ProjectDetail({ ...props }) {
               <Card.Body>
                 <div className="project-detail-name-div">
                   <Card.Text className="text-fs-body-md">Round</Card.Text>
-                  <Card.Title className="text-fs-head-md">Sale Ended</Card.Title>
-                </div>
 
+                  <Card.Title className="text-fs-head-md">{item.active_round}</Card.Title>
+                </div>
+                {/* {new Date(item.round_sale.start_date).toLocaleDateString()}
+                { }
+                {(item.round).map ((rounds,index) => {
+                  console.log(rounds)
+                  // if (rounds){
+                  //   if rounds.end_date < 
+                  // }
+                })} */}
                 <div className="project-detail-price-div">
                   <Card.Text className="text-fs-body-md">Time Left</Card.Text>
-                  <Card.Title className="text-fs-head-md">Sale Ended</Card.Title>
+                  <Card.Title className="text-fs-head-md">{item.round_time_left}</Card.Title>
                 </div>
                 {/* <Card.Title>{item.project_name}</Card.Title>
                   <Card.Text>{item.project_sale_type}</Card.Text>
@@ -270,8 +278,8 @@ function ProjectDetail({ ...props }) {
               )}
             </div>
           )}
-           <ProjectFlow/>
-          <UPProjectInfo {...props} />
+           <ProjectFlow {...props}/>
+          <UPProjectInfo {...props}/>
         </Container>
       )}
     </>

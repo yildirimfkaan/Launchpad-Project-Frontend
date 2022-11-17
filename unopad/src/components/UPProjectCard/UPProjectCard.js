@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import './UPProjectCard.scss';
 import UPIcons from '../UPIcons/UPIcons';
 import { mainColors } from '../../helpers/colors';
-import metamaskIcon from '../UPWalletAccountDetailModal/metamask-icon.png';
+// import metamaskIcon from '../UPWalletAccountDetailModal/metamask-icon.png';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import unopadMiniIcon from '../../assets/img/logo/unopad-logo-mini.png';
+import unopadCardDefaultBackground from '../../assets/img/background/card-title-background.png';
+import unopadCardDefaultLogo from '../../assets/img/logo/unopad-logo-white.png';
+
 import { useEffect, useState } from 'react';
 
 export default function Card1(props) {
@@ -18,7 +21,6 @@ export default function Card1(props) {
   const [renderedProjects, setRenderedProjects] = useState([]);
   const [renderedPages, setRenderedPages] = useState([]);
   const [lastPageOfPagination, setLastPageOfPagination] = useState(maxShowingPage);
-
   useEffect(() => {
     if (projects?.length) {
       setCurrentPage(1);
@@ -100,60 +102,97 @@ export default function Card1(props) {
       setRenderedPages(pages.slice(pages.length - maxShowingPage, pages.length));
     }
   };
-
+  const logoOnErrorHandler = (event) => {
+    event.currentTarget.src = unopadCardDefaultLogo;
+    event.currentTarget.className = 'project-icon';
+  };
   return (
     <Row className="justify-content-center mt-5">
       {Object.entries(renderedProjects).map((item, index) => {
         if (currentPage * index < currentPage * maxRowCountPerPage) {
           return (
-            <Col className="d-flex flex-column" lg={4} sm={12} md={6}>
+            <Col className="d-flex flex-column pb-4" lg={4} sm={12} md={6}>
               <NavLink as={Link} to={'/project/' + item[1].id} className="shadow">
-                <div className="project-img-div ">
+                <div
+                  className="project-img-div pt-5"
+                  style={{
+                    background: `url(${
+                      process.env.REACT_APP_API_URL + '/projects/' + item[1].id + '/image'
+                    }
+                    ),url(${unopadCardDefaultBackground}
+                    )`,backgroundSize:"cover",
+                  }}
+                >
                   <div className="d-flex pt-4 text-ultra-light align-items-center ">
-                    <div className="ps-3 pe-2 pt-4">
-                      <img alt="metamask-icon" src={metamaskIcon} className="project-icon" />
+                    <div className="ps-3 pe-2 pt-1">
+                      <img
+                        alt="project-icon"
+                        src={process.env.REACT_APP_API_URL + '/projects/' + item[1].id + '/logo'}
+                        className="project-icon"
+                        onError={logoOnErrorHandler}
+                      />
                     </div>
                     <div className="ps-3 pe-3 ">
-                      <div className="text-fs-project-name">{item[1].project_name}</div>
-                      <div className="text-fs-head-sm">1 asd = 0.003 UNO</div>
+                      <div className="text-fs-project-name">{item[1].name}</div>
+                      <div className="text-fs-head-sm">
+                        1 {item[1].token.symbol} = {item[1].token.price_in_uno} UNO
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div className="d-flex text-fs-body-md ps-2 pt-3">
-                  Total Raised:<div className="text-primary text-fs-head-md ps-2"> $100.00 </div>
-                  <div
-                    className=" ms-auto p-2 mt-1 ended-logo px-3 me-1 d-flex align-items-center 
-              text-fs-body-sm"
-                  >
-                    Ended
-                  </div>
-                  <img
-                    className="unopad-icon ms-1 mt-1 me-1"
-                    alt="unopadmini-icon"
-                    src={unopadMiniIcon}
-                  />
+                  Total Raised:
+                  <div className="text-primary text-fs-head-md ps-2"> ${item[1].total_raised}</div>
+                  {new Date() > new Date(item[1].round_sale.end_date) ? (
+                    <div className="ms-auto d-flex align-items-center ">
+                      <div
+                        className="ended-logo px-3 me-1 d-flex align-items-center 
+                                          text-fs-body-sm"
+                      >
+                        Ended
+                      </div>
+                      <img
+                        className="unopad-icon ms-1 me-1"
+                        alt="unopadmini-icon"
+                        src={unopadMiniIcon}
+                      />
+                    </div>
+                  ) : (
+                    <img
+                      className="unopad-icon ms-auto mt-2 me-1 d-flex align-items-center "
+                      alt="unopadmini-icon"
+                      src={unopadMiniIcon}
+                    />
+                  )}
                 </div>
                 <div>
                   <ProgressBar
                     className="project-progress-bar mt-3 mb-3 mx-2"
                     style={{ height: '30px' }}
                     now={85}
-                    label={'Sale: 92.45%  Burned: 5.32%'}
+                    label={'Sale: 92.45%'}
                   />
                 </div>
                 <Table>
                   <tbody>
                     <tr>
-                      <td className="text-fs-body-md">Register</td>
-                      <td className="text-fs-body-lg text-end">5600</td>
+                      <td className="text-fs-body-md">Registrations</td>
+                      <td className="text-fs-body-lg text-end text-primary">
+                        {item[1].number_of_registrations}
+                      </td>
                     </tr>
                     <tr>
-                      <td className="text-fs-body-md ">Token Sale</td>
-                      <td className="text-fs-body-lg text-end">$0.140</td>
+                      <td className="text-fs-body-md ">Token Price</td>
+                      <td className="text-fs-body-lg text-end text-primary">
+                        ${item[1].token.price_in_usd}
+                      </td>
                     </tr>
                     <tr>
                       <td className="text-fs-body-md">Start Date</td>
-                      <td className="text-fs-body-lg text-end">01.08.2022</td>
+
+                      <td className="text-fs-body-lg text-end text-primary">
+                        {new Date(item[1].round_sale.start_date).toLocaleDateString()}
+                      </td>
                     </tr>
                   </tbody>
                 </Table>
@@ -170,10 +209,12 @@ export default function Card1(props) {
                           />
                           <div className="d-flex flex-column align-items-start">
                             <div>
-                              Token Sold: <span>85.71M</span>
+                              Token Sold:{' '}
+                              <span className="text-primary">{item[1].total_tokens_sold}</span>
                             </div>
                             <div>
-                              Total Tokens:<span>85.71M</span>
+                              Total Tokens:
+                              <span className="text-primary">{item[1].token.total_supply}</span>
                             </div>
                           </div>
                         </div>
@@ -187,8 +228,16 @@ export default function Card1(props) {
                             size="25"
                             className="me-2"
                           />
-                          <div className="d-flex flex-column align-items-start justify-content-end">
-                            Sale Ended
+
+                          <div
+                            className="d-flex flex-column align-items-start 
+                          justify-content-center"
+                          >
+                            {new Date() > new Date(item[1].round_sale.end_date) ? (
+                              <>Sale Ended</>
+                            ) : (
+                              <> On Sale</>
+                            )}
                           </div>
                         </div>
                       </td>
