@@ -42,9 +42,9 @@
 }
 @media only screen and (max-width: 992px) {
   .banner-design{
-    background: url('Banner.png');
+    background: url('Banner-tablet.png');
     background-size: cover;
-    height: 700px;
+    height: 850px;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -56,13 +56,29 @@
 
     background: url('Banner.png');
     background-size: cover;
-    height: 700px;
+    height: 930px;
     width: 100%;
     justify-content: center;
     align-items: center;
     margin-bottom: 100px;
 }
+
 }
+
+@media only screen and (max-width: 991px) {
+  .navbar-design{
+    position:absolute;
+    margin: 50vh auto 0;
+    background-color: $unopad-tertiary;
+    border-radius: 10px;
+    width: 85%;
+    padding: 10px;
+
+  }
+}
+
+
+
 
 
 
@@ -105,4 +121,25 @@
 
 .navbar-balance-button {
   width: 100px;
+}
+
+@media only screen and (max-width: 576px) {
+  .navbar-balance-button {
+    display: none !important;
+  }
+  .navbar-wallet-account-container {
+    width: 250px !important;
+  }
+}
+
+@media only screen and (max-width: 376px) {
+  .navbar-balance-button {
+    display: none !important;
+  }
+  .navbar-wallet-account-container {
+    width: 200px !important;
+  }
+  .navbar-account-button {
+    width: 200px;
+  }
 }
