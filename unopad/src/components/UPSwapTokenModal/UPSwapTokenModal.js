@@ -17,11 +17,10 @@ function UPSwapTokenModal({ ...props }) {
   };
 
   return (
-    <Modal show={swapTokenModal} onHide={handleClose} size="lg" centered>
-      <Modal.Header closeButton className="border-bottom-0 h4">
-        Swap Token
+    <Modal show={swapTokenModal} onHide={handleClose} size="lg" centered >
+      <Modal.Header closeButton className="border-bottom-0 mt-0 mb-0 p-2 bg-white">
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="px-0 py-0">
         <SwapToken />
       </Modal.Body>
     </Modal>

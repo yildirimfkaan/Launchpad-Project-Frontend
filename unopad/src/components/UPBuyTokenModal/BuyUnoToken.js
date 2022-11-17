@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -14,13 +15,13 @@ import './UPBuyTokenModal.scss';
 import { FloatingLabel, Form } from 'react-bootstrap';
 
 function BuyUnoToken({ ...props }) {
-  const { balance_, signerAddress, token, setLoading, isLoading } = props;
+  const { balance_, signerAddress, token, setLoading, isLoading , project } = props;
   const [txs, setTxs] = useState([]);
   const [unoTokenInputValue, setUnoTokenInputValue] = useState({
     UnoTokenAmount: 1,
     etherValue: 0.001,
   });
-
+  console.log("asda",project)
   const UnoTokenOnChangeHandler = (event) => {
     const { name, value } = event.target;
     if (name == 'etherValue') {
@@ -37,7 +38,7 @@ function BuyUnoToken({ ...props }) {
   };
   useEffect(() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const unopad_token = new ethers.Contract(token.token_address, unopad_token_abi, provider);
+    const unopad_token = new ethers.Contract(project.token.address, unopad_token_abi, provider);
 
     try {
       unopad_token.on('Transfer', (from, to, amount, event) => {
@@ -70,20 +71,20 @@ function BuyUnoToken({ ...props }) {
     const web3 = new Web3(window.ethereum);
     await wallet.controlAndSwitchOrAddNetwork();
     await window.ethereum.enable();
-    const unopad_token = new web3.eth.Contract(unopad_token_abi, token.token_address);
+    const unopad_token = new web3.eth.Contract(unopad_token_abi, project.token.address);
     const unopad_presale = new web3.eth.Contract(
       unopad_presale_abi,
-      token.presale_contract.contract_address,
+      project.token.presale_contract.contract_address,
     );
     const etherMiktari = data.get('etherValue');
     try {
       await unopad_presale.methods.buy().send({
         from: signerAddress,
-        to: token.presale_contract.contract_address,
+        to: project.token.presale_contract.contract_address,
         data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
         value: web3.utils.toWei(etherMiktari, 'ether'),
       });
-      wallet.getMyBalance(token.token_address);
+      wallet.getMyBalance(project.token.address);
       setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
       Swal.fire({
         icon: 'success',
@@ -113,20 +114,21 @@ function BuyUnoToken({ ...props }) {
   const Transfer_txs = [txs];
   return (
     <>
-      <form className="m-4" onSubmit={buyToken}>
+      <form className="m-0" onSubmit={buyToken}>
         <div
           className="credit-card w-full lg:w-3/4 sm:w-auto 
-        shadow-lg mx-auto rounded-xl bg-white"
+          shadow-lg mx-auto rounded-xl"
         >
-          <main className="mt-4 p-4">
-            <h1 className="text-xl font-semibold text-gray-700 text-center">Buy Uno Token</h1>
-            <div className="">
+          <main className="px-4">
+          <p className="d-flex justify-content-center text-fs-head-md">Buy Token</p>{' '}
+            <div className="mx-3">
               <div className="my-3">
+              <p className="d-flex text-fs-head-xxs">Ether Value</p>{' '}
                 <FloatingLabel label="Ether Value" className="mb-3">
                   <Form.Control
                     type="number"
                     name="etherValue"
-                    className="input input-bordered block w-full focus:ring focus:outline-none"
+                    className="input input-bordered text-fs-body-md text-t-body-color bg-light"
                     placeholder="Ether Value"
                     min="0.001"
                     step="0.001"
@@ -135,12 +137,14 @@ function BuyUnoToken({ ...props }) {
                     disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
                   />
                 </FloatingLabel>
+                <p className="d-flex  
+                text-fs-head-xxs">Uno Token Amount</p>{' '}
                 <FloatingLabel label="Uno Token Amount" className="mb-3">
                   <Form.Control
                     type="number"
                     name="UnoTokenAmount"
                     id="UnoTokenAmount"
-                    className="input input-bordered block w-full focus:ring focus:outline-none"
+                    className="input input-bordered text-fs-body-md text-t-body-color bg-light"
                     placeholder="UnoTokenAmount"
                     value={unoTokenInputValue.UnoTokenAmount}
                     onChange={UnoTokenOnChangeHandler}
@@ -152,10 +156,10 @@ function BuyUnoToken({ ...props }) {
               </div>
             </div>
           </main>
-          <footer className="p-4">
+          <footer className="d-flex justify-content-center p-2">
             <button
               type="submit"
-              className="btn btn-primary submit-button focus:ring focus:outline-none w-full"
+              className="btn btn-primary d-flex justify-content-center"
               disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
             >
               {' '}
@@ -171,40 +175,7 @@ function BuyUnoToken({ ...props }) {
               )}
             </button>
           </footer>
-          <div className="px-4">
-            <div className="overflow-x-auto">
-              <table className="table w-full">
-                <thead>
-                  <tr>
-                    <th>From</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>{signerAddress}</th>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="table w-full">
-                <thead>
-                  <tr>
-                    <th>To</th>
-
-                    <th>UNOT Balance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{token.presale_contract.contract_address}</td>
-
-                    <td>{balance_}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          
         </div>
       </form>
       <UPTransactions {...Transfer_txs} />
@@ -214,6 +185,7 @@ function BuyUnoToken({ ...props }) {
 const mapStateToProps = (state) => {
   return {
     provider2: state.walletReducer.provider2,
+    project: state.projectReducer.project,
     signer: state.walletReducer.signer,
     signerAddress: state.walletReducer.signerAddress,
     web3: state.walletReducer.web3,

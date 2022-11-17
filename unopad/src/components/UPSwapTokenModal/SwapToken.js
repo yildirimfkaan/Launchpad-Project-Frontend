@@ -16,9 +16,9 @@ import { FloatingLabel, Form } from 'react-bootstrap';
 
 function SwapToken({ ...props }) {
   const { balance_, signerAddress, project, setLoading, isLoading, token } = props;
-  const contractDynamicToken = project.project_token.token_address;
+  const contractDynamicToken = project.token.address;
 
-  const contractDynamicTokenPresale = project.project_token.presale_contract.contract_address;
+  const contractDynamicTokenPresale = project.token.presale_contract.contract_address;
   const [txs, setTxs] = useState([]);
   const [swapTokenInputValue, setSwapTokenInputValue] = useState({
     swapTokenAmount: 1,
@@ -119,20 +119,22 @@ function SwapToken({ ...props }) {
   const Transfer_txs = [txs];
   return (
     <>
-      <form className="m-4" onSubmit={swapToken}>
+      <form className="m-0" onSubmit={swapToken}>
         <div
           className="credit-card w-full lg:w-3/4 sm:w-auto 
         shadow-lg mx-auto rounded-xl bg-white"
         >
-          <main className="mt-4 p-4">
-            <h1 className="text-xl font-semibold text-gray-700 text-center">Buy Token</h1>
-            <div className="">
+          <main className="px-4">
+          <p className="d-flex justify-content-center text-fs-head-md">Buy Token</p>{' '}
+            <div className="mx-3">
               <div className="my-3">
+              <p className="d-flex text-fs-head-xxs">Ether Value</p>{' '}
                 <FloatingLabel label="Ether Value" className="mb-3">
+                  
                   <Form.Control
                     type="number"
                     name="etherValue"
-                    className="input input-bordered block w-full focus:ring focus:outline-none"
+                    className="input input-bordered text-fs-body-md text-t-body-color bg-light"
                     placeholder="Ether Value"
                     min="0.002"
                     step="0.002"
@@ -141,11 +143,13 @@ function SwapToken({ ...props }) {
                     disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING]}
                   />
                 </FloatingLabel>
+                <p className="d-flex  
+                text-fs-head-xxs">Swap Token Amount</p>{' '}
                 <FloatingLabel label="Swap Token Amount" className="mb-3">
                   <Form.Control
                     type="number"
                     name="swapTokenAmount"
-                    className="input input-bordered block w-full focus:ring focus:outline-none"
+                    className="input input-bordered text-fs-body-md text-t-body-color bg-light"
                     placeholder="Swap Token Amount"
                     min="1"
                     step="1"
@@ -157,15 +161,15 @@ function SwapToken({ ...props }) {
               </div>
             </div>
           </main>
-          <footer className="p-4">
+          <footer className="d-flex justify-content-center p-2">
             <button
               type="submit"
-              className="btn btn-primary submit-button focus:ring focus:outline-none w-full"
+              className="btn btn-primary d-flex justify-content-center"
               disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING]}
             >
               {' '}
               {!isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING] ? (
-                'BuyToken'
+                'Buy Token'
               ) : (
                 <div className="d-flex align-items-center justify-content-center">
                   <Spinner animation="border" role="status">
@@ -176,40 +180,7 @@ function SwapToken({ ...props }) {
               )}
             </button>
           </footer>
-          <div className="px-4">
-            <div className="overflow-x-auto">
-              <table className="table w-full">
-                <thead>
-                  <tr>
-                    <th>From</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>{signerAddress}</th>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="table w-full">
-                <thead>
-                  <tr>
-                    <th>To</th>
-                    {/* <th>Dynamic Token Balance</th> */}
-                    <th>Token Total Supply</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{contractDynamicTokenPresale}</td>
-
-                    <td>{project.project_token.token_total_supply}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          
         </div>
       </form>
       <UPTransactions {...Transfer_txs} />

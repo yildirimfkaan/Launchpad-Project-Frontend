@@ -102,7 +102,7 @@ function UPTokenTable(props) {
     return history.push('project/' + nums);
   };
 
-  console.log(tokens);
+  
 
   return (
     <>
@@ -110,14 +110,13 @@ function UPTokenTable(props) {
         <thead>
           <tr className="text-t-body-color text-fs-tag">
             <th>#</th>
-            <th>Project Name</th>
+            <th>Token Name</th>
+            <th>Token Symbol</th>
             <th>IDO Token Price</th>
             <th>Current Price</th>
             <th>ATH</th>
-            <th>ATH IDO ROI</th>
-            <th>No. Registration</th>
             <th>Total Raised</th>
-            <th>Total Tokens Sold</th>
+            <th>Distribution</th>
             <th>Sale Ended At</th>
           </tr>
         </thead>
@@ -131,16 +130,15 @@ function UPTokenTable(props) {
                     TableSelectRow(item[1].id);
                   }}
                   className="text-t-head-color"
-                >
+                > 
                   <td>{index + 1}</td>
-                  <td>{item[1].token_name}</td>
-                  <td>{item[1].token_symbol}</td>
-                  <td>text</td>
-                  <td>text</td>
-                  <td>text</td>
-                  <td>text</td>
-                  <td>text</td>
-                  <td>text</td>
+                  <td>{item[1].name}</td>
+                  <td>{item[1].symbol}</td>
+                  <td>{item[1].price_in_uno}</td>
+                  <td>{item[1].current_price}</td>
+                  <td>{item[1].all_time_high}</td>
+                  <td>{item[1].total_supply}</td>
+                  <td>{item[1].distribution}</td>
                   <td>text</td>
                 </tr>
               );

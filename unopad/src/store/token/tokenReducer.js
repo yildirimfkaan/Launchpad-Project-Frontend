@@ -81,7 +81,7 @@ export const tokenReducer = (state = initialState, action) => {
 
       const sortedTokens = tokens?.sort((a, b) => {
         if (state.tokenSortData.sortType === TOKENS_SORT_TYPES.ASCENDING) {
-          if (a[selectedKey].toString().toLowerCase() > b[selectedKey].toString().toLowerCase()) {
+          if (a[selectedKey]?.toString().toLowerCase() > b[selectedKey]?.toString().toLowerCase()) {
             return 1;
           }
           return -1;

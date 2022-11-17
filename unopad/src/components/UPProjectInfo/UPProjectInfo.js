@@ -62,7 +62,7 @@ function UPProjectInfo({ ...props }) {
             }
             onClick={() => setActiveTab(projectInfoTabs.PROJECT_INFO_ABOUT_THE_PROJECT)}
           >
-            About the Project
+            About Project
           </div>
           {activeTab === projectInfoTabs.PROJECT_INFO_ABOUT_THE_PROJECT && (
             <div className="project-info-content-container border p-3 d-sm-none d-block">

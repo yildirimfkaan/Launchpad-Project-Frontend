@@ -1,61 +1,71 @@
 import React from 'react';
+import { Col, Row } from 'react-bootstrap';
+import UPIcons from '../UPIcons/UPIcons';
 import './UPProjectInfo.scss';
 
 function ProjectTokenInfo({ ...props }) {
   const { project, history } = props;
 
   return (
-    <div>
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-      been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-      galley of type and scrambled it to make a type specimen book. It has survived not only five
-      centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It
-      was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-      passages, and more recently with desktop publishing software like Aldus PageMaker including
-      versions of Lorem Ipsum.
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-      been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-      galley of type and scrambled it to make a type specimen book. It has survived not only five
-      centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It
-      was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-      passages, and more recently with desktop publishing software like Aldus PageMaker including
-      versions of Lorem Ipsum.
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-      been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-      galley of type and scrambled it to make a type specimen book. It has survived not only five
-      centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It
-      was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-      passages, and more recently with desktop publishing software like Aldus PageMaker including
-      versions of Lorem Ipsum.
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-      been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-      galley of type and scrambled it to make a type specimen book. It has survived not only five
-      centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It
-      was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-      passages, and more recently with desktop publishing software like Aldus PageMaker including
-      versions of Lorem Ipsum.
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-      been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-      galley of type and scrambled it to make a type specimen book. It has survived not only five
-      centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It
-      was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-      passages, and more recently with desktop publishing software like Aldus PageMaker including
-      versions of Lorem Ipsum.
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-      been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-      galley of type and scrambled it to make a type specimen book. It has survived not only five
-      centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It
-      was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-      passages, and more recently with desktop publishing software like Aldus PageMaker including
-      versions of Lorem Ipsum.
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-      been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-      galley of type and scrambled it to make a type specimen book. It has survived not only five
-      centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It
-      was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-      passages, and more recently with desktop publishing software like Aldus PageMaker including
-      versions of Lorem Ipsum.
-    </div>
+    <>
+<Row className="border-bottom pb-2">
+        <Col sm="6">
+          <span className="text-fs-body-md text-t-body-color">Token Name</span>
+        </Col>
+        <Col sm="6">
+          <div className="d-flex align-items-center justify-content-sm-end">
+            <UPIcons name="BiLinkExternal" />
+            <span className="text-fs-head-xxs ms-1">{project.name}</span>
+          </div>
+        </Col>
+      </Row>
+      <Row className="border-bottom py-2">
+        <Col sm="6">
+          <span className="text-fs-body-md text-t-body-color">Token Symbol</span>
+        </Col>
+        <Col sm="6">
+          <div className="d-flex align-items-center justify-content-sm-end">
+            <span className="text-fs-head-xxs ms-1">{project.token.symbol}</span>
+          </div>
+        </Col>
+      </Row>
+      <Row className="border-bottom py-2">
+        <Col sm="6">
+          <span className="text-fs-body-md text-t-body-color">Token Decimals</span>
+        </Col>
+        <Col sm="6">
+          <div className="d-flex align-items-center justify-content-sm-end">
+            <span className="text-fs-head-xxs ms-1">{project.token.decimals}</span>
+          </div>
+        </Col>
+      </Row>
+      <Row className="border-bottom py-2">
+        <Col sm="6">
+          <span className="text-fs-body-md text-t-body-color">Total Supply</span>
+        </Col>
+        <Col sm="6">
+          <div className="d-flex align-items-center justify-content-sm-end">
+            <span className="text-fs-head-xxs ms-1">{project.token.total_supply}</span>
+          </div>
+        </Col>
+      </Row>
+      <Row className="pt-2">
+        <Col sm="6">
+          <span className="text-fs-body-md text-t-body-color">Token Address</span>
+        </Col>
+        <Col sm="6">
+          <div className="d-flex align-items-center justify-content-sm-end">
+            <UPIcons name="BiLinkExternal" />
+            <span
+              className="text-fs-head-xxs 
+            ms-1"
+            >
+              {project.token.address}
+            </span>
+          </div>
+        </Col>
+      </Row>
+    </>
   );
 }
 
