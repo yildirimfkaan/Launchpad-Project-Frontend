@@ -128,7 +128,7 @@ function Navigation({ ...props }) {
 
   return (
     <Container fluid className={getBannerClassName()}>
-      <Navbar bg="transparent" expand="lg" style={{ zIndex: 1 }}>
+      <Navbar bg="transparent"  expand="lg" style={{ zIndex: 1 }}>
         <Container>
           <Navbar.Brand as={Link} to="/">
             <img
@@ -142,7 +142,7 @@ function Navigation({ ...props }) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" className='navbar-dark' />
           <Navbar.Collapse
             id="basic-navbar-nav"
-            className="justify-content-end flex-column align-items-end"
+            className="justify-content-end flex-column align-items-end navbar-design"
           >
             <Nav className="ml-auto align-items-center py-3 pe-2" variant="pills">
               <Nav.Link
@@ -256,7 +256,7 @@ function Navigation({ ...props }) {
                 {balance_ !== null && balance_ !== undefined && (
                   <div
                     title={balance_}
-                    className="d-flex align-items-center navbar-balance-button 
+                    className="d-none d-sm-flex align-items-center navbar-balance-button 
                 bg-primary rounded px-2 justify-content-center"
                   >
                     <div className="navbar-balance-text text-truncate mr-1 py-1">{balance_}</div>

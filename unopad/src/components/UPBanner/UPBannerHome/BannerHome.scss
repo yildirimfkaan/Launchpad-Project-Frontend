@@ -5,3 +5,17 @@
     flex-direction: column;
 
   }
+
+
+  @media only screen and (max-width: 1200px) {
+    .home-banner{
+      height: 400px;
+  }
+  }
+
+  @media only screen and (max-width: 992px) {
+    .home-banner{
+      height: 280px;
+  }
+  }
+
