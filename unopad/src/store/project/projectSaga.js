@@ -26,6 +26,7 @@ function* getProjectsSaga(action) {
 
 function* getProjectByIDSaga(action) {
   try {
+    yield put(actions.getProjectByIDData(null));
     const { id } = action.payload;
     const { data } = yield call(endpoints.getProjectByID, id);
     yield put(actions.getProjectByIDData(data));

@@ -7,6 +7,7 @@ import { Container } from 'react-bootstrap';
 import './Launchpad.scss';
 import { quickHandlerImages } from '../../helpers/quickHandlerImages';
 import TripleCard from '../../components/UPTripleCard/TripleCard';
+import SpinnerUnopad from '../../components/UPSpinnerUnopad/UPSpinnerUnopad';
 
 function Launchpad({ ...props }) {
   const { getProjects, projects } = props;
@@ -59,7 +60,7 @@ function Launchpad({ ...props }) {
             </span>
           </div>
         </div>
-        {!projects ? <h1>Page is Loading.....</h1> : <UPProjectCard {...props} />}
+        {!projects ? <SpinnerUnopad/> : <UPProjectCard {...props} />}
         <TripleCard />
       </div>
     </Container>

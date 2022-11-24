@@ -87,7 +87,7 @@ function Navigation({ ...props }) {
       return <BannerLaunchpad />;
     } else if (pathname.toLowerCase() === '/sales') {
       return <BannerSales {...props} />;
-    } else if (pathname.toLowerCase().split('/')[1] === 'token') {
+    } else if (pathname.toLowerCase().split('/')[1] === 'project') {
       return <BannerToken />;
     } else if (pathname.toLowerCase() === '/profile') {
       if (PathnameHash.toLowerCase() === '#profile') {

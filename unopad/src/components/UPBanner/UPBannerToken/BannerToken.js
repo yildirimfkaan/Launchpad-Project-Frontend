@@ -7,49 +7,66 @@ import linkedinIcon from '../../../assets/img/logo/linkedin.svg';
 import twitterIcon from '../../../assets/img/logo/twitter.svg';
 
 import './BannerToken.scss';
+import { connect } from 'react-redux';
 
-function BannerToken() {
-  return (
-    <>
-      <Container className="token-banner">
-        <Row className="text-white text-fs-head-xs">
-          <Col>
-            <a className="text-white" href="/">
-              Home
-            </a>
-            /Sales/Product Page
-          </Col>
-        </Row>
-        <Row className="text-white text-fs-head-lg mt-4">
-          <Col lg={12} md={12}>
-            Battle for Giostone
-          </Col>
-        </Row>
-        <Row className="text-white text-fs-body-md mt-4">
-          <Col lg={4} md={6}>
-            We have all been in this industry too long not to make the security of your funds our
-            absolute top priority.
-          </Col>
-        </Row>
+import SpinnerUnopad from '../../UPSpinnerUnopad/UPSpinnerUnopad';
 
-        <Row className="text-white text-fs-body-md mt-4">
-          <Col className="token-banner-icon">
-            <ul>
-              <li>
-                <img alt="be" src={beIcon} />
-              </li>
-              <li>
-                <img alt="be" src={linkedinIcon} />
-              </li>
-              <li>
-                <img alt="be" src={twitterIcon} />
-              </li>
-            </ul>
-          </Col>
-        </Row>
-      </Container>
-    </>
-  );
+function BannerToken({ ...props }) {
+  const {
+    project
+  } = props;
+
+  console.log("project", project);
+  if(project){
+    return (
+      <>
+        <Container className="token-banner">
+          <Row className="text-white text-fs-head-xs">
+            <Col>
+              <a className="text-white" href="/">
+                Home
+              </a>
+              /Sales/Product Page
+            </Col>
+          </Row>
+          <Row className="text-white text-fs-head-lg mt-4">
+            <Col lg={12} md={12}>
+              {project.name}
+            </Col>
+          </Row>
+          <Row className="text-white text-fs-body-md mt-4">
+            <Col lg={4} md={6}>
+              { project.explanation_text}
+            </Col>
+          </Row>
+  
+          <Row className="text-white text-fs-body-md mt-4">
+            <Col className="token-banner-icon">
+              <ul>
+                <li>
+                  <img alt="be" src={beIcon} />
+                </li>
+                <li>
+                  <img alt="be" src={linkedinIcon} />
+                </li>
+                <li>
+                  <img alt="be" src={twitterIcon} />
+                </li>
+              </ul>
+            </Col>
+          </Row>
+        </Container>
+      </>
+    );
+  }
+  else{
+    return <SpinnerUnopad/>
+  }
 }
+const mapStateToProps = (state) => {
+  return {
+    project: state.projectReducer.project,
+  };
+};
 
-export default BannerToken;
+export default connect(mapStateToProps)(BannerToken);
