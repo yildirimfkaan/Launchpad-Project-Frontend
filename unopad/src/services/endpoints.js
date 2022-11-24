@@ -32,3 +32,5 @@ export const addToken = (body) => doPost('/tokens', body);
 
 //bscApi
 export const GetTxlist = (body) => doPost('/bsc', body);
+//bscApi
+export const GetAbiList = (body) => doGet('/contracts/abi', body);
