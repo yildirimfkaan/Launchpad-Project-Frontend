@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import unopad_token_abi from '../../helpers/unopad_token';
-import unopad_presale_abi from '../../helpers/unopad_presale';
 import Web3 from 'web3';
 import { ethers } from 'ethers';
 import { setLoadingAction } from '../../store/loading/loadingActions';
@@ -12,25 +11,38 @@ import wallet from '../../helpers/wallet';
 import UPTransactions from '../UPTransactions/UPTransactions';
 import Spinner from 'react-bootstrap/Spinner';
 import './UPBuyTokenModal.scss';
-import { FloatingLabel, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import { abiRequestAction } from '../../store/abi/abiActions';
 
 function BuyUnoToken({ ...props }) {
-  const { balance_, signerAddress, token, setLoading, isLoading , project } = props;
+  const {
+    balance_,
+    signerAddress,
+    token,
+    setLoading,
+    isLoading,
+    project,
+    abiHistoryRequest,
+    abiHistory,
+  } = props;
   const [txs, setTxs] = useState([]);
   const [unoTokenInputValue, setUnoTokenInputValue] = useState({
     UnoTokenAmount: 1,
-    etherValue: 0.001,
+    etherValue: 1,
   });
-  console.log("asda",project)
+  console.log(project);
+  const handleAbi = () => {
+    abiHistoryRequest();
+  };
   const UnoTokenOnChangeHandler = (event) => {
     const { name, value } = event.target;
     if (name == 'etherValue') {
-      const unoTokenValue = value * 1000;
+      const unoTokenValue = value;
       unoTokenInputValue.UnoTokenAmount = unoTokenValue;
       unoTokenInputValue.etherValue = value;
       setUnoTokenInputValue({ ...unoTokenInputValue });
     } else if (name == 'UnoTokenAmount') {
-      const etherValue = value / 1000;
+      const etherValue = value;
       unoTokenInputValue.UnoTokenAmount = value;
       unoTokenInputValue.etherValue = etherValue;
       setUnoTokenInputValue({ ...unoTokenInputValue });
@@ -44,27 +56,38 @@ function BuyUnoToken({ ...props }) {
     buttonsStyling: false
   })
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const unopad_token = new ethers.Contract(project.token.address, unopad_token_abi, provider);
+    if (abiHistory?.[0]?.[project.token.symbol + '_abi']) {
+      console.log("asdasdasdasdasdasdasd")
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const unopad_token = new ethers.Contract(
+        project.token.address,
+        abiHistory?.[0]?.[project.token.symbol + '_abi'],
+        provider,
+      );
 
-    try {
-      unopad_token.on('Transfer', (from, to, amount, event) => {
-        setTxs((currentTxs) => [
-          ...currentTxs,
-          {
-            txHash: event.transactionHash,
-            from,
-            to,
-            amount: String(amount),
-          },
-        ]);
-      });
-    } catch (e) {
-      console.log('error', e);
+      try {
+        unopad_token.on('Transfer', (from, to, amount, event) => {
+          setTxs((currentTxs) => [
+            ...currentTxs,
+            {
+              txHash: event.transactionHash,
+              from,
+              to,
+              amount: String(amount),
+            },
+          ]);
+        });
+      } catch (e) {
+        console.log('error', e);
+      }
+      return () => {
+        unopad_token.removeAllListeners();
+      };
     }
-    return () => {
-      unopad_token.removeAllListeners();
-    };
+  }, [abiHistory]);
+
+  useEffect(() => {
+    handleAbi();
   }, []);
 
   const buyToken = async (e) => {
@@ -80,7 +103,7 @@ function BuyUnoToken({ ...props }) {
     await window.ethereum.enable();
     const unopad_token = new web3.eth.Contract(unopad_token_abi, project.token.address);
     const unopad_presale = new web3.eth.Contract(
-      unopad_presale_abi,
+      abiHistory?.[0]?.[project.token.symbol + '_presale_abi'],
       project.token.presale_contract.contract_address,
     );
     const etherMiktari = data.get('etherValue');
@@ -89,7 +112,7 @@ function BuyUnoToken({ ...props }) {
         from: signerAddress,
         to: project.token.presale_contract.contract_address,
         data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
-        value: web3.utils.toWei(etherMiktari, 'ether'),
+        value: web3.utils.toWei(etherMiktari, 'wei'),
       });
       wallet.getMyBalance(project.token.address);
       setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
@@ -133,39 +156,41 @@ function BuyUnoToken({ ...props }) {
           shadow-lg mx-auto rounded-xl"
         >
           <main className="px-4">
-          <p className="d-flex justify-content-center text-fs-head-md">Buy Token</p>{' '}
+            <p className="d-flex justify-content-center text-fs-head-md">Buy Token</p>{' '}
             <div className="mx-3">
               <div className="my-3">
-              <p className="d-flex text-fs-head-xxs">Ether Value</p>{' '}
-                <FloatingLabel label="Ether Value" className="mb-3">
-                  <Form.Control
-                    type="number"
-                    name="etherValue"
-                    className="input input-bordered text-fs-body-md text-t-body-color bg-light"
-                    placeholder="Ether Value"
-                    min="0.001"
-                    step="0.001"
-                    value={unoTokenInputValue.etherValue}
-                    onChange={UnoTokenOnChangeHandler}
-                    disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
-                  />
-                </FloatingLabel>
-                <p className="d-flex  
-                text-fs-head-xxs">Uno Token Amount</p>{' '}
-                <FloatingLabel label="Uno Token Amount" className="mb-3">
-                  <Form.Control
-                    type="number"
-                    name="UnoTokenAmount"
-                    id="UnoTokenAmount"
-                    className="input input-bordered text-fs-body-md text-t-body-color bg-light"
-                    placeholder="UnoTokenAmount"
-                    value={unoTokenInputValue.UnoTokenAmount}
-                    onChange={UnoTokenOnChangeHandler}
-                    min="1"
-                    step="1"
-                    disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
-                  />
-                </FloatingLabel>
+                <p className="d-flex text-fs-head-xxs">Ether Value</p>{' '}
+                <Form.Control
+                  type="number"
+                  name="etherValue"
+                  className="input input-bordered text-fs-body-md text-t-body-color bg-light"
+                  placeholder="Ether Value"
+                  min="1"
+                  step="1"
+                  max="1000"
+                  value={unoTokenInputValue.etherValue}
+                  onChange={UnoTokenOnChangeHandler}
+                  disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
+                />
+                <p
+                  className="d-flex  
+                text-fs-head-xxs mt-3"
+                >
+                  Uno Token Amount
+                </p>{' '}
+                <Form.Control
+                  type="number"
+                  name="UnoTokenAmount"
+                  id="UnoTokenAmount"
+                  className="input input-bordered text-fs-body-md text-t-body-color bg-light "
+                  placeholder="UnoTokenAmount"
+                  value={unoTokenInputValue.UnoTokenAmount}
+                  onChange={UnoTokenOnChangeHandler}
+                  min="1"
+                  step="1"
+                  max="1000"
+                  disabled={isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
+                />
               </div>
             </div>
           </main>
@@ -188,7 +213,6 @@ function BuyUnoToken({ ...props }) {
               )}
             </button>
           </footer>
-          
         </div>
       </form>
       <UPTransactions {...Transfer_txs} />
@@ -207,12 +231,16 @@ const mapStateToProps = (state) => {
     contractAddress: state.walletReducer.contractAddress,
     token: state.tokenReducer.token,
     isLoading: state.loadingReducer.isLoading,
+    abiHistory: state.abiReducer.abiHistory,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     setLoading: (payload) => {
       dispatch(setLoadingAction(payload));
+    },
+    abiHistoryRequest: (payload) => {
+      dispatch(abiRequestAction(payload));
     },
   };
 };
