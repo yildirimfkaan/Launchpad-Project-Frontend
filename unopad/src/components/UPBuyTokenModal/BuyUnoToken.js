@@ -36,6 +36,13 @@ function BuyUnoToken({ ...props }) {
       setUnoTokenInputValue({ ...unoTokenInputValue });
     }
   };
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+  })
   useEffect(() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const unopad_token = new ethers.Contract(project.token.address, unopad_token_abi, provider);
@@ -88,13 +95,17 @@ function BuyUnoToken({ ...props }) {
       setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
       Swal.fire({
         icon: 'success',
+        iconColor:'#E4007D',
         text: 'Transaction succeed',
+        confirmButtonColor:"#E4007D",
       });
     } catch (err) {
       if (err?.receipt?.transactionHash) {
         Swal.fire({
           icon: 'error',
+          iconColor:'#E4007D',
           title: 'Transaction is Failed',
+          confirmButtonColor:'#E4007D',          
           // eslint-disable-next-line max-len, no-template-curly-in-string
           html:
             '<a href=https://testnet.bscscan.com/tx/' +
@@ -105,6 +116,8 @@ function BuyUnoToken({ ...props }) {
       } else {
         Swal.fire({
           icon: 'warning',
+          iconColor:'#E4007D',
+          confirmButtonColor:'#E4007D',
           text: err.message,
         });
         setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });

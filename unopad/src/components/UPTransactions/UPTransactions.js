@@ -11,11 +11,11 @@ export default function Transactions(Transfer_data) {
   return (
     <>
       <div
-        className="m-4 credit-card w-full lg:w-3/4 sm:w-auto 
-      shadow-lg mx-auto rounded-xl bg-white"
+        className="bg-white"
       >
-        <div className="mt-4 p-4">
-          <h1 className="text-xl font-semibold text-gray-700 text-center">Recent transactions</h1>
+        <div className="p-4">
+          <h1 className="text-fs-head-md
+           font-semibold text-gray-700 text-center">Recent transactions</h1>
 
           <UPTxList txs={txs} err={err} />
         </div>
