@@ -14,6 +14,7 @@ import './TokenDetail.scss';
 import UPBuyTokenModal from '../../components/UPBuyTokenModal/UPBuyTokenModal';
 import { buyTokenModalAction } from '../../store/token/tokenActions';
 import metamaskLogo from '../../assets/img/logo/metamask_sales_logo.png';
+import SpinnerUnopad from '../../components/UPSpinnerUnopad/UPSpinnerUnopad';
 
 function TokenDetail({ ...props }) {
   const { token, provider, accounts, ethereum, setWalletAccount, user, buyTokenModalRequest } =
@@ -119,7 +120,7 @@ function TokenDetail({ ...props }) {
   return (
     <>
       {!token ? (
-        <h1>Page is Loading.....</h1>
+        <SpinnerUnopad/>
       ) : (
         <>
           <Container className="mt-5">

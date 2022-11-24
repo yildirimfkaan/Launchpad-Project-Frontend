@@ -4,21 +4,22 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import UnopadWhite from '../../assets/img/logo/unopad-logo-white.png';
 import './Subscribe.scss';
+
 
 function Subscribe() {
   return (
+    <>
+    
     <Container className="subscribe">
-      <Col className="icon1"></Col>
-
-      <Col className="icon2"></Col>
-
+    <img src={UnopadWhite}  alt='Unopad Logo' className='mb-4'/>
       <Row>
-        <Col className="text-white text-fs-head-xl text-center">Subscribe For Newsletter</Col>
+        <Col className="Subscribe-title">Subscribe For Newsletter</Col>
       </Row>
       <Row>
         <Col></Col>
-        <Col lg={8} className="text-white text-fs-head-md text-center mt-4">
+        <Col lg={8} md={8} className="Subscribe-text">
           We have all been in this industry too long not to make the security of your funds our
           absolute top priority. We’ve received multiple audits from Open Zeppelin and Trail
         </Col>
@@ -37,6 +38,7 @@ function Subscribe() {
         </Col>
       </Row>
     </Container>
+    </>
   );
 }
 

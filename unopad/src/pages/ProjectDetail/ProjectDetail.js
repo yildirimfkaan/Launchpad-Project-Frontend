@@ -14,6 +14,7 @@ import UPIcons from '../../components/UPIcons/UPIcons';
 import { buyTokenModalAction } from '../../store/token/tokenActions';
 import UPBuyTokenModal from '../../components/UPBuyTokenModal/UPBuyTokenModal';
 import ProjectFlow from '../../components/UPProjectFlow/ProjectFlow';
+import SpinnerUnopad from '../../components/UPSpinnerUnopad/UPSpinnerUnopad';
 
 function ProjectDetail({ ...props }) {
   const { project, provider, accounts, ethereum, setWalletAccount, user, buyTokenModalRequest } =
@@ -121,7 +122,7 @@ function ProjectDetail({ ...props }) {
   return (
     <>
       {!project ? (
-        <h1>Page is Loading.....</h1>
+        <SpinnerUnopad/>
       ) : (
         <Container className="mt-5 px-5">
           <Row>

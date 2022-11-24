@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .title {
@@ -20,27 +21,13 @@
 .back-model {
   background: url('Group74-web.png');
   background-size: cover;
-  height: auto;
   justify-content: center;
   align-items: center;
 
-  .card-row {
-    margin-top: 20vw !important;
-  }
+
 }
 
-.table-sales {
-  border-collapse: separate;
-  border-spacing: 0 1em;
-  .table-head {
-    background: $unopad-gradient-horizontal;
-  }
-  tbody {
-    tr {
-      background-color: white;
-    }
-  }
-}
 .home-sales-container{
-    min-height: 1100px;
+    min-height: 1300px;
+    
 }

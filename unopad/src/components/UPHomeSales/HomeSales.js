@@ -2,13 +2,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import './HomeSales.scss';
-import { Container, Table } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import UPQuickHandler from '../UPQuickHandler/UPQuickHandler';
 import { quickHandlerImages } from '../../helpers/quickHandlerImages';
 
 function HomeSales(...props) {
   return (
-    <div>
+    <>
+      <Container>
       <Row>
         <Col className="main-title">
           <div className="text-fs-head-lg title">SALES</div>
@@ -18,8 +19,9 @@ function HomeSales(...props) {
           </div>
         </Col>
       </Row>
+      </Container>
       <div className="back-model">
-        <Container className="home-sales-container d-flex flex-column justify-content-end">
+        <Container className="home-sales-container d-flex flex-column justify-content-center">
           <UPQuickHandler
             className="justify-content-center px-5"
             isSignUpAndKYC={true}
@@ -32,51 +34,9 @@ function HomeSales(...props) {
             history={props.history}
           />
 
-          <Row className="px-5">
-            <Col>
-              <Table className="table-sales text-white" responsive borderless>
-                <thead className="table-head text-fs-head-xs">
-                  <tr>
-                    <th>Project Name</th>
-                    <th>IDO Token Price</th>
-                    <th>Current Price</th>
-                    <th>No Registrations</th>
-                    <th>Total Tokens Sold</th>
-                    <th>Token Sale En</th>
-                  </tr>
-                </thead>
-                <tbody className="text-t-body-color text-fs-head-xs">
-                  <tr>
-                    <td>UNOTOKEN</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>UNOS</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>UNOX</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </Table>
-            </Col>
-          </Row>
         </Container>
       </div>
-    </div>
+    </>
   );
 }
 
