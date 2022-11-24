@@ -32,9 +32,9 @@ function ProjectDetail({ ...props }) {
   const [signedMessage, setSignedMessage] = useState('');
   const [verified, setVerified] = useState();
 
-  const tokenAddress = '0xa4f07529ce9119ab60d4da69fb8cc28ea6bc6f25';
-  const tokenSymbol = 'DUNOT';
-  const tokenDecimals = 4;
+  // const tokenAddress = '0xa4f07529ce9119ab60d4da69fb8cc28ea6bc6f25';
+  // const tokenSymbol = 'DUNOT';
+  // const tokenDecimals = 4;
   const stakeSetup = () => {
     setStake(true);
   };
@@ -44,7 +44,7 @@ function ProjectDetail({ ...props }) {
   const connectWallet = async () => {
     wallet.connectWallet();
   };
-
+  console.log("itemsss",item)
   const addUnoTokenFunction = async () => {
     try {
       const provider = await detectEthereumProvider();
@@ -53,9 +53,9 @@ function ProjectDetail({ ...props }) {
         params: {
           type: 'ERC20',
           options: {
-            address: tokenAddress,
-            symbol: tokenSymbol,
-            decimals: tokenDecimals,
+            address: item.token.address,
+            symbol: item.token.symbol,
+            decimals: item.token.decimals,
           },
         },
       });
@@ -207,11 +207,11 @@ function ProjectDetail({ ...props }) {
               </Card.Body>
               <Card.Footer className="bg-white">
                 <div className="project-detail-footer-left-div">
-                  <Card.Title>Want to automate the sale?</Card.Title>
+                  <Card.Title>Want to buy {item.token.symbol} token ?</Card.Title>
                 </div>
                 <div className="project-detail-footer-right-div">
                   <Button variant="primary" onClick={addUnoTokenFunction} className="mx-2">
-                    Add DUNOT{' '}
+                    Add {item.token.symbol}{' '}
                   </Button>
                   {checkAllConditionForStake(user, accounts) ? (
                     <Button
@@ -221,11 +221,11 @@ function ProjectDetail({ ...props }) {
                         handleShow();
                       }}
                     >
-                      View My Automations
+                      Buy {item.token.symbol}
                     </Button>
                   ) : (
                     <Button variant="primary" disabled={true}>
-                      View My Automations
+                      Buy {item.token.symbol}
                     </Button>
                   )}
                 </div>

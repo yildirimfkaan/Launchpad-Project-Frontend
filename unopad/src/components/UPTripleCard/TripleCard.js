@@ -8,7 +8,7 @@ import './TripleCard.scss';
 function TripleCard() {
   return (
     <Row className="d-flex mt-5">
-      <Col className="d-flex align-items-center text-center" sm={12} md={6} lg={4}>
+      <Col className="d-flex align-items-center text-center mb-4" sm={12} md={6} lg={4}>
         <Card.Body className="d-flex justify-content-center align-items-center triple-column">
           <div className="col-4">
             <img
@@ -29,7 +29,7 @@ function TripleCard() {
           </div>
         </Card.Body>
       </Col>
-      <Col className="d-flex align-items-center text-center " sm={12} md={6} lg={4}>
+      <Col className="d-flex align-items-center text-center mb-4" sm={12} md={6} lg={4}>
         <Card.Body className="d-flex justify-content-center align-items-center triple-column">
           <div className="col-4">
             <img
@@ -50,7 +50,7 @@ function TripleCard() {
           </div>
         </Card.Body>
       </Col>
-      <Col className="d-flex align-items-center text-center " sm={12} md={6} lg={4}>
+      <Col className="d-flex align-items-center text-center mb-4" sm={12} md={6} lg={4}>
         <Card.Body className="d-flex justify-content-center align-items-center triple-column">
           <div className="col-4">
             <img
