@@ -80,8 +80,6 @@
 
 
 
-
-
 .banner-design-profile{
 
   background: url('Banner2.png');
@@ -89,8 +87,6 @@
   height: 600px;
   justify-content: center;
   align-items: center;
-
-
 }
 
 .banner-public{
@@ -106,6 +102,18 @@
 .navbar-wallet-account-container {
   width: 350px;
 }
+@media only screen and (max-width: 991px) {
+  .banner-public{
+  
+    .public-nav{
+      color: white !important ;
+    }
+    .public-nav.disabled{
+      color: $unopad-dark-light !important;
+    }
+  }
+}
+
 
 .navbar-account-button {
   width: 250px;
