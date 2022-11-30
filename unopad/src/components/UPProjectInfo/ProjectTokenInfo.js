@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import UPIcons from '../UPIcons/UPIcons';
@@ -14,7 +15,7 @@ function ProjectTokenInfo({ ...props }) {
         </Col>
         <Col sm="6">
           <div className="d-flex align-items-center justify-content-sm-end">
-            <UPIcons name="BiLinkExternal" />
+            
             <span className="text-fs-head-xxs ms-1">{project.name}</span>
           </div>
         </Col>
@@ -55,13 +56,18 @@ function ProjectTokenInfo({ ...props }) {
         </Col>
         <Col sm="6">
           <div className="d-flex align-items-center justify-content-sm-end">
+          <a href={`https://testnet.bscscan.com/address/${project.token.address}`}
+           className="d-flex text-fs-head-xxs text-dark" target='_blank' 
+            >
             <UPIcons name="BiLinkExternal" />
             <span
               className="text-fs-head-xxs 
             ms-1"
             >
-              {project.token.address}
+              {project.token.address.slice(0,6)}...
+              {project.token.address.slice(36,42)}
             </span>
+            </a>
           </div>
         </Col>
       </Row>

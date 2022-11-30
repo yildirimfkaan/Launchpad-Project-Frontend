@@ -1,10 +1,10 @@
-import { Table, NavLink, Row, Col, Pagination } from 'react-bootstrap';
+import { Table, NavLink, Row, Col, Pagination, ProgressBar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './UPProjectCard.scss';
 import UPIcons from '../UPIcons/UPIcons';
 import { mainColors } from '../../helpers/colors';
 // import metamaskIcon from '../UPWalletAccountDetailModal/metamask-icon.png';
-import ProgressBar from 'react-bootstrap/ProgressBar';
+// import ProgressBar from 'react-bootstrap/ProgressBar';
 import unopadMiniIcon from '../../assets/img/logo/unopad-logo-mini.png';
 import unopadCardDefaultBackground from '../../assets/img/background/card-title-background.png';
 import unopadCardDefaultLogo from '../../assets/img/logo/unopad-logo-white.png';
@@ -178,7 +178,7 @@ export default function Card1(props) {
                   )}
                 </div>
                 <div>
-                  <ProgressBar
+                <ProgressBar
                     className="project-progress-bar mt-3 mb-3 mx-2"
                     style={{ height: '30px' }}
                     now={85}

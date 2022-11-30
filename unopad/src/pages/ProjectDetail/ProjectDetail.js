@@ -3,7 +3,7 @@ import { getProjectByID } from '../../store/project/projectActions';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import { setWalletAccountData } from '../../store/wallet/walletActions';
-import { Button, Card, Col, Container, ProgressBar, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container,  Row } from 'react-bootstrap';
 import { checkAllConditionForStake } from '../../helpers/verificationHelper';
 import wallet from '../../helpers/wallet';
 import detectEthereumProvider from '@metamask/detect-provider';
@@ -193,12 +193,11 @@ function ProjectDetail({ ...props }) {
 
               <div>
                 {/* <ProgressBar now={item.project_percent_raised} /> */}
-                <ProgressBar
-                  className="project-progress-bar mt-3 mb-3 mx-2"
-                  style={{ height: '30px' }}
-                  now={85}
-                  label={'Sale: 92.45% '}
-                />
+                <div class="progress mb-2">
+                    <span class="progress-value">20%</span>
+                    <div class="progress-bar" style={{width: "20%"}}>
+                    </div>
+                </div>
               </div>
               <Card.Body className="project-detail-card-body">
                 <div className="project-detail-name-div">

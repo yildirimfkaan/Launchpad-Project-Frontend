@@ -5,13 +5,29 @@
     height: 149px;
     background-size: cover;
 }
-.project-progress-bar{
-    border-radius: 40px !important;
-    .progress-bar{
-        background: $unopad-gradient-vertical;
-        border-radius: 40px !important;
-    }
+// .project-progress-bar{
+//     border-radius: 40px !important;
+//     .progress-bar{
+//         background: $unopad-gradient-vertical;
+//         border-radius: 40px !important;
+//     }
+// }
+.progress {
+    text-align:center;
+    font-size: large !important;
+    height: 30px !important;
+    
 }
+.progress-value {
+    position:absolute;
+    right:0;
+    left:0;  
+}
+.progress-bar{
+    background: $unopad-gradient-vertical;
+}
+
+
 .project-name-div{
     position: absolute;
     bottom: 0;
