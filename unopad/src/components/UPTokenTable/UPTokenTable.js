@@ -102,8 +102,6 @@ function UPTokenTable(props) {
     return history.push('project/' + nums);
   };
 
-  
-
   return (
     <>
       <Table className="sales-table-design" responsive hover borderless>
@@ -125,25 +123,51 @@ function UPTokenTable(props) {
             Object.entries(renderedTokens).map((item, index) => {
               if (currentPage * index < currentPage * maxRowCountPerPage) {
                 return (
-                <tr
-                  onClick={() => {
-                    TableSelectRow(item[1].id);
-                  }}
-                  className="text-t-head-color"
-                > 
-                  <td>{index + 1}</td>
-                  <td>{item[1].name}</td>
-                  <td>{item[1].symbol}</td>
-                  <td>{item[1].price_in_uno}</td>
-                  <td>{item[1].current_price}</td>
-                  <td>{item[1].all_time_high}</td>
-                  <td>{item[1].total_supply}</td>
-                  <td>{item[1].distribution}</td>
-                  <td>text</td>
-                </tr>
-              );
+                  <tr
+                    onClick={() => {
+                      TableSelectRow(item[1].id);
+                    }}
+                    className="text-t-head-color"
+                  >
+                    <td>{index + 1}</td>
+                    <td>{item[1].name}</td>
+                    <td>{item[1].symbol}</td>
+                    <td>{item[1].price_in_uno}</td>
+                    <td>
+                      {' '}
+                      {item[1].current_price.toLocaleString('en-EN', {
+                        style: 'currency',
+                        currency: 'USD',
+                        currencyDisplay: 'symbol',
+                        useGrouping: true,
+                        minimumSignificantDigits: 1,
+                      })}
+                    </td>
+                    <td>
+                      {item[1].all_time_high.toLocaleString('en-EN', {
+                        style: 'currency',
+                        currency: 'USD',
+                        currencyDisplay: 'symbol',
+                        useGrouping: true,
+                        minimumSignificantDigits: 1,
+                      })}
+                    </td>
+                    <td>
+                      {item[1].total_supply.toLocaleString('en-EN', {
+                        useGrouping: true,
+                        minimumSignificantDigits: 1,
+                      })}
+                    </td>
+                    <td>
+                      {item[1].distribution.toLocaleString('en-EN', {
+                        useGrouping: true,
+                        minimumSignificantDigits: 1,
+                      })}
+                    </td>
+                    <td>text</td>
+                  </tr>
+                );
               }
-              
             })
           ) : (
             <div className="text-muted">No token found according to search results.</div>
@@ -151,7 +175,7 @@ function UPTokenTable(props) {
         </tbody>
       </Table>
       {pages?.length > 1 ? (
-        <Pagination className='d-flex justify-content-center'>
+        <Pagination className="d-flex justify-content-center">
           <Pagination.First onClick={() => firstPage()} />
           <Pagination.Prev onClick={() => prevPage()} />
           {renderedPages.map((page, index) => {

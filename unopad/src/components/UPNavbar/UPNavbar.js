@@ -51,13 +51,11 @@ function Navigation({ ...props }) {
     history,
     MainLayoutStatus,
   } = props;
-  console.log('MainlayoutStatus', MainLayoutStatus);
-
   const pathname = history?.location.pathname;
   const PathnameHash = history?.location.hash;
   useEffect(() => {
     if (accounts?.[0]) {
-      wallet.getMyBalance('0x012b020b2479f42835FAFd7037339B5bDBa4C3Fb');
+      wallet.getMyBalance('0x091DeDB221136CB493955e101B279c677473621d');
     }
   }, [accounts]);
 
@@ -80,7 +78,6 @@ function Navigation({ ...props }) {
     WalletConnectModalRequest(true);
   };
   const BannerReturn = () => {
-    console.log('url', PathnameHash);
     if (pathname.toLowerCase() === '/') {
       return <BannerHome />;
     } else if (pathname.toLowerCase() === '/launchpad') {
@@ -128,7 +125,7 @@ function Navigation({ ...props }) {
 
   return (
     <Container fluid className={getBannerClassName()}>
-      <Navbar bg="transparent"  expand="lg" style={{ zIndex: 1 }}>
+      <Navbar bg="transparent" expand="lg" style={{ zIndex: 1 }}>
         <Container>
           <Navbar.Brand as={Link} to="/">
             <img
@@ -139,8 +136,10 @@ function Navigation({ ...props }) {
             />
           </Navbar.Brand>
 
-          <Navbar.Toggle aria-controls="basic-navbar-nav" 
-          className={MainLayoutStatus === 'True' ? "navbar-dark" : "navbar-light"} />
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            className={MainLayoutStatus === 'True' ? 'navbar-dark' : 'navbar-light'}
+          />
           <Navbar.Collapse
             id="basic-navbar-nav"
             className="justify-content-end flex-column align-items-end navbar-design"
@@ -254,16 +253,22 @@ function Navigation({ ...props }) {
                     : '')
                 }
               >
-                {balance_ !== null && balance_ !== undefined && (
-                  <div
-                    title={balance_}
-                    className="d-none d-sm-flex align-items-center navbar-balance-button 
+                {balance_ !== null &&
+                  balance_ !== undefined &&
+                  (
+                  (
+                    <div
+                      title={balance_}
+                      className="d-none d-sm-flex align-items-center navbar-balance-button 
                 bg-primary rounded px-2 justify-content-center"
-                  >
-                    <div className="navbar-balance-text text-truncate mr-1 py-1">{balance_}</div>
-                    <span>UNT</span>
-                  </div>
-                )}
+                    >
+                      <div className="navbar-balance-text text-truncate mr-1 py-1">
+                        {' '}
+                        {(balance_).slice(0, -4) + '.' + balance_.slice(-4, balance_.length)}
+                      </div>
+                      <span>UNT</span>
+                    </div>
+                  ))}
 
                 <div
                   title={accounts?.[0]}

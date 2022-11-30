@@ -19,7 +19,7 @@ import SpinnerUnopad from '../../components/UPSpinnerUnopad/UPSpinnerUnopad';
 function ProjectDetail({ ...props }) {
   const { project, provider, accounts, ethereum, setWalletAccount, user, buyTokenModalRequest } =
     props;
-    
+
   const item = props.project;
 
   const [stake, setStake] = useState(false);
@@ -44,7 +44,7 @@ function ProjectDetail({ ...props }) {
   const connectWallet = async () => {
     wallet.connectWallet();
   };
-  console.log("itemsss",item)
+  console.log('itemsss', item);
   const addUnoTokenFunction = async () => {
     try {
       const provider = await detectEthereumProvider();
@@ -82,7 +82,7 @@ function ProjectDetail({ ...props }) {
   const disconnect = async () => {
     wallet.disconnectWallet();
   };
- 
+
   useEffect(() => {
     if (provider?.on) {
       const handleAccountsChanged = (newAccounts) => {
@@ -122,7 +122,7 @@ function ProjectDetail({ ...props }) {
   return (
     <>
       {!project ? (
-        <SpinnerUnopad/>
+        <SpinnerUnopad />
       ) : (
         <Container className="mt-5 px-5">
           <Row>
@@ -130,19 +130,19 @@ function ProjectDetail({ ...props }) {
               <Card.Header className="bg-white">
                 <div
                   className="project-detail-name-div d-flex justify-content-between 
-              align-items-center col-md-6 col-sm-4" 
+              align-items-center col-md-6 col-sm-4"
                 >
                   {' '}
-                  <Row className=''>
+                  <Row className="">
                     <div>
                       <img
                         alt="project_logo"
                         src={process.env.REACT_APP_API_URL + '/projects/' + item.id + '/logo'}
-                        height={92} width={92}
+                        height={92}
+                        width={92}
                       />
                     </div>
                   </Row>
-                  
                   <Row className="col-md-12 col-lg-12 mx-0">
                     <Card.Title className="text-fs-head-lg"> {item.name}</Card.Title>
                     <Card.Text className="text-fs-body-sm">{item.token.symbol}</Card.Text>
@@ -150,8 +150,19 @@ function ProjectDetail({ ...props }) {
                 </div>
                 <div className="project-detail-price-div">
                   <Card.Text className="text-fs-body-sm mb-0">PRICE</Card.Text>
-                  <Card.Title className="text-fs-head-md 
-                  mb-0">${item.token.price_in_usd}</Card.Title>
+                  <Card.Title
+                    className="text-fs-head-md 
+                  mb-0"
+                  >
+                    {' '}
+                    {item.token.price_in_usd.toLocaleString('tr-TR', {
+                      style: 'currency',
+                      currency: 'USD',
+                      currencyDisplay: 'symbol',
+                      useGrouping: true,
+                      minimumFractionDigits: 2,
+                    })}
+                  </Card.Title>
                   <Card.Text className="text-fs-body-md">{item.token.price_in_uno} UNO</Card.Text>
                 </div>
               </Card.Header>
@@ -192,15 +203,34 @@ function ProjectDetail({ ...props }) {
               <Card.Body className="project-detail-card-body">
                 <div className="project-detail-name-div">
                   <Card.Text>TOKEN DISTRIBUTION</Card.Text>
-                  <Card.Title className='text-fs-head-md'>
-                    {item.token.distribution}
-                    
-                    </Card.Title>
+                  <Card.Title className="text-fs-head-md">
+                    {' '}
+                    {item.token.distribution.toLocaleString('tr-TR', {
+                      useGrouping: true,
+                      minimumSignificantDigits: 1,
+                    })}
+                  </Card.Title>
                 </div>
 
                 <div className="project-detail-price-div">
                   <Card.Text>TOTAL RAISED</Card.Text>
-                  <Card.Title>${item.total_tokens_sold}/${item.total_raised}</Card.Title>
+                  <Card.Title>
+                    {item.total_tokens_sold.toLocaleString('tr-TR', {
+                      style: 'currency',
+                      currency: 'USD',
+                      currencyDisplay: 'symbol',
+                      useGrouping: true,
+                      minimumFractionDigits: 2,
+                    })}
+                    /{' '}
+                    {item.total_raised.toLocaleString('tr-TR', {
+                      style: 'currency',
+                      currency: 'USD',
+                      currencyDisplay: 'symbol',
+                      useGrouping: true,
+                      minimumFractionDigits: 2,
+                    })}
+                  </Card.Title>
                 </div>
 
                 <span>{error ? error.message : null}</span>
@@ -281,8 +311,8 @@ function ProjectDetail({ ...props }) {
               )}
             </div>
           )}
-           <ProjectFlow {...props}/>
-          <UPProjectInfo {...props}/>
+          <ProjectFlow {...props} />
+          <UPProjectInfo {...props} />
         </Container>
       )}
     </>

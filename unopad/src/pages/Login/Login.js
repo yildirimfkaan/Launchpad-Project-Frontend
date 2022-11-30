@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Form, Col, Button, Row } from 'react-bootstrap';
-import UPFormControl from '../../components/UPFormControl/UPFormControl';
+// import UPFormControl from '../../components/UPFormControl/UPFormControl';
 import { loginRequest } from '../../store/account/userActions';
 import { NavLink } from 'react-router-dom';
 import './Login.scss';
@@ -81,26 +81,34 @@ function Login({ ...props }) {
         </div>
         <div className="d-flex flex-column justify-content-center aling-items-center px-4 mx-2 public-layout-form">
           <Form id="loginForm" onSubmit={handleSubmit}>
-            <UPFormControl
-              label="Username"
-              type="text"
-              value={data.username}
-              handleChange={handleChange}
-              error={errors.username}
-            />
-            <UPFormControl
-              label="Password"
-              type="password"
-              value={data.password}
-              handleChange={handleChange}
-              error={errors.password}
-            />
+            <Form.Group className="mb-3" controlId="username">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                name="username"
+                type="email"
+                placeholder="Enter email"
+                onChange={handleChange}
+                value={data.username}
+                error={errors.username}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={handleChange}
+                value={data.password}
+                error={errors.password}
+              />
+            </Form.Group>
             <Button
               className="mb-4 mt-4 bg-unopad-primary col-sm-12"
-              form="loginForm"
+              variant="primary"
               type="submit"
             >
-              Login
+              Submit
             </Button>
           </Form>
 
@@ -115,7 +123,7 @@ function Login({ ...props }) {
             <NavLink className="text-fs-body-md text-t-body-color" to="/signup">
               Don't have an account yet?
             </NavLink>
-            &nbsp; 
+            &nbsp;
             <NavLink className="signup-link text-primary" to="/signup">
               SignUp
             </NavLink>

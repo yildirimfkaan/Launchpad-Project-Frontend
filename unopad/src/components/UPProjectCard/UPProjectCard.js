@@ -145,7 +145,16 @@ export default function Card1(props) {
                 </div>
                 <div className="d-flex text-fs-body-md ps-2 pt-3">
                   Total Raised:
-                  <div className="text-primary text-fs-head-md ps-2"> ${item[1].total_raised}</div>
+                  <div className="text-primary text-fs-head-md ps-2">
+                    {' '}
+                    {item[1].total_raised.toLocaleString('tr-TR', {
+                      style: 'currency',
+                      currency: 'USD',
+                      currencyDisplay: 'symbol',
+                      useGrouping: true,
+                      minimumFractionDigits: 2,
+                    })}
+                  </div>
                   {new Date() > new Date(item[1].round_sale.end_date) ? (
                     <div className="ms-auto d-flex align-items-center ">
                       <div
@@ -181,13 +190,21 @@ export default function Card1(props) {
                     <tr>
                       <td className="text-fs-body-md">Registrations</td>
                       <td className="text-fs-body-lg text-end text-primary">
-                        {item[1].number_of_registrations}
+                        {item[1].number_of_registrations.toLocaleString('tr-TR', {
+                          useGrouping: true,
+                        })}
                       </td>
                     </tr>
                     <tr>
                       <td className="text-fs-body-md ">Token Price</td>
                       <td className="text-fs-body-lg text-end text-primary">
-                        ${item[1].token.price_in_usd}
+                        {item[1].token.price_in_usd.toLocaleString('tr-TR', {
+                          style: 'currency',
+                          currency: 'USD',
+                          currencyDisplay: 'symbol',
+                          useGrouping: true,
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                     </tr>
                     <tr>
@@ -213,11 +230,23 @@ export default function Card1(props) {
                           <div className="d-flex flex-column align-items-start">
                             <div>
                               Token Sold:{' '}
-                              <span className="text-primary">{item[1].total_tokens_sold}</span>
+                              <span className="text-primary">
+                                {' '}
+                                {item[1].total_tokens_sold.toLocaleString('tr-TR', {
+                                  useGrouping: true,
+                                  minimumSignificantDigits: 1,
+                                })}
+                              </span>
                             </div>
                             <div>
                               Total Tokens:
-                              <span className="text-primary">{item[1].token.total_supply}</span>
+                              <span className="text-primary">
+                                {' '}
+                                {item[1].token.total_supply.toLocaleString('tr-TR', {
+                                  useGrouping: true,
+                                  minimumSignificantDigits: 1,
+                                })}
+                              </span>
                             </div>
                           </div>
                         </div>
