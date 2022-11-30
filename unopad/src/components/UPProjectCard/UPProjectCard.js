@@ -1,4 +1,4 @@
-import { Table, NavLink, Row, Col, Pagination } from 'react-bootstrap';
+import { Table, NavLink, Row, Col, Pagination, ProgressBar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './UPProjectCard.scss';
 import UPIcons from '../UPIcons/UPIcons';
@@ -166,12 +166,12 @@ export default function Card1(props) {
                   )}
                 </div>
                 <div>
-                <div class="card-progress d-flex mb-2">
-                    <div class="card-progress-value d-flex align-items-center
-                     justify-content-center ">20%</div>
-                    <div class="card-progress-bar" style={{width: "20%"}}>
-                    </div>
-                </div>
+                <ProgressBar
+                    className="project-progress-bar mt-3 mb-3 mx-2"
+                    style={{ height: '30px' }}
+                    now={85}
+                    label={'Sale: 92.45%'}
+                  />
                 </div>
                 <Table>
                   <tbody>
