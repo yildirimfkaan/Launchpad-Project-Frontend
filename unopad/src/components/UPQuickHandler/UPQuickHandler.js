@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import './UPQuickHandler.scss';
+import { checkUserWalletAccount } from '../../helpers/verificationHelper';
+import wallet from '../../helpers/wallet';
 
 function UPQuickHandler({ ...props }) {
   const {
@@ -45,7 +47,7 @@ function UPQuickHandler({ ...props }) {
       top: ref?.offsetTop - halfHeight,
     };
   }
-
+  
   return (
     <>
       <Row className={className}>
@@ -87,11 +89,11 @@ function UPQuickHandler({ ...props }) {
                   disabled={user}
                   onClick={() => {
                     if (!user) {
-                      //history.push('/login');
+                      history.push('/signup');
                     }
                   }}
                 >
-                  Active Sales
+                  {user ? ('Signed') : ('Sign Up')}
                 </Button>
               </div>
             </div>
@@ -130,14 +132,16 @@ function UPQuickHandler({ ...props }) {
                 <Button
                   className="text-fs-head-sm py-2"
                   variant="primary"
-                  disabled={user}
+                  disabled={(checkUserWalletAccount(accounts))}
                   onClick={() => {
-                    if (!user) {
-                      //history.push('/login');
+                    if (!(checkUserWalletAccount(accounts))) {
+                      wallet.connectWallet()
+                      
                     }
                   }}
                 >
-                  Active Sales
+                  {checkUserWalletAccount(accounts) ? ('Verified') : ('Verify')}
+                  
                 </Button>
               </div>
             </div>
@@ -220,12 +224,13 @@ function UPQuickHandler({ ...props }) {
               <Button
                 className="text-fs-head-sm py-2"
                 variant="primary"
-                disabled={user}
+                disabled={!user}
                 onClick={() => {
-                  if (!user) {
-                    //history.push('/login');
+                  if (user) {
+                    // history.push('/sales');
                   }
                 }}
+                href={process.env.REACT_APP_APP_URL + '/sales'}
               >
                 Active Sales
               </Button>
@@ -241,6 +246,7 @@ function mapStateToProps(state) {
   return {
     user: state.userReducer.user,
     accounts: state.walletReducer.accounts,
+    
   };
 }
 

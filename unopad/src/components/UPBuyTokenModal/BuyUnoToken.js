@@ -30,7 +30,7 @@ function BuyUnoToken({ ...props }) {
     UnoTokenAmount: 1,
     etherValue: 1,
   });
-  console.log(project);
+  
   const handleAbi = () => {
     abiHistoryRequest();
   };
@@ -57,7 +57,7 @@ function BuyUnoToken({ ...props }) {
   })
   useEffect(() => {
     if (abiHistory?.[0]?.[project.token.symbol + '_abi']) {
-      console.log("asdasdasdasdasdasdasd")
+      
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const unopad_token = new ethers.Contract(
         project.token.address,
