@@ -16,7 +16,6 @@ function UPQuickHandler({ ...props }) {
     isStakeUnoToken,
     stakeUnoTokenImg,
     registerForSaleImg,
-    href,
     history,
     className,
   } = props;
