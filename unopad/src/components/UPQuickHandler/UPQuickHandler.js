@@ -230,7 +230,7 @@ function UPQuickHandler({ ...props }) {
                     // history.push('/sales');
                   }
                 }}
-                href={process.env.REACT_APP_APP_URL + '/sales'}
+                href={process.env.REACT_APP_API_URL + '/sales'}
               >
                 Active Sales
               </Button>
