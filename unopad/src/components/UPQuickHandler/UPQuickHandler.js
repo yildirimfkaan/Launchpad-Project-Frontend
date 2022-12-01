@@ -223,13 +223,12 @@ function UPQuickHandler({ ...props }) {
               <Button
                 className="text-fs-head-sm py-2"
                 variant="primary"
-                disabled={!user}
                 onClick={() => {
                   if (user) {
                     // history.push('/sales');
                   }
                 }}
-                href={process.env.REACT_APP_API_URL + '/sales'}
+                href={"https://dev.unopad.com" + "/sales"}
               >
                 Active Sales
               </Button>
