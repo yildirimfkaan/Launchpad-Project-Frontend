@@ -133,8 +133,38 @@ function UPIcons({ ...props }) {
         />
       );
     }
+    else if (name === 'FaInstagram') {
+      return (
+        <FontAwesome.FaInstagram
+          className={iconClassName}
+          style={iconStyle}
+          color={color}
+          size={size}
+        />
+      );
+    }
+    else if (name === 'FaFacebook') {
+      return (
+        <FontAwesome.FaFacebook
+          className={iconClassName}
+          style={iconStyle}
+          color={color}
+          size={size}
+        />
+      );
+    }
+    else if (name === 'FaDiscord') {
+      return (
+        <FontAwesome.FaDiscord
+          className={iconClassName}
+          style={iconStyle}
+          color={color}
+          size={size}
+        />
+      );
+    }
   }
-
+  
   return (
     <span className={'d-flex align-items-center justify-content-center ' + className} style={style}>
       {getIcon()}

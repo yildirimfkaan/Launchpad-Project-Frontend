@@ -48,6 +48,21 @@ function Launchpad({ ...props }) {
         />
         <div className="completed-sales-title-container">
           <div className="d-flex align-items-center justify-content-center text-fs-head-lg my-5">
+            ACTIVE SALES
+          </div>
+          <div
+            className="d-flex align-items-center justify-content-center text-fs-body-lg 
+        text-t-body-color mb-5 completed-sales-description"
+          >
+            <span>
+              Leverage on any tokens with a protocol trusted with billions for its performance and
+              reliability.
+            </span>
+          </div>
+        </div>
+        {!projects ? <SpinnerUnopad/> : <UPProjectCard {...props} {...{"status":"active"}} />}
+        <div className="completed-sales-title-container">
+          <div className="d-flex align-items-center justify-content-center text-fs-head-lg my-5">
             COMPLETED SALES
           </div>
           <div
@@ -60,7 +75,7 @@ function Launchpad({ ...props }) {
             </span>
           </div>
         </div>
-        {!projects ? <SpinnerUnopad/> : <UPProjectCard {...props} />}
+        {!projects ? <SpinnerUnopad/> : <UPProjectCard {...props} {...{"status":"completed"}} />}
         <TripleCard />
       </div>
     </Container>
