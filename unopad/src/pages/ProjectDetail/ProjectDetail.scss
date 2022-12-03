@@ -18,3 +18,18 @@
 .project-detail-card-body{
     border-top: 1px solid $gray-500;
 }
+
+.progress {
+    text-align:center;
+    font-size: large !important;
+    height: 30px !important;
+    
+}
+.progress-value {
+    position:absolute;
+    right:0;
+    left:0;  
+}
+.progress-bar{
+    background: $unopad-gradient-vertical;
+}

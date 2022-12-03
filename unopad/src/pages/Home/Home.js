@@ -4,10 +4,10 @@ import HomeSales from '../../components/UPHomeSales/HomeSales';
 import './Home.scss';
 import MeatTeam from '../../components/UPMeetTeam/MeetTeam';
 
-function Home() {
+function Home({...props}) {
   return (
     <>
-      <HomeSales />
+      <HomeSales {...props}/>
 
       <br></br>
       <br></br>

@@ -10,6 +10,10 @@ function MainLayout({ ...props }) {
   const { children, accounts, provider, setWalletAccount } = props;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
+
+  useEffect(() => {
     if (provider && window.ethereum?.on) {
       const HandleAccountChange = function (Newaccounts) {
         if (accounts?.[0] != Newaccounts?.[0]) setWalletAccount(Newaccounts);

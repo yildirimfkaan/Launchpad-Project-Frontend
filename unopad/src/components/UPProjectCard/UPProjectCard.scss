@@ -12,21 +12,19 @@
 //         border-radius: 40px !important;
 //     }
 // }
-.progress {
+
+.card-progress {
     text-align:center;
     font-size: large !important;
     height: 30px !important;
     
 }
-.progress-value {
+.card-progress-value {
     position:absolute;
-    right:0;
-    left:0;  
 }
-.progress-bar{
+.card-progress-bar{
     background: $unopad-gradient-vertical;
 }
-
 
 .project-name-div{
     position: absolute;

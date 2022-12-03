@@ -6,7 +6,7 @@ import { Container } from 'react-bootstrap';
 import UPQuickHandler from '../UPQuickHandler/UPQuickHandler';
 import { quickHandlerImages } from '../../helpers/quickHandlerImages';
 
-function HomeSales(...props) {
+function HomeSales({...props}) {
   return (
     <>
       <Container>
