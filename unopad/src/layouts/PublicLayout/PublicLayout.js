@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import UPFooter from '../../components/UPFooter/UPFooter';
 import UPNavbar from '../../components/UPNavbar/UPNavbar';
@@ -5,6 +6,10 @@ import './PublicLayout.scss';
 
 function PublicLayout({ ...props }) {
   const { children } = props;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
 
   return (
     <>

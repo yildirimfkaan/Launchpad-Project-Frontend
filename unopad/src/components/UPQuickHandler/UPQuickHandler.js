@@ -46,7 +46,7 @@ function UPQuickHandler({ ...props }) {
       top: ref?.offsetTop - halfHeight,
     };
   }
-  
+
   return (
     <>
       <Row className={className}>
@@ -92,7 +92,7 @@ function UPQuickHandler({ ...props }) {
                     }
                   }}
                 >
-                  {user ? ('Signed') : ('Sign Up')}
+                  {user ? 'Signed' : 'Sign Up'}
                 </Button>
               </div>
             </div>
@@ -131,16 +131,14 @@ function UPQuickHandler({ ...props }) {
                 <Button
                   className="text-fs-head-sm py-2"
                   variant="primary"
-                  disabled={(checkUserWalletAccount(accounts))}
+                  disabled={checkUserWalletAccount(accounts)}
                   onClick={() => {
-                    if (!(checkUserWalletAccount(accounts))) {
-                      wallet.connectWallet()
-                      
+                    if (!checkUserWalletAccount(accounts)) {
+                      wallet.connectWallet();
                     }
                   }}
                 >
-                  {checkUserWalletAccount(accounts) ? ('Verified') : ('Verify')}
-                  
+                  {checkUserWalletAccount(accounts) ? 'Verified' : 'Verify'}
                 </Button>
               </div>
             </div>
@@ -224,11 +222,8 @@ function UPQuickHandler({ ...props }) {
                 className="text-fs-head-sm py-2"
                 variant="primary"
                 onClick={() => {
-                  if (user) {
-                    // history.push('/sales');
-                  }
+                  history.push('/sales');
                 }}
-                href={"https://dev.unopad.com" + "/sales"}
               >
                 Active Sales
               </Button>
@@ -244,7 +239,6 @@ function mapStateToProps(state) {
   return {
     user: state.userReducer.user,
     accounts: state.walletReducer.accounts,
-    
   };
 }
 

@@ -2,6 +2,8 @@ import * as types from './projectActionTypes';
 
 const initialState = {
   projects: null,
+  activeProjects: null,
+  completedProjects: null,
   project: null,
   swapTokenModal: false,
   error: {
@@ -13,9 +15,15 @@ const initialState = {
 export const projectReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_PROJECTS_DATA:
+      const projects = action.payload;
+      const activeProjects = action.payload.filter((p) => p.is_active === 'active');
+      const completedProjects = action.payload.filter((p) => p.is_active === 'completed');
+      
       return {
         ...state,
-        projects: action.payload,
+        activeProjects: activeProjects,
+        completedProjects: completedProjects,
+        projects: projects,
       };
     case types.GET_PROJECTS_ERROR:
       return {
