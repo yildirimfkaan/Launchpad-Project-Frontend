@@ -18,7 +18,7 @@ function UPBuyTokenModal({ ...props }) {
 
   return (
     <Modal show={buyTokenModal} onHide={handleClose} size="lg" centered>
-      <Modal.Header closeButton className="border-bottom-0 mt-0 mb-0 p-2 bg-white">
+      <Modal.Header  className="border-bottom-0 mt-0 mb-0 p-2 bg-white">
       </Modal.Header>
       <Modal.Body className="px-0 py-0">
         <BuyUnoToken />

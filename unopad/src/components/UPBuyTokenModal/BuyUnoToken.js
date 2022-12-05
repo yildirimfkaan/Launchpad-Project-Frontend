@@ -8,11 +8,12 @@ import { ethers } from 'ethers';
 import { setLoadingAction } from '../../store/loading/loadingActions';
 import * as loadingActionTypes from '../../store/loading/loadingActionTypes';
 import wallet from '../../helpers/wallet';
-import UPTransactions from '../UPTransactions/UPTransactions';
+// import UPTransactions from '../UPTransactions/UPTransactions';
 import Spinner from 'react-bootstrap/Spinner';
 import './UPBuyTokenModal.scss';
 import { Form } from 'react-bootstrap';
 import { abiRequestAction } from '../../store/abi/abiActions';
+import { buyTokenModalAction } from '../../store/token/tokenActions';
 
 function BuyUnoToken({ ...props }) {
   const {
@@ -24,6 +25,7 @@ function BuyUnoToken({ ...props }) {
     project,
     abiHistoryRequest,
     abiHistory,
+    buyTokenModalRequest
   } = props;
   const [txs, setTxs] = useState([]);
   const [unoTokenInputValue, setUnoTokenInputValue] = useState({
@@ -55,6 +57,9 @@ function BuyUnoToken({ ...props }) {
     },
     buttonsStyling: false
   })
+  const closeModal = () =>{
+    buyTokenModalRequest(false)
+  }
   useEffect(() => {
     if (abiHistory?.[0]?.[project.token.symbol + '_abi']) {
       
@@ -76,6 +81,8 @@ function BuyUnoToken({ ...props }) {
               amount: String(amount),
             },
           ]);
+          
+         
         });
       } catch (e) {
         console.log('error', e);
@@ -89,7 +96,6 @@ function BuyUnoToken({ ...props }) {
   useEffect(() => {
     handleAbi();
   }, []);
-
   const buyToken = async (e) => {
     e.preventDefault();
     setTxs([]);
@@ -108,7 +114,7 @@ function BuyUnoToken({ ...props }) {
     );
     const etherMiktari = data.get('etherValue');
     try {
-      await unopad_presale.methods.buy().send({
+      const transaction = await unopad_presale.methods.buy().send({
         from: signerAddress,
         to: project.token.presale_contract.contract_address,
         data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
@@ -121,8 +127,15 @@ function BuyUnoToken({ ...props }) {
         iconColor:'#E4007D',
         text: 'Transaction succeed',
         confirmButtonColor:"#E4007D",
-      });
+        html:'<a href=https://testnet.bscscan.com/tx/' +
+        transaction.transactionHash +
+        " target='_blank'> Check Detail Transaction !</a>",
+        
+      }).then(closeModal);
+      
     } catch (err) {
+      console.error(err)
+      
       if (err?.receipt?.transactionHash) {
         Swal.fire({
           icon: 'error',
@@ -134,7 +147,7 @@ function BuyUnoToken({ ...props }) {
             '<a href=https://testnet.bscscan.com/tx/' +
             err.receipt.transactionHash +
             " target='_blank'> Check Detail Transaction !</a>",
-        });
+        }).then(closeModal);
         setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
       } else {
         Swal.fire({
@@ -142,12 +155,11 @@ function BuyUnoToken({ ...props }) {
           iconColor:'#E4007D',
           confirmButtonColor:'#E4007D',
           text: err.message,
-        });
+        }).then(closeModal);
         setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
       }
     }
-  };
-  const Transfer_txs = [txs];
+  };  
   return (
     <>
       <form className="m-0" onSubmit={buyToken}>
@@ -215,7 +227,7 @@ function BuyUnoToken({ ...props }) {
           </footer>
         </div>
       </form>
-      <UPTransactions {...Transfer_txs} />
+      {/* <UPTransactions {...Transfer_txs} /> */}
     </>
   );
 }
@@ -241,6 +253,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     abiHistoryRequest: (payload) => {
       dispatch(abiRequestAction(payload));
+    },
+    buyTokenModalRequest: (payload) => {
+      dispatch(buyTokenModalAction(payload));
     },
   };
 };
