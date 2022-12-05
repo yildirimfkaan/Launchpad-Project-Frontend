@@ -109,7 +109,7 @@ function WalletAccountHistoryModal({ ...props }) {
       setRenderedPages(pages.slice(pages.length - maxShowingPage, pages.length));
     }
   };
-
+  
   return (
     <>
       <Container>
@@ -143,7 +143,9 @@ function WalletAccountHistoryModal({ ...props }) {
                           <tbody>
                             {renderedHistory?.map((item, index) => {
                               if (currentPage * index < currentPage * maxRowCountPerPage) {
+                                
                                 return (
+                                  
                                   <tr>
                                     <td>{item.blockNumber}</td>
                                     <td>
@@ -158,7 +160,7 @@ function WalletAccountHistoryModal({ ...props }) {
                                       <Button
                                         href={'https://testnet.bscscan.com/tx/' + item.hash}
                                         target="_blank"
-                                        variant="info"
+                                        variant={item.txreceipt_status == 1 ? ("success") : ("danger")}
                                       >
                                         {' '}
                                         {item.hash.slice(0, 10)}{' '}
