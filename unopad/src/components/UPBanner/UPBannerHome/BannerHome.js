@@ -8,20 +8,20 @@ import './BannerHome.scss';
 function BannerHome() {
   return (
     <Container className="home-banner">
-      <Row className="text-white text-fs-head-lg">
+      <Row className="text-white text-fs-title-md">
         <Col>
           <div>Trust.</div>
           <div>Earning.</div>
           <div>Technology.</div>
         </Col>
       </Row>
-      <Row className="text-primary text-fs-head-lg">
+      <Row className="text-primary text-fs-title-md">
         <Col>Our numero unos.</Col>
       </Row>
       <Row className="mt-4">
         <Col>
           <Button variant="primary" style={{ width: '212px' }}>
-            Learnd More
+            Learn More
           </Button>
         </Col>
       </Row>

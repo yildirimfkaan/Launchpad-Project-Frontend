@@ -15,8 +15,8 @@ function BannerLaunchpad() {
           /Launchpad
         </Col>
       </Row>
-      <Row className="text-white text-fs-head-lg mt-4">
-        <Col lg={3} md={4}>
+      <Row className="text-white text-fs-title-md mt-4">
+        <Col lg={4} md={6}>
           Efficient Platform for Decentralized Fundrising
         </Col>
       </Row>

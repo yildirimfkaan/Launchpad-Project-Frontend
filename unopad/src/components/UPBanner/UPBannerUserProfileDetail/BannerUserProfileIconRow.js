@@ -13,7 +13,7 @@ function BannerUserProfileIconRow({ ...props }) {
   const { user, accounts } = props;
   return (
     <>
-      <Row className="text-white text-fs-head-lg mt-4">
+      <Row className="text-white text-fs-title-md mt-4">
         <Col lg={12} md={12}>
           User Profile
         </Col>
