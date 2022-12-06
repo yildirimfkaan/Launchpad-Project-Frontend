@@ -80,12 +80,7 @@ function UPIcons({ ...props }) {
       );
     } else if (name === 'BiWallet') {
       return (
-        <BoxIcons.BiWallet
-          className={iconClassName}
-          style={iconStyle}
-          color={color}
-          size={size}
-        />
+        <BoxIcons.BiWallet className={iconClassName} style={iconStyle} color={color} size={size} />
       );
     } else if (name === 'BiLinkExternal') {
       return (
@@ -132,8 +127,7 @@ function UPIcons({ ...props }) {
           size={size}
         />
       );
-    }
-    else if (name === 'FaInstagram') {
+    } else if (name === 'FaInstagram') {
       return (
         <FontAwesome.FaInstagram
           className={iconClassName}
@@ -142,8 +136,7 @@ function UPIcons({ ...props }) {
           size={size}
         />
       );
-    }
-    else if (name === 'FaFacebook') {
+    } else if (name === 'FaFacebook') {
       return (
         <FontAwesome.FaFacebook
           className={iconClassName}
@@ -152,8 +145,7 @@ function UPIcons({ ...props }) {
           size={size}
         />
       );
-    }
-    else if (name === 'FaDiscord') {
+    } else if (name === 'FaDiscord') {
       return (
         <FontAwesome.FaDiscord
           className={iconClassName}
@@ -162,9 +154,18 @@ function UPIcons({ ...props }) {
           size={size}
         />
       );
+    } else if (name === 'FaTelegram') {
+      return (
+        <FontAwesome.FaTelegram
+          className={iconClassName}
+          style={iconStyle}
+          color={color}
+          size={size}
+        />
+      );
     }
   }
-  
+
   return (
     <span className={'d-flex align-items-center justify-content-center ' + className} style={style}>
       {getIcon()}

@@ -12,7 +12,7 @@ function BannerProjectInformation() {
         <Row className="text-white text-fs-head-xs">
           <Col>Home / Project Information</Col>
         </Row>
-        <Row className="text-white text-fs-head-lg mt-4">
+        <Row className="text-white text-fs-title-md mt-4">
           <Col lg={12} md={12}>
           Project Information
           </Col>

@@ -29,7 +29,7 @@ function BannerSales({ ...props }) {
           /Sales
         </Col>
       </Row>
-      <Row className="text-white text-fs-head-lg mt-4" style={{ width: '29%' }}>
+      <Row className="text-white text-fs-title-md mt-4" style={{ width: '29%' }}>
         <Col>Unopad Sales</Col>
       </Row>
       <Row className="text-white text-fs-body-md mt-4 text-center " style={{ width: '100%' }}>
