@@ -109,11 +109,12 @@ export default function Card1(props) {
           )}
         </div>
 
-        <div class="progress mb-2">
-          <span class="card-progress-value" style={getProgressBarValueStyle()}>
+        <div class="progress mb-2 mx-2 mt-2 rounded-pill">
+          <span class="card-progress-value 
+          text-t-body-color-light" style={getProgressBarValueStyle()}>
             20%
           </span>
-          <div class="progress-bar" style={{ width: '20%' }}></div>
+          <div class="progress-bar rounded-pill" style={{ width: '20%' }}></div>
         </div>
 
         <Table>
