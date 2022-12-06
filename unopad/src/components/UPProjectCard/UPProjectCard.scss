@@ -21,9 +21,12 @@
 }
 .card-progress-value {
     position:absolute;
+    font-weight: 700 !important;
+    text-shadow:1px 1px black;
 }
 .card-progress-bar{
     background: $unopad-gradient-vertical;
+    
 }
 
 .project-name-div{
