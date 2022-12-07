@@ -1,12 +1,9 @@
-.launchpad-banner {
-  height: 50%;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-}
-
-@media only screen and (max-width: 992px) {
-  .launchpad-banner {
-    height: 40%;
+.launchpad-banner{
+    height: 80%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
   }
-}
+
+
+

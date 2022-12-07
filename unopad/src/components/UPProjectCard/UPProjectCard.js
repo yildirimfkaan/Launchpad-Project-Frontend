@@ -58,6 +58,27 @@ export default function Card1(props) {
             background: `url(${process.env.REACT_APP_API_URL + '/projects/' + item[1].id + '/image'}
                     ),url(${unopadCardDefaultBackground}
                     )`,
+<<<<<<< HEAD
+                    backgroundSize: 'cover',
+                  }}
+                >
+                  <div className="d-flex pt-4 text-ultra-light align-items-center ">
+                    <div className="ps-3 pe-2 pt-1">
+                      <img
+                        alt="project-icon"
+                        src={process.env.REACT_APP_API_URL + '/projects/' + item[1].id + '/logo'}
+                        className="project-icon"
+                        onError={logoOnErrorHandler}
+                      />
+                    </div>
+                    <div className="ps-3 pe-3 ">
+                      <div className="text-fs-project-name card-project-name">
+                        {item[1].name}
+                      </div>
+                      <div className="text-fs-head-sm">
+                        1 {item[1].token.symbol} = {item[1].token.price_in_uno} UNO
+                      </div>
+=======
             backgroundSize: 'cover',
           }}
         >
@@ -174,6 +195,7 @@ export default function Card1(props) {
                           minimumSignificantDigits: 1,
                         })}
                       </span>
+>>>>>>> c6d001c91697ceb29c46f9d4f421601c5c157f50
                     </div>
                   </div>
                 </div>

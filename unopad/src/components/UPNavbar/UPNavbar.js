@@ -113,9 +113,13 @@ function Navigation({ ...props }) {
 
   const getBannerClassName = () => {
     if (MainLayoutStatus === 'True') {
-      if (pathname.toLowerCase() === '/' || pathname.toLowerCase() === '/launchpad') {
+      if (pathname.toLowerCase() === '/') {
         return 'banner-design';
-      } else {
+      } 
+      else if (pathname.toLowerCase() === '/launchpad') {
+        return 'banner-design-launchpad';
+      }
+      else {
         return 'banner-design-profile';
       }
     } else {
