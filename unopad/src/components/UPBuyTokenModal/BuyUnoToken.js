@@ -122,6 +122,24 @@ function BuyUnoToken({ ...props }) {
       });
       wallet.getMyBalance(project.token.address);
       setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
+      const project_id = project.id
+      const tokenCount = unoTokenInputValue.UnoTokenAmount
+      const token_address = project.token.address
+      const project_cdate = project.cdate
+      const project_is_active = project.is_active
+      
+      const payload2 = await  {
+          project_id,
+          tokenCount,
+          signerAddress,
+          token_address,
+          project_cdate,
+          project_is_active,  
+      }
+      console.log("payload2",payload2)
+        
+        
+      
       Swal.fire({
         icon: 'success',
         iconColor:'#E4007D',
