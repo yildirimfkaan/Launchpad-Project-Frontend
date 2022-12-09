@@ -10,6 +10,7 @@ export const logut = (body) => doPost('/login', body);
 export const getAccountDetails = (body) => doGet('/user/profile', body);
 export const resendVerificationEmail = () => doPost('/user/activation-email');
 export const checkUserToken = () => doGet('/user/check_token');
+export const transaction = (body) => doPost('/transaction', body);
 
 //Post
 export const getPosts = () => doGet('/projects');

@@ -14,6 +14,7 @@ import './UPBuyTokenModal.scss';
 import { Form } from 'react-bootstrap';
 import { abiRequestAction } from '../../store/abi/abiActions';
 import { buyTokenModalAction } from '../../store/token/tokenActions';
+import { transactionRequest } from '../../store/transaction/transactionActions';
 
 function BuyUnoToken({ ...props }) {
   const {
@@ -25,7 +26,8 @@ function BuyUnoToken({ ...props }) {
     project,
     abiHistoryRequest,
     abiHistory,
-    buyTokenModalRequest
+    buyTokenModalRequest,
+    transactionRequest
   } = props;
   const [txs, setTxs] = useState([]);
   const [unoTokenInputValue, setUnoTokenInputValue] = useState({
@@ -123,23 +125,24 @@ function BuyUnoToken({ ...props }) {
       wallet.getMyBalance(project.token.address);
       setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
       const project_id = project.id
-      const tokenCount = unoTokenInputValue.UnoTokenAmount
+      const token_count = unoTokenInputValue.UnoTokenAmount
       const token_address = project.token.address
-      const project_cdate = project.cdate
-      const project_is_active = project.is_active
-      
-      const payload2 = await  {
+      const transaction_time = new Date();
+      // const project_is_active = project.is_active
+      const transaction_status = transaction.status;
+      const user_public_address = signerAddress;
+      const payload2 = {
           project_id,
-          tokenCount,
-          signerAddress,
+          token_count,
+          user_public_address,
           token_address,
-          project_cdate,
-          project_is_active,  
+          transaction_time,
+          transaction_status,  
       }
-      console.log("payload2",payload2)
-        
-        
-      
+      console.log(transaction)
+      transactionRequest(payload2)
+      console.log(payload2);
+
       Swal.fire({
         icon: 'success',
         iconColor:'#E4007D',
@@ -167,6 +170,7 @@ function BuyUnoToken({ ...props }) {
             " target='_blank'> Check Detail Transaction !</a>",
         }).then(closeModal);
         setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
+        
       } else {
         Swal.fire({
           icon: 'warning',
@@ -274,6 +278,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     buyTokenModalRequest: (payload) => {
       dispatch(buyTokenModalAction(payload));
+    },
+    transactionRequest: (creds) => {
+      dispatch(transactionRequest(creds));
     },
   };
 };
