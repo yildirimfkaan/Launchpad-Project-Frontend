@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Pagination, Table } from 'react-bootstrap';
+import { Badge, Pagination, Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import './UPTokenTable.scss';
 
 function UPTokenTable(props) {
-  const tokens = props.filteredTokens?.length ? props.filteredTokens : props.tokens;
-  const { history } = props;
+  const { history, filteredTokens } = props;
 
   const maxRowCountPerPage = 10;
   const maxShowingPage = 5;
+  const [tokens, setTokens] = useState(filteredTokens ? filteredTokens : props.tokens);
   const [currentPage, setCurrentPage] = useState(0);
   const [pages, setPages] = useState([]);
   const [renderedTokens, setRenderedTokens] = useState([]);
@@ -17,7 +17,11 @@ function UPTokenTable(props) {
   const [lastPageOfPagination, setLastPageOfPagination] = useState(maxShowingPage);
 
   useEffect(() => {
-    if (tokens?.length) {
+    setTokens(filteredTokens ? filteredTokens : props.tokens);
+  }, [props.tokens, filteredTokens]);
+
+  useEffect(() => {
+    if (tokens) {
       setCurrentPage(1);
       const tempPages = [];
       for (let index = 0; index < Math.ceil(tokens.length / maxRowCountPerPage); index++) {
@@ -31,7 +35,7 @@ function UPTokenTable(props) {
   }, [tokens]);
 
   useEffect(() => {
-    if (tokens?.length && currentPage) {
+    if (tokens && currentPage) {
       const firstIndex = maxRowCountPerPage * currentPage - maxRowCountPerPage;
       const lastIndex = maxRowCountPerPage * currentPage;
       const tempRendered = tokens?.slice(firstIndex, lastIndex);
@@ -104,7 +108,12 @@ function UPTokenTable(props) {
 
   return (
     <>
-      <Table className="sales-table-design" responsive hover borderless>
+      <Table
+        className="sales-table-design"
+        responsive
+        hover
+        borderless
+      >
         <thead>
           <tr className="text-t-body-color text-fs-tag">
             <th>#</th>
@@ -116,26 +125,27 @@ function UPTokenTable(props) {
             <th>Total Raised</th>
             <th>Distribution</th>
             <th>Sale Ended At</th>
+            <th>Status</th>
           </tr>
         </thead>
-        <tbody>
-          {renderedTokens?.length ? (
-            Object.entries(renderedTokens).map((item, index) => {
+        {renderedTokens?.length ? (
+          <tbody>
+            {Object.entries(renderedTokens).map((item, index) => {
               if (currentPage * index < currentPage * maxRowCountPerPage) {
                 return (
                   <tr
                     onClick={() => {
-                      TableSelectRow(item[1].id);
+                      TableSelectRow(item[1].token.id);
                     }}
                     className="text-t-head-color"
                   >
                     <td>{index + 1}</td>
-                    <td>{item[1].name}</td>
-                    <td>{item[1].symbol}</td>
-                    <td>{item[1].price_in_uno}</td>
+                    <td>{item[1].token.name}</td>
+                    <td>{item[1].token.symbol}</td>
+                    <td>{item[1].token.price_in_uno}</td>
                     <td>
                       {' '}
-                      {item[1].current_price.toLocaleString('en-EN', {
+                      {item[1].token.current_price.toLocaleString('en-EN', {
                         style: 'currency',
                         currency: 'USD',
                         currencyDisplay: 'symbol',
@@ -144,7 +154,7 @@ function UPTokenTable(props) {
                       })}
                     </td>
                     <td>
-                      {item[1].all_time_high.toLocaleString('en-EN', {
+                      {item[1].token.all_time_high.toLocaleString('en-EN', {
                         style: 'currency',
                         currency: 'USD',
                         currencyDisplay: 'symbol',
@@ -153,27 +163,41 @@ function UPTokenTable(props) {
                       })}
                     </td>
                     <td>
-                      {item[1].total_supply.toLocaleString('en-EN', {
+                      {item[1].token.total_supply.toLocaleString('en-EN', {
                         useGrouping: true,
                         minimumSignificantDigits: 1,
                       })}
                     </td>
                     <td>
-                      {item[1].distribution.toLocaleString('en-EN', {
+                      {item[1].token.distribution.toLocaleString('en-EN', {
                         useGrouping: true,
                         minimumSignificantDigits: 1,
                       })}
                     </td>
                     <td>text</td>
+                    <td>
+                      {item[1].is_active === 'active' ? (
+                        <Badge bg="success">Active</Badge>
+                      ) : item[1].is_active === 'completed' ? (
+                        <Badge>Completed</Badge>
+                      ) : (
+                        <Badge bg="secondary">Other</Badge>
+                      )}
+                    </td>
                   </tr>
                 );
               }
-            })
-          ) : (
-            <div className="text-muted">No token found according to search results.</div>
-          )}
-        </tbody>
+            })}
+          </tbody>
+        ) : null}
       </Table>
+
+      {!renderedTokens?.length && (
+        <div className="d-flex text-fs-body-md text-t-body-color justify-content-center">
+          No token found according to search results.
+        </div>
+      )}
+
       {pages?.length > 1 ? (
         <Pagination className="d-flex justify-content-center">
           <Pagination.First onClick={() => firstPage()} />

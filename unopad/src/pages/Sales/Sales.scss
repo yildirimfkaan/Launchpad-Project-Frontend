@@ -11,9 +11,10 @@
 
 .sales-table-button{
     .dropdown-toggle{
-        background-color: #FAFAFA;
-        color:#727272;
+        background-color: $unopad-light;
+        color: $unopad-t-body-color;
         border-color: #FAFAFA;
+        border: 0px;
 
     }
     .dropdown-toggle:hover{

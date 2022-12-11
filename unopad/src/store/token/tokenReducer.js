@@ -1,15 +1,20 @@
+import { quickFilterConstants } from '../../helpers/constants';
 import { sortKeys, TOKENS_SORT_KEYS, TOKENS_SORT_TYPES } from '../../pages/Sales/salesConstants';
 import * as types from './tokenActionTypes';
 
 const initialState = {
+  activeTokens: null,
+  completedTokens: null,
   tokens: null,
   token: null,
   filteredTokens: null,
+  filterInput: '',
   buyTokenModal: false,
   tokenSortData: {
     sortType: TOKENS_SORT_TYPES.ASCENDING,
     sortKey: TOKENS_SORT_KEYS.TOKEN_NAME,
   },
+  quickFilter: 1,
   error: {
     type: null,
     data: null,
@@ -21,7 +26,7 @@ export const tokenReducer = (state = initialState, action) => {
     case types.GET_TOKENS_DATA:
       return {
         ...state,
-        tokens: action.payload,
+        tokens: action?.payload,
       };
     case types.GET_TOKENS_ERROR:
       return {
@@ -44,27 +49,41 @@ export const tokenReducer = (state = initialState, action) => {
           data: action.payload,
         },
       };
+    case types.SET_FILTER_INPUT:
+      return {
+        ...state,
+        filterInput: action?.payload ? action.payload : '',
+      };
+
     case types.FILTER_TOKENS:
       function filterTokens(filterInput) {
         const filteredTokens = [];
 
-        for (const token of state.tokens) {
-          if (
-            token.token_name.toString().toLowerCase().includes(filterInput) ||
-            token.token_symbol.toString().toLowerCase().includes(filterInput) ||
-            token.token_address.toString().toLowerCase().includes(filterInput)
-          ) {
-            filteredTokens.push(token);
-          }
+        let tokens = state.tokens;
+        if (state.quickFilter === quickFilterConstants.ACTIVE) {
+          tokens = tokens.filter((t) => t.is_active === 'active');
+        } else if (state.quickFilter === quickFilterConstants.COMPLETED) {
+          tokens = tokens.filter((t) => t.is_active === 'completed');
         }
 
-        return filteredTokens;
+        if (tokens) {
+          for (const token of tokens) {
+            if (
+              token?.token?.name?.toString().toLowerCase().includes(filterInput) ||
+              token?.token?.symbol?.toString().toLowerCase().includes(filterInput) ||
+              token?.token?.address?.toString().toLowerCase().includes(filterInput)
+            ) {
+              filteredTokens.push(token);
+            }
+          }
+
+          return filteredTokens;
+        }
       }
 
       let filteredTokens = null;
-      if (action.payload) {
-        filteredTokens = filterTokens(action.payload);
-      }
+
+      filteredTokens = filterTokens(state.filterInput?.toString().toLowerCase());
 
       return {
         ...state,
@@ -81,12 +100,25 @@ export const tokenReducer = (state = initialState, action) => {
 
       const sortedTokens = tokens?.sort((a, b) => {
         if (state.tokenSortData.sortType === TOKENS_SORT_TYPES.ASCENDING) {
-          if (a[selectedKey]?.toString().toLowerCase() > b[selectedKey]?.toString().toLowerCase()) {
+          if (
+            a.is_active > b.is_active ||
+            a.token[selectedKey]?.toString().toLowerCase() >
+              b.token[selectedKey]?.toString().toLowerCase()
+          ) {
+            return 1;
+          }
+          return -1;
+        } else {
+          if (
+            a.is_active > b.is_active ||
+            a.token[selectedKey]?.toString().toLowerCase() <
+              b.token[selectedKey]?.toString().toLowerCase()
+          ) {
             return 1;
           }
           return -1;
         }
-        return -1;
+
       });
 
       if (state.filteredTokens?.length) {
@@ -111,6 +143,11 @@ export const tokenReducer = (state = initialState, action) => {
         ...state,
 
         buyTokenModal: action?.payload,
+      };
+    case types.UPDATE_QUICK_FILTER:
+      return {
+        ...state,
+        quickFilter: action?.payload,
       };
     default:
       return state;

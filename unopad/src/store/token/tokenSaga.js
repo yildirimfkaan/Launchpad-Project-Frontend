@@ -9,7 +9,7 @@ import * as endpoints from '../../services/endpoints';
 
 function* getTokenSaga(action) {
   try {
-    const { data } = yield call(endpoints.getTokens);
+    const { data } = yield call(endpoints.getProjects);
     yield put(actions.getTokensData(data));
     yield put(actions.sortingTokensAction());
   } catch (e) {

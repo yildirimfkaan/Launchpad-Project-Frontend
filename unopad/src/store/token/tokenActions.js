@@ -62,6 +62,12 @@ export const filterTokensAction = (payload) => {
     payload,
   };
 };
+export const setFilterInputAction = (payload) => {
+  return {
+    type: types.SET_FILTER_INPUT,
+    payload,
+  };
+};
 export const sortTokenSortData = (payload) => {
   return {
     type: types.SET_TOKEN_SORT_DATA,
@@ -90,6 +96,12 @@ export const buyTokenErrorAction = (payload) => {
 export const buyTokenModalAction = (payload) => {
   return {
     type: types.BUY_TOKEN_MODAL,
+    payload,
+  };
+};
+export const updateQuickFilterAction = (payload) => {
+  return {
+    type: types.UPDATE_QUICK_FILTER,
     payload,
   };
 };

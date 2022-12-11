@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Col, Container, Dropdown, Row } from 'react-bootstrap';
+import { Col, Container, Dropdown, Row, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import UPIcons from '../../components/UPIcons/UPIcons';
 import Subscribe from '../../components/UPSubscribe/Subscribe';
 
 import UPTokenTable from '../../components/UPTokenTable/UPTokenTable';
 import TripleCard from '../../components/UPTripleCard/TripleCard';
+import { quickFilterConstants } from '../../helpers/constants';
 
 import {
   filterTokensAction,
   getTokens,
   sortingTokensAction,
   sortTokenSortData,
+  updateQuickFilterAction,
 } from '../../store/token/tokenActions';
 import './Sales.scss';
 import { sortKeys, sortTypes } from './salesConstants';
@@ -23,6 +25,9 @@ function Sales({ ...props }) {
     getTokensRequest,
     setSortData,
     sortingTokens,
+    quickFilter,
+    updateQuickFilter,
+    filterTokens,
   } = props;
 
   const [selectedSortType, setSelectedSortType] = useState('');
@@ -32,6 +37,10 @@ function Sales({ ...props }) {
     getTokensRequest();
   }, []);
 
+  useEffect(() => {
+    filterTokens();
+    sortingTokens();
+  }, [quickFilter]);
 
   function changeSortType(sortType) {
     const newTokenSortData = { ...tokenSortData, sortType };
@@ -47,11 +56,9 @@ function Sales({ ...props }) {
 
   return (
     <Container className="sales-tokens-container">
-
-
-      <div className='mt-4'>
+      <div className="mt-4">
         <Row>
-          <div className="text-center text-fs-head-lg text-t-head-color">COMPLETED SALES</div>
+          <div className="text-center text-fs-head-lg text-t-head-color">SALES</div>
         </Row>
         <Row>
           <Col></Col>
@@ -64,50 +71,85 @@ function Sales({ ...props }) {
           <Col></Col>
         </Row>
       </div>
+      <Row className="d-flex align-items-center justify-content-between mt-4">
+        <Col>
+          <div id="token-sorting-section" className="d-flex align-items-center py-2">
+            <Dropdown className="me-2 sales-table-button">
+              <Dropdown.Toggle className="d-flex align-items-center">
+                <UPIcons name="MdSort" size="18" />
+                <span className="ms-1">{sortTypes[tokenSortData.sortType].name}</span>
+              </Dropdown.Toggle>
 
-      <div id="token-sorting-section" className="d-flex align-items-center py-2 mt-4">
-        <Dropdown className="me-2 sales-table-button">
-          <Dropdown.Toggle className="d-flex align-items-center">
-            <UPIcons name="MdSort" size="18" />
-            <span className="ms-1">{sortTypes[tokenSortData.sortType].name}</span>
-          </Dropdown.Toggle>
+              <Dropdown.Menu className="py-1">
+                {sortTypes.map((sortType, index) => {
+                  return (
+                    <Dropdown.Item
+                      key={index}
+                      className="d-flex align-items-center px-1"
+                      onClick={() => changeSortType(index)}
+                    >
+                      <UPIcons name={sortType.icon} size="18" />
+                      <span className="ms-2">{sortType.name}</span>
+                    </Dropdown.Item>
+                  );
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+            <Dropdown className="sales-table-button">
+              <Dropdown.Toggle className="d-flex align-items-center">
+                <UPIcons name="BiFilterAlt" size="18" />
+                <span className="ms-1">{sortKeys[tokenSortData.sortKey].name}</span>
+              </Dropdown.Toggle>
 
-          <Dropdown.Menu className="py-1">
-            {sortTypes.map((sortType, index) => {
-              return (
-                <Dropdown.Item
-                  key={index}
-                  className="d-flex align-items-center px-1"
-                  onClick={() => changeSortType(index)}
-                >
-                  <UPIcons name={sortType.icon} size="18" />
-                  <span className="ms-2">{sortType.name}</span>
-                </Dropdown.Item>
-              );
-            })}
-          </Dropdown.Menu>
-        </Dropdown>
-        <Dropdown className="sales-table-button">
-          <Dropdown.Toggle className="d-flex align-items-center">
-            <UPIcons name="BiFilterAlt" size="18" />
-            <span className="ms-1">{sortKeys[tokenSortData.sortKey].name}</span>
-          </Dropdown.Toggle>
+              <Dropdown.Menu className="py-1">
+                {sortKeys.map((sortKey, index) => {
+                  return (
+                    <Dropdown.Item
+                      key={index}
+                      className="d-flex align-items-center px-1"
+                      onClick={() => changeSortKey(index)}
+                    >
+                      <span>{sortKey.name}</span>
+                    </Dropdown.Item>
+                  );
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        </Col>
+        <Col className='text-md-end'>
+          <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+            <ToggleButton
+              variant={quickFilter === quickFilterConstants.ALL ? 'primary' : 'light'}
+              className={quickFilter !== quickFilterConstants.ALL ? 'text-t-body-color' : ''}
+              id="tbg-radio-1"
+              value={quickFilterConstants.ALL}
+              onClick={() => updateQuickFilter(quickFilterConstants.ALL)}
+            >
+              All
+            </ToggleButton>
+            <ToggleButton
+              variant={quickFilter === quickFilterConstants.ACTIVE ? 'primary' : 'light'}
+              className={quickFilter !== quickFilterConstants.ACTIVE ? 'text-t-body-color' : ''}
+              id="tbg-radio-2"
+              value={quickFilterConstants.ACTIVE}
+              onClick={() => updateQuickFilter(quickFilterConstants.ACTIVE)}
+            >
+              Active
+            </ToggleButton>
+            <ToggleButton
+              variant={quickFilter === quickFilterConstants.COMPLETED ? 'primary' : 'light'}
+              className={quickFilter !== quickFilterConstants.COMPLETED ? 'text-t-body-color' : ''}
+              id="tbg-radio-3"
+              value={quickFilterConstants.COMPLETED}
+              onClick={() => updateQuickFilter(quickFilterConstants.COMPLETED)}
+            >
+              Completed
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Col>
+      </Row>
 
-          <Dropdown.Menu className="py-1">
-            {sortKeys.map((sortKey, index) => {
-              return (
-                <Dropdown.Item
-                  key={index}
-                  className="d-flex align-items-center px-1"
-                  onClick={() => changeSortKey(index)}
-                >
-                  <span>{sortKey.name}</span>
-                </Dropdown.Item>
-              );
-            })}
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
       <div id="sales-table" className="mt-2">
         {tokens && (
           <>
@@ -127,6 +169,7 @@ const mapStateToProps = (state) => {
     tokens: state.tokenReducer.tokens,
     filteredTokens: state.tokenReducer.filteredTokens,
     tokenSortData: state.tokenReducer.tokenSortData,
+    quickFilter: state.tokenReducer.quickFilter,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -142,6 +185,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     sortingTokens: (payload) => {
       dispatch(sortingTokensAction(payload));
+    },
+    updateQuickFilter: (payload) => {
+      dispatch(updateQuickFilterAction(payload));
     },
   };
 };
