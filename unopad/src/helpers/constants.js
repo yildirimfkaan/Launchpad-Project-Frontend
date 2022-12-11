@@ -6,3 +6,9 @@ export const projectInfoTabs = {
   PROJECT_INFO_YOUR_MEDIA_RELEASES: 'media_releases',
   PROJECT_INFO_YOUR_TRADING_ANALYTICS: 'trading_analytic',
 };
+
+export const quickFilterConstants = {
+  ALL: 1,
+  ACTIVE: 2,
+  COMPLETED: 3,
+};

@@ -21,9 +21,9 @@ const sortTypes = [
 ];
 
 const sortKeys = [
-  { name: 'Token Name', key: 'token_name' },
-  { name: 'Token Symbol', key: 'token_symbol' },
-  { name: 'Token Address', key: 'token_address' },
+  { name: 'Token Name', key: 'name' },
+  { name: 'Token Symbol', key: 'symbol' },
+  { name: 'Token Address', key: 'address' },
 ];
 
 export { TOKENS_SORT_TYPES, TOKENS_SORT_KEYS, sortTypes, sortKeys };

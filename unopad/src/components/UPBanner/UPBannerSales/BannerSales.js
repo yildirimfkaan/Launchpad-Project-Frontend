@@ -6,16 +6,19 @@ import './BannerSales.scss';
 import Form from 'react-bootstrap/Form';
 import { BsSearch } from 'react-icons/bs';
 import { InputGroup } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { filterTokensAction, sortingTokensAction } from '../../../store/token/tokenActions';
+import {
+  filterTokensAction,
+  sortingTokensAction,
+  setFilterInputAction,
+} from '../../../store/token/tokenActions';
 
 function BannerSales({ ...props }) {
-  const { filterTokens, sortingTokens } = props;
-  const [filterInput, setFilterInput] = useState('');
+  const { filterTokens, sortingTokens, filterInput, setFilterInput } = props;
 
   useEffect(() => {
-    filterTokens(filterInput);
+    filterTokens();
     sortingTokens();
   }, [filterInput]);
 
@@ -56,6 +59,7 @@ function BannerSales({ ...props }) {
 const mapStateToProps = (state) => {
   return {
     filteredTokens: state.tokenReducer.filteredTokens,
+    filterInput: state.tokenReducer.filterInput,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -65,6 +69,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     sortingTokens: (payload) => {
       dispatch(sortingTokensAction(payload));
+    },
+    setFilterInput: (payload) => {
+      dispatch(setFilterInputAction(payload));
     },
   };
 };
