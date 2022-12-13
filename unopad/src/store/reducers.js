@@ -8,6 +8,7 @@ import { walletReducer } from './wallet/walletReducer';
 import { loadingReducer } from './loading/loadingReducer';
 import { tokenReducer } from './token/tokenReducer';
 import { abiReducer } from './abi/abiReducer';
+import { transactionReducer } from './transaction/transactionReducer';
 
 const rootReducer = combineReducers({
   PostReducer,
@@ -18,6 +19,8 @@ const rootReducer = combineReducers({
   loadingReducer,
   tokenReducer,
   abiReducer,
+  transactionReducer,
+  
 });
 
 export default rootReducer;

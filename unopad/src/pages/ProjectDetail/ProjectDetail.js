@@ -193,9 +193,10 @@ function ProjectDetail({ ...props }) {
 
               <div>
                 {/* <ProgressBar now={item.project_percent_raised} /> */}
-                <div class="progress mb-2">
-                    <span class="progress-value">20%</span>
-                    <div class="progress-bar" style={{width: "20%"}}>
+                <div class="progress mb-2 rounded-pill" >
+                    <span class="progress-value">{item.percent_raised}%</span>
+                    <div class="progress-bar 
+                    rounded-pill" style={{width: item.percent_raised + "%"}}>
                     </div>
                 </div>
               </div>
@@ -214,7 +215,7 @@ function ProjectDetail({ ...props }) {
                 <div className="project-detail-price-div">
                   <Card.Text>TOTAL RAISED</Card.Text>
                   <Card.Title>
-                    {item.total_tokens_sold.toLocaleString('tr-TR', {
+                    {item.total_raised.toLocaleString('tr-TR', {
                       style: 'currency',
                       currency: 'USD',
                       currencyDisplay: 'symbol',
@@ -222,7 +223,7 @@ function ProjectDetail({ ...props }) {
                       minimumFractionDigits: 2,
                     })}
                     /{' '}
-                    {item.total_raised.toLocaleString('tr-TR', {
+                    {item.target_raised.toLocaleString('tr-TR', {
                       style: 'currency',
                       currency: 'USD',
                       currencyDisplay: 'symbol',
