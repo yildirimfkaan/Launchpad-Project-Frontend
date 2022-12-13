@@ -6,7 +6,7 @@ import * as types from './transactionActionTypes';
  
  */
 export const transactionRequest = (creds) => {
-  console.log("adskdklşasşlkfa",creds)
+  
   return {
     
     type: types.TRANSACTION_REQUEST,

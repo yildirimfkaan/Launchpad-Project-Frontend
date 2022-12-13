@@ -139,9 +139,9 @@ function BuyUnoToken({ ...props }) {
           transaction_time,
           transaction_status,  
       }
-      console.log(transaction)
+      
       transactionRequest(payload2)
-      console.log(payload2);
+      
 
       Swal.fire({
         icon: 'success',

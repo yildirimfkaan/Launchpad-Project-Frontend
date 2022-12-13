@@ -55,6 +55,7 @@ function Sales({ ...props }) {
   }
 
   return (
+    <>
     <Container className="sales-tokens-container">
       <div className="mt-4">
         <Row>
@@ -160,8 +161,10 @@ function Sales({ ...props }) {
       <TripleCard />
       <br></br>
       <br></br>
-      <Subscribe />
+     
     </Container>
+     <Subscribe />
+     </>
   );
 }
 const mapStateToProps = (state) => {

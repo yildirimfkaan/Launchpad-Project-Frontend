@@ -48,12 +48,12 @@ async function disconnectWallet() {
     store.dispatch({ type: types.CONNECT_WALLET_DATA, payload: null });
   }, 500);
   window.location.reload();
-  console.log('disconnected');
+  
 }
 
 async function controlAndSwitchOrAddNetwork() {
   const web3 = new Web3(window.ethereum);
-  console.log('network version kontrol ', window.ethereum.networkVersion);
+  
   const chainId = 97;
   if (window.ethereum.networkVersion !== chainId) {
     try {
@@ -105,7 +105,7 @@ async function getMyBalance(contractAddress) {
 
     store.dispatch({ type: types.GET_MY_BALANCE_DATA, payload });
 
-    console.log('getmybalance', payload);
+    
   } catch (error) {
     store.dispatch({ type: types.GET_MY_BALANCE_ERROR, payload: error });
   }

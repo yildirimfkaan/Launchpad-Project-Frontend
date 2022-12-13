@@ -2,27 +2,23 @@
 @import '../../App.scss';
 
 .subscribe{
-
-
 background: $unopad-tertiary;
 box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
 border-radius: 68px;
-height: 580px;
+height: 400px;
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
 
-
-
 .Subscribe-title{
     color: $white;
-    @extend .text-fs-head-xl;
+    @extend .text-fs-head-lg;
     text-align: center;
 }
 .Subscribe-text{
     color: $white;
-    @extend .text-fs-head-md;
+    @extend .text-fs-body-lg;
     text-align: center;
     margin-top: 10px;
 }
@@ -52,17 +48,17 @@ align-items: center;
         font-family: 'Work Sans' !important;
         font-style: normal !important;
         font-weight: 700 !important;
-        font-size: 35px !important;
-        line-height: 41px !important;
+        font-size: 25px !important;
+        line-height: 29px !important;
         text-align: center;
     }
     .Subscribe-text{
         color: $white;
         font-family: 'Work Sans' !important;
         font-style: normal !important;
-        font-weight: 700 !important;
+        font-weight: 500 !important;
         font-size: 20px !important;
-        line-height: 23px !important;
+        line-height: 30px !important;
         text-align: center;
         margin-top: 10px;
     }
