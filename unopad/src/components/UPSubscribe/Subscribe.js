@@ -12,7 +12,7 @@ function Subscribe() {
   return (
     <>
     
-    <Container className="subscribe">
+    <Container className="subscribe mt-4" style={{width:"70%"}}>
     <img src={UnopadWhite}  alt='Unopad Logo' className='mb-4'/>
       <Row>
         <Col className="Subscribe-title">Subscribe For Newsletter</Col>

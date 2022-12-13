@@ -2,27 +2,23 @@
 @import '../../App.scss';
 
 .subscribe{
-
-
 background: $unopad-tertiary;
 box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
 border-radius: 68px;
-height: 580px;
+height: 400px;
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
 
-
-
 .Subscribe-title{
     color: $white;
-    @extend .text-fs-head-xl;
+    @extend .text-fs-head-lg;
     text-align: center;
 }
 .Subscribe-text{
     color: $white;
-    @extend .text-fs-head-md;
+    @extend .text-fs-body-lg;
     text-align: center;
     margin-top: 10px;
 }
