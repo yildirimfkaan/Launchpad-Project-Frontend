@@ -40,7 +40,7 @@ export default function Card1(props) {
     const projectCardLeft = projectCardRef?.offsetLeft;
     const projectCardWidth = projectCardRef?.offsetWidth;
 
-    return {left: projectCardLeft + (projectCardWidth / 2) - CARD_PROGRESS_BAR_VALUE_WIDTH / 2}
+    return { left: projectCardLeft + projectCardWidth / 2 - CARD_PROGRESS_BAR_VALUE_WIDTH / 2 };
   }
 
   return (

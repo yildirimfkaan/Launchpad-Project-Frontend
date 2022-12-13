@@ -108,23 +108,19 @@ function UPTokenTable(props) {
 
   return (
     <>
-      <Table
-        className="sales-table-design"
-        responsive
-        hover
-        borderless
-      >
+      <Table className="sales-table-design" responsive hover borderless>
         <thead>
           <tr className="text-t-body-color text-fs-tag">
             <th>#</th>
             <th>Token Name</th>
             <th>Token Symbol</th>
-            <th>IDO Token Price</th>
-            <th>Current Price</th>
-            <th>ATH</th>
+            <th>Token Price in UNO</th>
+            <th>Token Price in USD</th>
             <th>Total Raised</th>
+            <th>Target Raised</th>
+            <th>Total Token Sold</th>
             <th>Distribution</th>
-            <th>Sale Ended At</th>
+            <th>Total Supply</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -145,36 +141,52 @@ function UPTokenTable(props) {
                     <td>{item[1].token.price_in_uno}</td>
                     <td>
                       {' '}
-                      {item[1].token.current_price.toLocaleString('en-EN', {
+                      {item[1].token.price_in_usd.toLocaleString('tr-TR', {
                         style: 'currency',
                         currency: 'USD',
                         currencyDisplay: 'symbol',
                         useGrouping: true,
-                        minimumSignificantDigits: 1,
+                        minimumFractionDigits: 2,
                       })}
                     </td>
                     <td>
-                      {item[1].token.all_time_high.toLocaleString('en-EN', {
+                      {item[1].total_raised.toLocaleString('tr-TR', {
                         style: 'currency',
                         currency: 'USD',
                         currencyDisplay: 'symbol',
                         useGrouping: true,
-                        minimumSignificantDigits: 1,
+                        minimumFractionDigits: 2,
                       })}
                     </td>
                     <td>
-                      {item[1].token.total_supply.toLocaleString('en-EN', {
+                      {item[1].target_raised.toLocaleString('tr-TR', {
+                        style: 'currency',
+                        currency: 'USD',
+                        currencyDisplay: 'symbol',
+                        useGrouping: true,
+                        minimumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td>
+                      {item[1].total_tokens_sold.toLocaleString('tr-TR', {
                         useGrouping: true,
                         minimumSignificantDigits: 1,
                       })}
                     </td>
                     <td>
-                      {item[1].token.distribution.toLocaleString('en-EN', {
+                      {item[1].token.distribution.toLocaleString('tr-TR', {
                         useGrouping: true,
                         minimumSignificantDigits: 1,
                       })}
                     </td>
-                    <td>text</td>
+
+                    <td>
+                      {item[1].token.total_supply.toLocaleString('tr-TR', {
+                        useGrouping: true,
+                        minimumSignificantDigits: 1,
+                      })}
+                    </td>
+
                     <td>
                       {item[1].is_active === 'active' ? (
                         <Badge bg="success">Active</Badge>
