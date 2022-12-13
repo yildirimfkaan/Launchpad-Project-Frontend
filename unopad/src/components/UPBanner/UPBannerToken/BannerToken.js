@@ -15,7 +15,7 @@ import SpinnerUnopad from '../../UPSpinnerUnopad/UPSpinnerUnopad';
 function BannerToken({ ...props }) {
   const { project } = props;
 
-  console.log('project****', project);
+  
   if (project) {
     return (
       <>

@@ -44,7 +44,7 @@ function ProjectDetail({ ...props }) {
   const connectWallet = async () => {
     wallet.connectWallet();
   };
-  console.log('itemsss', item);
+  
   const addUnoTokenFunction = async () => {
     try {
       const provider = await detectEthereumProvider();
