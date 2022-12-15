@@ -58,6 +58,11 @@ export const projectReducer = (state = initialState, action) => {
 
         swapTokenModal: action?.payload,
       };
+      case types.SET_PROJECT_DATA:
+        return{
+          ...state,
+          
+        }
     default:
       return state;
   }

@@ -5,8 +5,11 @@ import * as endpoints from '../../services/endpoints';
 
 function* transactionSaga({ creds }) {
   try {
+    
     const { data } = yield call(endpoints.transaction, creds);
+    console.log(data)
     yield put(actions.transactionData(data));
+    yield put(actions.transactionPercent(data.percent_raised));
   } catch (e) {
     yield put(actions.transactionError(e));
   }

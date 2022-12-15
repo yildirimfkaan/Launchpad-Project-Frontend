@@ -3,7 +3,7 @@ import { getProjectByID } from '../../store/project/projectActions';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import { setWalletAccountData } from '../../store/wallet/walletActions';
-import { Button, Card, Col, Container,  Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { checkAllConditionForStake } from '../../helpers/verificationHelper';
 import wallet from '../../helpers/wallet';
 import detectEthereumProvider from '@metamask/detect-provider';
@@ -17,8 +17,16 @@ import ProjectFlow from '../../components/UPProjectFlow/ProjectFlow';
 import SpinnerUnopad from '../../components/UPSpinnerUnopad/UPSpinnerUnopad';
 
 function ProjectDetail({ ...props }) {
-  const { project, provider, accounts, ethereum, setWalletAccount, user, buyTokenModalRequest } =
-    props;
+  const {
+    project,
+    provider,
+    accounts,
+    ethereum,
+    setWalletAccount,
+    user,
+    buyTokenModalRequest,
+    percent_data,
+  } = props;
 
   const item = props.project;
 
@@ -44,7 +52,7 @@ function ProjectDetail({ ...props }) {
   const connectWallet = async () => {
     wallet.connectWallet();
   };
-  
+
   const addUnoTokenFunction = async () => {
     try {
       const provider = await detectEthereumProvider();
@@ -118,7 +126,8 @@ function ProjectDetail({ ...props }) {
 
     return () => {};
   }, []);
-
+  console.log(percent_data?.valueOf());
+  console.log(project)
   return (
     <>
       {!project ? (
@@ -193,12 +202,22 @@ function ProjectDetail({ ...props }) {
 
               <div>
                 {/* <ProgressBar now={item.project_percent_raised} /> */}
-                <div class="progress mb-2 rounded-pill" >
-                    <span class="progress-value 
-                    text-t-body-color-light">{item.percent_raised}%</span>
-                    <div class="progress-bar 
-                    rounded-pill" style={{width: item.percent_raised + "%"}}>
-                    </div>
+                <div class="progress mb-2 rounded-pill">
+                  <span
+                    class="progress-value 
+                    text-t-body-color-light"
+                  >
+                    {percent_data?.valueOf() ? percent_data?.valueOf() : item.percent_raised}%
+                  </span>
+                  <div
+                    class="progress-bar 
+                    rounded-pill"
+                    style={{
+                      width: (percent_data?.valueOf()
+                        ? percent_data?.valueOf()
+                        : item.percent_raised )+ '%',
+                    }}
+                  ></div>
                 </div>
               </div>
               <Card.Body className="project-detail-card-body">
@@ -327,6 +346,7 @@ const mapStateToProps = (state) => {
     accounts: state.walletReducer.accounts,
     user: state.userReducer.user,
     project: state.projectReducer.project,
+    percent_data: state.transactionReducer.percent_data,
   };
 };
 const mapDispatchToProps = (dispatch) => {

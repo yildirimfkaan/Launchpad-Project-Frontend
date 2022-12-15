@@ -67,3 +67,10 @@ export const swapTokenModalAction = (payload) => {
     payload,
   };
 };
+export const setProjectDataAction = (payload) => {
+  return {
+    type:types.SET_PROJECT_DATA,
+    payload,
+  }
+
+}
