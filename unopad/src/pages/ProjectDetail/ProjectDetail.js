@@ -194,7 +194,8 @@ function ProjectDetail({ ...props }) {
               <div>
                 {/* <ProgressBar now={item.project_percent_raised} /> */}
                 <div class="progress mb-2 rounded-pill" >
-                    <span class="progress-value">{item.percent_raised}%</span>
+                    <span class="progress-value 
+                    text-t-body-color-light">{item.percent_raised}%</span>
                     <div class="progress-bar 
                     rounded-pill" style={{width: item.percent_raised + "%"}}>
                     </div>
