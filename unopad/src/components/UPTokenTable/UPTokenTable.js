@@ -40,8 +40,16 @@ function UPTokenTable(props) {
       const lastIndex = maxRowCountPerPage * currentPage;
       const tempRendered = tokens?.slice(firstIndex, lastIndex);
       setRenderedTokens([...tempRendered]);
+      
     }
   }, [currentPage, tokens]);
+
+  function scrollToTokensContainer() {
+    const tokensContainer = document.getElementById('tokens-container');
+      if (tokensContainer) {
+        tokensContainer.scrollIntoView({ behavior: 'smooth' });
+      }
+  }
 
   const setPaginationPages = (page) => {
     if (
@@ -72,18 +80,21 @@ function UPTokenTable(props) {
     } else if (page === lastPageOfPagination - maxShowingPage + 1) {
       setPaginationPages(page);
     }
+    scrollToTokensContainer();
   };
 
   const firstPage = () => {
     setCurrentPage(1);
     setLastPageOfPagination(maxShowingPage);
     setRenderedPages(pages.slice(0, maxShowingPage));
+    scrollToTokensContainer();
   };
 
   const prevPage = () => {
     if (currentPage - 1 !== 0) {
       setCurrentPage(currentPage - 1);
       setPaginationPages(currentPage - 1);
+      scrollToTokensContainer();
     }
   };
 
@@ -91,6 +102,7 @@ function UPTokenTable(props) {
     if (currentPage + 1 <= pages.length) {
       setCurrentPage(currentPage + 1);
       setPaginationPages(currentPage + 1);
+      scrollToTokensContainer();
     }
   };
 
@@ -100,6 +112,7 @@ function UPTokenTable(props) {
       setLastPageOfPagination(pages.length);
       setRenderedPages(pages.slice(pages.length - maxShowingPage, pages.length));
     }
+    scrollToTokensContainer();
   };
 
   const TableSelectRow = (nums) => {

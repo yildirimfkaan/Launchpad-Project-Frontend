@@ -72,7 +72,7 @@ function Sales({ ...props }) {
           <Col></Col>
         </Row>
       </div>
-      <Row className="d-flex align-items-center justify-content-between mt-4">
+      <Row id="tokens-container" className="d-flex align-items-center justify-content-between mt-4">
         <Col>
           <div id="token-sorting-section" className="d-flex align-items-center py-2">
             <Dropdown className="me-2 sales-table-button">

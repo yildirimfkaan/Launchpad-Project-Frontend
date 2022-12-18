@@ -97,28 +97,24 @@ export const tokenReducer = (state = initialState, action) => {
     case types.SORTING_TOKENS:
       const selectedKey = sortKeys[state.tokenSortData.sortKey].key;
       const tokens = state.filteredTokens?.length ? state.filteredTokens : state.tokens;
-
       const sortedTokens = tokens?.sort((a, b) => {
         if (state.tokenSortData.sortType === TOKENS_SORT_TYPES.ASCENDING) {
-          if (
-            a.is_active > b.is_active ||
-            a.token[selectedKey]?.toString().toLowerCase() >
-              b.token[selectedKey]?.toString().toLowerCase()
-          ) {
-            return 1;
-          }
-          return -1;
+          return (
+            a.is_active.localeCompare(b.is_active) ||
+            a.token[selectedKey]
+              ?.toString()
+              .toLowerCase()
+              .localeCompare(b.token[selectedKey]?.toString().toLowerCase())
+          );
         } else {
-          if (
-            a.is_active > b.is_active ||
-            a.token[selectedKey]?.toString().toLowerCase() <
-              b.token[selectedKey]?.toString().toLowerCase()
-          ) {
-            return 1;
-          }
-          return -1;
+          return (
+            a.is_active.localeCompare(b.is_active) ||
+            b.token[selectedKey]
+              ?.toString()
+              .toLowerCase()
+              .localeCompare(a.token[selectedKey]?.toString().toLowerCase())
+          );
         }
-
       });
 
       if (state.filteredTokens?.length) {
