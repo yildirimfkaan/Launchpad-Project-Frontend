@@ -63,12 +63,12 @@ function BuyUnoToken({ ...props }) {
     buyTokenModalRequest(false)
   }
   useEffect(() => {
-    if (abiHistory?.[0]?.[project.token.symbol + '_abi']) {
+    if (abiHistory?.[0]?.[project?.token.symbol + '_abi']) {
       
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const unopad_token = new ethers.Contract(
-        project.token.address,
-        abiHistory?.[0]?.[project.token.symbol + '_abi'],
+        project?.token.address,
+        abiHistory?.[0]?.[project?.token.symbol + '_abi'],
         provider,
       );
 
@@ -93,7 +93,7 @@ function BuyUnoToken({ ...props }) {
         unopad_token.removeAllListeners();
       };
     }
-  }, [abiHistory]);
+  }, [abiHistory,project]);
 
   useEffect(() => {
     handleAbi();
@@ -109,26 +109,26 @@ function BuyUnoToken({ ...props }) {
     const web3 = new Web3(window.ethereum);
     await wallet.controlAndSwitchOrAddNetwork();
     await window.ethereum.enable();
-    const unopad_token = new web3.eth.Contract(unopad_token_abi, project.token.address);
+    const unopad_token = new web3.eth.Contract(unopad_token_abi, project?.token.address);
     const unopad_presale = new web3.eth.Contract(
-      abiHistory?.[0]?.[project.token.symbol + '_presale_abi'],
-      project.token.presale_contract.contract_address,
+      abiHistory?.[0]?.[project?.token.symbol + '_presale_abi'],
+      project?.token.presale_contract.contract_address,
     );
     const etherMiktari = data.get('etherValue');
-    const project_id = project.id
+    const project_id = project?.id
     const token_count = unoTokenInputValue.UnoTokenAmount
-    const token_address = project.token.address
+    const token_address = project?.token.address
     const transaction_time = new Date();
     
     const user_public_address = signerAddress;
     try {
       const transaction = await unopad_presale.methods.buy().send({
         from: signerAddress,
-        to: project.token.presale_contract.contract_address,
+        to: project?.token.presale_contract.contract_address,
         data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
         value: web3.utils.toWei(etherMiktari, 'wei'),
       });
-      wallet.getMyBalance(project.token.address);
+      wallet.getMyBalance(project?.token.address);
       setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
       const transaction_status = transaction.status;
       const payload2 = {

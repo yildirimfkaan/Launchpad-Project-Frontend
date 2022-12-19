@@ -36,7 +36,7 @@ export const projectReducer = (state = initialState, action) => {
     case types.GET_PROJECT_DATA:
       return {
         ...state,
-        project: action.payload,
+        project: action.payload ? Object.assign({}, action.payload) : null,
       };
     case types.GET_PROJECT_ERROR:
       return {

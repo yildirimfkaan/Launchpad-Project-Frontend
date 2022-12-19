@@ -207,15 +207,13 @@ function ProjectDetail({ ...props }) {
                     class="progress-value 
                     text-t-body-color-light"
                   >
-                    {percent_data?.valueOf() ? percent_data?.valueOf() : item.percent_raised}%
+                    {item.percent_raised}%
                   </span>
                   <div
                     class="progress-bar 
                     rounded-pill"
                     style={{
-                      width: (percent_data?.valueOf()
-                        ? percent_data?.valueOf()
-                        : item.percent_raised )+ '%',
+                      width: item.percent_raised + '%',
                     }}
                   ></div>
                 </div>

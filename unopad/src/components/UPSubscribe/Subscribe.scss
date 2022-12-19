@@ -79,5 +79,39 @@ align-items: center;
   }
 
 }
+@media only screen and (max-width: 580px) {
+
+    .subscribe{
+    .Subscribe-title{
+        color: $white;
+        font-family: 'Work Sans' !important;
+        font-style: normal !important;
+        font-weight: 700 !important;
+        font-size: 18px !important;
+        line-height: 29px !important;
+        text-align: center;
+    }
+    .Subscribe-text{
+        color: $white;
+        font-family: 'Work Sans' !important;
+        font-style: normal !important;
+        font-weight: 500 !important;
+        font-size: 14px !important;
+        line-height: 30px !important;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .email-form{   
+        display: none;    
+        padding-top: 4%;
+    } 
+    .email-button{
+        width: 40%;
+       
+        background: #E4007D;
+        border-radius: 4.8px;
+    }
+  }
+}
 
 
