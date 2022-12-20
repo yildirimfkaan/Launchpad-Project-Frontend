@@ -26,7 +26,7 @@ function Subscribe() {
         <Col></Col>
       </Row>
 
-      <Row style={{width:"70%"}}>
+      <Row className='email-row' style={{width:"70%"}}>
         <Col>
           <InputGroup className="email-form">
             <Form.Control className="email" type="email" placeholder="Email Address" />
