@@ -21,7 +21,7 @@ function Subscribe() {
         <Col></Col>
         <Col lg={8} md={8} className="Subscribe-text">
           We have all been in this industry too long not to make the security of your funds our
-          absolute top priority. We’ve received multiple audits from Open Zeppelin and Trail
+          absolute top priority. 
         </Col>
         <Col></Col>
       </Row>

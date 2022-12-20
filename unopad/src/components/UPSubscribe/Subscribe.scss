@@ -67,9 +67,7 @@
 }
 @media only screen and (max-width: 580px) {
   .subscribe {
-    img {
-      display: none;
-    }
+    height: 450px !important;
     .Subscribe-title {
       color: $white;
       font-family: 'Work Sans' !important;
