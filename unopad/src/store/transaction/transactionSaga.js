@@ -2,11 +2,16 @@ import { takeEvery, put, all, call } from 'redux-saga/effects';
 import * as types from './transactionActionTypes';
 import * as actions from './transactionActions';
 import * as endpoints from '../../services/endpoints';
+import * as projectActions from '../project/projectActions'
 
 function* transactionSaga({ creds }) {
   try {
+    
     const { data } = yield call(endpoints.transaction, creds);
+    console.log(data)
     yield put(actions.transactionData(data));
+    yield put(actions.transactionPercent(data.percent_raised));
+    yield put (projectActions.getProjectByIDData(data))
   } catch (e) {
     yield put(actions.transactionError(e));
   }

@@ -23,6 +23,12 @@ export const transactionData = (payload) => {
     payload,
   };
 };
+export const transactionPercent = (payload) => {
+  return {
+    type: types.TRANSACTION_PERCENT,
+    payload,
+  };
+};
 export const transactionError = (payload) => {
   return {
     type: types.TRANSACTION_ERROR,

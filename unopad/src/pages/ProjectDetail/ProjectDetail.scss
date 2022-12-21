@@ -28,7 +28,9 @@
 .progress-value {
     position:absolute;
     right:0;
-    left:0;  
+    left:0; 
+    font-size: large !important;
+    text-shadow:1px 1px black; 
 }
 .progress-bar{
     background: $unopad-gradient-vertical;

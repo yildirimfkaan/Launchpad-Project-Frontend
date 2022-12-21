@@ -61,14 +61,14 @@ function ProjectSaleInfo({ ...props }) {
         </Col>
         <Col sm="6">
           <div className="d-flex align-items-center justify-content-sm-end">
-            <a href={`https://testnet.bscscan.com/address/${project.token.presale_contract.contract_address}`}className="d-flex text-fs-head-xxs text-dark" target='_blank' 
+            <a href={`https://testnet.bscscan.com/address/${project?.token?.presale_contract?.contract_address}`}className="d-flex text-fs-head-xxs text-dark" target='_blank' 
             ><UPIcons name="BiLinkExternal" />
             <span
               className="text-fs-head-xxs 
             ms-1" 
             >
-              {project.token.presale_contract.contract_address.slice(0,6)}...
-              {project.token.presale_contract.contract_address.slice(36,42)}
+              {project?.token?.presale_contract?.contract_address.slice(0,6)}...
+              {project?.token?.presale_contract?.contract_address.slice(36,42)}
             </span>
             </a>
           </div>

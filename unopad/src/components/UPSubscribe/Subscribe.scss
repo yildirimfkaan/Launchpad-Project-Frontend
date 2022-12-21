@@ -1,83 +1,114 @@
 @import '../../variables.scss';
 @import '../../App.scss';
 
-.subscribe{
-background: $unopad-tertiary;
-box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
-border-radius: 68px;
-height: 400px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+.subscribe {
+  background: $unopad-tertiary;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 68px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-.Subscribe-title{
+  .Subscribe-title {
     color: $white;
     @extend .text-fs-head-lg;
     text-align: center;
-}
-.Subscribe-text{
+  }
+  .Subscribe-text {
     color: $white;
     @extend .text-fs-body-lg;
     text-align: center;
     margin-top: 10px;
-}
-.email-form{
-
+  }
+  .email-form {
     padding-top: 4%;
+  }
 
-
-}
-
-.email-button{
-    
+  .email-button {
     width: 28%;
-    background: #E4007D;
+    background: #e4007d;
     border-radius: 4.8px;
-
-}
-
-
+  }
 }
 
 @media only screen and (max-width: 991px) {
-
-    .subscribe{
-    .Subscribe-title{
-        color: $white;
-        font-family: 'Work Sans' !important;
-        font-style: normal !important;
-        font-weight: 700 !important;
-        font-size: 25px !important;
-        line-height: 29px !important;
-        text-align: center;
+  .subscribe {
+    .Subscribe-title {
+      color: $white;
+      font-family: 'Work Sans' !important;
+      font-style: normal !important;
+      font-weight: 700 !important;
+      font-size: 20px !important;
+      line-height: 29px !important;
+      text-align: center;
     }
-    .Subscribe-text{
-        color: $white;
+    .Subscribe-text {
+      color: $white;
+      font-family: 'Work Sans' !important;
+      font-style: normal !important;
+      font-weight: 500 !important;
+      font-size: 15px !important;
+      line-height: 30px !important;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .email-form {
+      padding-top: 4%;
+    }
+
+    .email-button {
+      width: 40%;
+      background: #e4007d;
+      border-radius: 4.8px;
+    }
+  }
+}
+@media only screen and (max-width: 580px) {
+  .subscribe {
+    height: 450px !important;
+    .Subscribe-title {
+      color: $white;
+      font-family: 'Work Sans' !important;
+      font-style: normal !important;
+      font-weight: 700 !important;
+      font-size: 18px !important;
+      line-height: 29px !important;
+      text-align: center;
+    }
+    .Subscribe-text {
+      color: $white;
+      font-family: 'Work Sans' !important;
+      font-style: normal !important;
+      font-weight: 500 !important;
+      font-size: 14px !important;
+      line-height: 30px !important;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .email-form {
+      padding-top: 4%;
+      
+    }
+    .email{
         font-family: 'Work Sans' !important;
         font-style: normal !important;
         font-weight: 500 !important;
-        font-size: 20px !important;
+        font-size: 14px !important;
         line-height: 30px !important;
-        text-align: center;
-        margin-top: 10px;
     }
-    .email-form{
-    
-        padding-top: 4%;
-    
-    
+    .email-button {
+      width: 40%;
+      font-style: normal !important;
+      font-weight: 500 !important;
+      font-size: 14px !important;
+      line-height: 1.5 !important;
+      background: #e4007d;
+      border-radius: 4.8px;
     }
-    
-    .email-button{
-        
-        width: 40%;
-        background: #E4007D;
-        border-radius: 4.8px;
-    
+    .email-row{
+        width: 95% !important;
     }
   }
-
 }
-
-
