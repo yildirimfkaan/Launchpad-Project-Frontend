@@ -25,7 +25,6 @@ function ProjectDetail({ ...props }) {
     setWalletAccount,
     user,
     buyTokenModalRequest,
-    percent_data,
   } = props;
 
   const item = props.project;
@@ -126,8 +125,9 @@ function ProjectDetail({ ...props }) {
 
     return () => {};
   }, []);
-  console.log(percent_data?.valueOf());
-  console.log(project)
+  
+  
+  
   return (
     <>
       {!project ? (
@@ -261,7 +261,7 @@ function ProjectDetail({ ...props }) {
                   <Button variant="primary" onClick={addUnoTokenFunction} className="mx-2">
                     Add {item.token.symbol}{' '}
                   </Button>
-                  {checkAllConditionForStake(user, accounts) ? (
+                  {checkAllConditionForStake(user, accounts) && project?.is_active == 'active' ? (
                     <Button
                       variant="primary"
                       onClick={() => {
@@ -344,7 +344,7 @@ const mapStateToProps = (state) => {
     accounts: state.walletReducer.accounts,
     user: state.userReducer.user,
     project: state.projectReducer.project,
-    percent_data: state.transactionReducer.percent_data,
+   
   };
 };
 const mapDispatchToProps = (dispatch) => {
