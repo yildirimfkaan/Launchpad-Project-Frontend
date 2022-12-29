@@ -6,7 +6,7 @@ import { mainColors } from '../../helpers/colors';
 // import metamaskIcon from '../UPWalletAccountDetailModal/metamask-icon.png';
 // import ProgressBar from 'react-bootstrap/ProgressBar';
 import unopadMiniIcon from '../../assets/img/logo/unopad-logo-mini.png';
-import unopadCardDefaultBackground from '../../assets/img/background/card-title-background.png';
+// import unopadCardDefaultBackground from '../../assets/img/background/card-title-background.png';
 import unopadCardDefaultLogo from '../../assets/img/logo/unopad-logo-white.png';
 import { useEffect, useState } from 'react';
 
@@ -55,8 +55,10 @@ export default function Card1(props) {
         <div
           className="project-img-div pt-5"
           style={{
-            background: `url(${process.env.REACT_APP_API_URL + '/projects/' + item[1].id + '/image'}
-                    ),url(${unopadCardDefaultBackground}
+            background: `linear-gradient(
+              rgba(0, 0, 0, 0.5), 
+              rgba(0, 0, 0, 0.5)
+            ),url(${process.env.REACT_APP_API_URL + '/projects/' + item[1].id + '/image'}
                     )`,
             backgroundSize: 'cover',
           }}
@@ -110,12 +112,18 @@ export default function Card1(props) {
         </div>
 
         <div class="progress mb-2 mx-2 mt-2 rounded-pill">
-          <span class="card-progress-value 
-          text-t-body-color-light" style={getProgressBarValueStyle()}>
+          <span
+            class="card-progress-value 
+          text-t-body-color-light"
+            style={getProgressBarValueStyle()}
+          >
             {item[1].percent_raised}%
           </span>
-          <div class="progress-bar
-           rounded-pill" style={{ width: item[1].percent_raised+'%' }}></div>
+          <div
+            class="progress-bar
+           rounded-pill"
+            style={{ width: item[1].percent_raised + '%' }}
+          ></div>
         </div>
 
         <Table>
