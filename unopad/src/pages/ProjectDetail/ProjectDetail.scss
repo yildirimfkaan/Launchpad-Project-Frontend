@@ -18,7 +18,9 @@
 .project-detail-card-body{
     border-top: 1px solid $gray-500;
 }
-
+.token-button{
+    min-width: 200px;
+}
 .progress {
     text-align:center;
     font-size: large !important;
