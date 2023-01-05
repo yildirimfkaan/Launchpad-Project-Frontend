@@ -11,6 +11,7 @@ export const getAccountDetails = (body) => doGet('/user/profile', body);
 export const resendVerificationEmail = () => doPost('/user/activation-email');
 export const checkUserToken = () => doGet('/user/check_token');
 export const transaction = (body) => doPost('/transaction', body);
+export const newtorkChain = (chainId) => doPost('/chain/' + chainId);
 
 //Post
 export const getPosts = () => doGet('/projects');

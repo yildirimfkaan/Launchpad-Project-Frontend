@@ -24,16 +24,26 @@ function WalletAccountDetailModal({ ...props }) {
     walletAccountHistoryRequest,
     walletAccountDetailModal,
     walletAccountDetailModalRequest,
+    walletInfo,
+    networkInfo,
     setAlert,
   } = props;
   const accountSpanRef = useRef(null);
 
+  // const nf = new Intl.NumberFormat();
+  // const number = nf.format(sayi);
+
   const handleClose = () => {
     walletAccountDetailModalRequest(false);
   };
-
   function getWalletAccountHistory() {
     walletAccountHistoryRequest();
+  }
+  function calculateBalance() {
+    const formatBalance = (Number(balance_) / 10000).toFixed(4).split('.')
+    const firstValueFormatBalance = Number(formatBalance[0]).toLocaleString('tr-TR')
+    console.log(firstValueFormatBalance,formatBalance)
+    return firstValueFormatBalance + "," + formatBalance[1]
   }
   const copyAddress = () => {
     if (accountSpanRef?.current) {
@@ -48,6 +58,7 @@ function WalletAccountDetailModal({ ...props }) {
       console.log('error occured');
     }
   };
+
   return (
     <Modal show={walletAccountDetailModal} onHide={handleClose} size="lg" centered>
       <Modal.Header className="border-0" closeButton></Modal.Header>
@@ -57,15 +68,22 @@ function WalletAccountDetailModal({ ...props }) {
           <Row className="py-2">
             <Col className="d-flex flex-column align-items-center">
               <div className="titles text-fs-body-sm">Balance</div>
-              <div className="titles text-fs-head-xs">{balance_}</div>
+              <div className="titles text-fs-head-xs">
+                {calculateBalance()}
+              </div>
             </Col>
             <Col className="d-flex flex-column align-items-center">
               <div className="titles text-fs-body-sm">Network</div>
-              <div className="titles text-fs-head-xs">Newtork</div>
+              <div
+                className="titles network-name text-fs-head-xs text-truncate"
+                title={networkInfo?.name}
+              >
+                {networkInfo?.name}
+              </div>
             </Col>
             <Col className="d-flex flex-column align-items-center">
               <div className="titles text-fs-body-sm"> Wallet</div>
-              <div className="titles text-fs-head-xs"> Metamask</div>
+              <div className="titles text-fs-head-xs"> {walletInfo}</div>
             </Col>
           </Row>
         </Container>
@@ -117,6 +135,8 @@ const mapStateToProps = (state) => {
     balance_: state.walletReducer.balance_,
     accounts: state.walletReducer.accounts,
     walletAccountDetailModal: state.walletReducer.walletAccountDetailModal,
+    walletInfo: state.walletReducer.walletInfo,
+    networkInfo: state.walletReducer.networkInfo,
   };
 };
 const mapDispatchToProps = (dispatch) => {
