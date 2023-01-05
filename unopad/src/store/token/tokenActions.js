@@ -105,3 +105,21 @@ export const updateQuickFilterAction = (payload) => {
     payload,
   };
 };
+export const swapTokenDataAction = (payload) => {
+  return {
+    type: types.SWAP_TOKEN_DATA,
+    payload,
+  };
+};
+export const swapTokenErrorAction = (payload) => {
+  return {
+    type: types.SWAP_TOKEN_ERROR,
+    payload,
+  };
+};
+export const swapTokenModalAction = (payload) => {
+  return {
+    type: types.SWAP_TOKEN_MODAL,
+    payload,
+  };
+};

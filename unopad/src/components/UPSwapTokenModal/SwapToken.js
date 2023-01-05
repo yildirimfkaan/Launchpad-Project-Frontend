@@ -1,163 +1,251 @@
+/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-
 import Swal from 'sweetalert2';
-import Spinner from 'react-bootstrap/Spinner';
-import dynamic_presale_abi from '../../helpers/dynamic_presale';
-import dynamic_token_abi from '../../helpers/dynamic_token';
+// import unopad_token_abi from '../../helpers/unopad_token';
 import Web3 from 'web3';
 import { ethers } from 'ethers';
 import { setLoadingAction } from '../../store/loading/loadingActions';
 import * as loadingActionTypes from '../../store/loading/loadingActionTypes';
 import wallet from '../../helpers/wallet';
-import UPTransactions from '../UPTransactions/UPTransactions';
+// import UPTransactions from '../UPTransactions/UPTransactions';
+import Spinner from 'react-bootstrap/Spinner';
 import './UPSwapTokenModal.scss';
-import { FloatingLabel, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import { abiRequestAction } from '../../store/abi/abiActions';
+import { swapTokenModalAction } from '../../store/token/tokenActions';
+import { transactionRequest } from '../../store/transaction/transactionActions';
 
-function SwapToken({ ...props }) {
-  const { balance_, signerAddress, project, setLoading, isLoading, token } = props;
-  const contractDynamicToken = project.token.address;
-
-  const contractDynamicTokenPresale = project.token.presale_contract.contract_address;
+function SwapUnoToken({ ...props }) {
+  const {
+    balance_,
+    signerAddress,
+    token,
+    setLoading,
+    isLoading,
+    project,
+    abiHistoryRequest,
+    abiHistory,
+    swapTokenModalRequest,
+    transactionRequest,
+  } = props;
   const [txs, setTxs] = useState([]);
-  const [swapTokenInputValue, setSwapTokenInputValue] = useState({
-    swapTokenAmount: 1,
-    etherValue: 0.002,
+  const [unoTokenInputValue, setUnoTokenInputValue] = useState({
+    UnoTokenAmount: 1,
+    etherValue: 1,
   });
 
-  const swapTokenOnChangeHandler = (event) => {
+  const handleAbi = () => {
+    abiHistoryRequest();
+  };
+  const UnoTokenOnChangeHandler = (event) => {
     const { name, value } = event.target;
     if (name == 'etherValue') {
-      const swapTokenValue = value * 500;
-      swapTokenInputValue.swapTokenAmount = swapTokenValue;
-      swapTokenInputValue.etherValue = value;
-      setSwapTokenInputValue({ ...swapTokenInputValue });
-    } else if (name == 'swapTokenAmount') {
-      const etherValue = value / 500;
-      swapTokenInputValue.swapTokenAmount = value;
-      swapTokenInputValue.etherValue = etherValue;
-      setSwapTokenInputValue({ ...swapTokenInputValue });
+      const unoTokenValue = value;
+      unoTokenInputValue.UnoTokenAmount = unoTokenValue;
+      unoTokenInputValue.etherValue = value;
+      setUnoTokenInputValue({ ...unoTokenInputValue });
+    } else if (name == 'UnoTokenAmount') {
+      const etherValue = value;
+      unoTokenInputValue.UnoTokenAmount = value;
+      unoTokenInputValue.etherValue = etherValue;
+      setUnoTokenInputValue({ ...unoTokenInputValue });
     }
   };
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger',
+    },
+    buttonsStyling: false,
+  });
+  const closeModal = () => {
+    swapTokenModalRequest(false);
+  };
+  useEffect(() => {
+    if (abiHistory?.[0]?.[project?.token.symbol + '_abi']) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const unopad_token = new ethers.Contract(
+        project?.token.address,
+        abiHistory?.[0]?.[project?.token.symbol + '_abi'],
+        provider,
+      );
+
+      try {
+        unopad_token.on('Transfer', (from, to, amount, event) => {
+          setTxs((currentTxs) => [
+            ...currentTxs,
+            {
+              txHash: event.transactionHash,
+              from,
+              to,
+              amount: String(amount),
+            },
+          ]);
+        });
+      } catch (e) {
+        console.log('error', e);
+      }
+      return () => {
+        unopad_token.removeAllListeners();
+      };
+    }
+  }, [abiHistory, project]);
 
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const dynamic_token = new ethers.Contract(contractDynamicToken, dynamic_token_abi, provider);
-
-    try {
-      dynamic_token.on('Transfer', (from, to, amount, event) => {
-        setTxs((currentTxs) => [
-          ...currentTxs,
-          {
-            txHash: event.transactionHash,
-            from,
-            to,
-            amount: String(amount),
-          },
-        ]);
-      });
-    } catch (e) {
-      console.log('error', e);
-    }
-
-    return () => {
-      dynamic_token.removeAllListeners();
-    };
+    handleAbi();
   }, []);
-
   const swapToken = async (e) => {
     e.preventDefault();
     setTxs([]);
-
     setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: true });
     const data = new FormData(e.target);
-
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = await provider.getSigner();
     const signerAddress = await signer.getAddress();
     const web3 = new Web3(window.ethereum);
     await wallet.controlAndSwitchOrAddNetwork();
     await window.ethereum.enable();
-
-    const dynamic_token = new web3.eth.Contract(dynamic_token_abi, contractDynamicToken);
-    const dynamic_presale = new web3.eth.Contract(dynamic_presale_abi, contractDynamicTokenPresale);
+    const unopad_token = new web3.eth.Contract(
+      abiHistory?.[0]?.['UNOT_abi'],
+      '0x091DeDB221136CB493955e101B279c677473621d',
+    );
+    const unopad_presale = new web3.eth.Contract(
+      abiHistory?.[0]?.[project?.token.symbol + '_presale_abi'],
+      project?.token.presale_contract.contract_address,
+    );
     const etherMiktari = data.get('etherValue');
+    const project_id = project?.id;
+    const token_count = unoTokenInputValue.UnoTokenAmount;
+    const token_address = project?.token.address;
+    const transaction_time = new Date();
+
+    const user_public_address = signerAddress;
     try {
-      await dynamic_presale.methods.swap().send({
-        from: signerAddress,
-        to: contractDynamicTokenPresale,
-        data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
-        value: web3.utils.toWei(etherMiktari, 'ether'),
-      });
-      wallet.getMyBalance(token.token_address);
+      const approve_transaction = await unopad_token.methods
+        .approve(
+          project?.token.presale_contract.contract_address,
+          web3.utils.toWei(String(Number(etherMiktari) * 10000), 'wei'),
+        )
+        .send({
+          from: signerAddress,
+          to: project?.token.presale_contract.contract_address,
+          data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
+        });
       setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: false });
+      setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: true });
+      const transaction = await unopad_presale.methods
+        .swap(web3.utils.toWei(String(Number(etherMiktari) * 10000), 'wei'))
+        .send({
+          from: signerAddress,
+          to: project?.token.presale_contract.contract_address,
+          data: web3.eth.abi.encodeFunctionSignature('whitdrawETH()'),
+        });
+      wallet.getMyBalance(project?.token.address);
+      const transaction_status = transaction.status;
+      const payload2 = {
+        project_id,
+        token_count,
+        user_public_address,
+        token_address,
+        transaction_time,
+        transaction_status,
+      };
+
+      transactionRequest(payload2);
+
       Swal.fire({
         icon: 'success',
+        iconColor: '#E4007D',
         text: 'Transaction succeed',
-      });
+        confirmButtonColor: '#E4007D',
+        html:
+          '<a href=https://testnet.bscscan.com/tx/' +
+          transaction.transactionHash +
+          " target='_blank'> Check Detail Transaction !</a>",
+      }).then(closeModal);
     } catch (err) {
+      console.error(err);
+
       if (err?.receipt?.transactionHash) {
         Swal.fire({
           icon: 'error',
+          iconColor: '#E4007D',
           title: 'Transaction is Failed',
+          confirmButtonColor: '#E4007D',
           // eslint-disable-next-line max-len, no-template-curly-in-string
           html:
             '<a href=https://testnet.bscscan.com/tx/' +
             err.receipt.transactionHash +
             " target='_blank'> Check Detail Transaction !</a>",
-        });
+        }).then(closeModal);
         setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: false });
+        setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
+        const transaction_status = false;
+        const payload2 = {
+          project_id,
+          token_count,
+          user_public_address,
+          token_address,
+          transaction_time,
+          transaction_status,
+        };
+        transactionRequest(payload2);
       } else {
         Swal.fire({
           icon: 'warning',
+          iconColor: '#E4007D',
+          confirmButtonColor: '#E4007D',
           text: err.message,
-        });
+        }).then(closeModal);
         setLoading({ key: loadingActionTypes.SWAP_TOKEN_LOADING, isLoading: false });
+        setLoading({ key: loadingActionTypes.BUY_UNOTOKEN_LOADING, isLoading: false });
       }
     }
   };
-  const Transfer_txs = [txs];
   return (
     <>
       <form className="m-0" onSubmit={swapToken}>
         <div
           className="credit-card w-full lg:w-3/4 sm:w-auto 
-        shadow-lg mx-auto rounded-xl bg-white"
+          shadow-lg mx-auto rounded-xl"
         >
           <main className="px-4">
-          <p className="d-flex justify-content-center text-fs-head-md">Buy Token</p>{' '}
+            <p className="d-flex justify-content-center text-fs-head-md">Swap Token</p>{' '}
             <div className="mx-3">
               <div className="my-3">
-              <p className="d-flex text-fs-head-xxs">Ether Value</p>{' '}
-                <FloatingLabel label="Ether Value" className="mb-3">
-                  
-                  <Form.Control
-                    type="number"
-                    name="etherValue"
-                    className="input input-bordered text-fs-body-md text-t-body-color bg-light"
-                    placeholder="Ether Value"
-                    min="0.002"
-                    step="0.002"
-                    onChange={swapTokenOnChangeHandler}
-                    value={swapTokenInputValue.etherValue}
-                    disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING]}
-                  />
-                </FloatingLabel>
-                <p className="d-flex  
-                text-fs-head-xxs">Swap Token Amount</p>{' '}
-                <FloatingLabel label="Swap Token Amount" className="mb-3">
-                  <Form.Control
-                    type="number"
-                    name="swapTokenAmount"
-                    className="input input-bordered text-fs-body-md text-t-body-color bg-light"
-                    placeholder="Swap Token Amount"
-                    min="1"
-                    step="1"
-                    onChange={swapTokenOnChangeHandler}
-                    value={swapTokenInputValue.swapTokenAmount}
-                    disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING]}
-                  />
-                </FloatingLabel>
+                <p className="d-flex text-fs-head-xxs">{project?.token.symbol} Amount</p>{' '}
+                <Form.Control
+                  type="number"
+                  name="etherValue"
+                  className="input input-bordered text-fs-body-md text-t-body-color bg-light"
+                  placeholder="Ether Value"
+                  min="1"
+                  step="1"
+                  max="1000"
+                  value={unoTokenInputValue.etherValue}
+                  onChange={UnoTokenOnChangeHandler}
+                  disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING] || isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
+                />
+                <p
+                  className="d-flex  
+                text-fs-head-xxs mt-3"
+                >
+                  Uno Token Amount
+                </p>{' '}
+                <Form.Control
+                  type="number"
+                  name="UnoTokenAmount"
+                  id="UnoTokenAmount"
+                  className="input input-bordered text-fs-body-md text-t-body-color bg-light "
+                  placeholder="UnoTokenAmount"
+                  value={unoTokenInputValue.UnoTokenAmount}
+                  onChange={UnoTokenOnChangeHandler}
+                  min="1"
+                  step="1"
+                  max="1000"
+                  disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING] || isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
+                />
               </div>
             </div>
           </main>
@@ -165,40 +253,47 @@ function SwapToken({ ...props }) {
             <button
               type="submit"
               className="btn btn-primary d-flex justify-content-center"
-              disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING]}
+              disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING]|| isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
             >
               {' '}
-              {!isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING] ? (
-                'Buy Token'
-              ) : (
+              {isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING] ? (
                 <div className="d-flex align-items-center justify-content-center">
                   <Spinner animation="border" role="status">
                     <span className="visually-hidden"></span>
                   </Spinner>
                   <span className="ml-2">Pending Transaction...</span>
                 </div>
+              ) : isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING] ? (
+                <div className="d-flex align-items-center justify-content-center">
+                  <Spinner animation="border" role="status">
+                    <span className="visually-hidden"></span>
+                  </Spinner>
+                  <span className="ml-2">Approving Transaction...</span>
+                </div>
+              ) : (
+                'Swap Token'
               )}
             </button>
           </footer>
-          
         </div>
       </form>
-      <UPTransactions {...Transfer_txs} />
+      {/* <UPTransactions {...Transfer_txs} /> */}
     </>
   );
 }
 const mapStateToProps = (state) => {
   return {
     provider2: state.walletReducer.provider2,
+    project: state.projectReducer.project,
     signer: state.walletReducer.signer,
     signerAddress: state.walletReducer.signerAddress,
     web3: state.walletReducer.web3,
     erc20_: state.walletReducer.erc20_,
     balance_: state.walletReducer.balance_,
     contractAddress: state.walletReducer.contractAddress,
-    project: state.projectReducer.project,
-    isLoading: state.loadingReducer.isLoading,
     token: state.tokenReducer.token,
+    isLoading: state.loadingReducer.isLoading,
+    abiHistory: state.abiReducer.abiHistory,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -206,7 +301,15 @@ const mapDispatchToProps = (dispatch) => {
     setLoading: (payload) => {
       dispatch(setLoadingAction(payload));
     },
+    abiHistoryRequest: (payload) => {
+      dispatch(abiRequestAction(payload));
+    },
+    swapTokenModalRequest: (payload) => {
+      dispatch(swapTokenModalAction(payload));
+    },
+    transactionRequest: (creds) => {
+      dispatch(transactionRequest(creds));
+    },
   };
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(SwapToken);
+export default connect(mapStateToProps, mapDispatchToProps)(SwapUnoToken);

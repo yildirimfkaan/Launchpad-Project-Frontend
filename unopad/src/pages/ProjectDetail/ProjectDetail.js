@@ -10,9 +10,11 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import './ProjectDetail.scss';
 import UPProjectInfo from '../../components/UPProjectInfo/UPProjectInfo';
 import UPIcons from '../../components/UPIcons/UPIcons';
-// import { swapTokenModalAction } from '../../store/project/projectActions';
+import { swapTokenModalAction } from '../../store/project/projectActions';
 import { buyTokenModalAction } from '../../store/token/tokenActions';
 import UPBuyTokenModal from '../../components/UPBuyTokenModal/UPBuyTokenModal';
+import UPSwapTokenModal from '../../components/UPSwapTokenModal/UPSwapTokenModal';
+
 import ProjectFlow from '../../components/UPProjectFlow/ProjectFlow';
 import SpinnerUnopad from '../../components/UPSpinnerUnopad/UPSpinnerUnopad';
 
@@ -25,11 +27,13 @@ function ProjectDetail({ ...props }) {
     setWalletAccount,
     user,
     buyTokenModalRequest,
+    swapTokenModalRequest,
   } = props;
 
   const item = props.project;
 
   const [stake, setStake] = useState(false);
+  const [swap, setSwap] = useState(false);
 
   const [signature, setSignature] = useState('');
   const [error, setError] = useState('');
@@ -45,8 +49,14 @@ function ProjectDetail({ ...props }) {
   const stakeSetup = () => {
     setStake(true);
   };
+  const swapSetup = () => {
+    setSwap(true);
+  };
   const handleShow = () => {
     buyTokenModalRequest(true);
+  };
+  const handleShowSwap = () => {
+    swapTokenModalRequest(true);
   };
   const connectWallet = async () => {
     wallet.connectWallet();
@@ -125,9 +135,7 @@ function ProjectDetail({ ...props }) {
 
     return () => {};
   }, []);
-  
-  
-  
+
   return (
     <>
       {!project ? (
@@ -258,24 +266,61 @@ function ProjectDetail({ ...props }) {
                   <Card.Title>Want to buy {item.token.symbol} token ?</Card.Title>
                 </div>
                 <div className="project-detail-footer-right-div">
-                  <Button variant="primary" onClick={addUnoTokenFunction} className="mx-2">
-                    Add {item.token.symbol}{' '}
-                  </Button>
-                  {checkAllConditionForStake(user, accounts) && project?.is_active == 'active' ? (
-                    <Button
-                      variant="primary"
-                      onClick={() => {
-                        stakeSetup();
-                        handleShow();
-                      }}
-                    >
-                      Buy {item.token.symbol}
-                    </Button>
-                  ) : (
-                    <Button variant="primary" disabled={true}>
-                      Buy {item.token.symbol}
-                    </Button>
-                  )}
+                  <Row>
+                    <Col>
+                      <Button
+                        variant="primary"
+                        onClick={addUnoTokenFunction}
+                        className="token-button"
+                      >
+                        Add {item.token.symbol}{' '}
+                      </Button>
+                    </Col>
+                    <Col>
+                      {checkAllConditionForStake(user, accounts) &&
+                      project?.is_active == 'active' ? (
+                        <Button
+                          className="token-button"
+                          variant="primary"
+                          onClick={() => {
+                            stakeSetup();
+                            handleShow();
+                          }}
+                        >
+                          Buy {item.token.symbol}
+                        </Button>
+                      ) : (
+                        <Button className="token-button" variant="primary" disabled={true}>
+                          Buy {item.token.symbol}
+                        </Button>
+                      )}
+                    </Col>
+                    {console.log(item.token.symbol)}
+
+                    {item.token.symbol != 'UNOT' ? (
+                      <Col>
+                        {checkAllConditionForStake(user, accounts) &&
+                        project?.is_active == 'active' ? (
+                          <Button
+                            className="token-button"
+                            variant="primary"
+                            onClick={() => {
+                              swapSetup();
+                              handleShowSwap();
+                            }}
+                          >
+                            Swap {item.token.symbol} / UNOT
+                          </Button>
+                        ) : (
+                          <Button className="token-button" variant="primary" disabled={true}>
+                            Swap {item.token.symbol} / UNOT
+                          </Button>
+                        )}
+                      </Col>
+                    ) : (
+                      <></>
+                    )}
+                  </Row>
                 </div>
               </Card.Footer>
             </Card>
@@ -327,6 +372,11 @@ function ProjectDetail({ ...props }) {
               ) : (
                 <div></div>
               )}
+              {checkAllConditionForStake(user, accounts) && swap ? (
+                <UPSwapTokenModal />
+              ) : (
+                <div></div>
+              )}
             </div>
           )}
           <ProjectFlow {...props} />
@@ -344,7 +394,6 @@ const mapStateToProps = (state) => {
     accounts: state.walletReducer.accounts,
     user: state.userReducer.user,
     project: state.projectReducer.project,
-   
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -360,6 +409,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     buyTokenModalRequest: (payload) => {
       dispatch(buyTokenModalAction(payload));
+    },
+    swapTokenModalRequest: (payload) => {
+      dispatch(swapTokenModalAction(payload));
     },
   };
 };
