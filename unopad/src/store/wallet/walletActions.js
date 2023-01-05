@@ -108,3 +108,35 @@ export const stakeNowButtonActivationAction = (payload) => {
     payload,
   };
 };
+export const walletInfoDataAction = (payload) => {
+  
+  return {
+    type: types.WALLET_INFO_DATA,
+    payload,
+  };
+};
+export const walletInfoErrorAction = (payload) => {
+  return {
+    type: types.WALLET_INFO_ERROR,
+    payload,
+  };
+};
+export const networkInfoRequest = (creds) => {
+  return {
+    
+    type: types.NETWORK_INFO_REQUEST,
+    creds,
+  };
+};
+export const networkInfoDataAction = (payload) => {
+  return {
+    type: types.NETWORK_INFO_DATA,
+    payload,
+  };
+};
+export const networkInfoErrorAction = (payload) => {
+  return {
+    type: types.NETWORK_INFO_ERROR,
+    payload,
+  };
+};

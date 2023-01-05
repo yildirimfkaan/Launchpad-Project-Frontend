@@ -26,11 +26,23 @@ function* walletAccountHistory() {
     yield put(actions.connectWalletError(e));
   }
 }
+function* newtorkInfoSaga({payload}) {
+  try {
+    
+    const { data } = yield call(endpoints.newtorkChain,payload.chainId);
+    yield put (actions.networkInfoDataAction(data))
+  } catch (e) {
+    yield put(actions.networkInfoErrorAction(e));
+  }
+}
 
 function* watchWalletAccountHistory() {
   yield takeEvery(types.WALLET_ACCOUNT_HISTORY_REQUEST, walletAccountHistory);
 }
+function* watchNetworkInfo() {
+  yield takeEvery(types.NETWORK_INFO_REQUEST, newtorkInfoSaga);
+}
 
 export function* walletSaga() {
-  yield all([watchWalletAccountHistory()]);
+  yield all([watchWalletAccountHistory(),watchNetworkInfo()]);
 }

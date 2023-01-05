@@ -88,7 +88,7 @@ function SignUp({ ...props }) {
         <div className="d-flex flex-column justify-content-center aling-items-center px-4 mx-2 public-signup-layout-form">
           <Form onSubmit={handleSubmit}>
             <UPFormControl
-              label="Username"
+              label="Name/Surname"
               type="text"
               value={data.username}
               handleChange={handleChange}

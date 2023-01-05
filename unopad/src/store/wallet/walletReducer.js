@@ -14,6 +14,9 @@ const initialState = {
   WalletConnect: null,
   WalletConnectModal: false,
 
+  walletInfo: null,
+  networkInfo: null,
+
   provider2: null,
   signer: null,
   signerAddress: null,
@@ -107,6 +110,31 @@ export const walletReducer = (state = initialState, action) => {
 
         WalletConnectModal: action?.payload,
       };
+    case types.WALLET_INFO_DATA:
+      return {
+        ...state,
+
+        walletInfo: action?.payload ,
+      };
+    case types.WALLET_INFO_ERROR:
+      return {
+        ...state,
+
+        error: { type: types.WALLET_INFO_ERROR, data: action.payload },
+      };
+    case types.NETWORK_INFO_DATA:
+      return {
+        ...state,
+
+        networkInfo: action?.payload ? Object.assign([], action.payload) : null,
+      };
+    case types.NETWORK_INFO_ERROR:
+      return {
+        ...state,
+
+        error: { type: types.NETWORK_INFO_ERROR, data: action.payload },
+      };
+
     default:
       return state;
   }

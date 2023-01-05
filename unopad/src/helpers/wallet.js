@@ -3,6 +3,7 @@ import store from '../store';
 import * as types from '../store/wallet/walletActionTypes';
 import Web3 from 'web3';
 import erc20abi from '../helpers/abi';
+import * as actions from '../store/wallet/walletActions';
 
 // import * as loadingActionTypes from '../store/loading/loadingActionTypes';
 // import { setLoading } from '../store/loading/loadingActions';
@@ -10,19 +11,32 @@ import erc20abi from '../helpers/abi';
 async function connectWallet() {
   try {
     const { ethereum } = window;
-
+    const walletInfoMetamaskPayload = 'Metamask';
+    const walletInfoCoinbasePayload = 'Coinbase';
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-
+    console.log("WalletType:",provider.connection.url)
     const accounts = await ethereum.request({
       method: 'eth_requestAccounts',
     });
+    
 
+    controlAndSwitchOrAddNetwork()
+    
     // const library = new ethers.providers.Web3Provider(provider);
+    if(provider?.connection?.url == 'metamask'){
+      store.dispatch({ type: types.WALLET_INFO_DATA, payload:walletInfoMetamaskPayload });
+      // store.dispatch(actions.walletInfoDataAction(walletInfoMetamaskPayload));
+      console.log(walletInfoMetamaskPayload)
+    }
+    
+    actions.networkInfoRequest()
+    store.dispatch({ type: types.NETWORK_INFO_REQUEST, payload:{chainId:ethereum.networkVersion} });
     const payload = {
       provider: provider,
       ethereum: ethereum,
       accounts: accounts,
     };
+    
     store.dispatch({ type: types.CONNECT_WALLET_DATA, payload });
     localStorage.setItem('-walletlink:https://www.walletlink.org:Addresses', accounts);
     localStorage.setItem('WALLET_VERIFICATION_DATA', JSON.stringify({ accounts }));
@@ -53,7 +67,11 @@ async function disconnectWallet() {
 
 async function controlAndSwitchOrAddNetwork() {
   const web3 = new Web3(window.ethereum);
-  
+  web3.eth.net.getNetworkType().then((result)=>{
+    console.log(result)
+  })
+  console.log(web3)
+  console.log(window.ethereum)
   const chainId = 97;
   if (window.ethereum.networkVersion !== chainId) {
     try {
