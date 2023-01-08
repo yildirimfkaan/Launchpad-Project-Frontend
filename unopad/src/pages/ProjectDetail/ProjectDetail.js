@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getProjectByID } from '../../store/project/projectActions';
+import { getProjectByID, getUnopadProjectRequestAction } from '../../store/project/projectActions';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import { setWalletAccountData } from '../../store/wallet/walletActions';
@@ -21,6 +21,7 @@ import SpinnerUnopad from '../../components/UPSpinnerUnopad/UPSpinnerUnopad';
 function ProjectDetail({ ...props }) {
   const {
     project,
+    unopadProject,
     provider,
     accounts,
     ethereum,
@@ -28,6 +29,7 @@ function ProjectDetail({ ...props }) {
     user,
     buyTokenModalRequest,
     swapTokenModalRequest,
+    getUnopadProjectRequest,
   } = props;
 
   const item = props.project;
@@ -132,13 +134,14 @@ function ProjectDetail({ ...props }) {
       id: props.match.params.id,
     };
     props.getProjectByID(payload);
+    getUnopadProjectRequest();
 
     return () => {};
   }, []);
 
   return (
     <>
-      {!project ? (
+      {!project || !unopadProject ? (
         <SpinnerUnopad />
       ) : (
         <Container className="mt-5 px-5">
@@ -394,6 +397,7 @@ const mapStateToProps = (state) => {
     accounts: state.walletReducer.accounts,
     user: state.userReducer.user,
     project: state.projectReducer.project,
+    unopadProject: state.projectReducer.unopadProject,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -412,6 +416,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     swapTokenModalRequest: (payload) => {
       dispatch(swapTokenModalAction(payload));
+    },
+    getUnopadProjectRequest: (payload) => {
+      dispatch(getUnopadProjectRequestAction(payload));
     },
   };
 };

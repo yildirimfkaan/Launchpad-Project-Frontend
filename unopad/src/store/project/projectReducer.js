@@ -6,6 +6,7 @@ const initialState = {
   completedProjects: null,
   project: null,
   swapTokenModal: false,
+  unopadProject: null,
   error: {
     type: null,
     data: null,
@@ -18,7 +19,7 @@ export const projectReducer = (state = initialState, action) => {
       const projects = action.payload;
       const activeProjects = action.payload.filter((p) => p.is_active === 'active');
       const completedProjects = action.payload.filter((p) => p.is_active === 'completed');
-      
+
       return {
         ...state,
         activeProjects: activeProjects,
@@ -58,11 +59,23 @@ export const projectReducer = (state = initialState, action) => {
 
         swapTokenModal: action?.payload,
       };
-      case types.SET_PROJECT_DATA:
-        return{
-          ...state,
-          
-        }
+    case types.SET_PROJECT_DATA:
+      return {
+        ...state,
+      };
+    case types.GET_UNOPAD_PROJECT_DATA:
+      return {
+        ...state,
+        unopadProject: action.payload ? Object.assign({}, action.payload) : null,
+      };
+    case types.GET_UNOPAD_PROJECT_ERROR:
+      return {
+        ...state,
+        error: {
+          type: types.GET_UNOPAD_PROJECT_ERROR,
+          data: action.payload,
+        },
+      };
     default:
       return state;
   }
