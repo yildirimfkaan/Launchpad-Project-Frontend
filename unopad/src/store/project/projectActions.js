@@ -69,8 +69,26 @@ export const swapTokenModalAction = (payload) => {
 };
 export const setProjectDataAction = (payload) => {
   return {
-    type:types.SET_PROJECT_DATA,
+    type: types.SET_PROJECT_DATA,
     payload,
-  }
+  };
+};
+export const getUnopadProjectRequestAction = (payload) => {
+  return {
+    type: types.GET_UNOPAD_PROJECT_REQUEST,
+    payload,
+  };
+};
 
-}
+export const getUnopadProjectDataAction = (payload) => {
+  return {
+    type: types.GET_UNOPAD_PROJECT_DATA,
+    payload,
+  };
+};
+export const getUnopadProjectErrorAction = (payload) => {
+  return {
+    type: types.GET_UNOPAD_PROJECT_ERROR,
+    payload,
+  };
+};

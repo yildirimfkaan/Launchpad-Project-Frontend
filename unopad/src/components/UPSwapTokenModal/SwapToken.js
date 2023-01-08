@@ -24,6 +24,7 @@ function SwapUnoToken({ ...props }) {
     setLoading,
     isLoading,
     project,
+    unopadProject,
     abiHistoryRequest,
     abiHistory,
     swapTokenModalRequest,
@@ -108,7 +109,7 @@ function SwapUnoToken({ ...props }) {
     await window.ethereum.enable();
     const unopad_token = new web3.eth.Contract(
       abiHistory?.[0]?.['UNOT_abi'],
-      '0x091DeDB221136CB493955e101B279c677473621d',
+      unopadProject?.token?.address,
     );
     const unopad_presale = new web3.eth.Contract(
       abiHistory?.[0]?.[project?.token.symbol + '_presale_abi'],
@@ -225,7 +226,10 @@ function SwapUnoToken({ ...props }) {
                   max="1000"
                   value={unoTokenInputValue.etherValue}
                   onChange={UnoTokenOnChangeHandler}
-                  disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING] || isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
+                  disabled={
+                    isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING] ||
+                    isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]
+                  }
                 />
                 <p
                   className="d-flex  
@@ -244,7 +248,10 @@ function SwapUnoToken({ ...props }) {
                   min="1"
                   step="1"
                   max="1000"
-                  disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING] || isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
+                  disabled={
+                    isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING] ||
+                    isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]
+                  }
                 />
               </div>
             </div>
@@ -253,7 +260,10 @@ function SwapUnoToken({ ...props }) {
             <button
               type="submit"
               className="btn btn-primary d-flex justify-content-center"
-              disabled={isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING]|| isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]}
+              disabled={
+                isLoading?.[loadingActionTypes.SWAP_TOKEN_LOADING] ||
+                isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING]
+              }
             >
               {' '}
               {isLoading?.[loadingActionTypes.BUY_UNOTOKEN_LOADING] ? (
@@ -285,6 +295,7 @@ const mapStateToProps = (state) => {
   return {
     provider2: state.walletReducer.provider2,
     project: state.projectReducer.project,
+    unopadProject: state.projectReducer.unopadProject,
     signer: state.walletReducer.signer,
     signerAddress: state.walletReducer.signerAddress,
     web3: state.walletReducer.web3,

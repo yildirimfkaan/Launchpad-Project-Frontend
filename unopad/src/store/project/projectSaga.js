@@ -67,6 +67,24 @@ function* addProject(action) {
   }
 }
 
+function* getUnopadProjectSaga(action) {
+  try {
+    yield put(actions.getUnopadProjectDataAction(null));
+    const { data } = yield call(endpoints.getProjectByID, 1);
+    yield put(actions.getUnopadProjectDataAction(data));
+  } catch (e) {
+    /* yield put(
+      alert.setAlertAction({
+        title: 'Error!',
+        text: 'Project Not Added.',
+        variant: 'danger',
+        outTimeMS: 6000,
+      }),
+    ); */
+    yield put(actions.getUnopadProjectErrorAction(e));
+  }
+}
+
 //Watcher Sagas
 function* watchGetProjects() {
   yield takeEvery(types.GET_PROJECTS_REQUEST, getProjectsSaga);
@@ -76,10 +94,19 @@ function* watchGetProjectByID() {
   yield takeEvery(types.GET_PROJECT_REQUEST, getProjectByIDSaga);
 }
 
+function* watchGetUnopadProject() {
+  yield takeEvery(types.GET_UNOPAD_PROJECT_REQUEST, getUnopadProjectSaga);
+}
+
 function* watchAddProject() {
   yield takeEvery(types.ADD_PROJECT, addProject);
 }
 
 export function* projectSaga() {
-  yield all([watchAddProject(), watchGetProjectByID(), watchGetProjects()]);
+  yield all([
+    watchAddProject(),
+    watchGetProjectByID(),
+    watchGetProjects(),
+    watchGetUnopadProject(),
+  ]);
 }
