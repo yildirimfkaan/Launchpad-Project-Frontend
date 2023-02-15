@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 const CARD_PROGRESS_BAR_VALUE_WIDTH = 37;
 
 export default function Card1(props) {
-  const { projects, item } = props;
+  const { projects, item ,redirectBaseUrl} = props;
 
   const [projectCardRef, setProjectCardRef] = useState(null);
 
@@ -42,7 +42,7 @@ export default function Card1(props) {
 
     return { left: projectCardLeft + projectCardWidth / 2 - CARD_PROGRESS_BAR_VALUE_WIDTH / 2 };
   }
-
+  console.log(redirectBaseUrl)
   return (
     <Col
       ref={(newRef) => setProjectCardRef(newRef)}
@@ -51,7 +51,7 @@ export default function Card1(props) {
       sm={12}
       md={6}
     >
-      <NavLink as={Link} to={'/project/' + item[1].id} className="shadow">
+      <NavLink as={Link} to={redirectBaseUrl +'/' + item[1].id} className="shadow">
         <div
           className="project-img-div pt-5"
           style={{

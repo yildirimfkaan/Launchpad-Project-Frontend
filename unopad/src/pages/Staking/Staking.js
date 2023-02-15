@@ -351,9 +351,9 @@ function Staking({ ...props }) {
               </div>
             </div>
             <Row className="justify-content-center">
-              {Object.entries(projects).map((item, index) => {
+              {Object.entries(projects).map((item, index,) => {
                 
-                  return <UPProjectCard item={item} {...props} />;
+                  return <UPProjectCard item={item} redirectBaseUrl={"/staking-project"} {...props} />;
                 
               })}
             </Row>

@@ -278,7 +278,7 @@ function Launchpad({ ...props }) {
             <Row className='justify-content-center'>
               {Object.entries(activeRenderedProjects).map((item, index) => {
                 if (activeCurrentPage * index < activeCurrentPage * maxRowCountPerPage) {
-                  return <UPProjectCard item={item} {...props} />;
+                  return <UPProjectCard item={item} redirectBaseUrl={"/project"} {...props} />;
                 }
               })}
             </Row>
@@ -326,7 +326,7 @@ function Launchpad({ ...props }) {
             <Row className='justify-content-center'>
               {Object.entries(completedRenderedProjects).map((item, index) => {
                 if (completedCurrentPage * index < completedCurrentPage * maxRowCountPerPage) {
-                  return <UPProjectCard item={item} {...props} />;
+                  return <UPProjectCard item={item} redirectBaseUrl={"/project"} {...props} />;
                 }
               })}
             </Row>
