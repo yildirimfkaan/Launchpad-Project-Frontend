@@ -3,6 +3,8 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import UPIcons from '../UPIcons/UPIcons';
 import './UPProjectInfo.scss';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 function ProjectSaleInfo({ ...props }) {
   const { project, history } = props;
@@ -67,8 +69,14 @@ function ProjectSaleInfo({ ...props }) {
               className="text-fs-head-xxs 
             ms-1" 
             >
-              {project?.token?.presale_contract?.contract_address.slice(0,6)}...
+               <OverlayTrigger placement='bottom' overlay={<Tooltip id="tooltip-disabled">{project?.token?.presale_contract?.contract_address}</Tooltip>}>
+               <span className="d-inline-block">
+               {project?.token?.presale_contract?.contract_address.slice(0,6)}...
               {project?.token?.presale_contract?.contract_address.slice(36,42)}
+      </span>
+              
+    </OverlayTrigger>
+              
             </span>
             </a>
           </div>

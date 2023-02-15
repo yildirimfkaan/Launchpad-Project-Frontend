@@ -8,7 +8,7 @@ import * as actions from '../store/wallet/walletActions';
 // import * as loadingActionTypes from '../store/loading/loadingActionTypes';
 // import { setLoading } from '../store/loading/loadingActions';
 
-async function connectWallet() {
+async function connectWallet(param) {
   try {
     const { ethereum } = window;
     const walletInfoMetamaskPayload = 'Metamask';
@@ -23,10 +23,15 @@ async function connectWallet() {
     controlAndSwitchOrAddNetwork()
     
     // const library = new ethers.providers.Web3Provider(provider);
-    if(provider?.connection?.url == 'metamask'){
+    if(param == 'metamask'){
       store.dispatch({ type: types.WALLET_INFO_DATA, payload:walletInfoMetamaskPayload });
       // store.dispatch(actions.walletInfoDataAction(walletInfoMetamaskPayload));
       console.log(walletInfoMetamaskPayload)
+    }
+    else if(param == 'coinbase'){
+      store.dispatch({ type: types.WALLET_INFO_DATA, payload:walletInfoCoinbasePayload });
+      
+      console.log(walletInfoCoinbasePayload)
     }
     
     actions.networkInfoRequest()

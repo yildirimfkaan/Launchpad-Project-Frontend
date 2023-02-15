@@ -37,6 +37,8 @@ import BannerTermsOfService from '../UPBanner/UPBannerTermsOfService/BannerTerms
 import BannerPrivacyPolicy from '../UPBanner/UPBannerPrivacyPolicy/BannerPrivacyPolicy';
 // eslint-disable-next-line max-len
 import BannerProjectInformation from '../UPBanner/UPBannerProjectInformation/BannerProjectInformation';
+import BannerStakingHome from '../UPBanner/UPBannerStakingHome/BannerStakingHome';
+import BannerStakingProject from '../UPBanner/UpBannerStakingProject/BannerStakingProject';
 
 function Navigation({ ...props }) {
   const {
@@ -84,7 +86,14 @@ function Navigation({ ...props }) {
       return <BannerLaunchpad />;
     } else if (pathname.toLowerCase() === '/sales') {
       return <BannerSales {...props} />;
-    } else if (pathname.toLowerCase().split('/')[1] === 'project') {
+    }
+    else if (pathname.toLowerCase() === '/staking') {
+      return <BannerStakingHome {...props} />;
+    } 
+    else if (pathname.toLowerCase().split('/')[1] === 'staking-project') {
+      return <BannerStakingProject />;
+    }    
+    else if (pathname.toLowerCase().split('/')[1] === 'project') {
       return <BannerToken />;
     } else if (pathname.toLowerCase() === '/profile') {
       if (PathnameHash.toLowerCase() === '#profile') {
@@ -172,11 +181,11 @@ function Navigation({ ...props }) {
               <Nav.Link
                 as={Link}
                 className={
-                  'text-fs-head-xs text-muted px-2 public-nav' +
+                  'text-fs-head-xs text-white px-2 public-nav' +
                   (pathIsActive('staking') ? ' active' : '')
                 }
-                to="#"
-                disabled={true}
+                to="/staking"
+                
               >
                 Staking
               </Nav.Link>

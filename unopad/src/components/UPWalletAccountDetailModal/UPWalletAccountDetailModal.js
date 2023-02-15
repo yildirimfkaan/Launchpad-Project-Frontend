@@ -15,7 +15,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { mainColors } from '../../helpers/colors';
 import UPIcons from '../UPIcons/UPIcons';
-import metamaskIcon from './metamask-icon.png';
+// import metamaskIcon from './metamask-icon.png';
+import unopadLogoMini from '../../assets/img/logo/unopad-logo-mini.png';
 
 function WalletAccountDetailModal({ ...props }) {
   const {
@@ -81,14 +82,14 @@ function WalletAccountDetailModal({ ...props }) {
                 {networkInfo?.name}
               </div>
             </Col>
-            <Col className="d-flex flex-column align-items-center">
+            {/* <Col className="d-flex flex-column align-items-center">
               <div className="titles text-fs-body-sm"> Wallet</div>
               <div className="titles text-fs-head-xs"> {walletInfo}</div>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
         <div className="d-flex align-items-center py-2 mt-3 metamask-div">
-          <img className="metamask-icon ms-2" alt="metamask-icon" src={metamaskIcon} />
+          <img className="metamask-icon ms-2" alt="metamask-icon" src={unopadLogoMini} />
           <span className="ms-3 text-fs-head-xs primary text-truncate" ref={accountSpanRef}>
             {accounts?.[0]}{' '}
           </span>

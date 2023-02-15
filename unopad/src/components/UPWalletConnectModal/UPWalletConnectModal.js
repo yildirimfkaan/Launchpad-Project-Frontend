@@ -27,7 +27,7 @@ function WalletConnectModal({ ...props }) {
           <div className="account-div text-fs-head-sm mb-4 ms-4 text-t-head-color">
             Connect Wallet{' '}
           </div>
-          <Nav.Link onClick={() => wallet.connectWallet()}>
+          <Nav.Link onClick={() => wallet.connectWallet('metamask')}>
             <div className="d-flex modal-row mx-4">
               <div className="d-flex align-items-center p-2">
                 <img className="wallet-icon ms-2" alt="metamask-icon" src={metamaskIcon} />
@@ -36,7 +36,7 @@ function WalletConnectModal({ ...props }) {
             </div>
           </Nav.Link>
 
-          <Nav.Link onClick={() => wallet.connectWallet()}>
+          <Nav.Link onClick={() => wallet.connectWallet('coinbase')}>
             <div className="d-flex modal-row align-items-center mx-4">
               <div className="d-flex align-items-center">
                 <img className="wallet-icon ms-2" alt="coinbase-icon" src={coinbaseIcon} />

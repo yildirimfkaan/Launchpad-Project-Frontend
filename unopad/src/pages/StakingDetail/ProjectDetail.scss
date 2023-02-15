@@ -1,0 +1,39 @@
+@import '../../variables.scss';
+.project-detail-card:hover{
+    background-color: $white;
+}
+.project-detail-price-div{
+    float: right;
+    text-align: center;
+}
+.project-detail-name-div{
+    float: left;
+}
+.project-detail-footer-left-div{
+    float: left;
+}
+.project-detail-footer-right-div{
+    float: right;
+}
+.project-detail-card-body{
+    border-top: 1px solid $gray-500;
+}
+.token-button{
+    min-width: 200px;
+}
+.progress {
+    text-align:center;
+    font-size: large !important;
+    height: 30px !important;
+    
+}
+.progress-value {
+    position:absolute;
+    right:0;
+    left:0; 
+    font-size: large !important;
+    text-shadow:1px 1px black; 
+}
+.progress-bar{
+    background: $unopad-gradient-vertical;
+}

@@ -7,6 +7,7 @@ import UserRoute from './routes/UserRoute';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import ProjectDetail from './pages/ProjectDetail/ProjectDetail';
+import StakingDetail from './pages/StakingDetail/StakingDetail';
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
@@ -17,6 +18,7 @@ import Activation from './pages/Activation/Activation';
 import { Route } from 'react-router-dom';
 import Profile from './pages/Profile/Profile';
 import Sales from './pages/Sales/Sales';
+import Staking from './pages/Staking/Staking';
 // import TokenDetail from './pages/TokenDetail/TokenDetail';
 
 const routes = {
@@ -100,9 +102,21 @@ const routes = {
         routeComponent: Route,
       },
       {
+        path: '/staking',
+        name: 'Staking',
+        component: Staking,
+        routeComponent: Route,
+      },
+      {
         path: '/project/:id',
         name: 'Project Detail',
         component: ProjectDetail,
+        routeComponent: Route,
+      },
+      {
+        path: '/staking-project/:id',
+        name: 'StakingDetail',
+        component: StakingDetail,
         routeComponent: Route,
       },
     
