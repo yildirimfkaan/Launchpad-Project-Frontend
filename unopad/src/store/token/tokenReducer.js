@@ -61,9 +61,9 @@ export const tokenReducer = (state = initialState, action) => {
 
         let tokens = state.tokens;
         if (state.quickFilter === quickFilterConstants.ACTIVE) {
-          tokens = tokens.filter((t) => t.is_active === 'active');
+          tokens = tokens?.filter((t) => t.is_active === 'active');
         } else if (state.quickFilter === quickFilterConstants.COMPLETED) {
-          tokens = tokens.filter((t) => t.is_active === 'completed');
+          tokens = tokens?.filter((t) => t.is_active === 'completed');
         }
 
         if (tokens) {

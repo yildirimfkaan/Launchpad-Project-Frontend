@@ -12,3 +12,9 @@ export const quickFilterConstants = {
   ACTIVE: 2,
   COMPLETED: 3,
 };
+
+
+export const stakingSectionConstants = {
+  STAKING: 1,
+  LOCKING: 2,
+};

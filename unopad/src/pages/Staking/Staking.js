@@ -20,7 +20,7 @@ import Subscribe from '../../components/UPSubscribe/Subscribe';
 import UPTokenTable from '../../components/UPTokenTable/UPTokenTable';
 import { sortKeys, sortTypes } from './stakingConstants';
 import UPIcons from '../../components/UPIcons/UPIcons';
-import { quickFilterConstants } from '../../helpers/constants';
+import {  stakingSectionConstants } from '../../helpers/constants';
 import {
   filterTokensAction,
   sortingTokensAction,
@@ -60,7 +60,7 @@ function Staking({ ...props }) {
   const [completedRenderedPages, setCompletedRenderedPages] = useState([]);
   const [completedLastPageOfPagination, setCompletedLastPageOfPagination] =
     useState(maxShowingPage);
-
+  const [activeSection, setActiveSection] = useState(stakingSectionConstants.STAKING);
   useEffect(() => {
     filterTokens();
     sortingTokens();
@@ -274,224 +274,224 @@ function Staking({ ...props }) {
   };
   console.log(activeProjects, completedProjects);
   console.log(projects);
-  return (
-    <Container>
-      <br></br>
-
-      <div className="completed-sales-div align-items-center justify-content-center">
-        {/* <div>
-          <div
-            className="d-flex align-items-center justify-content-center text-fs-body-lg 
-        text-t-body-color mb-3 completed-sales-description"
-          ></div>
-        </div> */}
-        <Row>
-          <Col className="text-md-end">
-            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-              <ToggleButton
-                variant={quickFilter === quickFilterConstants.ALL ? 'primary' : 'light'}
-                className={quickFilter !== quickFilterConstants.ALL ? 'text-t-body-color' : ''}
-                id="tbg-radio-1"
-                value={quickFilterConstants.ALL}
-                onClick={() => updateQuickFilter(quickFilterConstants.ALL)}
-              >
-                All
-              </ToggleButton>
-              <ToggleButton
-                variant={quickFilter === quickFilterConstants.ACTIVE ? 'primary' : 'light'}
-                className={quickFilter !== quickFilterConstants.ACTIVE ? 'text-t-body-color' : ''}
-                id="tbg-radio-2"
-                value={quickFilterConstants.ACTIVE}
-                onClick={() => updateQuickFilter(quickFilterConstants.ACTIVE)}
-              >
-                Active
-              </ToggleButton>
-              <ToggleButton
-                variant={quickFilter === quickFilterConstants.COMPLETED ? 'primary' : 'light'}
-                className={
-                  quickFilter !== quickFilterConstants.COMPLETED ? 'text-t-body-color' : ''
-                }
-                id="tbg-radio-3"
-                value={quickFilterConstants.COMPLETED}
-                onClick={() => updateQuickFilter(quickFilterConstants.COMPLETED)}
-              >
-                Completed
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </Col>
-        </Row>
-        {/* <UPQuickHandler
-          isSignUpAndKYC={true}
-          signUpAndKYCImg={quickHandlerImages.lpSignUpAndKYCImg}
-          isVerifyWallet={true}
-          verifyWalletImg={quickHandlerImages.lpVerifyWalletImg}
-          isStakeUnoToken={true}
-          stakeUnoTokenImg={quickHandlerImages.lpStakeUnoTokenImg}
-          registerForSaleImg={quickHandlerImages.lpRegisterForProject}
-          href="#launchpad-projects"
-          history={props.history}
-        /> */}
-        {projects ? (
-          <>
-            <div className="completed-sales-title-container">
-              <div
-                className="d-flex align-items-center justify-content-center 
-              text-fs-head-lg my-5"
-              >
-                PROJECTS
-              </div>
-              <div
-                className="d-flex align-items-center justify-content-center text-fs-body-lg 
-        text-t-body-color mb-5 completed-sales-description"
-              >
-                <span>
-                  Leverage on any tokens with a protocol trusted with billions for its performance
-                  and reliability.
-                </span>
-              </div>
-            </div>
-            <Row className="justify-content-center">
-              {Object.entries(projects).map((item, index,) => {
-                
-                  return <UPProjectCard item={item} redirectBaseUrl={"/staking-project"} {...props} />;
-                
-              })}
-            </Row>
-            {/* {activePages?.length > 1 ? (
-              <Pagination className="d-flex justify-content-center mt-5">
-                <Pagination.First onClick={() => firstPage('active')} />
-                <Pagination.Prev onClick={() => prevPage('active')} />
-                {activeRenderedPages.map((page, index) => {
-                  return (
-                    <Pagination.Item
-                      active={page === activeCurrentPage}
-                      onClick={() => changePage(page, 'active')}
-                    >
-                      {page}
-                    </Pagination.Item>
-                  );
-                })}
-                <Pagination.Next onClick={() => nextPage('active')} />
-                <Pagination.Last onClick={() => lastPage('active')} />
-              </Pagination>
-            ) : null} */}
-          </>
-        ) : !projects ? (
-          <SpinnerUnopad />
-        ) : null}
-        {/* {completedProjects?.length ? (
-          <>
-            <div className="completed-sales-title-container">
-              <div
-                className="d-flex align-items-center justify-content-center 
-              text-fs-head-lg my-5"
-              >
-                COMPLETED SALES
-              </div>
-              <div
-                className="d-flex align-items-center justify-content-center text-fs-body-lg 
-        text-t-body-color mb-5 completed-sales-description"
-              >
-                <span>
-                  Leverage on any tokens with a protocol trusted with billions for its performance
-                  and reliability.
-                </span>
-              </div>
-            </div>
-            <Row className="justify-content-center">
-              {Object.entries(completedRenderedProjects).map((item, index) => {
-                if (completedCurrentPage * index < completedCurrentPage * maxRowCountPerPage) {
-                  return <UPProjectCard item={item} {...props} />;
-                }
-              })}
-            </Row>
-
-            {completedPages?.length > 1 ? (
-              <Pagination className="d-flex justify-content-center mt-5">
-                <Pagination.First onClick={() => firstPage('completed')} />
-                <Pagination.Prev onClick={() => prevPage('completed')} />
-                {completedRenderedPages.map((page, index) => {
-                  return (
-                    <Pagination.Item
-                      active={page === completedCurrentPage}
-                      onClick={() => changePage(page, 'completed')}
-                    >
-                      {page}
-                    </Pagination.Item>
-                  );
-                })}
-                <Pagination.Next onClick={() => nextPage('completed')} />
-                <Pagination.Last onClick={() => lastPage('completed')} />
-              </Pagination>
-            ) : null}
-          </>
-        ) : !completedProjects ? (
-          <SpinnerUnopad />
-        ) : null}
-        <TripleCard />
- */}
-        <Row
-          id="tokens-container"
-          className="d-flex align-items-center justify-content-between mt-4"
-        >
-          <Col>
-            <div id="token-sorting-section" className="d-flex align-items-center py-2">
-              <Dropdown className="me-2 sales-table-button">
-                <Dropdown.Toggle className="d-flex align-items-center">
-                  <UPIcons name="MdSort" size="18" />
-                  <span className="ms-1">{sortTypes[tokenSortData.sortType].name}</span>
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu className="py-1">
-                  {sortTypes.map((sortType, index) => {
-                    return (
-                      <Dropdown.Item
-                        key={index}
-                        className="d-flex align-items-center px-1"
-                        onClick={() => changeSortType(index)}
-                      >
-                        <UPIcons name={sortType.icon} size="18" />
-                        <span className="ms-2">{sortType.name}</span>
-                      </Dropdown.Item>
-                    );
-                  })}
-                </Dropdown.Menu>
-              </Dropdown>
-              <Dropdown className="sales-table-button">
-                <Dropdown.Toggle className="d-flex align-items-center">
-                  <UPIcons name="BiFilterAlt" size="18" />
-                  <span className="ms-1">{sortKeys[tokenSortData.sortKey].name}</span>
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu className="py-1">
-                  {sortKeys.map((sortKey, index) => {
-                    return (
-                      <Dropdown.Item
-                        key={index}
-                        className="d-flex align-items-center px-1"
-                        onClick={() => changeSortKey(index)}
-                      >
-                        <span>{sortKey.name}</span>
-                      </Dropdown.Item>
-                    );
-                  })}
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-          </Col>
-        </Row>
-
-        <div id="sales-table" className="mt-2">
-          {projects && (
+  if(activeSection === stakingSectionConstants.STAKING){
+    return (
+      <Container>
+        <br></br>
+  
+        <div className="completed-sales-div align-items-center justify-content-center">
+          {/* <div>
+            <div
+              className="d-flex align-items-center justify-content-center text-fs-body-lg 
+          text-t-body-color mb-3 completed-sales-description"
+            ></div>
+          </div> */}
+          <Row>
+            <Col className="text-md-center">
+              <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+  
+                <ToggleButton
+                  variant={activeSection === stakingSectionConstants.STAKING ? 'primary' : 'light'}
+                  className={activeSection !== stakingSectionConstants.STAKING ? 'text-t-body-color' : ''}
+                  id="tbg-radio-2"
+                  value={stakingSectionConstants.STAKING}
+                  onClick={() => setActiveSection(stakingSectionConstants.STAKING)}
+                >
+                  Staking
+                </ToggleButton>
+                <ToggleButton
+                  variant={activeSection === stakingSectionConstants.LOCKING ? 'primary' : 'light'}
+                  className={
+                    activeSection !== stakingSectionConstants.LOCKING ? 'text-t-body-color' : ''
+                  }
+                  id="tbg-radio-3"
+                  value={stakingSectionConstants.LOCKING}
+                  onClick={() => setActiveSection(stakingSectionConstants.LOCKING)}
+                >
+                  Locking
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Col>
+          </Row>
+          {/* <UPQuickHandler
+            isSignUpAndKYC={true}
+            signUpAndKYCImg={quickHandlerImages.lpSignUpAndKYCImg}
+            isVerifyWallet={true}
+            verifyWalletImg={quickHandlerImages.lpVerifyWalletImg}
+            isStakeUnoToken={true}
+            stakeUnoTokenImg={quickHandlerImages.lpStakeUnoTokenImg}
+            registerForSaleImg={quickHandlerImages.lpRegisterForProject}
+            href="#launchpad-projects"
+            history={props.history}
+          /> */}
+          {projects ? (
             <>
-              <UPTokenTable {...props} />
+              <div className="completed-sales-title-container">
+                <div
+                  className="d-flex align-items-center justify-content-center 
+                text-fs-head-lg my-5"
+                >
+                  PROJECTS
+                </div>
+                <div
+                  className="d-flex align-items-center justify-content-center text-fs-body-lg 
+          text-t-body-color mb-5 completed-sales-description"
+                >
+                  <span>
+                    Leverage on any tokens with a protocol trusted with billions for its performance
+                    and reliability.
+                  </span>
+                </div>
+              </div>
+              <Row className="justify-content-center">
+                {Object.entries(projects).map((item, index,) => {
+                  
+                    return <UPProjectCard item={item} redirectBaseUrl={"/staking-project"} {...props} />;
+                  
+                })}
+              </Row>
+              {/* {activePages?.length > 1 ? (
+                <Pagination className="d-flex justify-content-center mt-5">
+                  <Pagination.First onClick={() => firstPage('active')} />
+                  <Pagination.Prev onClick={() => prevPage('active')} />
+                  {activeRenderedPages.map((page, index) => {
+                    return (
+                      <Pagination.Item
+                        active={page === activeCurrentPage}
+                        onClick={() => changePage(page, 'active')}
+                      >
+                        {page}
+                      </Pagination.Item>
+                    );
+                  })}
+                  <Pagination.Next onClick={() => nextPage('active')} />
+                  <Pagination.Last onClick={() => lastPage('active')} />
+                </Pagination>
+              ) : null} */}
             </>
-          )}
+          ) : !projects ? (
+            <SpinnerUnopad />
+          ) : null}
+          {/* {completedProjects?.length ? (
+            <>
+              <div className="completed-sales-title-container">
+                <div
+                  className="d-flex align-items-center justify-content-center 
+                text-fs-head-lg my-5"
+                >
+                  COMPLETED SALES
+                </div>
+                <div
+                  className="d-flex align-items-center justify-content-center text-fs-body-lg 
+          text-t-body-color mb-5 completed-sales-description"
+                >
+                  <span>
+                    Leverage on any tokens with a protocol trusted with billions for its performance
+                    and reliability.
+                  </span>
+                </div>
+              </div>
+              <Row className="justify-content-center">
+                {Object.entries(completedRenderedProjects).map((item, index) => {
+                  if (completedCurrentPage * index < completedCurrentPage * maxRowCountPerPage) {
+                    return <UPProjectCard item={item} {...props} />;
+                  }
+                })}
+              </Row>
+  
+              {completedPages?.length > 1 ? (
+                <Pagination className="d-flex justify-content-center mt-5">
+                  <Pagination.First onClick={() => firstPage('completed')} />
+                  <Pagination.Prev onClick={() => prevPage('completed')} />
+                  {completedRenderedPages.map((page, index) => {
+                    return (
+                      <Pagination.Item
+                        active={page === completedCurrentPage}
+                        onClick={() => changePage(page, 'completed')}
+                      >
+                        {page}
+                      </Pagination.Item>
+                    );
+                  })}
+                  <Pagination.Next onClick={() => nextPage('completed')} />
+                  <Pagination.Last onClick={() => lastPage('completed')} />
+                </Pagination>
+              ) : null}
+            </>
+          ) : !completedProjects ? (
+            <SpinnerUnopad />
+          ) : null}
+          <TripleCard />
+   */}
+          <Row
+            id="tokens-container"
+            className="d-flex align-items-center justify-content-between mt-4"
+          >
+            <Col>
+              <div id="token-sorting-section" className="d-flex align-items-center py-2">
+                <Dropdown className="me-2 sales-table-button">
+                  <Dropdown.Toggle className="d-flex align-items-center">
+                    <UPIcons name="MdSort" size="18" />
+                    <span className="ms-1">{sortTypes[tokenSortData.sortType].name}</span>
+                  </Dropdown.Toggle>
+  
+                  <Dropdown.Menu className="py-1">
+                    {sortTypes.map((sortType, index) => {
+                      return (
+                        <Dropdown.Item
+                          key={index}
+                          className="d-flex align-items-center px-1"
+                          onClick={() => changeSortType(index)}
+                        >
+                          <UPIcons name={sortType.icon} size="18" />
+                          <span className="ms-2">{sortType.name}</span>
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Dropdown className="sales-table-button">
+                  <Dropdown.Toggle className="d-flex align-items-center">
+                    <UPIcons name="BiFilterAlt" size="18" />
+                    <span className="ms-1">{sortKeys[tokenSortData.sortKey].name}</span>
+                  </Dropdown.Toggle>
+  
+                  <Dropdown.Menu className="py-1">
+                    {sortKeys.map((sortKey, index) => {
+                      return (
+                        <Dropdown.Item
+                          key={index}
+                          className="d-flex align-items-center px-1"
+                          onClick={() => changeSortKey(index)}
+                        >
+                          <span>{sortKey.name}</span>
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            </Col>
+          </Row>
+  
+          <div id="sales-table" className="mt-2">
+            {projects && (
+              <>
+                <UPTokenTable {...props} />
+              </>
+            )}
+          </div>
+          <Subscribe />
         </div>
-        <Subscribe />
-      </div>
-    </Container>
-  );
+      </Container>
+    );
+  }
+  else if (activeSection === stakingSectionConstants.LOCKING){
+    return (
+      <div>locking</div>
+    );
+  }
+ 
 }
 const mapStateToProps = (state) => {
   return {
