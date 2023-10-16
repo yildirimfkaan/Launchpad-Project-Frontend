@@ -28,7 +28,7 @@ function MeetTeam() {
           lg={3}
         >
           <img src={TeamMemberLogo2} alt="Logo" heigth={120} width={180} />
-          <div className="text-fs-body-md">Arzu Özkan</div>
+          <div className="text-fs-body-md">Jack Carver</div>
           <div className="text-fs-body-sm">Marketing Manager</div>
         </Col>
         <Col
@@ -39,7 +39,7 @@ function MeetTeam() {
           lg={3}
         >
           <img src={TeamMemberLogo4} alt="Logo" heigth={120} width={180} />
-          <div className="text-fs-body-md">Melih Birim</div>
+          <div className="text-fs-body-md">Jack Carver</div>
           <div className="text-fs-body-sm">CEO & Founder</div>
         </Col>
         <Col
@@ -50,7 +50,7 @@ function MeetTeam() {
           lg={3}
         >
           <img src={TeamMemberLogo1} alt="Logo" heigth={120} width={180} />
-          <div className="text-fs-body-md">Hüseyin Kara</div>
+          <div className="text-fs-body-md">Jack Carver</div>
           <div className="text-fs-body-sm">CEO & Founder</div>
         </Col>
         <Col
@@ -61,7 +61,7 @@ function MeetTeam() {
           lg={3}
         >
           <img src={TeamMemberLogo3} alt="Logo" heigth={120} width={180} />
-          <div className="text-fs-body-md">Tijen Sakin</div>
+          <div className="text-fs-body-md">Jack Carver</div>
           <div className="text-fs-body-sm">Product Designer</div>
         </Col>
       </Row>
@@ -74,7 +74,7 @@ function MeetTeam() {
           lg={2}
         >
           <img src={TeamMemberLogo2} alt="Logo" heigth={80} width={120} />
-          <div className="text-fs-body-md">Arzu Özkan</div>
+          <div className="text-fs-body-md">Jack Carver</div>
           <div className="text-fs-body-sm">Marketing Manager</div>
         </Col>
         <Col
@@ -85,7 +85,7 @@ function MeetTeam() {
           lg={2}
         >
           <img src={TeamMemberLogo2} alt="Logo" heigth={80} width={120} />
-          <div className="text-fs-body-md">Arzu Özkan</div>
+          <div className="text-fs-body-md">Jack Carver</div>
           <div className="text-fs-body-sm">Marketing Manager</div>
         </Col>
         <Col
@@ -96,7 +96,7 @@ function MeetTeam() {
           lg={2}
         >
           <img src={TeamMemberLogo2} alt="Logo" heigth={80} width={120} />
-          <div className="text-fs-body-md">Arzu Özkan</div>
+          <div className="text-fs-body-md">Jack Carver</div>
           <div className="text-fs-body-sm">Marketing Manager</div>
         </Col>
         <Col
@@ -107,7 +107,7 @@ function MeetTeam() {
           lg={2}
         >
           <img src={TeamMemberLogo2} alt="Logo" heigth={80} width={120} />
-          <div className="text-fs-body-md">Arzu Özkan</div>
+          <div className="text-fs-body-md">Jack Carver</div>
           <div className="text-fs-body-sm">Marketing Manager</div>
         </Col>
         <Col
@@ -118,7 +118,7 @@ function MeetTeam() {
           lg={2}
         >
           <img src={TeamMemberLogo2} alt="Logo" heigth={80} width={120} />
-          <div className="text-fs-body-md">Arzu Özkan</div>
+          <div className="text-fs-body-md">Jack Carver</div>
           <div className="text-fs-body-sm">Marketing Manager</div>
         </Col>
         <Col
@@ -129,7 +129,7 @@ function MeetTeam() {
           lg={2}
         >
           <img src={TeamMemberLogo2} alt="Logo" heigth={80} width={120} />
-          <div className="text-fs-body-md">Arzu Özkan</div>
+          <div className="text-fs-body-md">Jack Carver</div>
           <div className="text-fs-body-sm">Marketing Manager</div>
         </Col>
       </Row>

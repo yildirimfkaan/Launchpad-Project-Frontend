@@ -6,8 +6,7 @@ Download the Installer from NodeJs official website. Make sure you have download
 
 It also recommended to upgrade your NPM version to v18.1.0 by using command `npm install npm@8.8.0 -g`
 
-Project scripts will run after that but in any case(if you get errors etc.) you can install the dependencies using the command `npm install ` or `npm install --force`
-
+Project scripts will run after that but in any case(if you get errors etc.) you can install the dependencies using the command `npm install ` or `npm install --force` but i recommemd using `npm i --legacy-peer-deps`
 ## Available Scripts
 
 In the project directory, you can run:
